@@ -6,6 +6,7 @@ import { VendorManagement } from "./pages/VendorManagement";
 import { WellnessFeed } from "./pages/WellnessFeed";
 import { DiscoverPage } from "./pages/DiscoverPage";
 import { ServiceDetailPage } from "./pages/ServiceDetailPage";
+import { VendorDetailPage } from "./pages/VendorDetailPage";
 import { BookingsPage } from "./pages/BookingsPage";
 import { VendorDashboard } from "./pages/VendorDashboard";
 import { VendorWorkspacePages } from "./pages/VendorWorkspacePages";
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
         Component: ServiceDetailPage,
       },
       { path: "discover/providers", Component: DiscoverPage },
+      {
+        path: "discover/providers/:vendorId",
+        Component: VendorDetailPage,
+      },
       { path: "vendors", Component: VendorManagement },
       { path: "vendor", Component: VendorDashboard },
       {

@@ -1,69 +1,359 @@
-import { useState } from "react";
-import { Link, NavLink, useLocation } from "react-router";
-import { RoleSwitcher } from "../components/layout/RoleSwitcher";
-import { CalendarDays, Compass, LayoutDashboard, LogOut, Search, Settings, SlidersHorizontal, Sparkles, Users, X } from "lucide-react";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-import logoIcon from "../../imports/Logo.png";
-
-const services = [
-  { id: "heart-of-art", name: "Heart of Art", theme: "Creative wellbeing", description: "Make room for colour, curiosity, and your own point of view.", examples: "Watercolour · photography · journaling", color: "#EF4444", symbol: "🎨", duration: "60–90 min" },
-  { id: "athletic-fanatics", name: "Athletic Fanatics", theme: "Movement & mindfulness", description: "Find a happier rhythm through movement that meets you where you are.", examples: "Yoga · Pilates · pickleball", color: "#10B981", symbol: "🧘", duration: "45–60 min" },
-  { id: "moves-and-grooves", name: "Moves & Grooves", theme: "Energy & connection", description: "Shake up the familiar with music, play, and feel-good movement.", examples: "Dance · rhythm labs · DJ sessions", color: "#8B5CF6", symbol: "💃", duration: "60 min" },
-  { id: "chowdown", name: "Chowdown", theme: "Connection through food", description: "A delicious way to pause, share stories, and make something together.", examples: "Chocolate · cooking · barista skills", color: "#F59E0B", symbol: "🍫", duration: "75–120 min" },
-  { id: "technut", name: "Technut", theme: "Curious making", description: "Try a practical new skill, powered by a little experimentation.", examples: "Gaming · robotics · drone piloting", color: "#33C4F0", symbol: "🤖", duration: "90 min" },
-  { id: "trip-and-tell", name: "Trip and Tell", theme: "Outward exploration", description: "Get a fresh perspective from somewhere beyond the usual routine.", examples: "Hiking · culture trips · outdoor days", color: "#0F766E", symbol: "⛰️", duration: "Half day+" },
-];
-
-const providers = [
-  { name: "Maya Ellison", specialty: "Yoga & mindful movement", brand: "Athletic Fanatics", initials: "ME", color: "#10B981", availability: "3 sessions this month" },
-  { name: "Studio Lumen", specialty: "Creative workshops", brand: "Heart of Art", initials: "SL", color: "#EF4444", availability: "Open for teams" },
-  { name: "The Rhythm Room", specialty: "Dance & group energy", brand: "Moves & Grooves", initials: "RR", color: "#8B5CF6", availability: "Next slot: Friday" },
-  { name: "Cocoa Collective", specialty: "Chocolate-making experiences", brand: "Chowdown", initials: "CC", color: "#F59E0B", availability: "12 places available" },
-];
+import React, { useState } from 'react';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router';
+import { useSubscription, ActivityItem } from '../context/SubscriptionContext';
+import { mockVendors, mockActivities, themeCategories } from '../data/subscriptionData';
+import { SubscriptionEntitlementHeader } from '../components/shared/SubscriptionEntitlementHeader';
+import { ActivityLimitModal } from '../components/shared/ActivityLimitModal';
+import { RoleSwitcher } from '../components/layout/RoleSwitcher';
+import {
+  CalendarDays,
+  Check,
+  Compass,
+  LayoutDashboard,
+  LogOut,
+  Search,
+  Settings,
+  SlidersHorizontal,
+  Sparkles,
+  Star,
+  Users,
+  X,
+  ChevronRight,
+  Eye,
+  Building2,
+} from 'lucide-react';
+import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import logoIcon from '../../imports/Logo.png';
 
 function UniversalSidebar() {
-  return <aside className="fixed inset-y-0 left-0 z-40 hidden w-[60px] flex-col items-center border-r border-[#33c4f0]/15 bg-white/90 py-6 shadow-[4px_0_20px_rgba(28,118,155,.04)] backdrop-blur lg:flex"><Link to="/" title="CreativeSelf Home" aria-label="CreativeSelf Home" className="grid h-10 w-10 place-items-center transition-transform hover:scale-105"><ImageWithFallback src={logoIcon} alt="CreativeSelf Logo" className="h-full w-full object-contain" /></Link><nav className="mt-10 flex flex-col gap-3" aria-label="Universal navigation"><Link to="/dashboard" title="Home" aria-label="Home" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]"><LayoutDashboard size={18} /></Link><Link to="/discover/services" title="Discover" aria-label="Discover" className="grid h-10 w-10 place-items-center rounded-full bg-[#33c4f0] text-[#1a1a28]"><Compass size={18} /></Link><Link to="/bookings" title="Bookings" aria-label="Bookings" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]"><CalendarDays size={18} /></Link><Link to="/discover/providers" title="Providers" aria-label="Providers" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]"><Users size={18} /></Link></nav><div className="mt-auto flex flex-col gap-3"><button type="button" title="Settings" aria-label="Settings" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]"><Settings size={18} /></button><Link to="/" title="Log out" aria-label="Log out" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#1a1a28] hover:text-white"><LogOut size={18} /></Link><RoleSwitcher activeRole="client" /></div></aside>;
+  return (
+    <aside className="fixed inset-y-0 left-0 z-40 hidden w-[60px] flex-col items-center border-r border-[#33c4f0]/15 bg-white/90 py-6 shadow-[4px_0_20px_rgba(28,118,155,.04)] backdrop-blur lg:flex">
+      <Link to="/" title="CreativeSelf Home" aria-label="CreativeSelf Home" className="grid h-10 w-10 place-items-center transition-transform hover:scale-105">
+        <ImageWithFallback src={logoIcon} alt="CreativeSelf Logo" className="h-full w-full object-contain" />
+      </Link>
+      <nav className="mt-10 flex flex-col gap-3" aria-label="Universal navigation">
+        <Link to="/dashboard" title="Home" aria-label="Home" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]">
+          <LayoutDashboard size={18} />
+        </Link>
+        <Link to="/discover/providers" title="Discover" aria-label="Discover" className="grid h-10 w-10 place-items-center rounded-full bg-[#33c4f0] text-[#1a1a28]">
+          <Compass size={18} />
+        </Link>
+        <Link to="/bookings" title="Bookings" aria-label="Bookings" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]">
+          <CalendarDays size={18} />
+        </Link>
+      </nav>
+      <div className="mt-auto flex flex-col gap-3">
+        <button type="button" title="Settings" aria-label="Settings" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]">
+          <Settings size={18} />
+        </button>
+        <Link to="/" title="Log out" aria-label="Log out" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#1a1a28] hover:text-white">
+          <LogOut size={18} />
+        </Link>
+        <RoleSwitcher activeRole="client" />
+      </div>
+    </aside>
+  );
 }
 
 export function DiscoverPage() {
-  const { pathname } = useLocation();
-  const isProviders = pathname.endsWith("/providers");
-  const [selectedThemes, setSelectedThemes] = useState<string[]>([]);
-  const [shortSessions, setShortSessions] = useState(false);
-  const [teamFriendly, setTeamFriendly] = useState(true);
-  const [providerFocus, setProviderFocus] = useState<string[]>([]);
-  const [openNow, setOpenNow] = useState(false);
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const visibleServices = services.filter((service) => {
-    const matchesTheme = selectedThemes.length === 0 || selectedThemes.includes(service.theme);
-    const matchesLength = !shortSessions || service.duration.includes("45") || service.duration.includes("60");
-    return matchesTheme && matchesLength;
+  const {
+    planName,
+    maxBrands,
+    selectedBrand,
+    selectBrand,
+  } = useSubscription();
+
+  const [selectedTheme, setSelectedTheme] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredVendors = mockVendors.filter((v) => {
+    const matchesTheme = selectedTheme === 'all' || v.theme === selectedTheme;
+    const matchesSearch =
+      searchQuery === '' ||
+      v.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      v.specialty.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      v.theme.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesTheme && matchesSearch;
   });
 
-  function toggleTheme(theme: string) {
-    setSelectedThemes((current) => current.includes(theme) ? current.filter((item) => item !== theme) : [...current, theme]);
-  }
+  const activeThemeObj = themeCategories.find((t) => t.id === selectedTheme);
 
-  const visibleProviders = providers.filter((provider) => {
-    const matchesFocus = providerFocus.length === 0 || providerFocus.some((focus) => provider.specialty.toLowerCase().includes(focus.toLowerCase()));
-    const matchesAvailability = !openNow || provider.availability.includes("Open") || provider.availability.includes("places");
-    return matchesFocus && matchesAvailability;
-  });
+  return (
+    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+      <UniversalSidebar />
+      <ActivityLimitModal />
 
-  function clearFilters() {
-    setSelectedThemes([]);
-    setShortSessions(false);
-    setTeamFriendly(true);
-    setProviderFocus([]);
-    setOpenNow(false);
-  }
+      <div className="mx-auto grid max-w-7xl gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_minmax(0,1fr)_250px] lg:px-8 lg:py-12 lg:pl-[76px]">
+        {/* Navigation Sidebar */}
+        <aside className="hidden lg:block">
+          <div className="sticky top-8 bg-[#1a1a28] p-5 text-white" style={{ borderRadius: '20px 20px 64px 20px' }}>
+            <Link to="/" className="flex items-center gap-3 no-underline">
+              <ImageWithFallback src={logoIcon} alt="CreativeSelf Logo" className="h-8 w-8 object-contain" />
+              <span className="text-lg font-extrabold">
+                <span className="text-[#33c4f0]">creative</span>
+                <span className="text-white">self</span>
+              </span>
+            </Link>
 
-  const serviceFilterCard = <aside className="sticky top-8 bg-white p-5 shadow-[0_12px_36px_rgba(28,118,155,.07)]" style={{ borderRadius: "20px 20px 64px 20px" }}><div className="flex items-center justify-between gap-3"><div className="flex items-center gap-2 text-sm font-extrabold"><SlidersHorizontal size={16} />Filter services</div><button type="button" onClick={clearFilters} className="text-xs font-bold text-[#147c9e]">Clear</button></div><div className="mt-6"><p className="text-xs font-extrabold uppercase tracking-[.14em] text-[#717182]">Mood / focus</p><div className="mt-3 space-y-2">{["Creative wellbeing", "Movement & mindfulness", "Energy & connection", "Connection through food", "Curious making"].map((theme) => <label key={theme} className="flex cursor-pointer items-center gap-2 text-sm text-[#414153]"><input type="checkbox" checked={selectedThemes.includes(theme)} onChange={() => toggleTheme(theme)} className="h-4 w-4 accent-[#33c4f0]" />{theme}</label>)}</div></div><div className="mt-6 border-t border-[#33c4f0]/15 pt-5"><p className="text-xs font-extrabold uppercase tracking-[.14em] text-[#717182]">Good to know</p><label className="mt-3 flex cursor-pointer items-center gap-2 text-sm text-[#414153]"><input type="checkbox" checked={shortSessions} onChange={() => setShortSessions((value) => !value)} className="h-4 w-4 accent-[#33c4f0]" />Under 60 minutes</label><label className="mt-3 flex cursor-pointer items-center gap-2 text-sm text-[#414153]"><input type="checkbox" checked={teamFriendly} onChange={() => setTeamFriendly((value) => !value)} className="h-4 w-4 accent-[#33c4f0]" />Team-friendly</label></div><p className="mt-6 rounded-[20px_20px_64px_20px] bg-[#e8f9ff] p-3 text-xs leading-5 text-[#147c9e]">Acumen will keep refining this list as it learns what energises you.</p></aside>;
+            <p className="mt-6 text-xs font-bold uppercase tracking-[.16em] text-white/45">Step 1: Pick a Brand</p>
+            <div className="mt-3 space-y-1">
+              <div className="flex items-center gap-3 rounded-full bg-[#33c4f0] px-4 py-3 text-sm font-bold text-[#1a1a28]">
+                <Building2 size={17} /> Service Brands
+              </div>
+            </div>
 
-  const providerFilterCard = <aside className="sticky top-8 bg-white p-5 shadow-[0_12px_36px_rgba(28,118,155,.07)]" style={{ borderRadius: "20px 20px 64px 20px" }}><div className="flex items-center justify-between gap-3"><div className="flex items-center gap-2 text-sm font-extrabold"><SlidersHorizontal size={16} />Filter providers</div><button type="button" onClick={clearFilters} className="text-xs font-bold text-[#147c9e]">Clear</button></div><div className="mt-6"><p className="text-xs font-extrabold uppercase tracking-[.14em] text-[#717182]">Specialism</p><div className="mt-3 space-y-2">{["movement", "creative", "dance", "chocolate"].map((focus) => <label key={focus} className="flex cursor-pointer items-center gap-2 text-sm capitalize text-[#414153]"><input type="checkbox" checked={providerFocus.includes(focus)} onChange={() => setProviderFocus((current) => current.includes(focus) ? current.filter((item) => item !== focus) : [...current, focus])} className="h-4 w-4 accent-[#33c4f0]" />{focus}</label>)}</div></div><div className="mt-6 border-t border-[#33c4f0]/15 pt-5"><p className="text-xs font-extrabold uppercase tracking-[.14em] text-[#717182]">Availability</p><label className="mt-3 flex cursor-pointer items-center gap-2 text-sm text-[#414153]"><input type="checkbox" checked={openNow} onChange={() => setOpenNow((value) => !value)} className="h-4 w-4 accent-[#33c4f0]" />Available now</label></div><p className="mt-6 rounded-[20px_20px_64px_20px] bg-[#e8f9ff] p-3 text-xs leading-5 text-[#147c9e]">Only providers that suit your brief and availability appear here.</p></aside>;
+            <div className="mt-8 border-t border-white/10 pt-5 text-xs leading-5 text-white/55">
+              Explore brands with photos and preview their included services before committing your 1 Service Brand entitlement.
+            </div>
+          </div>
+        </aside>
 
-  const activeFilterCard = isProviders ? providerFilterCard : serviceFilterCard;
+        {/* Main Content Area */}
+        <main>
+          <SubscriptionEntitlementHeader />
 
-  return <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}><UniversalSidebar /><div className={`mx-auto grid max-w-7xl gap-7 px-5 py-8 pb-14 lg:px-8 lg:py-12 lg:pl-[76px] lg:grid-cols-[220px_minmax(0,1fr)_250px]`}><aside className="hidden lg:block"><div className="sticky top-8 bg-[#1a1a28] p-5 text-white" style={{ borderRadius: "20px 20px 64px 20px" }}><Link to="/" className="flex items-center gap-3 no-underline"><ImageWithFallback src={logoIcon} alt="CreativeSelf Logo" className="h-8 w-8 object-contain" /><span className="text-lg font-extrabold"><span className="text-[#33c4f0]">creative</span><span className="text-white">self</span></span></Link><p className="mt-6 text-xs font-bold uppercase tracking-[.16em] text-white/45">Discover</p><nav className="mt-3 space-y-1"><NavLink to="/discover/services" className={({ isActive }) => `flex items-center gap-3 rounded-full px-4 py-3 text-sm font-bold no-underline ${isActive ? "bg-[#33c4f0] text-[#1a1a28]" : "text-white/65 hover:bg-white/10 hover:text-white"}`}><Sparkles size={17} />Services</NavLink><NavLink to="/discover/providers" className={({ isActive }) => `flex items-center gap-3 rounded-full px-4 py-3 text-sm font-bold no-underline ${isActive ? "bg-[#33c4f0] text-[#1a1a28]" : "text-white/65 hover:bg-white/10 hover:text-white"}`}><Users size={17} />Providers</NavLink></nav><div className="mt-8 border-t border-white/10 pt-5 text-sm leading-6 text-white/55">Follow the feeling, then find the people who can make it happen.</div></div></aside><main><header className="overflow-hidden bg-white p-6 shadow-[0_16px_42px_rgba(28,118,155,.08)]" style={{ borderRadius: "20px 20px 64px 20px" }}><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-extrabold uppercase tracking-[.18em] text-[#33c4f0]">Discover something new</p><h1 className="mt-2 text-3xl font-extrabold leading-tight">{isProviders ? "Meet your next creative guide." : "Find an experience that shifts your week."}</h1><p className="mt-3 max-w-2xl text-sm leading-6 text-[#717182]">{isProviders ? "Specialists selected for their ability to create joyful, meaningful moments." : "Explore CreativeSelf services matched to your curiosity, energy, and goals."}</p></div><div className="rounded-full bg-[#e8f9ff] px-4 py-2 text-xs font-bold text-[#147c9e]">Acumen picks for you</div></div><div className="mt-6 flex items-center gap-3 rounded-[16px_16px_40px_16px] border border-[#33c4f0]/20 bg-[#f8fdff] px-4 py-3 text-sm text-[#717182]"><Search size={17} /><span>{isProviders ? "Search specialists and studios" : "Search services and activities"}</span></div></header><button type="button" onClick={() => setFiltersOpen(true)} className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-4 py-2 text-xs font-extrabold text-white lg:hidden"><SlidersHorizontal size={15} />Filter {isProviders ? "providers" : "services"}</button>{isProviders ? <><p className="mt-6 text-sm font-bold text-[#717182]">{visibleProviders.length} providers for your current filters</p><section className="mt-4 grid gap-5 sm:grid-cols-2">{visibleProviders.map((provider) => <article key={provider.name} className="bg-white p-6 shadow-[0_12px_36px_rgba(28,118,155,.07)]" style={{ borderRadius: "20px 20px 64px 20px" }}><div className="flex items-start justify-between gap-4"><div className="grid h-12 w-12 place-items-center rounded-full text-sm font-extrabold text-white" style={{ background: provider.color }}>{provider.initials}</div><span className="rounded-full px-3 py-1.5 text-xs font-bold" style={{ background: `${provider.color}18`, color: provider.color }}>{provider.availability}</span></div><p className="mt-5 text-xl font-extrabold">{provider.name}</p><p className="mt-1 text-sm font-bold" style={{ color: provider.color }}>{provider.specialty}</p><p className="mt-3 text-sm text-[#717182]">From {provider.brand}</p><button type="button" className="mt-6 rounded-full border border-[#33c4f0]/25 px-4 py-2 text-xs font-extrabold text-[#1a1a28]">View provider</button></article>)}</section>{visibleProviders.length === 0 && <div className="mt-5 rounded-[20px_20px_64px_20px] bg-white p-8 text-center shadow-[0_12px_36px_rgba(28,118,155,.07)]"><p className="font-extrabold">No providers fit those filters right now.</p><button type="button" onClick={clearFilters} className="mt-4 rounded-full bg-[#1a1a28] px-4 py-2 text-xs font-extrabold text-white">Reset filters</button></div>}</> : <><p className="mt-6 text-sm font-bold text-[#717182]">{visibleServices.length} service brands for your current filters</p><section className="mt-4 grid gap-5 sm:grid-cols-2">{visibleServices.map((service) => <article key={service.name} className="relative overflow-hidden bg-white p-6 shadow-[0_12px_36px_rgba(28,118,155,.07)]" style={{ borderRadius: "20px 20px 64px 20px" }}><div className="absolute -right-5 -top-5 grid h-24 w-24 place-items-center rounded-full text-3xl" style={{ background: `${service.color}18` }}>{service.symbol}</div><p className="text-xs font-extrabold uppercase tracking-[.15em]" style={{ color: service.color }}>{service.theme}</p><h2 className="mt-3 max-w-[11rem] text-xl font-extrabold leading-tight">{service.name}</h2><p className="mt-4 text-sm leading-6 text-[#717182]">{service.description}</p><p className="mt-5 text-xs font-bold text-[#717182]">{service.examples}</p><Link to={`/discover/services/${service.id}`} className="mt-6 inline-block rounded-full px-4 py-2 text-xs font-extrabold text-white no-underline transition hover:opacity-90 shadow-sm" style={{ background: service.color }}>Explore service</Link></article>)}</section>{visibleServices.length === 0 && <div className="mt-5 rounded-[20px_20px_64px_20px] bg-white p-8 text-center shadow-[0_12px_36px_rgba(28,118,155,.07)]"><p className="font-extrabold">Nothing quite fits that combination yet.</p><button type="button" onClick={clearFilters} className="mt-4 rounded-full bg-[#1a1a28] px-4 py-2 text-xs font-extrabold text-white">Reset filters</button></div>}</>}</main><div className="hidden lg:block">{activeFilterCard}</div></div>{filtersOpen && <div className="fixed inset-0 z-50 bg-[#1a1a28]/45 p-5 lg:hidden"><div className="ml-auto max-w-sm bg-white p-5" style={{ borderRadius: "20px 20px 64px 20px" }}><div className="mb-4 flex justify-end"><button type="button" onClick={() => setFiltersOpen(false)} className="grid h-9 w-9 place-items-center rounded-full bg-[#f2fbfe]"><X size={18} /></button></div>{activeFilterCard}</div></div>}</div>;
+          <header className="mt-6 overflow-hidden bg-white p-6 shadow-[0_16px_42px_rgba(28,118,155,.08)]" style={{ borderRadius: '20px 20px 64px 20px' }}>
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[#33c4f0]">
+                  Step 1 · Pick Your Service Brand
+                </p>
+                <h1 className="mt-2 text-3xl font-extrabold leading-tight">
+                  Choose a Service Brand for your {planName} plan
+                </h1>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-[#717182]">
+                  Browse eligible brands categorized by experience theme. Preview their included photo activities before deciding which brand to commit to this month.
+                </p>
+              </div>
+
+              <div className="rounded-full bg-[#e8f9ff] px-4 py-2 text-xs font-bold text-[#147c9e]">
+                1 Brand Entitlement
+              </div>
+            </div>
+
+            {/* Search Input */}
+            <div className="mt-6 flex items-center gap-3 rounded-[16px_16px_40px_16px] border border-[#33c4f0]/20 bg-[#f8fdff] px-4 py-3 text-sm text-[#717182]">
+              <Search size={17} />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search service brands or experience themes (e.g. Heart of Art, Chowdown)..."
+                className="w-full bg-transparent text-sm text-[#1a1a28] outline-none placeholder:text-[#717182]"
+              />
+              {searchQuery && (
+                <button type="button" onClick={() => setSearchQuery('')} className="text-xs text-[#717182] hover:text-[#1a1a28]">
+                  Clear
+                </button>
+              )}
+            </div>
+
+            {/* Theme Category Filter Pills */}
+            <div className="mt-6 border-t border-[#33c4f0]/15 pt-5">
+              <p className="text-xs font-extrabold uppercase tracking-[.14em] text-[#717182]">Filter by Experience Theme</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {themeCategories.map((theme) => {
+                  const isSelected = selectedTheme === theme.id;
+                  return (
+                    <button
+                      key={theme.id}
+                      type="button"
+                      onClick={() => setSelectedTheme(theme.id)}
+                      className={`flex items-center gap-2 rounded-full px-4 py-2 text-xs font-extrabold transition ${
+                        isSelected
+                          ? 'bg-[#1a1a28] text-white shadow-md'
+                          : 'bg-[#f8fdff] border border-[#33c4f0]/20 text-[#414153] hover:bg-[#e8f9ff] hover:text-[#1a1a28]'
+                      }`}
+                    >
+                      <span>{theme.symbol}</span>
+                      <span>{theme.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </header>
+
+          {/* Category Subheader */}
+          <div className="mt-6 flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-extrabold text-[#1a1a28]">
+                {activeThemeObj ? activeThemeObj.name : 'All Brands'}
+              </h2>
+              <p className="text-xs text-[#717182]">
+                {activeThemeObj?.description || 'Select a service brand to access its included activities.'}
+              </p>
+            </div>
+            <span className="text-xs font-bold text-[#717182]">{filteredVendors.length} brands</span>
+          </div>
+
+          {/* Service Brands Grid */}
+          <section className="mt-4 grid gap-6 sm:grid-cols-1">
+            {filteredVendors.map((vendor) => {
+              const isSelectedBrand = selectedBrand?.id === vendor.id;
+              const isOtherBrandSelected = selectedBrand !== null && selectedBrand.id !== vendor.id;
+              const vendorActivities = mockActivities.filter((a) => a.vendorId === vendor.id);
+
+              return (
+                <article
+                  key={vendor.id}
+                  className="overflow-hidden bg-white shadow-[0_12px_36px_rgba(28,118,155,.07)] transition hover:shadow-[0_18px_48px_rgba(28,118,155,.12)]"
+                  style={{ borderRadius: '20px 20px 64px 20px' }}
+                >
+                  {/* Brand Cover Photo Banner */}
+                  <div className="relative h-44 w-full overflow-hidden bg-gray-100">
+                    <ImageWithFallback
+                      src={vendor.image}
+                      alt={vendor.name}
+                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a28]/80 via-[#1a1a28]/30 to-transparent"></div>
+
+                    <div className="absolute left-6 bottom-4 right-6 flex items-end justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-2xl shadow-md">
+                          {vendor.avatar}
+                        </div>
+                        <div>
+                          <span
+                            className="inline-block rounded-full bg-white/20 px-3 py-0.5 text-[10px] font-extrabold uppercase text-white backdrop-blur"
+                          >
+                            {vendor.theme}
+                          </span>
+                          <h3 className="text-xl font-extrabold text-white">{vendor.name}</h3>
+                        </div>
+                      </div>
+
+                      {isSelectedBrand ? (
+                        <span className="rounded-full bg-[#10b981] px-3.5 py-1 text-xs font-extrabold text-white shadow-sm">
+                          ✓ Selected Brand
+                        </span>
+                      ) : isOtherBrandSelected ? (
+                        <span className="rounded-full bg-amber-500/90 px-3.5 py-1 text-xs font-bold text-white backdrop-blur">
+                          Other Brand Selected
+                        </span>
+                      ) : (
+                        <span className="rounded-full bg-[#33c4f0] px-3.5 py-1 text-xs font-extrabold text-[#1a1a28] shadow-sm">
+                          Available in Plan
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Brand Body Info & Actions */}
+                  <div className="p-6">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                      <div>
+                        <div className="flex items-center gap-2 text-xs font-bold text-[#717182]">
+                          <div className="flex items-center gap-1 text-amber-500 font-extrabold">
+                            <Star size={14} className="fill-amber-400 text-amber-400" />
+                            <span>{vendor.rating}</span>
+                          </div>
+                          <span>•</span>
+                          <span>{vendor.location}</span>
+                        </div>
+                        <p className="mt-1.5 text-sm leading-6 text-[#414153]">{vendor.specialty}</p>
+                      </div>
+
+                      <div className="flex flex-row items-center gap-2.5">
+                        {isSelectedBrand ? (
+                          <div className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#10b981] px-4 py-2 text-xs font-extrabold text-white">
+                            <Check size={15} /> Selected
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              selectBrand({
+                                id: vendor.id,
+                                name: vendor.name,
+                                rating: vendor.rating,
+                                specialty: vendor.specialty,
+                                color: vendor.color,
+                                avatar: vendor.avatar,
+                              });
+                              navigate(`/discover/providers/${vendor.id}`);
+                            }}
+                            className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#1a1a28] px-5 py-2 text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
+                          >
+                            Select
+                          </button>
+                        )}
+
+                        <Link
+                          to={`/discover/providers/${vendor.id}`}
+                          className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#33c4f0]/30 bg-[#f8fdff] px-5 py-2 text-xs font-extrabold text-[#147c9e] no-underline transition hover:bg-[#e8f9ff]"
+                        >
+                          <Eye size={15} /> Preview
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Services Preview Grid with Photos */}
+                    <div className="mt-5 border-t border-[#33c4f0]/15 pt-4">
+                      <p className="text-[11px] font-extrabold uppercase tracking-[.14em] text-[#717182]">
+                        Included Services Photo Preview ({vendorActivities.length} available):
+                      </p>
+
+                      <div className="mt-3 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+                        {vendorActivities.map((act) => (
+                          <Link
+                            key={act.id}
+                            to={`/discover/services/${act.id}`}
+                            className="group flex overflow-hidden rounded-xl border border-[#33c4f0]/20 bg-[#f8fdff] no-underline transition hover:border-[#33c4f0] hover:shadow-md"
+                          >
+                            <div className="h-16 w-16 shrink-0 overflow-hidden bg-gray-200">
+                              <ImageWithFallback
+                                src={act.image}
+                                alt={act.name}
+                                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                              />
+                            </div>
+                            <div className="flex flex-1 flex-col justify-center p-2.5">
+                              <span className="font-extrabold text-[#1a1a28] group-hover:text-[#147c9e] truncate max-w-[130px]">
+                                {act.name}
+                              </span>
+                              <span className="mt-0.5 text-[10px] font-bold text-[#717182]">{act.duration}</span>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </section>
+        </main>
+
+        {/* Right Sidebar Filters & Status */}
+        <aside className="hidden lg:block">
+          <div className="sticky top-8 space-y-6">
+            <div className="bg-white p-5 shadow-[0_12px_36px_rgba(28,118,155,.07)]" style={{ borderRadius: '20px 20px 64px 20px' }}>
+              <span className="text-sm font-extrabold text-[#1a1a28]">Experience Themes</span>
+              <div className="mt-3 space-y-2">
+                {themeCategories.map((theme) => (
+                  <button
+                    key={theme.id}
+                    type="button"
+                    onClick={() => setSelectedTheme(theme.id)}
+                    className={`flex w-full items-center justify-between rounded-full px-3 py-2 text-left text-xs font-bold transition ${
+                      selectedTheme === theme.id ? 'bg-[#33c4f0] text-[#1a1a28]' : 'text-[#717182] hover:bg-[#e8f9ff]'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>{theme.symbol}</span>
+                      <span>{theme.name}</span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
 }
