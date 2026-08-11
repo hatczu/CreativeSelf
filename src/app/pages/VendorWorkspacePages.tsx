@@ -1,7 +1,37 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import { RoleSwitcher } from "../components/layout/RoleSwitcher";
-import { BarChart3, CalendarDays, Check, ChevronRight, Clock3, LayoutDashboard, LogOut, PackageOpen, Image as ImageIcon, Plus, Settings, Sparkles, Users, X } from "lucide-react";
+import { useSubscription } from "../context/SubscriptionContext";
+import {
+  BarChart3,
+  CalendarDays,
+  Check,
+  ChevronRight,
+  Clock3,
+  LayoutDashboard,
+  LogOut,
+  PackageOpen,
+  Image as ImageIcon,
+  Plus,
+  Settings,
+  Sparkles,
+  Users,
+  X,
+  Ticket,
+  Download,
+  MapPin,
+  Eye,
+  CheckCircle2,
+  Clock,
+  UserX,
+  Search,
+  MailCheck,
+  Copy,
+  Lock,
+  Columns,
+  ListFilter,
+  ArrowRight,
+} from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import logoIcon from "@/imports/Logo.png";
 
@@ -11,12 +41,86 @@ const services = [
   { name: "Playful portrait workshop", format: "75 min · Team workshop", price: "From £380", views: 0, bookings: 0, color: "#8B5CF6", emoji: "✨", live: false, image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800&q=80" },
 ];
 
-const requests = [
-  { client: "HiNote Consulting", service: "Colour as a way to reset", time: "Tue, Aug 13 · 10:30 AM", guests: 18, status: "Needs response", color: "#F59E0B" },
-  { client: "Northstar Studio", service: "Watercolour without perfection", time: "Thu, Aug 8 · 3:00 PM", guests: 12, status: "Confirmed", color: "#10B981" },
-  { client: "Mosaic Labs", service: "Playful portrait workshop", time: "Fri, Aug 16 · 2:00 PM", guests: 10, status: "Confirmed", color: "#8B5CF6" },
-  { client: "Field Notes Agency", service: "Watercolour without perfection", time: "Wed, Aug 21 · 4:30 PM", guests: 14, status: "Confirmed", color: "#EF4444" },
+const vendorCorporateBookings = [
+  {
+    id: "vbook-1",
+    client: "Northstar Studio",
+    planName: "Basic Creative Corporate Plan",
+    service: "Watercolour without perfection",
+    time: "Thu, Aug 8 · 3:00 PM · 90 min",
+    location: "Lumen Studio, Shoreditch",
+    status: "Confirmed",
+    color: "#EF4444",
+    emoji: "🎨",
+    slotsAllocated: 15,
+    slotsClaimed: 12,
+    invites: [
+      { id: "e1", name: "Sarah Smith", email: "sarah.smith@northstar.com", department: "Design", code: "NS-ART-881", status: "Going" },
+      { id: "e2", name: "Alex Rivera", email: "alex.r@northstar.com", department: "Product", code: "NS-ART-882", status: "Going" },
+      { id: "e3", name: "Elena Rostova", email: "elena.r@northstar.com", department: "Engineering", code: "NS-ART-883", status: "Going" },
+      { id: "e4", name: "Marcus Chen", email: "marcus.c@northstar.com", department: "Marketing", code: "NS-ART-884", status: "Pending" },
+      { id: "e5", name: "Chloe Bennett", email: "chloe.b@northstar.com", department: "People Ops", code: "NS-ART-885", status: "Going" },
+      { id: "e6", name: "Daniel Kim", email: "daniel.k@northstar.com", department: "Design", code: "NS-ART-886", status: "Going" },
+    ]
+  },
+  {
+    id: "vbook-2",
+    client: "HiNote Consulting",
+    planName: "Team Wellbeing Corporate Plan",
+    service: "Colour as a way to reset",
+    time: "Tue, Aug 13 · 10:30 AM · 60 min",
+    location: "Online / Virtual Studio",
+    status: "Needs response",
+    color: "#F59E0B",
+    emoji: "🖌️",
+    slotsAllocated: 20,
+    slotsClaimed: 16,
+    invites: [
+      { id: "e10", name: "David Vance", email: "d.vance@hinote.com", department: "Consulting", code: "HN-CLR-101", status: "Going" },
+      { id: "e11", name: "Jessica Taylor", email: "j.taylor@hinote.com", department: "HR", code: "HN-CLR-102", status: "Going" },
+      { id: "e12", name: "Tom Holland", email: "t.holland@hinote.com", department: "Strategy", code: "HN-CLR-103", status: "Pending" },
+    ]
+  },
+  {
+    id: "vbook-3",
+    client: "Mosaic Labs",
+    planName: "Basic Creative Corporate Plan",
+    service: "Playful portrait workshop",
+    time: "Fri, Aug 16 · 2:00 PM · 75 min",
+    location: "Lumen Studio, Shoreditch",
+    status: "Confirmed",
+    color: "#8B5CF6",
+    emoji: "✨",
+    slotsAllocated: 12,
+    slotsClaimed: 10,
+    invites: [
+      { id: "e20", name: "Rachel Adams", email: "r.adams@mosaic.io", department: "Research", code: "ML-PRT-201", status: "Going" },
+      { id: "e21", name: "Liam Miller", email: "l.miller@mosaic.io", department: "Data Science", code: "ML-PRT-202", status: "Going" },
+    ]
+  }
 ];
+
+const vendorPastBookings = [
+  {
+    id: "vbook-past-1",
+    client: "Field Notes Agency",
+    planName: "Basic Creative Corporate Plan",
+    service: "Watercolour without perfection",
+    time: "Tue, Jul 23 · 2:00 PM · 90 min",
+    location: "Lumen Studio, Shoreditch",
+    status: "Completed",
+    color: "#EF4444",
+    emoji: "🎨",
+    slotsAllocated: 14,
+    slotsClaimed: 14,
+    invites: [
+      { id: "ep1", name: "Hannah Lee", email: "hannah@fieldnotes.com", department: "Creative", code: "FN-WAT-901", status: "Going" },
+      { id: "ep2", name: "James Wright", email: "james@fieldnotes.com", department: "Operations", code: "FN-WAT-902", status: "Going" },
+    ]
+  }
+];
+
+const requests = vendorCorporateBookings;
 
 function VendorRail({ page }: { page: "services" | "bookings" | "insights" }) {
   const iconClass = (active: boolean) => `grid h-10 w-10 place-items-center rounded-full transition ${active ? "bg-[#33c4f0] text-[#1a1a28]" : "text-[#717182] hover:bg-[#e8f9ff] hover:text-[#1a1a28]"}`;
@@ -122,8 +226,276 @@ function Services({ liveServices, setLiveServices }: { liveServices: ServiceItem
   );
 }
 
-function Bookings({ requestStatus, setRequestStatus }: { requestStatus: Record<string, string>; setRequestStatus: (status: Record<string, string>) => void }) {
-  return <section className="mt-7"><div className="mb-4 flex items-end justify-between"><div><p className="text-xs font-bold uppercase tracking-[.14em] text-[#717182]">August schedule</p><h2 className="mt-1 text-2xl font-extrabold">Requests and confirmed sessions</h2></div><p className="text-sm font-bold text-[#717182]">{requests.length} total</p></div><div className="space-y-4">{requests.map((request) => { const status = requestStatus[request.client] ?? request.status; return <article key={request.client} className="bg-white p-5 shadow-[0_12px_36px_rgba(28,118,155,.07)]" style={{ borderRadius: "20px 20px 64px 20px" }}><div className="flex flex-wrap items-center gap-4"><div className="grid h-12 w-12 place-items-center rounded-full bg-[#f2fbfe] text-[#147c9e]"><CalendarDays size={19} /></div><div className="min-w-[13rem] flex-1"><p className="text-xs font-extrabold uppercase tracking-[.14em]" style={{ color: request.color }}>{request.time}</p><h3 className="mt-1 text-lg font-extrabold">{request.service}</h3><p className="mt-1 text-sm text-[#717182]">{request.client} · {request.guests} guests</p></div><span className={`rounded-full px-3 py-2 text-xs font-bold ${status === "Confirmed" ? "bg-[#10b981]/15 text-[#087e58]" : "bg-[#f59e0b]/15 text-[#9a5d00]"}`}>{status}</span>{status === "Needs response" && <button type="button" onClick={() => setRequestStatus({ ...requestStatus, [request.client]: "Confirmed" })} className="rounded-full bg-[#1a1a28] px-4 py-2 text-xs font-extrabold text-white">Confirm</button>}</div></article>; })}</div></section>;
+function Bookings({
+  requestStatus,
+  setRequestStatus,
+}: {
+  requestStatus: Record<string, string>;
+  setRequestStatus: (status: Record<string, string>) => void;
+}) {
+  const { confirmActivityByVendor } = useSubscription();
+  const [tab, setTab] = useState<"upcoming" | "past">("upcoming");
+  const [activeRosterBooking, setActiveRosterBooking] = useState<any | null>(null);
+
+  const activeList = tab === "upcoming" ? vendorCorporateBookings : vendorPastBookings;
+
+  return (
+    <section className="mt-7 space-y-6">
+      {/* Tab Controls & Schedule Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[.14em] text-[#717182]">Delivery Schedule</p>
+          <h2 className="mt-1 text-2xl font-extrabold text-[#1a1a28]">
+            {tab === "upcoming" ? "Upcoming Sessions & Employee Invites" : "Completed Corporate Sessions"}
+          </h2>
+        </div>
+
+        {/* Tab Toggle Pills */}
+        <div className="flex items-center gap-1.5 bg-gray-100 p-1.5 rounded-full border border-gray-200">
+          <button
+            type="button"
+            onClick={() => setTab("upcoming")}
+            className={`rounded-full px-5 py-2 text-xs font-extrabold transition-all ${
+              tab === "upcoming" ? "bg-[#1a1a28] text-white shadow-sm" : "text-[#717182] hover:text-[#1a1a28]"
+            }`}
+          >
+            Upcoming ({vendorCorporateBookings.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab("past")}
+            className={`rounded-full px-5 py-2 text-xs font-extrabold transition-all ${
+              tab === "past" ? "bg-[#1a1a28] text-white shadow-sm" : "text-[#717182] hover:text-[#1a1a28]"
+            }`}
+          >
+            Past Sessions ({vendorPastBookings.length})
+          </button>
+        </div>
+      </div>
+
+      {/* Booking Cards List (Sleek, De-cluttered & Spacious Layout) */}
+      <div className="space-y-4">
+        {activeList.map((booking) => {
+          const status = requestStatus[booking.client] ?? booking.status;
+          const percentUsed = Math.min(100, Math.round((booking.slotsClaimed / booking.slotsAllocated) * 100));
+          const goingCount = booking.invites.filter((i) => i.status === "Going").length;
+
+          return (
+            <article
+              key={booking.id}
+              className="bg-white p-6 rounded-3xl border border-gray-100/80 shadow-sm hover:shadow-md transition-all space-y-4"
+            >
+              {/* Main Info Row */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <div
+                    className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl text-2xl shadow-sm border border-gray-100"
+                    style={{ background: `${booking.color}12` }}
+                  >
+                    {booking.emoji}
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="font-extrabold text-[#1a1a28] text-lg leading-snug">{booking.service}</h3>
+                      <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-[11px] font-extrabold text-gray-700">
+                        {booking.client}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-3 text-xs font-medium text-gray-500 mt-1 flex-wrap">
+                      <span className="flex items-center gap-1 font-semibold text-gray-700">
+                        <Clock3 size={13} className="text-[#33c4f0]" /> {booking.time}
+                      </span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <MapPin size={13} className="text-[#33c4f0]" /> {booking.location}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Status & Confirm Action */}
+                <div className="flex items-center gap-3 shrink-0 sm:self-center">
+                  <span
+                    className={`rounded-full px-3 py-1 text-xs font-extrabold flex items-center gap-1 ${
+                      status === "Confirmed"
+                        ? "bg-emerald-50 text-emerald-700 border border-emerald-200/80"
+                        : status === "Completed"
+                        ? "bg-gray-100 text-gray-700 border border-gray-200"
+                        : "bg-amber-50 text-amber-800 border border-amber-200"
+                    }`}
+                  >
+                    {status === "Confirmed" ? "✓ Confirmed" : status === "Completed" ? "Completed" : "⏳ Needs Response"}
+                  </span>
+
+                  {status === "Needs response" && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setRequestStatus({ ...requestStatus, [booking.client]: "Confirmed" });
+                        confirmActivityByVendor("mindful-watercolor-painting");
+                        confirmActivityByVendor("ceramic-pottery-workshop");
+                      }}
+                      className="rounded-full bg-[#1a1a28] hover:bg-[#33c4f0] hover:text-[#1a1a28] px-4 py-1.5 text-xs font-extrabold text-white transition shadow-sm"
+                    >
+                      Confirm Booking
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Clean Capacity & Roster Section (Single Row, Un-crowded) */}
+              <div className="pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div className="flex items-center gap-3 flex-1 min-w-[240px]">
+                  <div className="flex items-center gap-1.5 font-bold text-gray-800 shrink-0">
+                    <Users size={14} className="text-[#147c9e]" />
+                    <span>{booking.slotsClaimed}/{booking.slotsAllocated} Slots</span>
+                    <span className="text-emerald-600 font-extrabold">({goingCount} Going)</span>
+                  </div>
+
+                  <div className="w-32 sm:w-48 h-2 bg-gray-100 rounded-full overflow-hidden shrink-0">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-[#33c4f0] to-[#10b981] transition-all"
+                      style={{ width: `${percentUsed}%` }}
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveRosterBooking(booking)}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-cyan-50/80 hover:bg-cyan-100/80 px-3.5 py-1.5 text-xs font-extrabold text-[#147c9e] border border-cyan-200/60 transition shadow-sm shrink-0"
+                >
+                  <Eye size={13} />
+                  Roster ({booking.invites.length})
+                </button>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      {/* Vendor Employee Roster & Invites Modal */}
+      {activeRosterBooking && (
+        <div
+          className="fixed inset-0 z-50 grid place-items-center bg-[#1a1a28]/50 p-4 sm:p-6 overflow-y-auto"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="relative w-full max-w-2xl bg-white p-6 sm:p-8 shadow-2xl space-y-6"
+            style={{ borderRadius: "20px 20px 64px 20px" }}
+          >
+            <button
+              type="button"
+              onClick={() => setActiveRosterBooking(null)}
+              className="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-gray-100 hover:bg-gray-200 transition"
+              aria-label="Close"
+            >
+              <X size={18} />
+            </button>
+
+            <div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-[#e8f9ff] px-3 py-1 text-xs font-bold text-[#147c9e]">
+                <Users size={13} /> Corporate Attendee Roster
+              </div>
+              <h2 className="mt-2 text-2xl font-extrabold text-[#1a1a28]">
+                {activeRosterBooking.client} Roster
+              </h2>
+              <p className="mt-1 text-xs font-medium text-[#717182]">
+                {activeRosterBooking.service} • {activeRosterBooking.time}
+              </p>
+            </div>
+
+            {/* Metrics Header */}
+            <div className="grid grid-cols-3 gap-3">
+              <div className="p-3 bg-gray-50 rounded-2xl border border-gray-100 text-center">
+                <p className="text-xl font-extrabold text-[#1a1a28]">{activeRosterBooking.slotsAllocated}</p>
+                <p className="text-[10px] font-bold text-gray-500 uppercase">Allocated Slots</p>
+              </div>
+              <div className="p-3 bg-emerald-50 rounded-2xl border border-emerald-100 text-center">
+                <p className="text-xl font-extrabold text-emerald-700">
+                  {activeRosterBooking.invites.filter((i: any) => i.status === "Going").length}
+                </p>
+                <p className="text-[10px] font-bold text-emerald-700 uppercase">Confirmed Going</p>
+              </div>
+              <div className="p-3 bg-amber-50 rounded-2xl border border-amber-100 text-center">
+                <p className="text-xl font-extrabold text-amber-700">
+                  {activeRosterBooking.invites.filter((i: any) => i.status === "Pending").length}
+                </p>
+                <p className="text-[10px] font-bold text-amber-700 uppercase">Pending RSVP</p>
+              </div>
+            </div>
+
+            {/* Attendees Table */}
+            <div className="overflow-x-auto border border-gray-200 rounded-2xl">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-200 text-gray-500 font-bold uppercase">
+                    <th className="py-2.5 px-3">Employee Name</th>
+                    <th className="py-2.5 px-3">Email & Dept</th>
+                    <th className="py-2.5 px-3">Invite Code</th>
+                    <th className="py-2.5 px-3">RSVP Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {activeRosterBooking.invites.map((emp: any) => (
+                    <tr key={emp.id} className="hover:bg-gray-50/60 transition">
+                      <td className="py-3 px-3 font-extrabold text-gray-900">{emp.name}</td>
+                      <td className="py-3 px-3 text-gray-600">
+                        {emp.email} <span className="text-gray-400">• {emp.department}</span>
+                      </td>
+                      <td className="py-3 px-3 font-mono text-[11px] text-gray-700">{emp.code}</td>
+                      <td className="py-3 px-3">
+                        <span
+                          className={`inline-block px-2.5 py-0.5 rounded-full font-bold text-[10px] ${
+                            emp.status === "Going"
+                              ? "bg-emerald-100 text-emerald-800"
+                              : "bg-amber-100 text-amber-800"
+                          }`}
+                        >
+                          {emp.status === "Going" ? "✓ Going" : "⏳ Pending"}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="flex items-center justify-between pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const csv = activeRosterBooking.invites
+                    .map((i: any) => `${i.name},${i.email},${i.department},${i.code},${i.status}`)
+                    .join("\n");
+                  const blob = new Blob([`Name,Email,Department,Code,Status\n${csv}`], { type: "text/csv" });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = `${activeRosterBooking.client}_Attendee_Roster.csv`;
+                  a.click();
+                }}
+                className="inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-5 py-2.5 text-xs font-extrabold text-white hover:bg-[#33c4f0] hover:text-[#1a1a28] transition"
+              >
+                <Download size={14} /> Download Roster CSV
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveRosterBooking(null)}
+                className="rounded-full border border-gray-200 px-5 py-2.5 text-xs font-bold text-gray-700 hover:bg-gray-50 transition"
+              >
+                Close Roster
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
 }
 
 function Insights() {

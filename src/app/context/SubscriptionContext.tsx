@@ -116,6 +116,7 @@ interface SubscriptionContextType {
   isBrandChangeModalOpen: boolean;
   pendingBrandToSelect: VendorBrand | null;
   employeeInvites: EmployeeInvite[];
+  vendorConfirmedActivities: string[];
   setPlan: (planKeyOrName: string) => void;
   selectBrand: (vendor: VendorBrand) => void;
   unselectBrand: () => void;
@@ -133,6 +134,8 @@ interface SubscriptionContextType {
   updateInviteStatus: (inviteId: string, status: EmployeeInvite['status']) => void;
   cancelEmployeeInvite: (inviteId: string) => void;
   getInvitesForActivity: (activityId: string) => EmployeeInvite[];
+  isVendorConfirmed: (activityId: string) => boolean;
+  confirmActivityByVendor: (activityId: string) => void;
 }
 
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
@@ -141,6 +144,7 @@ const STORAGE_KEY_PLAN = 'creative_self_selected_plan';
 const STORAGE_KEY_BRAND = 'creative_self_selected_brand';
 const STORAGE_KEY_ACTIVITIES = 'creative_self_selected_activities';
 const STORAGE_KEY_INVITES = 'creative_self_employee_invites';
+const STORAGE_KEY_VENDOR_CONFIRMED = 'creative_self_vendor_confirmed_activities';
 
 export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentPlanKey, setCurrentPlanKey] = useState<string>(() => {
@@ -263,6 +267,14 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
     ];
   });
 
+  const [vendorConfirmedActivities, setVendorConfirmedActivities] = useState<string[]>(() => {
+    const saved = localStorage.getItem(STORAGE_KEY_VENDOR_CONFIRMED);
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) { /* ignore */ }
+    }
+    return ['ceramic-pottery-workshop'];
+  });
+
   const [isLimitModalOpen, setIsLimitModalOpen] = useState(false);
   const [isBrandChangeModalOpen, setIsBrandChangeModalOpen] = useState(false);
   const [pendingBrandToSelect, setPendingBrandToSelect] = useState<VendorBrand | null>(null);
@@ -288,6 +300,18 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY_INVITES, JSON.stringify(employeeInvites));
   }, [employeeInvites]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY_VENDOR_CONFIRMED, JSON.stringify(vendorConfirmedActivities));
+  }, [vendorConfirmedActivities]);
+
+  const isVendorConfirmed = (activityId: string) => {
+    return vendorConfirmedActivities.includes(activityId);
+  };
+
+  const confirmActivityByVendor = (activityId: string) => {
+    setVendorConfirmedActivities((prev) => (prev.includes(activityId) ? prev : [...prev, activityId]));
+  };
 
   const setPlan = (planKeyOrName: string) => {
     if (PLAN_PRESETS[planKeyOrName]) {
@@ -435,6 +459,7 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
         isBrandChangeModalOpen,
         pendingBrandToSelect,
         employeeInvites,
+        vendorConfirmedActivities,
         setPlan,
         selectBrand,
         unselectBrand,
@@ -452,6 +477,8 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
         updateInviteStatus,
         cancelEmployeeInvite,
         getInvitesForActivity,
+        isVendorConfirmed,
+        confirmActivityByVendor,
       }}
     >
       {children}

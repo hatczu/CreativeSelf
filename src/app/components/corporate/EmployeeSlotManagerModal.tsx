@@ -38,6 +38,7 @@ export function EmployeeSlotManagerModal({
     updateInviteStatus,
     cancelEmployeeInvite,
     planName,
+    isVendorConfirmed,
   } = useSubscription();
 
   const [employeeName, setEmployeeName] = useState('');
@@ -51,10 +52,11 @@ export function EmployeeSlotManagerModal({
   const currentInvites = getInvitesForActivity(activityId);
   const activeCount = currentInvites.length;
   const remainingSlots = employeeSlotsPerActivity - activeCount;
+  const isConfirmed = isVendorConfirmed(activityId);
 
   const handleSendInvite = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!employeeName || !employeeEmail || remainingSlots <= 0) return;
+    if (!isConfirmed || !employeeName || !employeeEmail || remainingSlots <= 0) return;
 
     const newInvite = sendEmployeeInvite({
       activityId,
@@ -142,8 +144,21 @@ export function EmployeeSlotManagerModal({
               </div>
             </div>
 
+            {/* Vendor Confirmation Warning Banner if Pending */}
+            {!isConfirmed && (
+              <div className="bg-amber-50 border border-amber-200 p-4 rounded-2xl flex items-start gap-3 text-xs text-amber-900 font-medium">
+                <AlertCircle size={18} className="text-amber-600 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-extrabold text-amber-900 text-sm">Vendor Confirmation Pending</p>
+                  <p className="mt-0.5 leading-relaxed text-amber-800">
+                    The provider has not confirmed this session booking request yet. Employee invites are locked and cannot be issued until the vendor confirms the booking in their workspace.
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* Invite Form */}
-            {remainingSlots > 0 ? (
+            {remainingSlots > 0 && isConfirmed ? (
               <form onSubmit={handleSendInvite} className="bg-cyan-50/50 p-5 rounded-2xl border border-cyan-100 space-y-4">
                 <div className="flex items-center justify-between">
                   <h4 className="font-bold text-gray-900 text-sm flex items-center gap-2">

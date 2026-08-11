@@ -5,7 +5,7 @@ import { SubscriptionEntitlementHeader } from "../components/shared/Subscription
 import { UniversalSidebar } from "../components/layout/UniversalSidebar";
 import { RoleSwitcher } from "../components/layout/RoleSwitcher";
 import { EmployeeSlotManagerModal } from "../components/corporate/EmployeeSlotManagerModal";
-import { CalendarDays, Check, Clock3, Compass, LayoutDashboard, LogOut, MapPin, Search, Settings, Users, Sparkles, X, Ticket, Plus } from "lucide-react";
+import { CalendarDays, Check, Clock3, Compass, LayoutDashboard, LogOut, MapPin, Search, Settings, Users, Sparkles, X, Ticket, Plus, Lock, Clock } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import logoIcon from "@/imports/Logo.png";
 
@@ -19,7 +19,7 @@ const past = [
 ];
 
 export function BookingsPage() {
-  const { selectedActivities, unselectActivity, planName, planType, employeeInvites, employeeSlotsPerActivity } = useSubscription();
+  const { selectedActivities, unselectActivity, planName, planType, employeeInvites, employeeSlotsPerActivity, isVendorConfirmed } = useSubscription();
   const [tab, setTab] = useState<"upcoming" | "past">("upcoming");
   const [confirmed, setConfirmed] = useState<string[]>([]);
 
@@ -31,6 +31,7 @@ export function BookingsPage() {
   });
 
   const handleOpenInviteModal = (actId: string, actName: string) => {
+    if (!isVendorConfirmed(actId)) return;
     setSelectedActivityForModal({ id: actId, name: actName });
     setIsSlotModalOpen(true);
   };
@@ -131,184 +132,155 @@ export function BookingsPage() {
             </div>
           </header>
 
-          {/* Active Activity Employee Slot Allocations Card Section */}
-          {tab === 'upcoming' && planType === 'corporate' && (
-            <div
-              className="mt-6 bg-white p-6 shadow-[0_16px_42px_rgba(28,118,155,.08)]"
-              style={{ borderRadius: '20px 20px 64px 20px' }}
-            >
-              <h3 className="text-lg font-extrabold text-gray-900 mb-4 flex items-center gap-2">
-                <Ticket className="text-[#33c4f0]" size={20} />
-                Active Activity Employee Slot Allocations
-              </h3>
-
-              {selectedActivities.length === 0 ? (
-                <p className="text-xs text-gray-500 italic p-4 text-center border border-dashed rounded-2xl">
-                  No activities selected yet in your subscription. Visit Discover Services to select your activities first!
-                </p>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {selectedActivities.map((act) => {
-                    const activityInvites = employeeInvites.filter(
-                      (i) => i.activityId === act.id && i.status !== 'Cancelled'
-                    );
-                    const used = activityInvites.length;
-                    const capacity = employeeSlotsPerActivity || 8;
-                    const percent = Math.min(100, Math.round((used / capacity) * 100));
-
-                    return (
-                      <div
-                        key={act.id}
-                        className="p-5 border border-gray-100 bg-gray-50/50 hover:bg-white hover:border-gray-200 transition-all shadow-sm"
-                        style={{ borderRadius: '20px 20px 40px 20px' }}
-                      >
-                        <div className="flex items-start justify-between gap-3 mb-3">
-                          <div className="flex items-center gap-3">
-                            <span className="text-2xl p-2 rounded-xl bg-white shadow-sm border border-gray-100">{act.symbol || '🎨'}</span>
-                            <div>
-                              <h4 className="font-extrabold text-gray-900 text-sm leading-tight">{act.name}</h4>
-                              <p className="text-xs text-gray-500 mt-0.5">{act.vendorName} • {act.duration}</p>
-                            </div>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => handleOpenInviteModal(act.id, act.name)}
-                            className="px-3 py-1.5 bg-[#33c4f0] hover:bg-[#28b3de] text-[#1a1a28] font-extrabold rounded-xl text-xs flex items-center gap-1 shadow-sm shrink-0"
-                          >
-                            <Plus size={13} />
-                            Slots ({used}/{capacity})
-                          </button>
-                        </div>
-
-                        {/* Capacity Bar */}
-                        <div className="space-y-1">
-                          <div className="flex justify-between text-[11px] font-bold text-gray-700">
-                            <span>Employee Slots Used</span>
-                            <span className="text-[#147c9e]">{used} / {capacity} Slots</span>
-                          </div>
-                          <div className="w-full h-2.5 bg-gray-200 rounded-full overflow-hidden">
-                            <div
-                              className={`h-full transition-all rounded-full ${
-                                percent >= 100 ? 'bg-amber-500' : 'bg-gradient-to-r from-[#33c4f0] to-[#10b981]'
-                              }`}
-                              style={{ width: `${percent}%` }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          )}
-
-          <div className="mt-7 space-y-5">
-            {sessions.map((session: any) =>
-              "time" in session ? (
-                <article
-                  key={session.title}
-                  className="overflow-hidden bg-white shadow-[0_12px_36px_rgba(28,118,155,.07)]"
-                  style={{ borderRadius: "20px 20px 64px 20px" }}
-                >
-                  <div className="flex flex-col gap-5 p-6 sm:flex-row sm:items-center">
-                    <div className="grid h-16 w-16 shrink-0 place-items-center rounded-full text-3xl" style={{ background: `${session.color}18` }}>
+          {/* Subscription Sessions List (Unified, De-cluttered & Identical to Vendor List) */}
+          <div className="mt-6 space-y-4">
+            {sessions.map((session: any) => {
+              if (!("time" in session)) {
+                return (
+                  <article
+                    key={session.title}
+                    className="flex items-center gap-4 bg-white p-5 rounded-3xl border border-gray-100/80 shadow-sm"
+                  >
+                    <div className="grid h-12 w-12 place-items-center rounded-2xl text-xl shadow-sm border border-gray-100" style={{ background: `${session.color}15` }}>
                       {session.emoji}
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="rounded-full bg-[#10b981]/15 px-3 py-1 text-[11px] font-extrabold text-[#087e58]">
-                          Included in {planName}
-                        </span>
-                        <span className="text-xs font-extrabold uppercase tracking-[.14em]" style={{ color: session.color }}>
-                          {session.date}
-                        </span>
-                      </div>
-                      <h2 className="mt-2 text-xl font-extrabold">{session.title}</h2>
-                      <p className="mt-1 text-sm text-[#717182]">{session.provider}</p>
-                      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs font-bold text-[#717182]">
-                        <span className="flex items-center gap-1.5">
-                          <Clock3 size={14} /> {session.time}
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          <MapPin size={14} /> {session.place}
-                        </span>
+                    <div>
+                      <p className="text-xs font-extrabold uppercase tracking-[.14em]" style={{ color: session.color }}>
+                        {session.date}
+                      </p>
+                      <h2 className="mt-0.5 text-base font-extrabold text-gray-900">{session.title}</h2>
+                      <p className="text-xs text-gray-500 font-medium">{session.provider}</p>
+                    </div>
+                  </article>
+                );
+              }
+
+              const actId = session.id || 'ceramic-pottery-workshop';
+              const isConfirmed = isVendorConfirmed(actId);
+              const activityInvites = employeeInvites.filter(
+                (i) => i.activityId === actId && i.status !== 'Cancelled'
+              );
+              const used = activityInvites.length;
+              const capacity = employeeSlotsPerActivity || 8;
+              const percent = Math.min(100, Math.round((used / capacity) * 100));
+
+              return (
+                <article
+                  key={session.title}
+                  className="bg-white p-6 rounded-3xl border border-gray-100/80 shadow-sm hover:shadow-md transition-all space-y-4"
+                >
+                  {/* Top Header Row */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                      <div
+                        className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl text-2xl shadow-sm border border-gray-100"
+                        style={{ background: `${session.color}15` }}
+                      >
+                        {session.emoji}
                       </div>
 
-                      {/* Employee Slots Progress Bar */}
-                      {planType === 'corporate' && (
-                        <div className="mt-4 rounded-2xl bg-[#e8f9ff]/80 border border-[#33c4f0]/20 p-3">
-                          <div className="flex items-center justify-between text-xs font-bold text-[#1a1a28]">
-                            <span className="flex items-center gap-1.5 text-[#147c9e]">
-                              <Users size={14} className="text-[#33c4f0]" /> Employee Slots Allocation
-                            </span>
-                            <span className="text-[#147c9e]">
-                              {employeeInvites.filter((i) => i.activityId === (session.id || 'act-1') && i.status === 'Going').length} / {employeeSlotsPerActivity} Accepted
-                            </span>
-                          </div>
-                          <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-[#33c4f0]/20">
-                            <div
-                              className="h-full rounded-full bg-gradient-to-r from-[#33c4f0] to-[#10b981] transition-all"
-                              style={{
-                                width: `${Math.min(
-                                  100,
-                                  Math.round(
-                                    (employeeInvites.filter((i) => i.activityId === (session.id || 'act-1') && i.status === 'Going').length /
-                                      (employeeSlotsPerActivity || 8)) *
-                                      100
-                                  )
-                                )}%`,
-                              }}
-                            />
-                          </div>
+                      <div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h3 className="font-extrabold text-[#1a1a28] text-lg leading-snug">{session.title}</h3>
+                          <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-[11px] font-extrabold text-gray-700">
+                            {session.provider}
+                          </span>
                         </div>
-                      )}
+
+                        <div className="flex items-center gap-3 text-xs font-medium text-gray-500 mt-1 flex-wrap">
+                          <span className="flex items-center gap-1 font-semibold text-gray-700">
+                            <Clock3 size={13} className="text-[#33c4f0]" /> {session.time}
+                          </span>
+                          <span>•</span>
+                          <span className="flex items-center gap-1">
+                            <MapPin size={13} className="text-[#33c4f0]" /> {session.place}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex shrink-0 flex-col gap-2.5 sm:w-40">
+
+                    {/* Status & View Details */}
+                    <div className="flex items-center gap-3 shrink-0 sm:self-center">
+                      {tab === "upcoming" && (
+                        isConfirmed ? (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200/80 px-3 py-1 text-xs font-extrabold text-emerald-700">
+                            <Check size={12} /> Confirmed by Vendor
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 border border-amber-200 px-3 py-1 text-xs font-extrabold text-amber-800">
+                            <Clock size={12} /> Awaiting Confirmation
+                          </span>
+                        )
+                      )}
+
                       <Link
                         to={session.id ? `/discover/services/${session.id}` : "/discover/services"}
-                        className="rounded-full border border-[#33c4f0]/30 bg-white px-4 py-2.5 text-center text-xs font-extrabold text-[#1a1a28] no-underline hover:bg-[#e8f9ff] transition"
+                        className="rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-center text-xs font-extrabold text-[#1a1a28] no-underline hover:bg-gray-50 transition"
                       >
                         View Details
                       </Link>
-                      <Link
-                        to={session.id ? `/invites?activityId=${session.id}` : "/invites"}
-                        className="rounded-full bg-[#1a1a28] px-4 py-2.5 text-center text-xs font-extrabold text-white no-underline hover:bg-[#33c4f0] hover:text-[#1a1a28] transition flex items-center justify-center gap-1.5 shadow-sm"
-                      >
-                        <Users size={14} />
-                        Manage Invites
-                      </Link>
+
                       {session.isDynamic && (
                         <button
                           type="button"
                           onClick={() => unselectActivity(session.id)}
-                          className="mt-0.5 text-center text-[10px] font-bold text-rose-500 hover:underline"
+                          className="text-[10px] font-bold text-rose-500 hover:underline px-1"
                         >
-                          Unassign Activity
+                          Remove
                         </button>
                       )}
                     </div>
                   </div>
+
+                  {/* Single-Row Capacity & Manage Invites Bar (Identical to Vendor Roster Bar) */}
+                  {tab === 'upcoming' && planType === 'corporate' && (
+                    <div className="pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3 text-xs">
+                      <div className="flex items-center gap-3 flex-1 min-w-[240px]">
+                        <div className="flex items-center gap-1.5 font-bold text-gray-800 shrink-0">
+                          <Users size={14} className="text-[#147c9e]" />
+                          <span>{used}/{capacity} Corporate Slots</span>
+                          <span className="text-emerald-600 font-extrabold">({activityInvites.filter(i => i.status === 'Going').length} Going)</span>
+                        </div>
+
+                        <div className="w-32 sm:w-48 h-2 bg-gray-100 rounded-full overflow-hidden shrink-0">
+                          <div
+                            className={`h-full rounded-full transition-all ${
+                              !isConfirmed
+                                ? 'bg-gray-300'
+                                : percent >= 100
+                                ? 'bg-amber-500'
+                                : 'bg-gradient-to-r from-[#33c4f0] to-[#10b981]'
+                            }`}
+                            style={{ width: isConfirmed ? `${percent}%` : '0%' }}
+                          />
+                        </div>
+                      </div>
+
+                      {isConfirmed ? (
+                        <button
+                          type="button"
+                          onClick={() => handleOpenInviteModal(actId, session.title)}
+                          className="inline-flex items-center gap-1.5 rounded-full bg-cyan-50/80 hover:bg-cyan-100/80 px-3.5 py-1.5 text-xs font-extrabold text-[#147c9e] border border-cyan-200/60 transition shadow-sm shrink-0"
+                        >
+                          <Plus size={13} />
+                          Manage Invites ({used}/{capacity})
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          disabled
+                          title="Vendor confirmation pending."
+                          className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-extrabold text-gray-400 border border-gray-200 shrink-0 cursor-not-allowed"
+                        >
+                          <Lock size={13} />
+                          Invites Locked
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </article>
-              ) : (
-                <article
-                  key={session.title}
-                  className="flex items-center gap-5 bg-white p-6 shadow-[0_12px_36px_rgba(28,118,155,.07)]"
-                  style={{ borderRadius: "20px 20px 64px 20px" }}
-                >
-                  <div className="grid h-14 w-14 place-items-center rounded-full text-2xl" style={{ background: `${session.color}18` }}>
-                    {session.emoji}
-                  </div>
-                  <div>
-                    <p className="text-xs font-extrabold uppercase tracking-[.14em]" style={{ color: session.color }}>
-                      {session.date}
-                    </p>
-                    <h2 className="mt-1 text-lg font-extrabold">{session.title}</h2>
-                    <p className="mt-1 text-sm text-[#717182]">{session.provider}</p>
-                  </div>
-                </article>
-              )
-            )}
+              );
+            })}
           </div>
 
           <Link
