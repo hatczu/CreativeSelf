@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { Link, useLocation } from "react-router";
+import { UniversalSidebar } from "../components/layout/UniversalSidebar";
 import { RoleSwitcher } from "../components/layout/RoleSwitcher";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-import logoIcon from "../../imports/Logo.png";
 import {
   CalendarDays,
   Compass,
@@ -84,18 +84,9 @@ export function WellnessFeed() {
 
   return (
     <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}>
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[60px] flex-col items-center border-r border-[#33c4f0]/15 bg-white/90 py-6 shadow-[4px_0_20px_rgba(28,118,155,.04)] backdrop-blur lg:flex">
-        <Link to="/" title="CreativeSelf Home" aria-label="CreativeSelf Home" className="grid h-10 w-10 place-items-center transition-transform hover:scale-105"><ImageWithFallback src={logoIcon} alt="CreativeSelf Logo" className="h-full w-full object-contain" /></Link>
-        <nav className="mt-10 flex flex-col gap-3" aria-label="Universal navigation">
-          <button type="button" title="Home" aria-label="Home" className="grid h-10 w-10 place-items-center rounded-full bg-[#33c4f0] text-[#1a1a28]"><LayoutDashboard size={18} /></button>
-          <Link to="/discover/services" title="Discover" aria-label="Discover" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]"><Compass size={18} /></Link>
-          <Link to="/bookings" title="Bookings" aria-label="Bookings" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]"><CalendarDays size={18} /></Link>
-          <button type="button" title="Providers" aria-label="Providers" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]"><Users size={18} /></button>
-        </nav>
-        <div className="mt-auto flex flex-col gap-3"><button type="button" title="Settings" aria-label="Settings" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]"><Settings size={18} /></button><Link to="/" title="Log out" aria-label="Log out" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#1a1a28] hover:text-white"><LogOut size={18} /></Link><RoleSwitcher activeRole="client" /></div>
-      </aside>
+      <UniversalSidebar />
 
-      <div className="mx-auto grid max-w-[1320px] gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_650px_280px] lg:justify-center lg:px-8 lg:py-12 lg:pl-[76px]">
+      <div className="mx-auto grid max-w-[1480px] gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_850px_280px] lg:justify-center lg:px-8 lg:py-12 lg:pl-[76px]">
         <aside className="hidden lg:block">
           <div className="sticky top-8 overflow-hidden bg-[#15343d] p-5 text-white shadow-[0_12px_36px_rgba(28,118,155,.12)]" style={{ borderRadius: "20px 20px 64px 20px" }}>
             {!hrMode ? <><p className="text-xs font-bold uppercase tracking-[.14em] text-white/45">Your creative compass</p><div className="mt-5 grid h-16 w-16 place-items-center rounded-[22px_22px_32px_22px] bg-[#33c4f0] text-3xl">🧭</div><p className="mt-5 text-2xl font-extrabold">The Explorer</p><p className="mt-3 text-sm leading-6 text-white/65">New places, perspectives, and possibilities keep your creativity moving.</p><button type="button" onClick={() => setPersonalityOpen(true)} className="mt-6 inline-flex items-center gap-1 text-xs font-extrabold text-[#33c4f0]">View your profile <ChevronRight size={14} /></button><div className="mt-7 border-t border-white/10 pt-5"><p className="text-xs font-bold text-white/45">THIS MONTH</p><p className="mt-2 text-sm font-bold">2 sessions still to explore</p></div></> : <><p className="text-xs font-bold uppercase tracking-[.14em] text-white/45">Team wellbeing</p><p className="mt-5 text-2xl font-extrabold">The good kind of momentum.</p><p className="mt-3 text-sm leading-6 text-white/65">Discover sessions that make room for energy, connection, and fresh ideas.</p></>}

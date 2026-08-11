@@ -22,38 +22,9 @@ import {
   Eye,
   Building2,
 } from 'lucide-react';
+import { UniversalSidebar } from '../components/layout/UniversalSidebar';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-import logoIcon from '../../imports/Logo.png';
-
-function UniversalSidebar() {
-  return (
-    <aside className="fixed inset-y-0 left-0 z-40 hidden w-[60px] flex-col items-center border-r border-[#33c4f0]/15 bg-white/90 py-6 shadow-[4px_0_20px_rgba(28,118,155,.04)] backdrop-blur lg:flex">
-      <Link to="/" title="CreativeSelf Home" aria-label="CreativeSelf Home" className="grid h-10 w-10 place-items-center transition-transform hover:scale-105">
-        <ImageWithFallback src={logoIcon} alt="CreativeSelf Logo" className="h-full w-full object-contain" />
-      </Link>
-      <nav className="mt-10 flex flex-col gap-3" aria-label="Universal navigation">
-        <Link to="/dashboard" title="Home" aria-label="Home" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]">
-          <LayoutDashboard size={18} />
-        </Link>
-        <Link to="/discover/providers" title="Discover" aria-label="Discover" className="grid h-10 w-10 place-items-center rounded-full bg-[#33c4f0] text-[#1a1a28]">
-          <Compass size={18} />
-        </Link>
-        <Link to="/bookings" title="Bookings" aria-label="Bookings" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]">
-          <CalendarDays size={18} />
-        </Link>
-      </nav>
-      <div className="mt-auto flex flex-col gap-3">
-        <button type="button" title="Settings" aria-label="Settings" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]">
-          <Settings size={18} />
-        </button>
-        <Link to="/" title="Log out" aria-label="Log out" className="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#1a1a28] hover:text-white">
-          <LogOut size={18} />
-        </Link>
-        <RoleSwitcher activeRole="client" />
-      </div>
-    </aside>
-  );
-}
+import logoIcon from '@/imports/Logo.png';
 
 export function DiscoverPage() {
   const navigate = useNavigate();
@@ -85,36 +56,20 @@ export function DiscoverPage() {
       <UniversalSidebar />
       <ActivityLimitModal />
 
-      <div className="mx-auto grid max-w-7xl gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_minmax(0,1fr)_250px] lg:px-8 lg:py-12 lg:pl-[76px]">
+      <div className="mx-auto grid max-w-[1480px] gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_850px_280px] lg:justify-center lg:px-8 lg:py-12 lg:pl-[76px]">
         {/* Navigation Sidebar */}
         <aside className="hidden lg:block">
-          <div className="sticky top-8 bg-[#1a1a28] p-5 text-white" style={{ borderRadius: '20px 20px 64px 20px' }}>
-            <Link to="/" className="flex items-center gap-3 no-underline">
-              <ImageWithFallback src={logoIcon} alt="CreativeSelf Logo" className="h-8 w-8 object-contain" />
-              <span className="text-lg font-extrabold">
-                <span className="text-[#33c4f0]">creative</span>
-                <span className="text-white">self</span>
-              </span>
-            </Link>
-
-            <p className="mt-6 text-xs font-bold uppercase tracking-[.16em] text-white/45">Step 1: Pick a Brand</p>
-            <div className="mt-3 space-y-1">
-              <div className="flex items-center gap-3 rounded-full bg-[#33c4f0] px-4 py-3 text-sm font-bold text-[#1a1a28]">
-                <Building2 size={17} /> Service Brands
-              </div>
-            </div>
-
-            <div className="mt-8 border-t border-white/10 pt-5 text-xs leading-5 text-white/55">
-              Explore brands with photos and preview their included services before committing your 1 Service Brand entitlement.
-            </div>
-          </div>
+          <SubscriptionEntitlementHeader variant="sidebar" showLogo={true} />
         </aside>
 
         {/* Main Content Area */}
         <main>
-          <SubscriptionEntitlementHeader />
+          {/* Mobile view subscription entitlement header */}
+          <div className="lg:hidden mb-6">
+            <SubscriptionEntitlementHeader variant="horizontal" />
+          </div>
 
-          <header className="mt-6 overflow-hidden bg-white p-6 shadow-[0_16px_42px_rgba(28,118,155,.08)]" style={{ borderRadius: '20px 20px 64px 20px' }}>
+          <header className="overflow-hidden bg-white p-6 shadow-[0_16px_42px_rgba(28,118,155,.08)]" style={{ borderRadius: '20px 20px 64px 20px' }}>
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[#33c4f0]">

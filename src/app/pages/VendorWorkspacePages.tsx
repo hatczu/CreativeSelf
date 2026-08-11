@@ -3,12 +3,12 @@ import { Link, useLocation } from "react-router";
 import { RoleSwitcher } from "../components/layout/RoleSwitcher";
 import { BarChart3, CalendarDays, Check, ChevronRight, Clock3, LayoutDashboard, LogOut, PackageOpen, Image as ImageIcon, Plus, Settings, Sparkles, Users, X } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-import logoIcon from "../../imports/Logo.png";
+import logoIcon from "@/imports/Logo.png";
 
 const services = [
-  { name: "Watercolour without perfection", format: "90 min · Team workshop", price: "From £420", views: 264, bookings: 8, color: "#EF4444", emoji: "🎨", live: true },
-  { name: "Colour as a way to reset", format: "60 min · Pop-up session", price: "From £310", views: 187, bookings: 5, color: "#F59E0B", emoji: "🖌️", live: true },
-  { name: "Playful portrait workshop", format: "75 min · Team workshop", price: "From £380", views: 0, bookings: 0, color: "#8B5CF6", emoji: "✨", live: false },
+  { name: "Watercolour without perfection", format: "90 min · Team workshop", price: "From £420", views: 264, bookings: 8, color: "#EF4444", emoji: "🎨", live: true, image: "https://images.unsplash.com/photo-1510832842230-87253f48d74f?auto=format&fit=crop&w=800&q=80" },
+  { name: "Colour as a way to reset", format: "60 min · Pop-up session", price: "From £310", views: 187, bookings: 5, color: "#F59E0B", emoji: "🖌️", live: true, image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80" },
+  { name: "Playful portrait workshop", format: "75 min · Team workshop", price: "From £380", views: 0, bookings: 0, color: "#8B5CF6", emoji: "✨", live: false, image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800&q=80" },
 ];
 
 const requests = [
@@ -37,11 +37,89 @@ export function VendorWorkspacePages() {
   const title = page === "services" ? "Services that teams can say yes to." : page === "bookings" ? "Your team moments, all in one place." : "See what your creative work is opening up.";
   const eyebrow = page === "services" ? "Your service catalogue" : page === "bookings" ? "Bookings & delivery" : "Marketplace insights";
 
-  return <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}><VendorRail page={page} /><div className="mx-auto grid max-w-[1320px] gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_650px_280px] lg:justify-center lg:px-8 lg:py-12 lg:pl-[76px]"><VendorProfile /><main><header className="overflow-hidden bg-white p-6 shadow-[0_16px_42px_rgba(28,118,155,.08)]" style={{ borderRadius: "20px 20px 64px 20px" }}><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-extrabold uppercase tracking-[.18em] text-[#33c4f0]">{eyebrow}</p><h1 className="mt-2 text-3xl font-extrabold leading-tight">{title}</h1><p className="mt-3 max-w-xl text-sm leading-6 text-[#717182]">{page === "services" ? "Keep your offers current, clear, and easy for teams to book." : page === "bookings" ? "Respond to requests, prepare sessions, and keep delivery feeling effortless." : "A clear picture of how teams are finding, choosing, and returning to Studio Lumen."}</p></div>{page === "services" && <button type="button" onClick={() => setShowComposer(true)} className="inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-4 py-3 text-xs font-extrabold text-white"><Plus size={16} />New service</button>}</div></header>{page === "services" ? <Services liveServices={liveServices} setLiveServices={setLiveServices} /> : page === "bookings" ? <Bookings requestStatus={requestStatus} setRequestStatus={setRequestStatus} /> : <Insights />}</main><VendorSide page={page} /></div>{showComposer && <div className="fixed inset-0 z-50 grid place-items-center bg-[#1a1a28]/45 p-5" role="dialog" aria-modal="true"><div className="relative w-full max-w-xl bg-white p-7 shadow-2xl" style={{ borderRadius: "20px 20px 64px 20px" }}><button type="button" onClick={() => setShowComposer(false)} className="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-[#f2fbfe]" aria-label="Close"><X size={18} /></button><p className="text-xs font-extrabold uppercase tracking-[.16em] text-[#147c9e]">New service</p><h2 className="mt-2 text-3xl font-extrabold">Make it easy to say yes.</h2><input className="mt-7 w-full rounded-[16px_16px_40px_16px] border border-[#33c4f0]/25 bg-[#f9fdff] px-4 py-3 text-sm" placeholder="Service name" /><textarea className="mt-4 min-h-28 w-full rounded-[16px_16px_40px_16px] border border-[#33c4f0]/25 bg-[#f9fdff] p-4 text-sm" placeholder="What will this experience make possible for a team?" /><button type="button" onClick={() => setShowComposer(false)} className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-6 py-3 text-sm font-extrabold text-white"><Sparkles size={16} />Save draft</button></div></div>}</div>;
+  return <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}><VendorRail page={page} /><div className="mx-auto grid max-w-[1480px] gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_850px_280px] lg:justify-center lg:px-8 lg:py-12 lg:pl-[76px]"><VendorProfile /><main><header className="overflow-hidden bg-white p-6 shadow-[0_16px_42px_rgba(28,118,155,.08)]" style={{ borderRadius: "20px 20px 64px 20px" }}><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-extrabold uppercase tracking-[.18em] text-[#33c4f0]">{eyebrow}</p><h1 className="mt-2 text-3xl font-extrabold leading-tight">{title}</h1><p className="mt-3 max-w-xl text-sm leading-6 text-[#717182]">{page === "services" ? "Keep your offers current, clear, and easy for teams to book." : page === "bookings" ? "Respond to requests, prepare sessions, and keep delivery feeling effortless." : "A clear picture of how teams are finding, choosing, and returning to Studio Lumen."}</p></div>{page === "services" && <button type="button" onClick={() => setShowComposer(true)} className="inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-4 py-3 text-xs font-extrabold text-white"><Plus size={16} />New service</button>}</div></header>{page === "services" ? <Services liveServices={liveServices} setLiveServices={setLiveServices} /> : page === "bookings" ? <Bookings requestStatus={requestStatus} setRequestStatus={setRequestStatus} /> : <Insights />}</main><VendorSide page={page} /></div>{showComposer && <div className="fixed inset-0 z-50 grid place-items-center bg-[#1a1a28]/45 p-5" role="dialog" aria-modal="true"><div className="relative w-full max-w-xl bg-white p-7 shadow-2xl" style={{ borderRadius: "20px 20px 64px 20px" }}><button type="button" onClick={() => setShowComposer(false)} className="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-[#f2fbfe]" aria-label="Close"><X size={18} /></button><p className="text-xs font-extrabold uppercase tracking-[.16em] text-[#147c9e]">New service</p><h2 className="mt-2 text-3xl font-extrabold">Make it easy to say yes.</h2><input className="mt-7 w-full rounded-[16px_16px_40px_16px] border border-[#33c4f0]/25 bg-[#f9fdff] px-4 py-3 text-sm" placeholder="Service name" /><textarea className="mt-4 min-h-28 w-full rounded-[16px_16px_40px_16px] border border-[#33c4f0]/25 bg-[#f9fdff] p-4 text-sm" placeholder="What will this experience make possible for a team?" /><button type="button" onClick={() => setShowComposer(false)} className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-6 py-3 text-sm font-extrabold text-white"><Sparkles size={16} />Save draft</button></div></div>}</div>;
 }
 
-function Services({ liveServices, setLiveServices }: { liveServices: typeof services; setLiveServices: (services: typeof services) => void }) {
-  return <section className="mt-7"><div className="mb-4 flex items-end justify-between"><div><p className="text-xs font-bold uppercase tracking-[.14em] text-[#717182]">Live and draft</p><h2 className="mt-1 text-2xl font-extrabold">Your current offer</h2></div><p className="text-sm font-bold text-[#717182]">{liveServices.filter((service) => service.live).length} live</p></div><div className="space-y-4">{liveServices.map((service) => <article key={service.name} className="bg-white p-5 shadow-[0_12px_36px_rgba(28,118,155,.07)]" style={{ borderRadius: "20px 20px 64px 20px" }}><div className="flex flex-wrap items-center gap-4"><div className="grid h-12 w-12 place-items-center rounded-full text-2xl" style={{ background: `${service.color}18` }}>{service.emoji}</div><div className="min-w-[13rem] flex-1"><p className="text-xs font-extrabold uppercase tracking-[.14em]" style={{ color: service.color }}>{service.live ? "Published" : "Draft"}</p><h3 className="mt-1 text-lg font-extrabold">{service.name}</h3><p className="mt-1 text-sm text-[#717182]">{service.format} · {service.price}</p></div><div className="flex items-center gap-5 text-xs font-bold text-[#717182]"><span>{service.views} views</span><span>{service.bookings} bookings</span></div><button type="button" onClick={() => setLiveServices(liveServices.map((item) => item.name === service.name ? { ...item, live: !item.live } : item))} className={`rounded-full px-4 py-2 text-xs font-extrabold ${service.live ? "bg-[#e8f9ff] text-[#147c9e]" : "bg-[#1a1a28] text-white"}`}>{service.live ? "Unpublish" : "Publish"}</button></div></article>)}</div></section>;
+type ServiceItem = typeof services[number];
+
+function Services({ liveServices, setLiveServices }: { liveServices: ServiceItem[]; setLiveServices: (nextServices: ServiceItem[]) => void }) {
+  return (
+    <section className="mt-7">
+      <div className="mb-4 flex items-end justify-between">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[.14em] text-[#717182]">Live and draft</p>
+          <h2 className="mt-1 text-2xl font-extrabold">Your current offer</h2>
+        </div>
+        <p className="text-sm font-bold text-[#717182]">{liveServices.filter((service) => service.live).length} live</p>
+      </div>
+      <div className="space-y-4">
+        {liveServices.map((service) => (
+          <article
+            key={service.name}
+            className="group overflow-hidden bg-white p-4 sm:p-5 shadow-[0_12px_36px_rgba(28,118,155,.07)] transition hover:shadow-[0_18px_48px_rgba(28,118,155,.12)]"
+            style={{ borderRadius: "20px 20px 64px 20px" }}
+          >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+              <div className="relative h-36 w-full sm:h-28 sm:w-36 shrink-0 overflow-hidden rounded-[16px_16px_36px_16px] bg-gray-100">
+                <ImageWithFallback
+                  src={service.image}
+                  alt={service.name}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a28]/60 via-transparent to-transparent" />
+                <span className="absolute bottom-2 left-2 grid h-8 w-8 place-items-center rounded-xl bg-white/90 text-lg shadow-sm backdrop-blur">
+                  {service.emoji}
+                </span>
+                <span
+                  className="absolute top-2 right-2 rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase text-white backdrop-blur shadow-sm"
+                  style={{ background: service.live ? "#10b981" : "#717182" }}
+                >
+                  {service.live ? "Published" : "Draft"}
+                </span>
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-extrabold uppercase tracking-[.14em]" style={{ color: service.color }}>
+                    {service.format}
+                  </span>
+                  <span className="text-xs text-[#717182]">•</span>
+                  <span className="text-xs font-extrabold text-[#147c9e]">{service.price}</span>
+                </div>
+                <h3 className="mt-1 text-lg font-extrabold text-[#1a1a28] group-hover:text-[#147c9e] transition">
+                  {service.name}
+                </h3>
+                <div className="mt-3 flex flex-wrap items-center gap-4 text-xs font-bold text-[#717182]">
+                  <span className="rounded-full bg-[#f8fdff] border border-[#33c4f0]/20 px-3 py-1">
+                    👀 {service.views} views
+                  </span>
+                  <span className="rounded-full bg-[#f8fdff] border border-[#33c4f0]/20 px-3 py-1">
+                    📅 {service.bookings} bookings
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 sm:self-center">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setLiveServices(
+                      liveServices.map((item) => (item.name === service.name ? { ...item, live: !item.live } : item))
+                    )
+                  }
+                  className={`rounded-full px-5 py-2.5 text-xs font-extrabold transition ${
+                    service.live
+                      ? "bg-[#e8f9ff] text-[#147c9e] hover:bg-[#d4f2fc]"
+                      : "bg-[#1a1a28] text-white hover:bg-[#33c4f0] hover:text-[#1a1a28]"
+                  }`}
+                >
+                  {service.live ? "Unpublish" : "Publish"}
+                </button>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
 }
 
 function Bookings({ requestStatus, setRequestStatus }: { requestStatus: Record<string, string>; setRequestStatus: (status: Record<string, string>) => void }) {
