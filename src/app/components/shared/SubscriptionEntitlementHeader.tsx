@@ -1,27 +1,38 @@
 import React from 'react';
 import { useSubscription } from '../../context/SubscriptionContext';
-import { Check, Sparkles, Building2, Layers, AlertCircle } from 'lucide-react';
+import { Check, Sparkles, Building2, Layers, AlertCircle, Users, Lock } from 'lucide-react';
 import { Link } from 'react-router';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import logoIcon from '@/imports/Logo.png';
+import { BrandChangeConfirmationModal } from './BrandChangeConfirmationModal';
 
 interface SubscriptionEntitlementHeaderProps {
   variant?: 'horizontal' | 'sidebar';
   showLogo?: boolean;
+  hideCounters?: boolean;
+  topChildren?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const SubscriptionEntitlementHeader: React.FC<SubscriptionEntitlementHeaderProps> = ({
   variant = 'horizontal',
   showLogo = true,
+  hideCounters = false,
+  topChildren,
+  children,
 }) => {
   const {
     planName,
+    planType,
     maxBrands,
     maxActivities,
+    employeeSlotsPerActivity,
     selectedBrand,
     selectedActivities,
+    isBrandLocked,
     unselectBrand,
     unselectActivity,
+    setPlan,
   } = useSubscription();
 
   const brandCount = selectedBrand ? 1 : 0;
@@ -31,231 +42,162 @@ export const SubscriptionEntitlementHeader: React.FC<SubscriptionEntitlementHead
   if (variant === 'sidebar') {
     return (
       <div
-        className="sticky top-8 bg-[#1a1a28] p-5 text-white shadow-[0_16px_42px_rgba(28,118,155,.12)]"
+        className="sticky top-8 overflow-hidden bg-[#15343d] p-4 sm:p-5 text-white shadow-[0_12px_36px_rgba(28,118,155,.12)]"
         style={{ borderRadius: '20px 20px 64px 20px' }}
       >
-        {/* Optional Logo Link Header */}
-        {showLogo && (
-          <div className="border-b border-white/10 pb-4 mb-4">
-            <Link to="/" className="flex items-center gap-3 no-underline">
-              <ImageWithFallback src={logoIcon} alt="CreativeSelf Logo" className="h-8 w-8 object-contain" />
-              <span className="text-lg font-extrabold">
-                <span className="text-[#33c4f0]">creative</span>
-                <span className="text-white">self</span>
-              </span>
-            </Link>
-          </div>
-        )}
+        <BrandChangeConfirmationModal />
 
-        {/* Your Subscription Header */}
-        <div className="flex items-center gap-3">
-          <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#33c4f0]/20 text-[#33c4f0]">
-            <Sparkles size={20} />
-          </div>
-          <div>
-            <p className="text-[10px] font-extrabold uppercase tracking-[.18em] text-[#33c4f0]">Your Subscription</p>
-            <h2 className="text-lg font-extrabold text-white">{planName} Plan</h2>
-          </div>
+        {/* Top Cyan Icon Container */}
+        <div className="grid h-10 w-10 place-items-center rounded-[14px_14px_22px_14px] bg-[#33c4f0] text-[#15343d] mb-3 shadow-md shadow-[#33c4f0]/20">
+          <Sparkles size={18} className="fill-current" />
         </div>
 
-        {/* Counters Stacked Vertically */}
-        <div className="mt-5 space-y-2.5 border-t border-white/10 pt-4">
-          <div
-            className={`flex items-center justify-between rounded-full px-4 py-2.5 text-xs font-bold transition ${
-              brandCount > 0
-                ? 'bg-[#33c4f0]/20 text-[#33c4f0] border border-[#33c4f0]/40'
-                : 'bg-white/10 text-white/80'
-            }`}
-          >
-            <span className="flex items-center gap-2">
-              <Building2 size={15} />
-              <span>Service Brands:</span>
-            </span>
-            <strong className="text-white">{brandCount} / {maxBrands} selected</strong>
-          </div>
-
-          <div
-            className={`flex items-center justify-between rounded-full px-4 py-2.5 text-xs font-bold transition ${
-              activityCount === maxActivities
-                ? 'bg-amber-400/20 text-amber-300 border border-amber-400/40'
-                : activityCount > 0
-                ? 'bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/40'
-                : 'bg-white/10 text-white/80'
-            }`}
-          >
-            <span className="flex items-center gap-2">
-              <Layers size={15} />
-              <span>Activities:</span>
-            </span>
-            <strong className="text-white">{activityCount} / {maxActivities} selected</strong>
-          </div>
-        </div>
-
-        {/* Footer Info Block: Separate Lines for Selected Brand and Subtext */}
-        <div className="mt-5 border-t border-white/10 pt-4 space-y-2">
-          {!selectedBrand ? (
-            <div>
-              <div className="flex items-center gap-2 text-xs font-bold text-[#33c4f0]">
-                <span className="inline-block h-2 w-2 rounded-full bg-[#33c4f0]"></span>
-                <span>Selected Brand: <span className="text-white/60 font-normal">None</span></span>
-              </div>
-              <p className="mt-1.5 text-xs text-white/70 leading-5">
-                Choose one service brand to access its activities.
-              </p>
+        {/* Header Title */}
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-[.14em] text-white/45">YOUR MONTHLY PLAN</p>
+          <div className="mt-0.5 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <Sparkles size={14} className="text-[#33c4f0] shrink-0" />
+              <h2 className="text-sm sm:text-base font-extrabold text-white truncate">{planName}</h2>
             </div>
-          ) : (
-            <div>
-              {/* Line 1: Selected Brand */}
-              <div className="flex items-center justify-between text-xs font-bold text-[#10B981]">
-                <div className="flex items-center gap-2 truncate">
-                  <span className="inline-block h-2 w-2 shrink-0 rounded-full bg-[#10B981]"></span>
-                  <span className="truncate">
-                    Selected Brand: <strong className="text-white">{selectedBrand.name}</strong>
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={unselectBrand}
-                  title="Change brand"
-                  className="ml-2 shrink-0 text-white/40 hover:text-white text-xs"
-                >
-                  ×
-                </button>
-              </div>
-
-              {/* Line 2: Subtext */}
-              <div className="mt-2 text-xs text-white/70 leading-5">
-                {activityCount < maxActivities ? (
-                  <p>You can select up to {remainingActivities} more activity/activities this month.</p>
-                ) : (
-                  <p className="text-amber-300 font-medium flex items-center gap-1.5">
-                    <AlertCircle size={13} className="shrink-0" />
-                    <span>Monthly activity limit reached ({maxActivities} / {maxActivities} selected).</span>
-                  </p>
-                )}
-              </div>
-            </div>
-          )}
+          </div>
         </div>
 
-        {/* Selected Activities Badges (if any selected) */}
-        {selectedActivities.length > 0 && (
-          <div className="mt-4 border-t border-white/10 pt-3">
-            <p className="text-[10px] font-bold uppercase tracking-[.14em] text-white/45 mb-2">Selected Activities</p>
-            <div className="flex flex-wrap gap-2">
-              {selectedActivities.map((act) => (
-                <div
-                  key={act.id}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[#10B981]/20 px-3 py-1 text-[11px] font-bold text-[#10B981] border border-[#10B981]/30"
-                >
-                  <Check size={12} />
-                  <span className="max-w-[120px] truncate">{act.name}</span>
+        {/* Top Children Slot (for top-positioned navigation tabs) */}
+        {topChildren}
+
+        {/* Compact Stacked Metric Cards (Hidden when hideCounters is true) */}
+        {!hideCounters && (
+          <div className="mt-3.5 space-y-2.5">
+            {/* Card 1: BRANDS */}
+            <div className="rounded-xl border border-white/10 bg-white/10 p-3 transition hover:bg-white/15">
+              <div className="flex items-center justify-between">
+                <p className="text-[9px] font-bold uppercase tracking-wider text-white/50">BRANDS</p>
+                {selectedBrand && (
                   <button
                     type="button"
-                    onClick={() => unselectActivity(act.id)}
-                    title="Remove activity"
-                    className="ml-1 text-[#10B981]/60 hover:text-[#10B981]"
+                    onClick={unselectBrand}
+                    className="text-[9px] text-white/50 hover:text-white underline"
                   >
-                    ×
+                    Change
                   </button>
-                </div>
-              ))}
+                )}
+              </div>
+              <p className="mt-0.5 text-lg font-black text-white">{brandCount} / {maxBrands}</p>
+              {selectedBrand && (
+                <p className="mt-0.5 text-[10px] font-semibold text-[#33c4f0] truncate">
+                  ✓ {selectedBrand.name}
+                </p>
+              )}
             </div>
+
+            {/* Card 2: ACTIVITIES */}
+            <div className="rounded-xl border border-white/10 bg-white/10 p-3 transition hover:bg-white/15">
+              <p className="text-[9px] font-bold uppercase tracking-wider text-white/50">ACTIVITIES</p>
+              <p className="mt-0.5 text-lg font-black text-white">{activityCount} / {maxActivities}</p>
+              <p className="mt-0.5 text-[10px] text-white/50 truncate">
+                {remainingActivities > 0 ? `${remainingActivities} remaining this month` : 'Limit reached'}
+              </p>
+            </div>
+
+            {/* Card 3: EMPLOYEE SLOTS (If corporate) */}
+            {planType === 'corporate' && (
+              <div className="rounded-xl border border-white/10 bg-white/10 p-3 transition hover:bg-white/15">
+                <p className="text-[9px] font-bold uppercase tracking-wider text-white/50">EMPLOYEE SLOTS</p>
+                <p className="mt-0.5 text-lg font-black text-purple-300">{employeeSlotsPerActivity}</p>
+                <p className="mt-0.5 text-[10px] text-white/50">Slots per activity</p>
+              </div>
+            )}
           </div>
         )}
+
+        {/* Bottom Helper Description */}
+        <p className="mt-3.5 text-[11px] sm:text-xs text-white/65 leading-relaxed font-medium">
+          Choose a service brand, then build a month of restorative experiences.
+        </p>
+
+        {/* Children slot for page-specific navigation tabs */}
+        {children}
       </div>
     );
   }
 
-  // Horizontal variant (for main area or mobile view)
+  // Horizontal variant (EXACT MATCH to Dashboard image layout!)
   return (
-    <div className="overflow-hidden bg-[#1a1a28] p-6 text-white shadow-[0_16px_42px_rgba(28,118,155,.12)]" style={{ borderRadius: '20px 20px 64px 20px' }}>
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
-        <div className="flex items-center gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded-full bg-[#33c4f0]/20 text-[#33c4f0]">
-            <Sparkles size={20} />
-          </div>
-          <div>
-            <p className="text-xs font-extrabold uppercase tracking-[.18em] text-[#33c4f0]">Your Subscription</p>
-            <h2 className="text-xl font-extrabold text-white">{planName} Plan</h2>
+    <section
+      className="overflow-hidden bg-[#1a1a28] p-5 text-white shadow-[0_16px_42px_rgba(28,118,155,.14)]"
+      style={{ borderRadius: '20px 20px 64px 20px' }}
+    >
+      <BrandChangeConfirmationModal />
+
+      {/* Top Title Line */}
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[.16em] text-white/45">YOUR CREATIVE PLAN</p>
+          <div className="mt-1 flex items-center gap-2">
+            <h2 className="text-xl font-extrabold text-white">{planName}</h2>
+            <span className="rounded-full bg-[#33c4f0] px-2.5 py-1 text-[10px] font-extrabold text-[#1a1a28]">
+              Active
+            </span>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
-          {/* Service Brands Counter */}
-          <div className={`flex items-center gap-2.5 rounded-full px-4 py-2 text-xs font-extrabold transition ${brandCount > 0 ? 'bg-[#33c4f0]/20 text-[#33c4f0] border border-[#33c4f0]/40' : 'bg-white/10 text-white/80'}`}>
-            <Building2 size={15} />
-            <span>Service Brands: <strong className="text-white">{brandCount} / {maxBrands}</strong> selected</span>
-          </div>
-
-          {/* Activities Counter */}
-          <div className={`flex items-center gap-2.5 rounded-full px-4 py-2 text-xs font-extrabold transition ${activityCount === maxActivities ? 'bg-amber-400/20 text-amber-300 border border-amber-400/40' : activityCount > 0 ? 'bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/40' : 'bg-white/10 text-white/80'}`}>
-            <Layers size={15} />
-            <span>Activities: <strong className="text-white">{activityCount} / {maxActivities}</strong> selected</span>
-          </div>
-        </div>
+        <p className="text-xs text-white/50">Your plan renews on 31 Aug.</p>
       </div>
 
-      {/* Helper Context & Entitlement Summary */}
-      <div className="mt-4 flex flex-col gap-2 text-xs">
-        {!selectedBrand ? (
-          <div>
-            <p className="flex items-center gap-2 font-bold text-[#33c4f0]">
-              <span className="inline-block h-2 w-2 rounded-full bg-[#33c4f0]"></span>
-              Selected Brand: <span className="text-white/60 font-normal">None</span>
-            </p>
-            <p className="mt-1 text-white/70">
-              Choose one service brand to access its activities.
-            </p>
+      {/* 3-Column Inner Card Grid matching screenshot */}
+      <div className="mt-5 grid gap-3 sm:grid-cols-3">
+        {/* Card 1: Subscribed Brands */}
+        <div className="rounded-[20px_20px_48px_20px] border border-white/10 bg-white/[.07] p-4 transition hover:bg-white/[.12]">
+          <div className="flex items-center justify-between">
+            <p className="text-2xl font-extrabold text-[#33c4f0]">{brandCount} / {maxBrands}</p>
           </div>
-        ) : (
-          <div>
-            <div className="flex items-center justify-between font-bold text-[#10B981]">
-              <div className="flex items-center gap-2">
-                <span className="inline-block h-2 w-2 rounded-full bg-[#10B981]"></span>
-                Selected Brand: <strong className="text-white">{selectedBrand.name}</strong>
-              </div>
+          <p className="mt-1 text-xs font-bold text-white">Subscribed Service Brands</p>
+          <div className="mt-1 flex items-center justify-between">
+            <p className="text-[11px] text-white/70 font-semibold truncate">
+              {selectedBrand ? selectedBrand.name : 'Select a brand to start'}
+            </p>
+            {selectedBrand && (
               <button
                 type="button"
                 onClick={unselectBrand}
-                title="Change brand"
-                className="text-white/40 hover:text-white text-xs"
+                className="text-[11px] text-[#33c4f0] hover:underline font-bold ml-2 shrink-0"
               >
-                Change brand ×
+                Change brand
               </button>
+            )}
+          </div>
+        </div>
+
+        {/* Card 2: Services Remaining */}
+        <div className="rounded-[20px_20px_48px_20px] border border-white/10 bg-white/[.07] p-4 transition hover:bg-white/[.12]">
+          <p className="text-2xl font-extrabold text-[#33c4f0]">{remainingActivities}</p>
+          <p className="mt-1 text-xs font-bold text-white">Services remaining</p>
+          <p className="mt-1 text-[11px] text-white/50">
+            {activityCount} of {maxActivities} activities selected this month
+          </p>
+        </div>
+
+        {/* Card 3: Employee Slots / Selected Activities */}
+        {planType === 'corporate' ? (
+          <div className="rounded-[20px_20px_48px_20px] border border-white/10 bg-white/[.07] p-4 transition hover:bg-white/[.12]">
+            <p className="text-2xl font-extrabold text-purple-400">{employeeSlotsPerActivity}</p>
+            <p className="mt-1 text-xs font-bold text-white">Employee slots per activity</p>
+            <p className="mt-1 text-[11px] text-white/50">Corporate team allocation</p>
+          </div>
+        ) : (
+          <div className="rounded-[20px_20px_48px_20px] border border-white/10 bg-white/[.07] p-4 transition hover:bg-white/[.12]">
+            <div className="flex -space-x-2">
+              <span className="grid h-7 w-7 place-items-center rounded-full border-2 border-[#1a1a28] bg-[#ef4444]/70 text-xs">🎨</span>
+              <span className="grid h-7 w-7 place-items-center rounded-full border-2 border-[#1a1a28] bg-[#10b981]/70 text-xs">🧘</span>
             </div>
-            <p className="mt-1.5 text-white/70">
-              {activityCount < maxActivities ? (
-                `You can select up to ${remainingActivities} more activity/activities this month.`
-              ) : (
-                <span className="text-amber-300 font-bold flex items-center gap-1.5">
-                  <AlertCircle size={14} />
-                  Monthly Activity Limit Reached ({maxActivities} / {maxActivities} selected). Browse details anytime.
-                </span>
-              )}
+            <p className="mt-2 text-xs font-bold text-white">Selected activities</p>
+            <p className="mt-1 text-[11px] text-white/50 truncate">
+              {selectedActivities.map((a) => a.name).join(', ') || 'No activities selected yet'}
             </p>
           </div>
         )}
-
-        {selectedActivities.length > 0 && (
-          <div className="mt-2 flex flex-wrap items-center gap-2 pt-2 border-t border-white/10">
-            {selectedActivities.map((act) => (
-              <div key={act.id} className="inline-flex items-center gap-1.5 rounded-full bg-[#10B981]/20 px-3 py-1 text-[11px] font-bold text-[#10B981] border border-[#10B981]/30">
-                <Check size={12} />
-                <span className="max-w-[140px] truncate">{act.name}</span>
-                <button
-                  type="button"
-                  onClick={() => unselectActivity(act.id)}
-                  title="Remove activity"
-                  className="ml-1 text-[#10B981]/60 hover:text-[#10B981]"
-                >
-                  ×
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
-    </div>
+    </section>
   );
 };

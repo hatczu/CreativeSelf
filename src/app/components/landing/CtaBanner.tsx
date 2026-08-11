@@ -4,7 +4,11 @@ import { ArrowRight } from 'lucide-react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import kaleidoscope from '../../../imports/CS_Kaleidescope_Juice_Drop.png';
 
-export function CtaBanner() {
+interface CtaBannerProps {
+  onOpenRegister?: () => void;
+}
+
+export function CtaBanner({ onOpenRegister }: CtaBannerProps) {
   return (
     <section
       id="about"
@@ -128,8 +132,8 @@ export function CtaBanner() {
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          <Link
-            to="/test"
+          <button
+            onClick={() => onOpenRegister ? onOpenRegister() : null}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -140,7 +144,8 @@ export function CtaBanner() {
               fontSize: '1.05rem',
               fontWeight: 700,
               color: '#1A1A28',
-              textDecoration: 'none',
+              border: 'none',
+              cursor: 'pointer',
               background: 'linear-gradient(135deg, #33C4F0 0%, #ffffff 150%)',
               boxShadow: '0 12px 40px rgba(51,196,240,0.45)',
               transition: 'all 0.25s ease',
@@ -154,11 +159,11 @@ export function CtaBanner() {
               (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 40px rgba(51,196,240,0.45)';
             }}
           >
-            Discover Your Creative Personality
+            Register & Get Started
             <ArrowRight size={18} />
-          </Link>
+          </button>
           <Link
-            to="/corporate"
+            to="/test"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -183,7 +188,7 @@ export function CtaBanner() {
               (e.currentTarget as HTMLElement).style.background = 'transparent';
             }}
           >
-            For Organizations
+            Take Creativity Test
           </Link>
         </motion.div>
       </div>

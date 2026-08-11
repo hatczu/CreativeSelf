@@ -12,9 +12,11 @@ import { VendorDashboard } from "./pages/VendorDashboard";
 import { VendorWorkspacePages } from "./pages/VendorWorkspacePages";
 import { VendorContentStudio } from "./pages/VendorContentStudio";
 import { AdminWorkspace } from "./pages/AdminWorkspace";
+import { EmployeeInvitesDashboard } from "./pages/EmployeeInvitesDashboard";
 
 export const router = createBrowserRouter([
   { path: "/bookings", Component: BookingsPage },
+  { path: "/invites", Component: EmployeeInvitesDashboard },
   { path: "/vendor", Component: VendorDashboard },
   { path: "/vendor/services", Component: VendorWorkspacePages },
   { path: "/vendor/content", Component: VendorContentStudio },
@@ -36,6 +38,7 @@ export const router = createBrowserRouter([
       { path: "test", Component: PersonalityTest },
       { path: "dashboard", Component: WellnessFeed },
       { path: "corporate", Component: WellnessFeed },
+      { path: "invites", Component: EmployeeInvitesDashboard },
       {
         path: "discover",
         Component: () => (

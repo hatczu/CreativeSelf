@@ -13,7 +13,11 @@ const personalityTags = [
   { label: 'The Explorer', color: '#8B5CF6', delay: 1.2 },
 ];
 
-export function HeroSection() {
+interface HeroSectionProps {
+  onOpenRegister?: () => void;
+}
+
+export function HeroSection({ onOpenRegister }: HeroSectionProps) {
   return (
     <section
       id="hero"
@@ -103,13 +107,13 @@ export function HeroSection() {
 
             {/* CTA buttons */}
             <motion.div
-              className="inline-flex w-fit max-w-full flex-row flex-nowrap gap-4 whitespace-nowrap"
+              className="flex flex-wrap items-center gap-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <Link
-                to="/test"
+              <button
+                onClick={() => onOpenRegister ? onOpenRegister() : null}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -119,7 +123,8 @@ export function HeroSection() {
                   fontSize: '1rem',
                   fontWeight: 700,
                   color: '#ffffff',
-                  textDecoration: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
                   background: 'linear-gradient(135deg, #33C4F0 0%, #1A8EBF 100%)',
                   boxShadow: '0 8px 28px rgba(51,196,240,0.45)',
                   transition: 'all 0.25s ease',
@@ -133,43 +138,35 @@ export function HeroSection() {
                   (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 28px rgba(51,196,240,0.45)';
                 }}
               >
-                Discover Your Creative Personality
+                Register Now
                 <ArrowRight size={18} />
-              </Link>
+              </button>
 
-              <a
-                href="#discover"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector('#discover')?.scrollIntoView({ behavior: 'smooth' });
-                }}
+              <Link
+                to="/test"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  padding: '0.875rem 1.75rem',
+                  padding: '0.875rem 1.5rem',
                   borderRadius: '9999px',
-                  fontSize: '1rem',
+                  fontSize: '0.95rem',
                   fontWeight: 600,
                   color: '#2A2A3A',
                   textDecoration: 'none',
-                  background: 'transparent',
-                  border: '2px solid rgba(42,42,58,0.18)',
+                  background: 'rgba(51,196,240,0.1)',
+                  border: '1.5px solid rgba(51,196,240,0.3)',
                   transition: 'all 0.25s ease',
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = '#33C4F0';
-                  (e.currentTarget as HTMLElement).style.color = '#1AB0DC';
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.06)';
+                  (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.2)';
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(42,42,58,0.18)';
-                  (e.currentTarget as HTMLElement).style.color = '#2A2A3A';
-                  (e.currentTarget as HTMLElement).style.background = 'transparent';
+                  (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.1)';
                 }}
               >
-                Explore Activities
-              </a>
+                Creativity Test
+              </Link>
             </motion.div>
 
             {/* Personality type tags */}

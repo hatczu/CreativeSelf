@@ -4,6 +4,7 @@ import { useSubscription, ActivityItem } from '../context/SubscriptionContext';
 import { mockActivities, mockVendors } from '../data/subscriptionData';
 import { SubscriptionEntitlementHeader } from '../components/shared/SubscriptionEntitlementHeader';
 import { ActivityLimitModal } from '../components/shared/ActivityLimitModal';
+import { EmployeeSlotManagerModal } from '../components/corporate/EmployeeSlotManagerModal';
 import { UniversalSidebar } from '../components/layout/UniversalSidebar';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import {
@@ -35,8 +36,11 @@ export function ServiceDetailPage() {
 
   const {
     planName,
+    planType,
     maxBrands,
     maxActivities,
+    employeeSlotsPerActivity,
+    getInvitesForActivity,
     selectedBrand,
     selectedActivities,
     selectActivity,
@@ -52,6 +56,9 @@ export function ServiceDetailPage() {
   const isLimitReached = selectedActivities.length >= maxActivities;
 
   const [selectedSlot, setSelectedSlot] = useState<string | null>(activity.schedule[0]?.id || null);
+  const [isSlotModalOpen, setIsSlotModalOpen] = useState(false);
+
+  const assignedInvites = getInvitesForActivity(activity.id);
 
   const handleSelectToggle = () => {
     if (selected) {
@@ -86,6 +93,12 @@ export function ServiceDetailPage() {
   return (
     <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
       <ActivityLimitModal />
+      <EmployeeSlotManagerModal
+        isOpen={isSlotModalOpen}
+        onClose={() => setIsSlotModalOpen(false)}
+        activityId={activity.id}
+        activityName={activity.name}
+      />
 
       <UniversalSidebar />
 
@@ -170,6 +183,29 @@ export function ServiceDetailPage() {
                 <h2 className="text-lg font-extrabold text-[#1a1a28]">About this Activity</h2>
                 <p className="mt-3 text-sm leading-7 text-[#414153]">{activity.description}</p>
 
+                {/* Corporate Slot Management Banner if Corporate */}
+                {planType === 'corporate' && (
+                  <div className="mt-5 rounded-2xl bg-gradient-to-r from-purple-50 via-cyan-50 to-blue-50 border border-purple-200 p-5 flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                      <span className="text-[10px] uppercase font-black tracking-widest text-purple-700">Corporate Subscription Entitlement</span>
+                      <h4 className="text-base font-extrabold text-gray-900 mt-0.5">
+                        {employeeSlotsPerActivity} Employee Slots Available
+                      </h4>
+                      <p className="text-xs text-gray-600 mt-1">
+                        Currently {assignedInvites.length} of {employeeSlotsPerActivity} employee slots allocated with invite codes.
+                      </p>
+                    </div>
+
+                    <button
+                      onClick={() => setIsSlotModalOpen(true)}
+                      className="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow"
+                    >
+                      <Users size={15} />
+                      Manage Employee Slots & Invites
+                    </button>
+                  </div>
+                )}
+
                 {/* Highlights */}
                 <div className="mt-5 rounded-2xl bg-[#f8fdff] border border-[#33c4f0]/20 p-5">
                   <h3 className="text-xs font-extrabold uppercase tracking-[.14em] text-[#33c4f0]">Activity Highlights</h3>
@@ -217,7 +253,7 @@ export function ServiceDetailPage() {
                 </div>
               </section>
 
-              {/* Schedule & Availability (No Prices!) */}
+              {/* Schedule & Availability */}
               <section className="border-t border-[#33c4f0]/15 pt-6">
                 <h2 className="text-lg font-extrabold text-[#1a1a28]">Upcoming Schedule & Availability</h2>
                 <p className="mt-1 text-xs text-[#717182]">Select a slot for your subscription booking:</p>
@@ -256,50 +292,6 @@ export function ServiceDetailPage() {
                   })}
                 </div>
               </section>
-
-              {/* Requirements & Policy */}
-              <section className="grid gap-6 border-t border-[#33c4f0]/15 pt-6 sm:grid-cols-2">
-                <div>
-                  <h3 className="text-sm font-extrabold text-[#1a1a28]">Requirements</h3>
-                  <ul className="mt-2 space-y-1 text-xs text-[#717182]">
-                    {activity.requirements.map((r, idx) => (
-                      <li key={idx}>• {r}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-sm font-extrabold text-[#1a1a28]">What to Bring</h3>
-                  <ul className="mt-2 space-y-1 text-xs text-[#717182]">
-                    {activity.whatToBring.map((b, idx) => (
-                      <li key={idx}>• {b}</li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
-
-              {/* Related Activities */}
-              {relatedActivities.length > 0 && (
-                <section className="border-t border-[#33c4f0]/15 pt-6">
-                  <h2 className="text-lg font-extrabold text-[#1a1a28]">More Activities from {vendor.name}</h2>
-                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                    {relatedActivities.map((rel) => (
-                      <div key={rel.id} className="overflow-hidden rounded-2xl border border-[#33c4f0]/20 bg-white">
-                        <div className="h-32 w-full overflow-hidden bg-gray-100">
-                          <ImageWithFallback src={rel.image} alt={rel.name} className="h-full w-full object-cover" />
-                        </div>
-                        <div className="p-4">
-                          <span className="text-xs font-extrabold uppercase" style={{ color: rel.color }}>{rel.category}</span>
-                          <h4 className="mt-1 text-base font-extrabold text-[#1a1a28]">{rel.name}</h4>
-                          <p className="mt-1 text-xs text-[#717182]">{rel.duration}</p>
-                          <Link to={`/discover/services/${rel.id}`} className="mt-3 inline-block text-xs font-bold text-[#147c9e] hover:underline">
-                            View Activity →
-                          </Link>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
             </div>
           </div>
         </main>
@@ -309,7 +301,10 @@ export function ServiceDetailPage() {
           <div className="sticky top-8 space-y-6">
             <div className="overflow-hidden bg-white p-6 shadow-[0_16px_42px_rgba(28,118,155,.08)]" style={{ borderRadius: '20px 20px 64px 20px' }}>
               <div className="border-b border-[#33c4f0]/15 pb-4">
-                <p className="text-xs font-extrabold uppercase tracking-[.14em] text-[#33c4f0]">Your Subscription</p>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-extrabold uppercase tracking-[.14em] text-[#33c4f0]">Your Subscription</p>
+                  <span className="text-[10px] font-black uppercase bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded-full">{planType}</span>
+                </div>
                 <h3 className="mt-1 text-xl font-extrabold text-[#1a1a28]">{planName}</h3>
                 <span className="mt-2 inline-block rounded-full bg-[#10b981]/15 px-3 py-1 text-xs font-extrabold text-[#087e58]">
                   Included in your plan
@@ -328,6 +323,20 @@ export function ServiceDetailPage() {
                     <span className="text-[#10b981]">{selectedActivities.length} / {maxActivities} used</span>
                   </div>
                 </div>
+
+                {planType === 'corporate' && (
+                  <div className="rounded-xl bg-purple-50 border border-purple-200 p-3.5 text-xs">
+                    <p className="font-extrabold text-purple-900">Employee Slots per Activity</p>
+                    <p className="text-purple-700 mt-0.5 font-bold">{employeeSlotsPerActivity} slots</p>
+                    <button
+                      onClick={() => setIsSlotModalOpen(true)}
+                      className="mt-2.5 w-full py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-[11px] flex items-center justify-center gap-1 shadow-sm"
+                    >
+                      <Users size={13} />
+                      Manage Employee Invites
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Primary Action Button Area */}

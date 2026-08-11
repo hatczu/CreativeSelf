@@ -1,78 +1,101 @@
 import { useState } from 'react';
-import { Link } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import { Check, Sparkles } from 'lucide-react';
+import { Check, Sparkles, ArrowRight } from 'lucide-react';
 
-const individualPlans = [
+export const individualPlans = [
   {
-    name: 'Basic Creative',
+    id: 'basic-creative',
+    name: 'BASIC CREATIVE',
     price: 'Free',
     sub: 'Forever',
-    features: ['1 Service Brand', '2 Activities per month', 'Creative Personality Test', 'Basic Acumen recommendations'],
-    cta: 'Get Started Free',
+    features: ['1 Service Brand', '2 Activities Per Month', 'Creative Personality Assessment', 'Acumen AI recommendations'],
+    cta: 'Apply & Register',
     highlighted: false,
     color: '#717182',
   },
   {
-    name: 'Advanced Creative',
+    id: 'advanced-creative',
+    name: 'ADVANCED CREATIVE',
     price: '$49',
     sub: 'per month',
-    features: ['2 Service Brands', '4 Activities per month', 'Full Acumen AI analysis', 'Personalized learning plan', 'Priority booking'],
+    features: ['2 Service Brands', '4 Activities Per Month', 'Full Acumen AI analysis', 'Personalized learning plan', 'Priority reservations'],
     cta: 'Start Advanced',
     highlighted: true,
     color: '#33C4F0',
   },
   {
-    name: 'Elite Creative',
+    id: 'elite-creative',
+    name: 'ELITE CREATIVE',
     price: '$99',
     sub: 'per month',
-    features: ['3 Service Brands', '6 Activities per month', 'Unlimited Acumen AI', 'Custom learning journeys', 'Exclusive experiences', 'Community access'],
+    features: ['3 Service Brands', '6 Activities Per Month', 'Unlimited Acumen AI', 'Custom learning journeys', 'Exclusive experiences'],
     cta: 'Go Elite',
     highlighted: false,
     color: '#8B5CF6',
   },
   {
-    name: 'One-on-One Creative',
+    id: 'one-on-one-creative',
+    name: 'ONE-ON-ONE CREATIVE',
     price: 'Custom',
     sub: 'pricing',
-    features: ['Custom consulting', 'Personal creative coaching', 'Tailored program design', 'Direct expert access', 'Flexible scheduling'],
+    features: ['Custom Consulting & Coaching Fees Apply', 'Personal creative coaching', 'Direct expert access', 'Flexible scheduling'],
+    cta: 'Apply Now',
+    highlighted: false,
+    color: '#F59E0B',
+  },
+];
+
+export const corporatePlans = [
+  {
+    id: 'basic-creative-team',
+    name: 'BASIC CREATIVE TEAM',
+    price: '$299',
+    sub: 'per month',
+    features: ['2 Service Brands', '4 Activities', '8 employees per Activity per Month', 'Team engagement dashboard'],
+    cta: 'Start Team Plan',
+    highlighted: false,
+    color: '#717182',
+  },
+  {
+    id: 'advanced-creative-team',
+    name: 'ADVANCED CREATIVE TEAM',
+    price: '$599',
+    sub: 'per month',
+    features: ['4 Service Brands', '6 Activities', '10 employees per Activity per Month', 'Corporate engagement reports', 'Dedicated account manager'],
+    cta: 'Scale Your Team',
+    highlighted: true,
+    color: '#33C4F0',
+  },
+  {
+    id: 'elite-creative-team',
+    name: 'ELITE CREATIVE TEAM',
+    price: '$1,199',
+    sub: 'per month',
+    features: ['6 Service Brands', '12 Activities', '15 employees per Activity per Month', 'Executive insights dashboard', 'On-site facilitation'],
+    cta: 'Go Enterprise',
+    highlighted: false,
+    color: '#8B5CF6',
+  },
+  {
+    id: 'custom-creative-corporate',
+    name: 'CUSTOM CREATIVE',
+    price: 'Custom',
+    sub: 'pricing',
+    features: ['Custom Creative Activities', 'Learning Plans', 'Corporate Consulting', 'Enterprise SLA & Support'],
     cta: 'Talk to Us',
     highlighted: false,
     color: '#F59E0B',
   },
 ];
 
-const corporatePlans = [
-  {
-    name: 'Basic Creative Team',
-    price: '$299',
-    sub: 'per month',
-    features: ['2 Service Brands', '4 Activities', 'Up to 8 employees per activity', 'Team engagement dashboard', 'Acumen team analysis'],
-    cta: 'Start Team Plan',
-    highlighted: false,
-    color: '#717182',
-  },
-  {
-    name: 'Advanced Creative Team',
-    price: '$599',
-    sub: 'per month',
-    features: ['4 Service Brands', '6 Activities', 'Up to 10 employees per activity', 'Corporate engagement reports', 'Custom learning plans', 'Dedicated account manager'],
-    cta: 'Scale Your Team',
-    highlighted: true,
-    color: '#33C4F0',
-  },
-  {
-    name: 'Elite Creative Team',
-    price: '$1,199',
-    sub: 'per month',
-    features: ['6 Service Brands', '12 Activities', 'Up to 15 employees per activity', 'Executive insights dashboard', 'Custom activities & programs', 'Vendor management portal', 'On-site facilitation'],
-    cta: 'Go Enterprise',
-    highlighted: false,
-    color: '#8B5CF6',
-  },
-];
+interface PlanCardProps {
+  plan: typeof individualPlans[0];
+  index: number;
+  category: 'individual' | 'corporate';
+  onSelectPlan?: (planId: string, category: 'individual' | 'corporate') => void;
+}
 
-function PlanCard({ plan, index }: { plan: typeof individualPlans[0]; index: number }) {
+function PlanCard({ plan, index, category, onSelectPlan }: PlanCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -80,7 +103,7 @@ function PlanCard({ plan, index }: { plan: typeof individualPlans[0]; index: num
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       style={{
-        borderRadius: '3.25rem 1.05rem 3.25rem 1.35rem',
+        borderRadius: '2.5rem 1.05rem 2.5rem 1.35rem',
         padding: '2rem',
         position: 'relative',
         background: plan.highlighted
@@ -123,7 +146,7 @@ function PlanCard({ plan, index }: { plan: typeof individualPlans[0]; index: num
             fontWeight: 700,
             letterSpacing: '0.08em',
             textTransform: 'uppercase' as const,
-            color: plan.highlighted ? 'rgba(255,255,255,0.7)' : plan.color,
+            color: plan.highlighted ? 'rgba(255,255,255,0.75)' : plan.color,
             marginBottom: '0.5rem',
           }}
         >
@@ -166,7 +189,8 @@ function PlanCard({ plan, index }: { plan: typeof individualPlans[0]; index: num
             <span
               style={{
                 fontSize: '0.875rem',
-                color: plan.highlighted ? 'rgba(255,255,255,0.9)' : '#3A3A4A',
+                fontWeight: 500,
+                color: plan.highlighted ? 'rgba(255,255,255,0.95)' : '#3A3A4A',
               }}
             >
               {feature}
@@ -175,16 +199,19 @@ function PlanCard({ plan, index }: { plan: typeof individualPlans[0]; index: num
         ))}
       </ul>
 
-      <Link
-        to="/test"
+      <button
+        onClick={() => onSelectPlan ? onSelectPlan(plan.id, category) : null}
         style={{
-          display: 'block',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.5rem',
+          width: '100%',
           padding: '0.875rem 1.5rem',
           borderRadius: '9999px',
           fontSize: '0.95rem',
           fontWeight: 700,
-          textAlign: 'center' as const,
-          textDecoration: 'none',
+          cursor: 'pointer',
           background: plan.highlighted ? '#ffffff' : `${plan.color}15`,
           color: plan.highlighted ? '#1A6FAD' : plan.color,
           border: plan.highlighted ? 'none' : `2px solid ${plan.color}30`,
@@ -208,12 +235,17 @@ function PlanCard({ plan, index }: { plan: typeof individualPlans[0]; index: num
         }}
       >
         {plan.cta}
-      </Link>
+        <ArrowRight size={16} />
+      </button>
     </motion.div>
   );
 }
 
-export function PricingSection() {
+interface PricingSectionProps {
+  onOpenRegister?: (planId?: string, category?: 'individual' | 'corporate') => void;
+}
+
+export function PricingSection({ onOpenRegister }: PricingSectionProps) {
   const [tab, setTab] = useState<'individual' | 'corporate'>('individual');
   const plans = tab === 'individual' ? individualPlans : corporatePlans;
 
@@ -253,7 +285,7 @@ export function PricingSection() {
         </motion.div>
 
         <motion.div
-          className="text-center mb-10"
+          className="text-center mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -268,11 +300,8 @@ export function PricingSection() {
               marginBottom: '1rem',
             }}
           >
-            Choose Your Creative Journey
+            Choose Your Creative Subscription
           </h2>
-          <p style={{ fontSize: '1.05rem', color: '#717182', maxWidth: '480px', margin: '0 auto 2rem', lineHeight: 1.7 }}>
-            Plans for individuals exploring their creative potential, and organizations building creative teams.
-          </p>
 
           {/* Toggle */}
           <div
@@ -282,6 +311,7 @@ export function PricingSection() {
               borderRadius: '9999px',
               background: '#F0FBFF',
               border: '1.5px solid rgba(51,196,240,0.2)',
+              marginBottom: '1.5rem',
             }}
           >
             {(['individual', 'corporate'] as const).map((t) => (
@@ -305,6 +335,32 @@ export function PricingSection() {
               </button>
             ))}
           </div>
+
+          {/* Specified Header Taglines */}
+          {tab === 'individual' ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="max-w-xl mx-auto p-4 rounded-2xl bg-cyan-50/70 border border-cyan-100 mb-8"
+            >
+              <p style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1AB0DC', marginBottom: '0.25rem' }}>
+                Search. Find. Discover. Connect
+              </p>
+              <p style={{ fontSize: '0.95rem', fontWeight: 600, color: '#4A5568' }}>
+                Choose the right creative activity and learning plan to empower you!
+              </p>
+            </motion.div>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="max-w-xl mx-auto p-4 rounded-2xl bg-purple-50/70 border border-purple-100 mb-8"
+            >
+              <p style={{ fontSize: '1.1rem', fontWeight: 800, color: '#8B5CF6', letterSpacing: '0.02em', textTransform: 'uppercase' }}>
+                DISCOVER THE RIGHT CORPORATE SUBSCRIPTION FOR YOU.
+              </p>
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Plans */}
@@ -315,10 +371,10 @@ export function PricingSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="flex flex-col md:flex-row gap-5 items-stretch"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch"
           >
             {plans.map((plan, i) => (
-              <PlanCard key={plan.name} plan={plan} index={i} />
+              <PlanCard key={plan.name} plan={plan} index={i} category={tab} onSelectPlan={onOpenRegister} />
             ))}
           </motion.div>
         </AnimatePresence>
@@ -344,8 +400,7 @@ export function PricingSection() {
           >
             <Sparkles size={16} color="#8B5CF6" />
             <span style={{ fontSize: '0.9rem', color: '#717182' }}>
-              Need something custom? We offer{' '}
-              <strong style={{ color: '#8B5CF6' }}>tailored activities, learning plans, and corporate consulting.</strong>
+              CUSTOM CREATIVE ACTIVITIES, LEARNING PLANS AND CORPORATE CONSULTING.
             </span>
           </div>
         </motion.div>

@@ -13,7 +13,11 @@ const navLinks = [
   { label: 'About', href: '#about' },
 ];
 
-export function NavBar() {
+interface NavBarProps {
+  onOpenRegister?: () => void;
+}
+
+export function NavBar({ onOpenRegister }: NavBarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
@@ -93,11 +97,11 @@ export function NavBar() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2.5">
             <Link
               to="/dashboard"
               style={{
-                padding: '0.5rem 1.25rem',
+                padding: '0.5rem 1.1rem',
                 borderRadius: '9999px',
                 fontSize: '0.875rem',
                 fontWeight: 600,
@@ -117,15 +121,17 @@ export function NavBar() {
             >
               Log In
             </Link>
-            <Link
-              to="/test"
+
+            <button
+              onClick={() => onOpenRegister ? onOpenRegister() : null}
               style={{
-                padding: '0.5rem 1.5rem',
+                padding: '0.5rem 1.35rem',
                 borderRadius: '9999px',
                 fontSize: '0.875rem',
                 fontWeight: 700,
                 color: '#ffffff',
-                textDecoration: 'none',
+                border: 'none',
+                cursor: 'pointer',
                 background: 'linear-gradient(135deg, #33C4F0 0%, #1AB0DC 100%)',
                 boxShadow: '0 4px 16px rgba(51,196,240,0.4)',
                 transition: 'all 0.2s ease',
@@ -139,7 +145,30 @@ export function NavBar() {
                 (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 16px rgba(51,196,240,0.4)';
               }}
             >
-              Take the Creativity Test
+              Register
+            </button>
+
+            <Link
+              to="/test"
+              style={{
+                padding: '0.5rem 1.25rem',
+                borderRadius: '9999px',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                color: '#1AB0DC',
+                textDecoration: 'none',
+                background: 'rgba(51,196,240,0.1)',
+                border: '1px solid rgba(51,196,240,0.3)',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.2)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.1)';
+              }}
+            >
+              Creativity Test
             </Link>
           </div>
 
@@ -202,6 +231,26 @@ export function NavBar() {
               ))}
             </nav>
             <div className="flex flex-col gap-3">
+              <button
+                onClick={() => {
+                  setMobileOpen(false);
+                  if (onOpenRegister) onOpenRegister();
+                }}
+                style={{
+                  padding: '0.75rem',
+                  borderRadius: '9999px',
+                  fontSize: '0.95rem',
+                  fontWeight: 700,
+                  color: '#fff',
+                  border: 'none',
+                  background: 'linear-gradient(135deg, #33C4F0 0%, #1AB0DC 100%)',
+                  textAlign: 'center',
+                  boxShadow: '0 4px 16px rgba(51,196,240,0.4)',
+                  cursor: 'pointer',
+                }}
+              >
+                Register Now
+              </button>
               <Link
                 to="/dashboard"
                 style={{
@@ -224,12 +273,11 @@ export function NavBar() {
                   padding: '0.75rem',
                   borderRadius: '9999px',
                   fontSize: '0.95rem',
-                  fontWeight: 700,
-                  color: '#fff',
+                  fontWeight: 600,
+                  color: '#1AB0DC',
                   textDecoration: 'none',
-                  background: 'linear-gradient(135deg, #33C4F0 0%, #1AB0DC 100%)',
+                  background: 'rgba(51,196,240,0.1)',
                   textAlign: 'center',
-                  boxShadow: '0 4px 16px rgba(51,196,240,0.4)',
                 }}
                 onClick={() => setMobileOpen(false)}
               >
