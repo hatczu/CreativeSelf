@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Search, Compass, Zap, Link2 } from 'lucide-react';
+import { MagnifyingGlass as Search, Compass, Lightning as Zap, Link as Link2 } from '@phosphor-icons/react';
 import { BlobShape } from '../shared/BlobShape';
 
 const discoverySteps = [

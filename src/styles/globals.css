@@ -1,4 +1,6 @@
 :root {
+  --font-primary: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-secondary: 'Poppins', sans-serif;
   --cs-cyan: #33C4F0;
   --cs-cyan-dark: #1AB0DC;
   --cs-cyan-light: #E8F9FF;
@@ -25,11 +27,31 @@ html, body, #root {
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-primary);
   background-color: #ffffff;
   color: var(--cs-charcoal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+p,
+span,
+label,
+small,
+sub,
+sup,
+input,
+textarea,
+select,
+.font-secondary,
+.secondary-text,
+.subtext,
+.text-secondary {
+  font-family: var(--font-secondary);
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading, .font-primary {
+  font-family: var(--font-primary);
 }
 
 html {

@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
-import { Instagram, Twitter, Linkedin, Youtube } from 'lucide-react';
+import { InstagramLogo as Instagram, TwitterLogo as Twitter, LinkedinLogo as Linkedin, YoutubeLogo as Youtube } from '@phosphor-icons/react';
 import logoWhite from '../../../imports/image.png';
 
 const footerLinks = {

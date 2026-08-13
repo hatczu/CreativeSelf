@@ -1,10 +1,10 @@
 import { Link } from 'react-router';
 import { motion } from 'motion/react';
 import {
-  Sparkles, Calendar, BookOpen, Heart, Star, TrendingUp,
-  Music, Mountain, Cpu, Palette, ChevronRight, Bell, Settings,
-  LayoutDashboard, Compass, Award, ShoppingBag, User
-} from 'lucide-react';
+  Sparkle as Sparkles, CalendarBlank as Calendar, BookOpen, Heart, Star, TrendUp as TrendingUp,
+  MusicNotes as Music, Mountains as Mountain, Cpu, Palette, CaretRight as ChevronRight, Bell, Gear as Settings,
+  SquaresFour as LayoutDashboard, Compass, Trophy as Award, ShoppingBag, User
+} from '@phosphor-icons/react';
 import { personalityTypes } from '../components/landing/PersonalitySection';
 import { BlobShape } from '../components/shared/BlobShape';
 
@@ -102,7 +102,7 @@ export function UserDashboard() {
         minHeight: '100vh',
         background: '#F8FCFF',
         display: 'flex',
-        fontFamily: 'Plus Jakarta Sans, sans-serif',
+        fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif",
         paddingTop: '0',
       }}
     >

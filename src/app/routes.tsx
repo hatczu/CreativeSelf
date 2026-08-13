@@ -8,15 +8,22 @@ import { DiscoverPage } from "./pages/DiscoverPage";
 import { ServiceDetailPage } from "./pages/ServiceDetailPage";
 import { VendorDetailPage } from "./pages/VendorDetailPage";
 import { BookingsPage } from "./pages/BookingsPage";
+import { BookingDetailPage } from "./pages/BookingDetailPage";
 import { VendorDashboard } from "./pages/VendorDashboard";
 import { VendorWorkspacePages } from "./pages/VendorWorkspacePages";
 import { VendorContentStudio } from "./pages/VendorContentStudio";
 import { AdminWorkspace } from "./pages/AdminWorkspace";
 import { EmployeeInvitesDashboard } from "./pages/EmployeeInvitesDashboard";
+import { PostDetailPage } from "./pages/PostDetailPage";
+import { RegisterPage } from "./pages/RegisterPage";
 
 export const router = createBrowserRouter([
+  { path: "/register", Component: RegisterPage },
   { path: "/bookings", Component: BookingsPage },
+  { path: "/bookings/:bookingId", Component: BookingDetailPage },
   { path: "/invites", Component: EmployeeInvitesDashboard },
+  { path: "/posts/:postId", Component: PostDetailPage },
+  { path: "/vendor/posts/:postId", Component: PostDetailPage },
   { path: "/vendor", Component: VendorDashboard },
   { path: "/vendor/services", Component: VendorWorkspacePages },
   { path: "/vendor/content", Component: VendorContentStudio },
@@ -38,6 +45,9 @@ export const router = createBrowserRouter([
       { path: "test", Component: PersonalityTest },
       { path: "dashboard", Component: WellnessFeed },
       { path: "corporate", Component: WellnessFeed },
+      { path: "posts/:postId", Component: PostDetailPage },
+      { path: "dashboard/posts/:postId", Component: PostDetailPage },
+      { path: "corporate/posts/:postId", Component: PostDetailPage },
       { path: "invites", Component: EmployeeInvitesDashboard },
       {
         path: "discover",
@@ -46,6 +56,7 @@ export const router = createBrowserRouter([
         ),
       },
       { path: "bookings", Component: BookingsPage },
+      { path: "bookings/:bookingId", Component: BookingDetailPage },
       { path: "discover/services", Component: DiscoverPage },
       {
         path: "discover/services/:serviceId",
@@ -65,6 +76,10 @@ export const router = createBrowserRouter([
       {
         path: "vendor/content",
         Component: VendorContentStudio,
+      },
+      {
+        path: "vendor/posts/:postId",
+        Component: PostDetailPage,
       },
       {
         path: "vendor/bookings",

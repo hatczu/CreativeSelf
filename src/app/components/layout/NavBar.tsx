@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { List as Menu, X } from '@phosphor-icons/react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import logoTransparent from '../../../imports/image.png';
 

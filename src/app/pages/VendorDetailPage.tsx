@@ -9,22 +9,22 @@ import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import {
   Star,
   Check,
-  ChevronLeft,
+  CaretLeft as ChevronLeft,
   MapPin,
   Clock,
-  Building2,
-  Sparkles,
-  Layers,
+  Buildings as Building2,
+  Sparkle as Sparkles,
+  Stack as Layers,
   Compass,
-  CalendarDays,
+  CalendarBlank as CalendarDays,
   Users,
-  Settings,
-  LogOut,
+  Gear as Settings,
+  SignOut as LogOut,
   Info,
   ShieldCheck,
   Eye,
-  AlertCircle,
-} from 'lucide-react';
+  WarningCircle as AlertCircle,
+} from '@phosphor-icons/react';
 
 export function VendorDetailPage() {
   const { vendorId } = useParams<{ vendorId: string }>();
@@ -101,7 +101,7 @@ export function VendorDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif" }}>
       <ActivityLimitModal />
 
       <UniversalSidebar />

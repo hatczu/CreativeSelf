@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
 import {
-  Search, Plus, Filter, MoreHorizontal, Check, X,
-  Star, ChevronDown, UserCheck, Building2, Users,
+  MagnifyingGlass as Search, Plus, Funnel as Filter, DotsThree as MoreHorizontal, Check, X,
+  Star, CaretDown as ChevronDown, UserCheck, Buildings as Building2, Users,
   ArrowLeft
-} from 'lucide-react';
+} from '@phosphor-icons/react';
 
 type VendorStatus = 'Active' | 'Pending' | 'Inactive';
 type VendorCategory = 'Talent' | 'Trainer' | 'Coach' | 'Group' | 'Association' | 'Service Brand' | 'Activity Provider';
@@ -60,7 +60,7 @@ export function VendorManagement() {
   });
 
   return (
-    <div style={{ minHeight: '100vh', background: '#F8FCFF', fontFamily: 'Plus Jakarta Sans, sans-serif', paddingTop: '5rem' }}>
+    <div style={{ minHeight: '100vh', background: '#F8FCFF', fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif", paddingTop: '5rem' }}>
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -186,7 +186,7 @@ export function VendorManagement() {
                     color: '#1A1A28',
                     outline: 'none',
                     flex: 1,
-                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                    fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif",
                   }}
                 />
               </div>
@@ -207,7 +207,7 @@ export function VendorManagement() {
                     outline: 'none',
                     cursor: 'pointer',
                     appearance: 'none',
-                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                    fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif",
                   }}
                 >
                   <option value="All">All Categories</option>
@@ -232,7 +232,7 @@ export function VendorManagement() {
                     outline: 'none',
                     cursor: 'pointer',
                     appearance: 'none',
-                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                    fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif",
                   }}
                 >
                   <option value="All">All Statuses</option>

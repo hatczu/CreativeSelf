@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { motion } from 'motion/react';
-import { TrendingUp, Users, Heart, Brain, Award, Zap, Sparkles } from 'lucide-react';
+import { TrendUp as TrendingUp, Users, Heart, Brain, Trophy as Award, Lightning as Zap, Sparkle as Sparkles } from '@phosphor-icons/react';
 import { BlobShape } from '../shared/BlobShape';
 
 const painPoints = [

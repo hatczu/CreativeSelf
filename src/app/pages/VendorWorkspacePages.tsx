@@ -3,35 +3,35 @@ import { Link, useLocation } from "react-router";
 import { RoleSwitcher } from "../components/layout/RoleSwitcher";
 import { useSubscription } from "../context/SubscriptionContext";
 import {
-  BarChart3,
-  CalendarDays,
+  ChartBar as BarChart3,
+  CalendarBlank as CalendarDays,
   Check,
-  ChevronRight,
-  Clock3,
-  LayoutDashboard,
-  LogOut,
-  PackageOpen,
+  CaretRight as ChevronRight,
+  Clock as Clock3,
+  SquaresFour as LayoutDashboard,
+  SignOut as LogOut,
+  Package as PackageOpen,
   Image as ImageIcon,
   Plus,
-  Settings,
-  Sparkles,
+  Gear as Settings,
+  Sparkle as Sparkles,
   Users,
   X,
   Ticket,
-  Download,
+  DownloadSimple as Download,
   MapPin,
   Eye,
-  CheckCircle2,
+  CheckCircle as CheckCircle2,
   Clock,
-  UserX,
-  Search,
-  MailCheck,
+  UserMinus as UserX,
+  MagnifyingGlass as Search,
+  EnvelopeSimple as MailCheck,
   Copy,
   Lock,
   Columns,
-  ListFilter,
+  Funnel as ListFilter,
   ArrowRight,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import logoIcon from "@/imports/Logo.png";
 
@@ -141,7 +141,7 @@ export function VendorWorkspacePages() {
   const title = page === "services" ? "Services that teams can say yes to." : page === "bookings" ? "Your team moments, all in one place." : "See what your creative work is opening up.";
   const eyebrow = page === "services" ? "Your service catalogue" : page === "bookings" ? "Bookings & delivery" : "Marketplace insights";
 
-  return <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}><VendorRail page={page} /><div className="mx-auto grid max-w-[1480px] gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_850px_280px] lg:justify-center lg:px-8 lg:py-12 lg:pl-[76px]"><VendorProfile /><main><header className="overflow-hidden bg-white p-6 shadow-[0_16px_42px_rgba(28,118,155,.08)]" style={{ borderRadius: "20px 20px 64px 20px" }}><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-extrabold uppercase tracking-[.18em] text-[#33c4f0]">{eyebrow}</p><h1 className="mt-2 text-3xl font-extrabold leading-tight">{title}</h1><p className="mt-3 max-w-xl text-sm leading-6 text-[#717182]">{page === "services" ? "Keep your offers current, clear, and easy for teams to book." : page === "bookings" ? "Respond to requests, prepare sessions, and keep delivery feeling effortless." : "A clear picture of how teams are finding, choosing, and returning to Studio Lumen."}</p></div>{page === "services" && <button type="button" onClick={() => setShowComposer(true)} className="inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-4 py-3 text-xs font-extrabold text-white"><Plus size={16} />New service</button>}</div></header>{page === "services" ? <Services liveServices={liveServices} setLiveServices={setLiveServices} /> : page === "bookings" ? <Bookings requestStatus={requestStatus} setRequestStatus={setRequestStatus} /> : <Insights />}</main><VendorSide page={page} /></div>{showComposer && <div className="fixed inset-0 z-50 grid place-items-center bg-[#1a1a28]/45 p-5" role="dialog" aria-modal="true"><div className="relative w-full max-w-xl bg-white p-7 shadow-2xl" style={{ borderRadius: "20px 20px 64px 20px" }}><button type="button" onClick={() => setShowComposer(false)} className="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-[#f2fbfe]" aria-label="Close"><X size={18} /></button><p className="text-xs font-extrabold uppercase tracking-[.16em] text-[#147c9e]">New service</p><h2 className="mt-2 text-3xl font-extrabold">Make it easy to say yes.</h2><input className="mt-7 w-full rounded-[16px_16px_40px_16px] border border-[#33c4f0]/25 bg-[#f9fdff] px-4 py-3 text-sm" placeholder="Service name" /><textarea className="mt-4 min-h-28 w-full rounded-[16px_16px_40px_16px] border border-[#33c4f0]/25 bg-[#f9fdff] p-4 text-sm" placeholder="What will this experience make possible for a team?" /><button type="button" onClick={() => setShowComposer(false)} className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-6 py-3 text-sm font-extrabold text-white"><Sparkles size={16} />Save draft</button></div></div>}</div>;
+  return <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif" }}><VendorRail page={page} /><div className="mx-auto grid max-w-[1480px] gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_850px_280px] lg:justify-center lg:px-8 lg:py-12 lg:pl-[76px]"><VendorProfile /><main><header className="overflow-hidden bg-white p-6 shadow-[0_16px_42px_rgba(28,118,155,.08)]" style={{ borderRadius: "20px 20px 64px 20px" }}><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-extrabold uppercase tracking-[.18em] text-[#33c4f0]">{eyebrow}</p><h1 className="mt-2 text-3xl font-extrabold leading-tight">{title}</h1><p className="mt-3 max-w-xl text-sm leading-6 text-[#717182]">{page === "services" ? "Keep your offers current, clear, and easy for teams to book." : page === "bookings" ? "Respond to requests, prepare sessions, and keep delivery feeling effortless." : "A clear picture of how teams are finding, choosing, and returning to Studio Lumen."}</p></div>{page === "services" && <button type="button" onClick={() => setShowComposer(true)} className="inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-4 py-3 text-xs font-extrabold text-white"><Plus size={16} />New service</button>}</div></header>{page === "services" ? <Services liveServices={liveServices} setLiveServices={setLiveServices} /> : page === "bookings" ? <Bookings requestStatus={requestStatus} setRequestStatus={setRequestStatus} /> : <Insights />}</main><VendorSide page={page} /></div>{showComposer && <div className="fixed inset-0 z-50 grid place-items-center bg-[#1a1a28]/45 p-5" role="dialog" aria-modal="true"><div className="relative w-full max-w-xl bg-white p-7 shadow-2xl" style={{ borderRadius: "20px 20px 64px 20px" }}><button type="button" onClick={() => setShowComposer(false)} className="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-[#f2fbfe]" aria-label="Close"><X size={18} /></button><p className="text-xs font-extrabold uppercase tracking-[.16em] text-[#147c9e]">New service</p><h2 className="mt-2 text-3xl font-extrabold">Make it easy to say yes.</h2><input className="mt-7 w-full rounded-[16px_16px_40px_16px] border border-[#33c4f0]/25 bg-[#f9fdff] px-4 py-3 text-sm" placeholder="Service name" /><textarea className="mt-4 min-h-28 w-full rounded-[16px_16px_40px_16px] border border-[#33c4f0]/25 bg-[#f9fdff] p-4 text-sm" placeholder="What will this experience make possible for a team?" /><button type="button" onClick={() => setShowComposer(false)} className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-6 py-3 text-sm font-extrabold text-white"><Sparkles size={16} />Save draft</button></div></div>}</div>;
 }
 
 type ServiceItem = typeof services[number];

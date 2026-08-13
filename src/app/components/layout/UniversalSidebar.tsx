@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router';
-import { LayoutDashboard, Compass, CalendarDays, Settings, LogOut, Users } from 'lucide-react';
+import { SquaresFour as LayoutDashboard, Compass, CalendarBlank as CalendarDays, Gear as Settings, SignOut as LogOut, Users } from '@phosphor-icons/react';
 import { RoleSwitcher } from './RoleSwitcher';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import logoIcon from '@/imports/Logo.png';

@@ -3,19 +3,19 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   X,
   Users,
-  Mail,
+  Envelope as Mail,
   User,
-  Building2,
-  CheckCircle2,
-  Send,
+  Buildings as Building2,
+  CheckCircle as CheckCircle2,
+  PaperPlaneRight as Send,
   Copy,
   Check,
   Ticket,
   Clock,
-  UserX,
-  Sparkles,
-  AlertCircle,
-} from 'lucide-react';
+  UserMinus as UserX,
+  Sparkle as Sparkles,
+  WarningCircle as AlertCircle,
+} from '@phosphor-icons/react';
 import { useSubscription, EmployeeInvite } from '../../context/SubscriptionContext';
 
 interface EmployeeSlotManagerModalProps {

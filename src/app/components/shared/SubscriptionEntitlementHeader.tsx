@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSubscription } from '../../context/SubscriptionContext';
-import { Check, Sparkles, Building2, Layers, AlertCircle, Users, Lock } from 'lucide-react';
+import { Check, Sparkle as Sparkles, Buildings as Building2, Stack as Layers, WarningCircle as AlertCircle, Users, Lock } from '@phosphor-icons/react';
 import { Link } from 'react-router';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import logoIcon from '@/imports/Logo.png';

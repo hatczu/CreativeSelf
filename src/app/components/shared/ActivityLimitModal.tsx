@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSubscription } from '../../context/SubscriptionContext';
-import { AlertCircle, Check, X, Calendar, Sparkles } from 'lucide-react';
+import { WarningCircle as AlertCircle, Check, X, CalendarBlank as Calendar, Sparkle as Sparkles } from '@phosphor-icons/react';
 import { useNavigate } from 'react-router';
 
 export const ActivityLimitModal: React.FC = () => {

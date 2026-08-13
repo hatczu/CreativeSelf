@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { ArrowLeftRight } from "lucide-react";
+import { ArrowsLeftRight as ArrowLeftRight } from "@phosphor-icons/react";
 
 type Role = "client" | "vendor" | "admin";
 

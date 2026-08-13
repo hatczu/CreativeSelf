@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Check, Sparkles, ArrowRight } from 'lucide-react';
+import { Check, Sparkle as Sparkles, ArrowRight } from '@phosphor-icons/react';
 
 export const individualPlans = [
   {

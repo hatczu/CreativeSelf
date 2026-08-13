@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { Link, useLocation, useParams } from "react-router";
 import {
-  Award, BarChart3, BookOpen, Building2, Calendar, Check, ChevronRight,
-  Compass, Heart, LayoutDashboard, Settings, ShoppingBag, Sparkles, Users,
-  UserCheck, Zap,
-} from "lucide-react";
+  Trophy as Award, ChartBar as BarChart3, BookOpen, Buildings as Building2, CalendarBlank as Calendar, Check, CaretRight as ChevronRight,
+  Compass, Heart, SquaresFour as LayoutDashboard, Gear as Settings, ShoppingBag, Sparkle as Sparkles, Users,
+  UserCheck, Lightning as Zap,
+} from "@phosphor-icons/react";
 
 const personalNav = [
   { slug: "dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -112,7 +112,7 @@ export function WorkspaceModule() {
   const home = corporate ? "/corporate" : "/dashboard";
 
   return (
-    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28] md:flex" style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}>
+    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28] md:flex" style={{ fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif" }}>
       <aside className="hidden min-h-screen w-60 shrink-0 flex-col bg-[#1a1a28] px-5 py-8 md:flex" style={{ borderRadius: "0 52px 52px 0" }}>
         <Link to={home} className="mb-8 text-lg font-extrabold no-underline"><span className="text-[#33c4f0]">creative</span><span className="text-white">self</span></Link>
         <div className="mb-6 rounded-[20px_20px_64px_20px] border border-white/10 bg-white/5 p-4">

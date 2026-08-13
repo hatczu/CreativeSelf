@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { motion } from 'motion/react';
-import { Sparkles, Brain, Zap, Users } from 'lucide-react';
+import { Sparkle as Sparkles, Brain, Lightning as Zap, Users } from '@phosphor-icons/react';
 import { DropletShape } from '../shared/BlobShape';
 
 const outcomes = [

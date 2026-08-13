@@ -6,22 +6,22 @@ import { SubscriptionEntitlementHeader } from '../components/shared/Subscription
 import { EmployeeSlotManagerModal } from '../components/corporate/EmployeeSlotManagerModal';
 import {
   Users,
-  CheckCircle2,
+  CheckCircle as CheckCircle2,
   Clock,
-  UserX,
-  Send,
-  Search,
+  UserMinus as UserX,
+  PaperPlaneRight as Send,
+  MagnifyingGlass as Search,
   Copy,
   Check,
   Plus,
   Ticket,
-  Building2,
-  CalendarDays,
-  Sparkles,
-  Filter,
-  RefreshCw,
-  MailCheck,
-} from 'lucide-react';
+  Buildings as Building2,
+  CalendarBlank as CalendarDays,
+  Sparkle as Sparkles,
+  Funnel as Filter,
+  ArrowsClockwise as RefreshCw,
+  EnvelopeSimple as MailCheck,
+} from '@phosphor-icons/react';
 
 export function EmployeeInvitesDashboard() {
   const [searchParams] = useSearchParams();
@@ -83,7 +83,7 @@ export function EmployeeInvitesDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif" }}>
       <UniversalSidebar />
 
       <EmployeeSlotManagerModal

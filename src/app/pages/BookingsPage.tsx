@@ -5,12 +5,12 @@ import { SubscriptionEntitlementHeader } from "../components/shared/Subscription
 import { UniversalSidebar } from "../components/layout/UniversalSidebar";
 import { RoleSwitcher } from "../components/layout/RoleSwitcher";
 import { EmployeeSlotManagerModal } from "../components/corporate/EmployeeSlotManagerModal";
-import { CalendarDays, Check, Clock3, Compass, LayoutDashboard, LogOut, MapPin, Search, Settings, Users, Sparkles, X, Ticket, Plus, Lock, Clock } from "lucide-react";
+import { CalendarBlank as CalendarDays, Check, Clock as Clock3, Compass, SquaresFour as LayoutDashboard, SignOut as LogOut, MapPin, MagnifyingGlass as Search, Gear as Settings, Users, Sparkle as Sparkles, X, Ticket, Plus, Lock, Clock } from "@phosphor-icons/react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import logoIcon from "@/imports/Logo.png";
 
 const defaultUpcoming = [
-  { title: "Watercolour without perfection", provider: "Studio Lumen · Heart of Art", date: "Thursday, Aug 8", time: "3:00 PM · 90 min", place: "Lumen Studio, Shoreditch", color: "#EF4444", emoji: "🎨", guests: "Included in Basic Creative" },
+  { id: "watercolour-without-perfection", title: "Watercolour without perfection", provider: "Studio Lumen · Heart of Art", date: "Thursday, Aug 8", time: "3:00 PM · 90 min", place: "Lumen Studio, Shoreditch", color: "#EF4444", emoji: "🎨", guests: "Included in Basic Creative" },
 ];
 
 const past = [
@@ -50,12 +50,17 @@ export function BookingsPage() {
     isDynamic: true,
   }));
 
-  const allUpcoming = dynamicUpcoming.length > 0 ? dynamicUpcoming : defaultUpcoming;
+  const mergedUpcoming = [
+    ...dynamicUpcoming,
+    ...defaultUpcoming.filter((d) => !dynamicUpcoming.some((dyn) => dyn.id === d.id)),
+  ];
+
+  const allUpcoming = mergedUpcoming;
   const sessions = tab === "upcoming" ? allUpcoming : past;
   const calendarDays = Array.from({ length: 31 }, (_, index) => index + 1);
 
   return (
-    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: "Plus Jakarta Sans, sans-serif" }}>
+    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif" }}>
       <UniversalSidebar />
 
       <EmployeeSlotManagerModal
@@ -214,7 +219,7 @@ export function BookingsPage() {
                       )}
 
                       <Link
-                        to={session.id ? `/discover/services/${session.id}` : "/discover/services"}
+                        to={session.id ? `/bookings/${session.id}` : "/bookings"}
                         className="rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-center text-xs font-extrabold text-[#1a1a28] no-underline hover:bg-gray-50 transition"
                       >
                         View Details

@@ -6,22 +6,22 @@ import { SubscriptionEntitlementHeader } from '../components/shared/Subscription
 import { ActivityLimitModal } from '../components/shared/ActivityLimitModal';
 import { RoleSwitcher } from '../components/layout/RoleSwitcher';
 import {
-  CalendarDays,
+  CalendarBlank as CalendarDays,
   Check,
   Compass,
-  LayoutDashboard,
-  LogOut,
-  Search,
-  Settings,
+  SquaresFour as LayoutDashboard,
+  SignOut as LogOut,
+  MagnifyingGlass as Search,
+  Gear as Settings,
   SlidersHorizontal,
-  Sparkles,
+  Sparkle as Sparkles,
   Star,
   Users,
   X,
-  ChevronRight,
+  CaretRight as ChevronRight,
   Eye,
-  Building2,
-} from 'lucide-react';
+  Buildings as Building2,
+} from '@phosphor-icons/react';
 import { UniversalSidebar } from '../components/layout/UniversalSidebar';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import logoIcon from '@/imports/Logo.png';
@@ -69,7 +69,7 @@ export function DiscoverPage() {
   const activeThemeObj = themeCategories.find((t) => t.id === selectedTheme);
 
   return (
-    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif" }}>
       <UniversalSidebar />
       <ActivityLimitModal />
 

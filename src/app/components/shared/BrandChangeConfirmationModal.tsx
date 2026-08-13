@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Lock, AlertTriangle, X, Trash2, ArrowRight } from 'lucide-react';
+import { Lock, Warning as AlertTriangle, X, Trash as Trash2, ArrowRight } from '@phosphor-icons/react';
 import { useSubscription } from '../../context/SubscriptionContext';
 
 export const BrandChangeConfirmationModal: React.FC = () => {

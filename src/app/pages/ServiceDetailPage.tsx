@@ -8,27 +8,27 @@ import { EmployeeSlotManagerModal } from '../components/corporate/EmployeeSlotMa
 import { UniversalSidebar } from '../components/layout/UniversalSidebar';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import {
-  CalendarDays,
+  CalendarBlank as CalendarDays,
   Check,
-  ChevronLeft,
+  CaretLeft as ChevronLeft,
   Clock,
   Compass,
   Heart,
   Info,
-  LayoutDashboard,
-  LogOut,
+  SquaresFour as LayoutDashboard,
+  SignOut as LogOut,
   MapPin,
-  MessageSquare,
-  Search,
-  Settings,
-  Share2,
-  Sparkles,
+  ChatTeardropText as MessageSquare,
+  MagnifyingGlass as Search,
+  Gear as Settings,
+  ShareNetwork as Share2,
+  Sparkle as Sparkles,
   Star,
   Users,
   ShieldCheck,
-  Calendar,
-  AlertCircle,
-} from 'lucide-react';
+  CalendarBlank as Calendar,
+  WarningCircle as AlertCircle,
+} from '@phosphor-icons/react';
 
 export function ServiceDetailPage() {
   const { serviceId } = useParams<{ serviceId: string }>();
@@ -91,7 +91,7 @@ export function ServiceDetailPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+    <div className="min-h-screen bg-[#f7fcff] text-[#1a1a28]" style={{ fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif" }}>
       <ActivityLimitModal />
       <EmployeeSlotManagerModal
         isOpen={isSlotModalOpen}

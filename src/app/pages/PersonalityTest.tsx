@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, ArrowRight, Sparkles, RotateCcw } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Sparkle as Sparkles, ArrowCounterClockwise as RotateCcw } from '@phosphor-icons/react';
 import { personalityTypes } from '../components/landing/PersonalitySection';
 import { DropletShape } from '../components/shared/BlobShape';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';

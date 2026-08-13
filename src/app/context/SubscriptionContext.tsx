@@ -168,47 +168,65 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
   });
 
+  const defaultActivities: ActivityItem[] = [
+    {
+      id: 'ceramic-pottery-workshop',
+      name: 'Ceramic Pottery & Clay Workshop',
+      vendorId: 'abc-creative-studio',
+      vendorName: 'ABC Creative Studio',
+      category: 'Heart of Art',
+      duration: '2 Hours',
+      location: 'Downtown Studio',
+      description: 'Hands-on clay sculpting and wheel throwing experience.',
+      color: '#33C4F0',
+      symbol: '🏺',
+      image: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop&q=60',
+    },
+    {
+      id: 'mindful-watercolor-painting',
+      name: 'Mindful Watercolor Painting',
+      vendorId: 'abc-creative-studio',
+      vendorName: 'ABC Creative Studio',
+      category: 'Heart of Art',
+      duration: '1.5 Hours',
+      location: 'Westside Loft',
+      description: 'Express yourself through color gradients and gentle brushstrokes.',
+      color: '#8B5CF6',
+      symbol: '🎨',
+      image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800&auto=format&fit=crop&q=60',
+    },
+    {
+      id: 'watercolour-without-perfection',
+      name: 'Watercolour without perfection',
+      vendorId: 'studio-lumen',
+      vendorName: 'Studio Lumen',
+      category: 'Heart of Art',
+      duration: '90 min',
+      location: 'Lumen Studio, Shoreditch',
+      description: 'Designed to help individuals re-engage their creative intuition without the pressure of perfection.',
+      color: '#EF4444',
+      symbol: '🎨',
+      image: 'https://images.unsplash.com/photo-1582201942988-13e60e4556ee?w=800&auto=format&fit=crop&q=60',
+    },
+  ];
+
   const [selectedActivities, setSelectedActivities] = useState<ActivityItem[]>(() => {
     const saved = localStorage.getItem(STORAGE_KEY_ACTIVITIES);
     if (saved) {
-      try { return JSON.parse(saved); } catch (e) { /* ignore */ }
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const existingIds = new Set(parsed.map((a: any) => a.id));
+          const missingDefaults = defaultActivities.filter((a) => !existingIds.has(a.id));
+          return [...parsed, ...missingDefaults];
+        }
+      } catch (e) { /* ignore */ }
     }
-    return [
-      {
-        id: 'ceramic-pottery-workshop',
-        name: 'Ceramic Pottery & Clay Workshop',
-        vendorId: 'abc-creative-studio',
-        vendorName: 'ABC Creative Studio',
-        category: 'Heart of Art',
-        duration: '2 Hours',
-        location: 'Downtown Studio',
-        description: 'Hands-on clay sculpting and wheel throwing experience.',
-        color: '#33C4F0',
-        symbol: '🏺',
-        image: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop&q=60',
-      },
-      {
-        id: 'mindful-watercolor-painting',
-        name: 'Mindful Watercolor Painting',
-        vendorId: 'abc-creative-studio',
-        vendorName: 'ABC Creative Studio',
-        category: 'Heart of Art',
-        duration: '1.5 Hours',
-        location: 'Westside Loft',
-        description: 'Express yourself through color gradients and gentle brushstrokes.',
-        color: '#8B5CF6',
-        symbol: '🎨',
-        image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800&auto=format&fit=crop&q=60',
-      },
-    ];
+    return defaultActivities;
   });
 
   const [employeeInvites, setEmployeeInvites] = useState<EmployeeInvite[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEY_INVITES);
-    if (saved) {
-      try { return JSON.parse(saved); } catch (e) { /* ignore */ }
-    }
-    return [
+    const defaultInvites: EmployeeInvite[] = [
       {
         id: 'inv-1',
         activityId: 'ceramic-pottery-workshop',
@@ -257,22 +275,75 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
         id: 'inv-5',
         activityId: 'mindful-watercolor-painting',
         activityName: 'Mindful Watercolor Painting',
-        employeeName: 'Chloe Bennett',
-        employeeEmail: 'chloe.b@acme.corp',
-        department: 'Human Resources',
-        inviteCode: 'CS-INV-3329-CB',
+        employeeName: 'Samantha Chen',
+        employeeEmail: 'samantha.c@acme.corp',
+        department: 'People & Culture',
+        inviteCode: 'CS-INV-5512-SC',
         sentAt: '2026-08-11',
-        status: 'Cancelled',
+        status: 'Going',
+      },
+      {
+        id: 'inv-6',
+        activityId: 'mindful-watercolor-painting',
+        activityName: 'Mindful Watercolor Painting',
+        employeeName: 'Alex Rivera',
+        employeeEmail: 'alex.r@acme.corp',
+        department: 'Product Ops',
+        inviteCode: 'CS-INV-9943-AR',
+        sentAt: '2026-08-12',
+        status: 'Pending',
+      },
+      {
+        id: 'inv-7',
+        activityId: 'watercolour-without-perfection',
+        activityName: 'Watercolour without perfection',
+        employeeName: 'Rachel Green',
+        employeeEmail: 'rachel.g@acme.corp',
+        department: 'Brand Strategy',
+        inviteCode: 'CS-INV-2201-RG',
+        sentAt: '2026-08-08',
+        status: 'Going',
+      },
+      {
+        id: 'inv-8',
+        activityId: 'watercolour-without-perfection',
+        activityName: 'Watercolour without perfection',
+        employeeName: 'Liam O\'Connor',
+        employeeEmail: 'liam.o@acme.corp',
+        department: 'Design',
+        inviteCode: 'CS-INV-3384-LO',
+        sentAt: '2026-08-08',
+        status: 'Going',
       },
     ];
+
+    const saved = localStorage.getItem(STORAGE_KEY_INVITES);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          // Merge missing defaults if needed
+          const existingIds = new Set(parsed.map((i: any) => i.id));
+          const toAdd = defaultInvites.filter((i) => !existingIds.has(i.id));
+          return [...parsed, ...toAdd];
+        }
+      } catch (e) { /* ignore */ }
+    }
+    return defaultInvites;
   });
 
   const [vendorConfirmedActivities, setVendorConfirmedActivities] = useState<string[]>(() => {
+    const defaultConfirmed = ['ceramic-pottery-workshop', 'mindful-watercolor-painting', 'watercolour-without-perfection'];
     const saved = localStorage.getItem(STORAGE_KEY_VENDOR_CONFIRMED);
     if (saved) {
-      try { return JSON.parse(saved); } catch (e) { /* ignore */ }
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          return Array.from(new Set([...parsed, ...defaultConfirmed]));
+        }
+      } catch (e) { /* ignore */ }
     }
-    return ['ceramic-pottery-workshop'];
+    return defaultConfirmed;
   });
 
   const [isLimitModalOpen, setIsLimitModalOpen] = useState(false);

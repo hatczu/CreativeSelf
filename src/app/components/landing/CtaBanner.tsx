@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { motion } from 'motion/react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from '@phosphor-icons/react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import kaleidoscope from '../../../imports/CS_Kaleidescope_Juice_Drop.png';
 

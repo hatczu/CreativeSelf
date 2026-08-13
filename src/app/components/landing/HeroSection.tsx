@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { motion } from 'motion/react';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkle as Sparkles } from '@phosphor-icons/react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { BlobShape } from '../shared/BlobShape';
 import kaleidoscope from '../../../imports/CS_Kaleidescope_Juice_Drop.png';

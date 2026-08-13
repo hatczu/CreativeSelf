@@ -1,10 +1,10 @@
 import { Link } from 'react-router';
 import { motion } from 'motion/react';
 import {
-  LayoutDashboard, Users, Calendar, BookOpen, BarChart3,
-  Settings, ShoppingBag, UserCheck, TrendingUp, Zap,
-  Bell, Plus, ChevronRight, Building2
-} from 'lucide-react';
+  SquaresFour as LayoutDashboard, Users, CalendarBlank as Calendar, BookOpen, ChartBar as BarChart3,
+  Gear as Settings, ShoppingBag, UserCheck, TrendUp as TrendingUp, Lightning as Zap,
+  Bell, Plus, CaretRight as ChevronRight, Buildings as Building2
+} from '@phosphor-icons/react';
 import { BlobShape } from '../components/shared/BlobShape';
 
 const company = {
@@ -63,7 +63,7 @@ const navItems = [
 
 export function CorporateDashboard() {
   return (
-    <div style={{ minHeight: '100vh', background: '#F5F3FF', display: 'flex', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: '#F5F3FF', display: 'flex', fontFamily: "'Century Gothic', CenturyGothic, AppleGothic, sans-serif" }}>
       {/* Sidebar */}
       <aside
         className="hidden md:flex"
