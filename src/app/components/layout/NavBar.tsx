@@ -6,11 +6,11 @@ import { ImageWithFallback } from '../figma/ImageWithFallback';
 import logoTransparent from '../../../imports/image.png';
 
 const navLinks = [
-  { label: 'Discover', href: '#discover' },
-  { label: 'Creative Personality', href: '#personality' },
-  { label: 'Activities', href: '#brands' },
+  { label: 'Home', href: '/' },
+  { label: 'Brand Services', href: '/services' },
+  { label: 'Personality Test', href: '/test' },
+  { label: 'Pricing', href: '#pricing' },
   { label: 'For Business', href: '#corporate' },
-  { label: 'About', href: '#about' },
 ];
 
 interface NavBarProps {
@@ -29,10 +29,16 @@ export function NavBar({ onOpenRegister }: NavBarProps) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleAnchor = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (isLanding && href.startsWith('#')) {
-      e.preventDefault();
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      if (isLanding) {
+        e.preventDefault();
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        // Navigate to home then scroll
+      }
+      setMobileOpen(false);
+    } else {
       setMobileOpen(false);
     }
   };
@@ -68,36 +74,45 @@ export function NavBar({ onOpenRegister }: NavBarProps) {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={isLanding ? link.href : '/'}
-                onClick={(e) => handleAnchor(e, link.href)}
-                style={{
-                  padding: '0.5rem 1rem',
-                  borderRadius: '9999px',
-                  fontSize: '0.9rem',
-                  fontWeight: 500,
-                  color: '#2A2A3A',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s ease',
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.12)';
-                  (e.currentTarget as HTMLElement).style.color = '#1AB0DC';
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.background = 'transparent';
-                  (e.currentTarget as HTMLElement).style.color = '#2A2A3A';
-                }}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isAnchor = link.href.startsWith('#');
+              const Component = isAnchor ? 'a' : Link;
+              const props = isAnchor ? { href: isLanding ? link.href : `/${link.href}` } : { to: link.href };
+
+              return (
+                <Component
+                  key={link.label}
+                  {...(props as any)}
+                  onClick={(e: any) => handleNavClick(e, link.href)}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    borderRadius: '9999px',
+                    fontSize: '0.9rem',
+                    fontWeight: 600,
+                    color: location.pathname === link.href ? '#1AB0DC' : '#2A2A3A',
+                    textDecoration: 'none',
+                    background: location.pathname === link.href ? 'rgba(51,196,240,0.1)' : 'transparent',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.12)';
+                    (e.currentTarget as HTMLElement).style.color = '#1AB0DC';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (location.pathname !== link.href) {
+                      (e.currentTarget as HTMLElement).style.background = 'transparent';
+                      (e.currentTarget as HTMLElement).style.color = '#2A2A3A';
+                    }
+                  }}
+                >
+                  {link.label}
+                </Component>
+              );
+            })}
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-2.5">
+          {/* Desktop Action Buttons */}
+          <div className="hidden md:flex items-center gap-3">
             <Link
               to="/dashboard"
               style={{
@@ -147,29 +162,6 @@ export function NavBar({ onOpenRegister }: NavBarProps) {
             >
               Register
             </button>
-
-            <Link
-              to="/test"
-              style={{
-                padding: '0.5rem 1.25rem',
-                borderRadius: '9999px',
-                fontSize: '0.85rem',
-                fontWeight: 600,
-                color: '#1AB0DC',
-                textDecoration: 'none',
-                background: 'rgba(51,196,240,0.1)',
-                border: '1px solid rgba(51,196,240,0.3)',
-                transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.2)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.1)';
-              }}
-            >
-              Creativity Test
-            </Link>
           </div>
 
           {/* Mobile toggle */}
@@ -210,25 +202,31 @@ export function NavBar({ onOpenRegister }: NavBarProps) {
             }}
           >
             <nav className="flex flex-col gap-2 mb-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={isLanding ? link.href : '/'}
-                  onClick={(e) => handleAnchor(e, link.href)}
-                  style={{
-                    padding: '0.75rem 1.25rem',
-                    borderRadius: '9999px',
-                    fontSize: '1rem',
-                    fontWeight: 600,
-                    color: '#2A2A3A',
-                    textDecoration: 'none',
-                    background: 'rgba(51,196,240,0.06)',
-                    display: 'block',
-                  }}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const isAnchor = link.href.startsWith('#');
+                const Component = isAnchor ? 'a' : Link;
+                const props = isAnchor ? { href: isLanding ? link.href : `/${link.href}` } : { to: link.href };
+
+                return (
+                  <Component
+                    key={link.label}
+                    {...(props as any)}
+                    onClick={(e: any) => handleNavClick(e, link.href)}
+                    style={{
+                      padding: '0.75rem 1.25rem',
+                      borderRadius: '9999px',
+                      fontSize: '1rem',
+                      fontWeight: 600,
+                      color: '#2A2A3A',
+                      textDecoration: 'none',
+                      background: 'rgba(51,196,240,0.06)',
+                      display: 'block',
+                    }}
+                  >
+                    {link.label}
+                  </Component>
+                );
+              })}
             </nav>
             <div className="flex flex-col gap-3">
               <button
@@ -266,22 +264,6 @@ export function NavBar({ onOpenRegister }: NavBarProps) {
                 onClick={() => setMobileOpen(false)}
               >
                 Log In
-              </Link>
-              <Link
-                to="/test"
-                style={{
-                  padding: '0.75rem',
-                  borderRadius: '9999px',
-                  fontSize: '0.95rem',
-                  fontWeight: 600,
-                  color: '#1AB0DC',
-                  textDecoration: 'none',
-                  background: 'rgba(51,196,240,0.1)',
-                  textAlign: 'center',
-                }}
-                onClick={() => setMobileOpen(false)}
-              >
-                Take the Creativity Test
               </Link>
             </div>
           </motion.div>

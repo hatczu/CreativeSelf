@@ -4,10 +4,10 @@ import { BlobShape } from '../shared/BlobShape';
 const transformations = [
   {
     from: 'STRESS',
-    to: 'DELIGHT',
+    to: 'DISTRESS',
     fromColor: '#EF4444',
     toColor: '#33C4F0',
-    description: 'Channel daily stress into a creative outlet that sparks joy and restores your energy.',
+    description: 'Channel workplace stress into creative outlets that transform pressure into emotional distress relief.',
     gradient: 'linear-gradient(135deg, #FFF1F1 0%, #E8F9FF 100%)',
     icon: '🎨',
   },
@@ -137,8 +137,8 @@ export function WellbeingSection() {
               marginBottom: '1rem',
             }}
           >
-            Transform Stress Into Your{' '}
-            <span className="gradient-text">Creative Superpower</span>
+            Creativity for <span className="gradient-text">Well-Being</span> and{' '}
+            <span className="gradient-text-warm">Enhanced Work Performance</span>.
           </h2>
           <p style={{ fontSize: '1.05rem', color: '#717182', maxWidth: '560px', margin: '0 auto', lineHeight: 1.7 }}>
             Creative activities help people relax, grow, connect, and become more productive. Discover how CreativeSelf turns everyday pressure into personal power.

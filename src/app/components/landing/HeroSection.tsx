@@ -4,6 +4,7 @@ import { ArrowRight, Sparkle as Sparkles } from '@phosphor-icons/react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { BlobShape } from '../shared/BlobShape';
 import kaleidoscope from '../../../imports/CS_Kaleidescope_Juice_Drop.png';
+import logoImg from '../../../imports/1_CS_Logo_Transparent_TAG.png';
 
 const personalityTags = [
   { label: 'The Original', color: '#F59E0B', delay: 0 },
@@ -51,7 +52,9 @@ export function HeroSection({ onOpenRegister }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              style={{
+              className="mb-6"
+            >
+              <div style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
@@ -59,13 +62,12 @@ export function HeroSection({ onOpenRegister }: HeroSectionProps) {
                 borderRadius: '9999px',
                 background: 'rgba(51,196,240,0.1)',
                 border: '1px solid rgba(51,196,240,0.3)',
-                marginBottom: '1.5rem',
-              }}
-            >
-              <Sparkles size={14} color="#33C4F0" />
-              <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1AB0DC', letterSpacing: '0.05em' }}>
-                Powered by Acumen AI
-              </span>
+              }}>
+                <Sparkles size={14} color="#33C4F0" />
+                <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#1AB0DC', letterSpacing: '0.05em' }}>
+                  Powered by Acumen AI
+                </span>
+              </div>
             </motion.div>
 
             {/* Headline */}
@@ -74,35 +76,32 @@ export function HeroSection({ onOpenRegister }: HeroSectionProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               style={{
-                fontSize: 'clamp(2.2rem, 5vw, 4rem)',
+                fontSize: 'clamp(2.5rem, 5.5vw, 4.2rem)',
                 fontWeight: 800,
-                lineHeight: 1.15,
+                lineHeight: 1.1,
                 color: '#1A1A28',
                 marginBottom: '1.25rem',
                 letterSpacing: '-0.02em',
               }}
             >
-              Discover something{' '}
-              <span className="gradient-text">NEW</span>{' '}
-              and{' '}
-              <span className="gradient-text">CREATIVE</span>{' '}
-              that empowers your life and career.
+              Be Anything <br />
+              <span className="gradient-text">But Square</span>
             </motion.h1>
 
-            {/* Sub-tagline */}
+            {/* Description */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               style={{
-                fontSize: '1.25rem',
-                fontWeight: 600,
-                color: '#717182',
+                fontSize: '1.15rem',
+                fontWeight: 500,
+                color: '#4A5568',
                 marginBottom: '2rem',
-                fontStyle: 'italic',
+                lineHeight: 1.6,
               }}
             >
-              You can be anything but square.
+              Creative employee engagement solutions, activities, and learning plans for corporate and individuals.
             </motion.p>
 
             {/* CTA buttons */}

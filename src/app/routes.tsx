@@ -15,6 +15,7 @@ import { VendorContentStudio } from "./pages/VendorContentStudio";
 import { AdminWorkspace } from "./pages/AdminWorkspace";
 import { EmployeeInvitesDashboard } from "./pages/EmployeeInvitesDashboard";
 import { PostDetailPage } from "./pages/PostDetailPage";
+import { BrandServicesPage } from "./pages/BrandServicesPage";
 import { RegisterPage } from "./pages/RegisterPage";
 
 export const router = createBrowserRouter([
@@ -42,6 +43,7 @@ export const router = createBrowserRouter([
     Component: RootLayout,
     children: [
       { index: true, Component: LandingPage },
+      { path: "services", Component: BrandServicesPage },
       { path: "test", Component: PersonalityTest },
       { path: "dashboard", Component: WellnessFeed },
       { path: "corporate", Component: WellnessFeed },

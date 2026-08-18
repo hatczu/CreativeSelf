@@ -5,41 +5,41 @@ import { Check, Sparkle as Sparkles, ArrowRight } from '@phosphor-icons/react';
 export const individualPlans = [
   {
     id: 'basic-creative',
-    name: 'BASIC CREATIVE',
+    name: 'Basic Creative',
     price: 'Free',
     sub: 'Forever',
-    features: ['1 Service Brand', '2 Activities Per Month', 'Creative Personality Assessment', 'Acumen AI recommendations'],
-    cta: 'Apply & Register',
+    features: ['1 service brand', '2 activities per month', 'Creative Personality Assessment', 'Acumen AI recommendations'],
+    cta: 'Select Basic',
     highlighted: false,
     color: '#717182',
   },
   {
     id: 'advanced-creative',
-    name: 'ADVANCED CREATIVE',
+    name: 'Advanced Creative',
     price: '$49',
     sub: 'per month',
-    features: ['2 Service Brands', '4 Activities Per Month', 'Full Acumen AI analysis', 'Personalized learning plan', 'Priority reservations'],
-    cta: 'Start Advanced',
+    features: ['2 service brands', '4 activities per month', 'Full Acumen AI analysis', 'Personalized learning plan', 'Priority reservations'],
+    cta: 'Select Advanced',
     highlighted: true,
     color: '#33C4F0',
   },
   {
     id: 'elite-creative',
-    name: 'ELITE CREATIVE',
+    name: 'Elite Creative',
     price: '$99',
     sub: 'per month',
-    features: ['3 Service Brands', '6 Activities Per Month', 'Unlimited Acumen AI', 'Custom learning journeys', 'Exclusive experiences'],
-    cta: 'Go Elite',
+    features: ['3 service brands', '6 activities per month', 'Unlimited Acumen AI', 'Custom learning journeys', 'Exclusive experiences'],
+    cta: 'Select Elite',
     highlighted: false,
     color: '#8B5CF6',
   },
   {
     id: 'one-on-one-creative',
-    name: 'ONE-ON-ONE CREATIVE',
+    name: 'One-on-One Creative',
     price: 'Custom',
     sub: 'pricing',
-    features: ['Custom Consulting & Coaching Fees Apply', 'Personal creative coaching', 'Direct expert access', 'Flexible scheduling'],
-    cta: 'Apply Now',
+    features: ['Custom consulting and coaching fees apply.', 'Personal creative coaching', 'Direct expert access', 'Flexible scheduling'],
+    cta: 'Apply One-on-One',
     highlighted: false,
     color: '#F59E0B',
   },
@@ -48,41 +48,41 @@ export const individualPlans = [
 export const corporatePlans = [
   {
     id: 'basic-creative-team',
-    name: 'BASIC CREATIVE TEAM',
+    name: 'Basic Creative Team',
     price: '$299',
     sub: 'per month',
-    features: ['2 Service Brands', '4 Activities', '8 employees per Activity per Month', 'Team engagement dashboard'],
+    features: ['2 service brands', '4 activities with 8 employees per month', 'Team engagement dashboard'],
     cta: 'Start Team Plan',
     highlighted: false,
     color: '#717182',
   },
   {
     id: 'advanced-creative-team',
-    name: 'ADVANCED CREATIVE TEAM',
+    name: 'Advanced Creative Team',
     price: '$599',
     sub: 'per month',
-    features: ['4 Service Brands', '6 Activities', '10 employees per Activity per Month', 'Corporate engagement reports', 'Dedicated account manager'],
+    features: ['4 service brands', '6 activities with 10 employees per month', 'Corporate engagement reports', 'Dedicated account manager'],
     cta: 'Scale Your Team',
     highlighted: true,
     color: '#33C4F0',
   },
   {
     id: 'elite-creative-team',
-    name: 'ELITE CREATIVE TEAM',
+    name: 'Elite Creative Team',
     price: '$1,199',
     sub: 'per month',
-    features: ['6 Service Brands', '12 Activities', '15 employees per Activity per Month', 'Executive insights dashboard', 'On-site facilitation'],
+    features: ['6 service brands', '12 activities with 15 employees per month', 'Executive insights dashboard', 'On-site facilitation'],
     cta: 'Go Enterprise',
     highlighted: false,
     color: '#8B5CF6',
   },
   {
     id: 'custom-creative-corporate',
-    name: 'CUSTOM CREATIVE',
+    name: 'Custom Creative Activities',
     price: 'Custom',
     sub: 'pricing',
-    features: ['Custom Creative Activities', 'Learning Plans', 'Corporate Consulting', 'Enterprise SLA & Support'],
-    cta: 'Talk to Us',
+    features: ['Custom Creative Activities', 'Learning Plans and Consulting', 'Corporate Consulting', 'Enterprise SLA & Support'],
+    cta: 'Inquire Custom',
     highlighted: false,
     color: '#F59E0B',
   },
@@ -243,10 +243,12 @@ function PlanCard({ plan, index, category, onSelectPlan }: PlanCardProps) {
 
 interface PricingSectionProps {
   onOpenRegister?: (planId?: string, category?: 'individual' | 'corporate') => void;
+  initialTab?: 'individual' | 'corporate';
+  showToggle?: boolean;
 }
 
-export function PricingSection({ onOpenRegister }: PricingSectionProps) {
-  const [tab, setTab] = useState<'individual' | 'corporate'>('individual');
+export function PricingSection({ onOpenRegister, initialTab = 'individual', showToggle = true }: PricingSectionProps) {
+  const [tab, setTab] = useState<'individual' | 'corporate'>(initialTab);
   const plans = tab === 'individual' ? individualPlans : corporatePlans;
 
   return (
@@ -254,7 +256,7 @@ export function PricingSection({ onOpenRegister }: PricingSectionProps) {
       id="pricing"
       style={{
         padding: '6rem 0',
-        background: '#ffffff',
+        background: tab === 'individual' ? '#ffffff' : '#F8FCFF',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -271,16 +273,16 @@ export function PricingSection({ onOpenRegister }: PricingSectionProps) {
             style={{
               padding: '0.35rem 1.1rem',
               borderRadius: '9999px',
-              background: 'rgba(51,196,240,0.1)',
-              border: '1px solid rgba(51,196,240,0.25)',
+              background: tab === 'individual' ? 'rgba(51,196,240,0.1)' : 'rgba(139,92,246,0.1)',
+              border: tab === 'individual' ? '1px solid rgba(51,196,240,0.25)' : '1px solid rgba(139,92,246,0.25)',
               fontSize: '0.75rem',
               fontWeight: 700,
-              color: '#1AB0DC',
+              color: tab === 'individual' ? '#1AB0DC' : '#8B5CF6',
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
             }}
           >
-            Subscription Plans
+            {tab === 'individual' ? 'Individual Subscriptions' : 'Corporate Subscriptions'}
           </span>
         </motion.div>
 
@@ -291,76 +293,97 @@ export function PricingSection({ onOpenRegister }: PricingSectionProps) {
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
         >
+          {/* Main Dynamic Headline */}
           <h2
             style={{
-              fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+              fontSize: 'clamp(1.85rem, 4.2vw, 3rem)',
               fontWeight: 800,
               color: '#1A1A28',
               letterSpacing: '-0.02em',
-              marginBottom: '1rem',
+              marginBottom: '1.25rem',
             }}
           >
-            Choose Your Creative Subscription
+            {tab === 'individual' ? (
+              <>
+                Search. Find. Discover. <span className="gradient-text">Connect.</span>
+              </>
+            ) : (
+              <>
+                Discover the Right <span className="gradient-text-warm">Corporate Subscription</span> for You
+              </>
+            )}
           </h2>
 
-          {/* Toggle */}
-          <div
-            style={{
-              display: 'inline-flex',
-              padding: '0.375rem',
-              borderRadius: '9999px',
-              background: '#F0FBFF',
-              border: '1.5px solid rgba(51,196,240,0.2)',
-              marginBottom: '1.5rem',
-            }}
-          >
-            {(['individual', 'corporate'] as const).map((t) => (
-              <button
-                key={t}
-                onClick={() => setTab(t)}
-                style={{
-                  padding: '0.5rem 1.5rem',
-                  borderRadius: '9999px',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '0.9rem',
-                  fontWeight: 700,
-                  transition: 'all 0.2s ease',
-                  background: tab === t ? '#33C4F0' : 'transparent',
-                  color: tab === t ? '#ffffff' : '#717182',
-                  boxShadow: tab === t ? '0 4px 16px rgba(51,196,240,0.35)' : 'none',
-                }}
-              >
-                {t === 'individual' ? 'Individual' : 'Corporate'} Plans
-              </button>
-            ))}
-          </div>
-
-          {/* Specified Header Taglines */}
-          {tab === 'individual' ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="max-w-xl mx-auto p-4 rounded-2xl bg-cyan-50/70 border border-cyan-100 mb-8"
+          {/* Tab Switcher Buttons */}
+          {showToggle && (
+            <div
+              style={{
+                display: 'inline-flex',
+                padding: '0.4rem',
+                borderRadius: '9999px',
+                background: '#F0FBFF',
+                border: '1.5px solid rgba(51,196,240,0.3)',
+                marginBottom: '1.5rem',
+                boxShadow: '0 4px 16px rgba(51,196,240,0.1)',
+              }}
             >
-              <p style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1AB0DC', marginBottom: '0.25rem' }}>
-                Search. Find. Discover. Connect
-              </p>
-              <p style={{ fontSize: '0.95rem', fontWeight: 600, color: '#4A5568' }}>
-                Choose the right creative activity and learning plan to empower you!
-              </p>
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="max-w-xl mx-auto p-4 rounded-2xl bg-purple-50/70 border border-purple-100 mb-8"
-            >
-              <p style={{ fontSize: '1.1rem', fontWeight: 800, color: '#8B5CF6', letterSpacing: '0.02em', textTransform: 'uppercase' }}>
-                DISCOVER THE RIGHT CORPORATE SUBSCRIPTION FOR YOU.
-              </p>
-            </motion.div>
+              {(['individual', 'corporate'] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setTab(t)}
+                  style={{
+                    padding: '0.6rem 1.8rem',
+                    borderRadius: '9999px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontSize: '0.95rem',
+                    fontWeight: 700,
+                    transition: 'all 0.25s ease',
+                    background: tab === t ? (t === 'individual' ? '#33C4F0' : '#8B5CF6') : 'transparent',
+                    color: tab === t ? '#ffffff' : '#717182',
+                    boxShadow: tab === t ? '0 4px 16px rgba(0,0,0,0.15)' : 'none',
+                  }}
+                >
+                  {t === 'individual' ? 'Individual Plans' : 'Corporate Plans'}
+                </button>
+              ))}
+            </div>
           )}
+
+          {/* Sub-Tagline Box */}
+          <AnimatePresence mode="wait">
+            {tab === 'individual' ? (
+              <motion.div
+                key="ind-tag"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="max-w-xl mx-auto p-4 rounded-2xl bg-cyan-50/80 border border-cyan-100 mb-6 shadow-sm"
+              >
+                <p style={{ fontSize: '1.05rem', fontWeight: 800, color: '#1AB0DC', marginBottom: '0.25rem' }}>
+                  Individual Subscription Tier
+                </p>
+                <p style={{ fontSize: '0.9rem', fontWeight: 600, color: '#4A5568' }}>
+                  Choose the right creative activity and learning plan to empower you!
+                </p>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="corp-tag"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="max-w-xl mx-auto p-4 rounded-2xl bg-purple-50/80 border border-purple-100 mb-6 shadow-sm"
+              >
+                <p style={{ fontSize: '1.05rem', fontWeight: 800, color: '#8B5CF6', marginBottom: '0.25rem' }}>
+                  Corporate Engagement Subscriptions
+                </p>
+                <p style={{ fontSize: '0.9rem', fontWeight: 600, color: '#4A5568' }}>
+                  Empower your teams with custom creative activities, learning plans, and consulting.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
 
         {/* Plans */}
@@ -399,8 +422,8 @@ export function PricingSection({ onOpenRegister }: PricingSectionProps) {
             }}
           >
             <Sparkles size={16} color="#8B5CF6" />
-            <span style={{ fontSize: '0.9rem', color: '#717182' }}>
-              CUSTOM CREATIVE ACTIVITIES, LEARNING PLANS AND CORPORATE CONSULTING.
+            <span style={{ fontSize: '0.9rem', color: '#717182', fontWeight: 600 }}>
+              Custom Creative Activities, Learning Plans and Corporate Consulting.
             </span>
           </div>
         </motion.div>

@@ -3,7 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router";
 import { NavBar } from "./components/layout/NavBar";
 import { Footer } from "./components/layout/Footer";
 
-const FULL_LAYOUT_PATHS = ["/", "/test"];
+const FULL_LAYOUT_PATHS = ["/", "/test", "/services"];
 
 export function RootLayout() {
   const { pathname } = useLocation();
