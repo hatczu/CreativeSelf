@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router';
-import { SquaresFour as LayoutDashboard, Compass, CalendarBlank as CalendarDays, Gear as Settings, SignOut as LogOut, Users } from '@phosphor-icons/react';
+import { SquaresFour as LayoutDashboard, Compass, CalendarBlank as CalendarDays, Gear as Settings, SignOut as LogOut, Users, DeviceMobile } from '@phosphor-icons/react';
 import { RoleSwitcher } from './RoleSwitcher';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import logoIcon from '@/imports/Logo.png';
@@ -11,6 +11,7 @@ export function UniversalSidebar() {
   const isHomeActive = pathname === '/dashboard' || pathname === '/corporate';
   const isDiscoverActive = pathname === '/discover/services' || pathname.startsWith('/discover/services/');
   const isBookingsActive = pathname.startsWith('/bookings');
+  const isMobileActive = pathname.startsWith('/mobile');
 
   return (
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-[60px] flex-col items-center border-r border-[#33c4f0]/15 bg-white/90 py-6 shadow-[4px_0_20px_rgba(28,118,155,.04)] backdrop-blur lg:flex">
@@ -64,6 +65,20 @@ export function UniversalSidebar() {
           }`}
         >
           <CalendarDays size={18} />
+        </Link>
+
+        {/* Module 4: Client Mobile App */}
+        <Link
+          to="/mobile"
+          title="Client Mobile App"
+          aria-label="Client Mobile App"
+          className={`grid h-10 w-10 place-items-center rounded-full transition ${
+            isMobileActive
+              ? 'bg-[#147c9e] text-white shadow-sm'
+              : 'text-[#147c9e] bg-[#e8f9ff] hover:bg-[#33c4f0] hover:text-[#1a1a28]'
+          }`}
+        >
+          <DeviceMobile size={18} weight="bold" />
         </Link>
       </nav>
 

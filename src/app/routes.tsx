@@ -17,8 +17,10 @@ import { EmployeeInvitesDashboard } from "./pages/EmployeeInvitesDashboard";
 import { PostDetailPage } from "./pages/PostDetailPage";
 import { BrandServicesPage } from "./pages/BrandServicesPage";
 import { RegisterPage } from "./pages/RegisterPage";
+import { ClientMobileApp } from "./pages/ClientMobileApp";
 
 export const router = createBrowserRouter([
+  { path: "/mobile", Component: ClientMobileApp },
   { path: "/register", Component: RegisterPage },
   { path: "/bookings", Component: BookingsPage },
   { path: "/bookings/:bookingId", Component: BookingDetailPage },
@@ -43,6 +45,7 @@ export const router = createBrowserRouter([
     Component: RootLayout,
     children: [
       { index: true, Component: LandingPage },
+      { path: "mobile", Component: ClientMobileApp },
       { path: "services", Component: BrandServicesPage },
       { path: "test", Component: PersonalityTest },
       { path: "dashboard", Component: WellnessFeed },

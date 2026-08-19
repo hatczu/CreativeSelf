@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import { List as Menu, X } from '@phosphor-icons/react';
+import { List as Menu, X, DeviceMobile } from '@phosphor-icons/react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import logoTransparent from '../../../imports/image.png';
 
@@ -112,7 +112,36 @@ export function NavBar({ onOpenRegister }: NavBarProps) {
           </nav>
 
           {/* Desktop Action Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2.5">
+            <Link
+              to="/mobile"
+              style={{
+                padding: '0.5rem 1.1rem',
+                borderRadius: '9999px',
+                fontSize: '0.875rem',
+                fontWeight: 700,
+                color: '#147C9E',
+                textDecoration: 'none',
+                background: 'rgba(51,196,240,0.1)',
+                border: '1.5px solid rgba(51,196,240,0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.2)';
+                (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.1)';
+                (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+              }}
+            >
+              <DeviceMobile size={18} weight="bold" />
+              Mobile App
+            </Link>
+
             <Link
               to="/dashboard"
               style={{
@@ -229,6 +258,28 @@ export function NavBar({ onOpenRegister }: NavBarProps) {
               })}
             </nav>
             <div className="flex flex-col gap-3">
+              <Link
+                to="/mobile"
+                style={{
+                  padding: '0.75rem',
+                  borderRadius: '9999px',
+                  fontSize: '0.95rem',
+                  fontWeight: 700,
+                  color: '#147C9E',
+                  textDecoration: 'none',
+                  background: 'rgba(51,196,240,0.12)',
+                  border: '1.5px solid rgba(51,196,240,0.3)',
+                  textAlign: 'center',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                }}
+                onClick={() => setMobileOpen(false)}
+              >
+                <DeviceMobile size={20} weight="bold" />
+                Open Mobile App
+              </Link>
               <button
                 onClick={() => {
                   setMobileOpen(false);

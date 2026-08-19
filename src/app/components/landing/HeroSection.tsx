@@ -166,6 +166,35 @@ export function HeroSection({ onOpenRegister }: HeroSectionProps) {
               >
                 Creativity Test
               </Link>
+
+              <Link
+                to="/mobile"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.875rem 1.5rem',
+                  borderRadius: '9999px',
+                  fontSize: '0.95rem',
+                  fontWeight: 700,
+                  color: '#147C9E',
+                  textDecoration: 'none',
+                  background: 'rgba(51,196,240,0.15)',
+                  border: '1.5px solid rgba(51,196,240,0.4)',
+                  boxShadow: '0 4px 16px rgba(51,196,240,0.2)',
+                  transition: 'all 0.25s ease',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.25)';
+                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.background = 'rgba(51,196,240,0.15)';
+                  (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+                }}
+              >
+                📱 Mobile App
+              </Link>
             </motion.div>
 
             {/* Personality type tags */}
