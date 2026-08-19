@@ -56,7 +56,6 @@ export function ClientMobileApp() {
 
   const [activeScreen, setActiveScreen] = useState<ScreenType>(initialScreen);
   const [activeTab, setActiveTab] = useState<TabType>('feed');
-  const [viewMode, setViewMode] = useState<'mockup' | 'fullscreen'>('mockup');
 
   // Onboarding state
   const [onboardingStep, setOnboardingStep] = useState(0);
@@ -638,36 +637,27 @@ export function ClientMobileApp() {
     return (
       <div className="flex flex-col h-full bg-[#F8FAFC] justify-between relative overflow-hidden">
         {/* TOP STATUS / HEADER BAR */}
-        <div className="bg-white px-4 py-3 border-b border-gray-100 flex items-center justify-between sticky top-0 z-20 shadow-2xs">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#33C4F0] to-[#1AB0DC] flex items-center justify-center text-white font-bold text-xs shadow-2xs">
+        <div className="bg-white/90 backdrop-blur-md px-4 py-3 border-b border-slate-100 flex items-center justify-between sticky top-0 z-20">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#33C4F0] to-[#1AB0DC] flex items-center justify-center text-white font-extrabold text-sm shadow-sm">
               {regName ? regName.charAt(0) : 'A'}
             </div>
             <div>
-              <p className="text-xs font-bold text-[#1A1A28] leading-none">
+              <p className="text-xs font-extrabold text-slate-900 leading-tight">
                 {regName || 'Alex Morgan'}
               </p>
-              <p className="text-[10px] text-[#1AB0DC] font-semibold">Harmonious Creator 🎨</p>
+              <p className="text-[11px] text-[#1AB0DC] font-semibold">The Explorer 🧭 • Harmonious Creator</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5">
-            <button
-              onClick={() => setActiveTab('bookings')}
-              className="relative p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition text-xs"
-              title="Notifications & Passes"
-            >
-              <Bell size={16} />
-              <span className="absolute top-0.5 right-0.5 w-2 h-2 bg-[#EF4444] rounded-full" />
-            </button>
-            <button
-              onClick={() => setViewMode((mode) => (mode === 'mockup' ? 'fullscreen' : 'mockup'))}
-              className="p-1.5 px-2.5 rounded-full bg-[#E8F9FF] text-[#147C9E] text-[10px] font-bold border border-[#33C4F0]/30 hover:bg-[#33C4F0]/20 transition flex items-center gap-1"
-              title="Toggle View Mode"
-            >
-              <Desktop size={13} /> {viewMode === 'mockup' ? 'Full' : 'Frame'}
-            </button>
-          </div>
+          <button
+            onClick={() => setActiveTab('bookings')}
+            className="relative p-2.5 rounded-full bg-slate-50 text-slate-600 hover:bg-slate-100 transition text-xs border border-slate-100"
+            title="Notifications & Passes"
+          >
+            <Bell size={17} />
+            <span className="absolute top-1 right-1 w-2 h-2 bg-[#EF4444] rounded-full ring-2 ring-white" />
+          </button>
         </div>
 
         {/* NOTIFICATION TOAST */}
@@ -677,7 +667,8 @@ export function ClientMobileApp() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute top-14 inset-x-3 z-50 bg-[#10B981] text-white p-3 rounded-xl shadow-xl text-xs font-bold flex items-center justify-between"
+              className="absolute top-14 inset-x-3 z-50 bg-[#10B981] text-white p-3.5 shadow-xl text-xs font-bold flex items-center justify-between"
+              style={{ borderRadius: '16px 16px 36px 16px' }}
             >
               <span>{bookingSuccessMsg}</span>
               <button onClick={() => setBookingSuccessMsg(null)}>
@@ -690,92 +681,105 @@ export function ClientMobileApp() {
         {/* TAB 1: FEED / HOME */}
         {activeTab === 'feed' && (
           <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
-            {/* Daily Mood Check-In Widget */}
-            <div className="bg-gradient-to-r from-[#33C4F0]/15 to-[#1AB0DC]/10 p-3.5 rounded-2xl border border-[#33C4F0]/25">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-xs font-extrabold text-[#1A1A28] flex items-center gap-1">
-                  <Smiley size={16} className="text-[#1AB0DC]" /> Daily Mood Check-in
-                </p>
-                <span className="text-[10px] font-bold text-[#1AB0DC] bg-white px-2 py-0.5 rounded-full shadow-2xs">
-                  {moodCheckIn}
-                </span>
+            {/* WELCOME & PERSONALITY TYPE SUMMARY CARD WITH SIGNATURE CORNER RADIUS */}
+            <div
+              className="bg-white p-4 border border-slate-100 shadow-sm space-y-3"
+              style={{ borderRadius: '20px 20px 54px 20px' }}
+            >
+              {/* Header Info */}
+              <div className="flex items-start justify-between">
+                <div>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-md">
+                    Subscription Pass Active
+                  </span>
+                  <div className="mt-1">
+                    <span className="text-base font-black text-slate-900 block">The Explorer 🧭</span>
+                    <p className="text-[11px] text-slate-500 mt-0.5">
+                      New places, perspectives, and possibilities keep your creativity moving.
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setActiveTab('discover')}
+                  className="py-2 px-3 bg-[#33C4F0] text-white text-xs font-bold shadow-xs hover:bg-[#1AB0DC] transition shrink-0 ml-2"
+                  style={{ borderRadius: '12px 12px 28px 12px' }}
+                >
+                  Explore Sessions
+                </button>
               </div>
-              <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-                {[
-                  { label: '😌 Calm', icon: Flower },
-                  { label: '⚡ Energized', icon: Lightning },
-                  { label: '🎨 Creative', icon: Palette },
-                  { label: '🧘 Grounded', icon: Sparkle },
-                  { label: '😴 Rested', icon: Moon },
-                ].map((item) => (
-                  <button
-                    key={item.label}
-                    onClick={() => setMoodCheckIn(item.label)}
-                    className={`py-1.5 px-2.5 rounded-xl text-[11px] font-bold flex items-center gap-1 whitespace-nowrap transition ${
-                      moodCheckIn === item.label
-                        ? 'bg-[#33C4F0] text-white shadow-2xs'
-                        : 'bg-white text-[#555566] hover:bg-gray-100'
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
+
+              {/* Minimal Mood Check-in Strip */}
+              <div className="pt-2 border-t border-slate-50 flex items-center justify-between gap-2 overflow-x-auto scrollbar-none">
+                <span className="text-[11px] font-bold text-slate-400 shrink-0">Mood:</span>
+                <div className="flex gap-1.5 overflow-x-auto scrollbar-none">
+                  {[
+                    '😌 Calm',
+                    '⚡ Energized',
+                    '🎨 Creative',
+                    '🧘 Grounded',
+                    '😴 Rested',
+                  ].map((label) => (
+                    <button
+                      key={label}
+                      onClick={() => setMoodCheckIn(label)}
+                      className={`py-1 px-2.5 rounded-lg text-[11px] font-semibold whitespace-nowrap transition ${
+                        moodCheckIn === label
+                          ? 'bg-[#E8F9FF] text-[#147C9E] font-bold border border-[#33C4F0]/30'
+                          : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Corporate Credit Allowance Banner */}
-            <div className="bg-gradient-to-r from-[#10B981] to-[#059669] text-white p-3.5 rounded-2xl shadow-md flex items-center justify-between">
-              <div>
-                <p className="text-[10px] uppercase font-bold tracking-wider opacity-90">Corporate Wellbeing Allowance</p>
-                <p className="text-lg font-black leading-tight">$150.00 / $250</p>
-                <p className="text-[10px] opacity-80">Q3 Allowance expires Sept 30</p>
-              </div>
-              <button
-                onClick={() => setActiveTab('discover')}
-                className="py-2 px-3 bg-white text-[#047857] text-xs font-bold rounded-xl shadow-2xs hover:bg-gray-100 transition"
-              >
-                Use Credits
-              </button>
-            </div>
-
-            {/* Personality Test CTA Banner */}
+            {/* QUICK LINK: PERSONALITY TYPE TEST & ARCHETYPE CARD WITH SIGNATURE CORNER RADIUS */}
             <div
               onClick={() => navigate('/test')}
-              className="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-2xs cursor-pointer hover:border-[#33C4F0] transition flex items-center gap-3"
+              className="bg-gradient-to-r from-purple-50 via-indigo-50/50 to-sky-50/40 p-3.5 border border-purple-100 cursor-pointer hover:border-purple-200 transition flex items-center justify-between shadow-xs"
+              style={{ borderRadius: '20px 20px 54px 20px' }}
             >
-              <div className="w-10 h-10 rounded-xl bg-[#F3E8FF] text-[#8B5CF6] flex items-center justify-center text-xl shrink-0">
-                ✨
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-white shadow-xs flex items-center justify-center text-xl shrink-0">
+                  🧭
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-black text-slate-900">Personality Type: The Explorer</span>
+                    <span className="text-[10px] font-extrabold text-purple-600 bg-purple-100 px-1.5 py-0.5 rounded-md">Verified</span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 mt-0.5">View your tailored insights & archetype profile →</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <p className="text-xs font-extrabold text-[#1A1A28]">Wellness Personality Test</p>
-                <p className="text-[11px] text-[#717182]">Discover your archetype & unlock tailored sessions</p>
-              </div>
-              <CaretRight size={16} className="text-gray-400" />
+              <CaretRight size={16} className="text-slate-400 shrink-0" />
             </div>
 
-            {/* Trending Feed Header */}
+            {/* FEED SECTION HEADER */}
             <div className="flex items-center justify-between pt-1">
-              <h3 className="text-xs font-black text-[#1A1A28] uppercase tracking-wider">
-                Trending Creative Feed
+              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                Community Feed
               </h3>
-              <span className="text-[10px] font-bold text-[#1AB0DC]">{samplePostsData.length} Posts</span>
+              <span className="text-[11px] font-semibold text-slate-400">{samplePostsData.length} Stories</span>
             </div>
 
-            {/* Feed Post List */}
+            {/* FEED POST LIST */}
             {samplePostsData.map((post) => {
               const isLiked = likedPostIds.includes(post.id);
               return (
                 <div
                   key={post.id}
-                  className="bg-white rounded-2xl border border-gray-100 shadow-2xs overflow-hidden"
+                  className="bg-white border border-slate-100 shadow-sm overflow-hidden"
+                  style={{ borderRadius: '20px 20px 54px 20px' }}
                 >
                   {/* Post Header */}
-                  <div className="p-3 flex items-center justify-between border-b border-gray-50">
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg">{post.emoji}</span>
+                  <div className="p-3.5 flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-xl p-1.5 bg-slate-50 rounded-xl">{post.emoji}</span>
                       <div>
-                        <p className="text-xs font-bold text-[#1A1A28]">{post.provider}</p>
-                        <p className="text-[10px] text-[#717182]">{post.handle} • {post.category}</p>
+                        <p className="text-xs font-extrabold text-slate-900">{post.provider}</p>
+                        <p className="text-[11px] text-slate-400">{post.category}</p>
                       </div>
                     </div>
                     <span className="text-[10px] font-bold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-full">
@@ -786,28 +790,28 @@ export function ClientMobileApp() {
                   {/* Post Image */}
                   {post.image && (
                     <div
-                      className="h-40 w-full overflow-hidden relative cursor-pointer"
+                      className="h-44 w-full overflow-hidden relative cursor-pointer"
                       onClick={() => setSelectedPost(post)}
                     >
                       <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex items-end p-3">
-                        <p className="text-white text-xs font-bold line-clamp-1">{post.title}</p>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-3.5">
+                        <p className="text-white text-xs font-bold leading-tight">{post.title}</p>
                       </div>
                     </div>
                   )}
 
                   {/* Post Body & Actions */}
-                  <div className="p-3">
-                    <p className="text-xs text-[#555566] line-clamp-2 mb-3 leading-relaxed">
+                  <div className="p-3.5">
+                    <p className="text-xs text-slate-600 line-clamp-2 mb-3 leading-relaxed">
                       {post.copy}
                     </p>
 
-                    <div className="flex items-center justify-between text-xs pt-1 border-t border-gray-50">
-                      <div className="flex items-center gap-4 text-[#717182]">
+                    <div className="flex items-center justify-between text-xs pt-2 border-t border-slate-50">
+                      <div className="flex items-center gap-4 text-slate-400">
                         <button
                           onClick={() => toggleLikePost(post.id)}
-                          className={`flex items-center gap-1 font-bold ${
-                            isLiked ? 'text-[#EF4444]' : 'hover:text-[#1A1A28]'
+                          className={`flex items-center gap-1 font-bold transition ${
+                            isLiked ? 'text-[#EF4444]' : 'hover:text-slate-700'
                           }`}
                         >
                           <Heart size={16} weight={isLiked ? 'fill' : 'regular'} />
@@ -815,7 +819,7 @@ export function ClientMobileApp() {
                         </button>
                         <button
                           onClick={() => setSelectedPost(post)}
-                          className="flex items-center gap-1 font-bold hover:text-[#1A1A28]"
+                          className="flex items-center gap-1 font-bold hover:text-slate-700 transition"
                         >
                           <ChatCircle size={16} />
                           <span>{post.comments}</span>
@@ -824,9 +828,9 @@ export function ClientMobileApp() {
 
                       <button
                         onClick={() => setSelectedPost(post)}
-                        className="text-[11px] font-bold text-[#1AB0DC] hover:underline"
+                        className="text-[11px] font-bold text-[#1AB0DC] hover:underline flex items-center gap-0.5"
                       >
-                        Read Full Story →
+                        Read More <CaretRight size={12} />
                       </button>
                     </div>
                   </div>
@@ -841,13 +845,13 @@ export function ClientMobileApp() {
           <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
             {/* Search Input */}
             <div className="relative">
-              <MagnifyingGlass size={16} className="absolute left-3.5 top-3.5 text-gray-400" />
+              <MagnifyingGlass size={16} className="absolute left-3.5 top-3.5 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search watercolour, sound bath, yoga..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-gray-200 text-xs font-semibold text-[#1A1A28] focus:outline-none focus:border-[#33C4F0] shadow-2xs"
+                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-xs font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#33C4F0] shadow-xs transition"
               />
             </div>
 
@@ -857,10 +861,10 @@ export function ClientMobileApp() {
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`py-1.5 px-3 rounded-full text-xs font-bold flex items-center gap-1 whitespace-nowrap transition ${
+                  className={`py-1.5 px-3.5 rounded-full text-xs font-bold flex items-center gap-1.5 whitespace-nowrap transition ${
                     selectedCategory === cat.id
-                      ? 'bg-[#1A1A28] text-white shadow-2xs'
-                      : 'bg-white text-[#717182] border border-gray-200 hover:border-gray-300'
+                      ? 'bg-slate-900 text-white shadow-xs'
+                      : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'
                   }`}
                 >
                   <span>{cat.symbol}</span>
@@ -870,13 +874,13 @@ export function ClientMobileApp() {
             </div>
 
             {/* Activities List */}
-            <div className="space-y-3">
+            <div className="space-y-3.5">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-black text-[#1A1A28] uppercase tracking-wider">
+                <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                   Available Sessions ({mockActivities.length})
                 </h3>
                 <span className="text-[10px] font-bold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
-                  Corporate Eligible
+                  Subscription Pass
                 </span>
               </div>
 
@@ -891,49 +895,51 @@ export function ClientMobileApp() {
                   return (
                     <div
                       key={act.id}
-                      className="bg-white rounded-2xl border border-gray-100 shadow-2xs overflow-hidden hover:border-[#33C4F0]/40 transition"
+                      className="bg-white border border-slate-100 shadow-sm overflow-hidden hover:border-[#33C4F0]/40 transition"
+                      style={{ borderRadius: '20px 20px 54px 20px' }}
                     >
                       <div className="relative h-36 w-full">
                         <img src={act.image} alt={act.name} className="w-full h-full object-cover" />
                         <button
                           onClick={() => toggleSaveActivity(act.id)}
-                          className={`absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-md ${
-                            isSaved ? 'text-[#EF4444]' : 'text-gray-600'
+                          className={`absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-sm transition ${
+                            isSaved ? 'text-[#EF4444]' : 'text-slate-600'
                           }`}
                         >
                           <BookmarkSimple size={16} weight={isSaved ? 'fill' : 'regular'} />
                         </button>
-                        <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur text-white text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1">
+                        <div className="absolute bottom-2.5 left-2.5 bg-slate-900/80 backdrop-blur text-white text-[10px] font-bold px-2.5 py-0.5 rounded-md flex items-center gap-1">
                           <span>{act.symbol}</span> {act.category}
                         </div>
                       </div>
 
-                      <div className="p-3">
+                      <div className="p-3.5">
                         <div className="flex items-start justify-between mb-1">
-                          <h4 className="text-xs font-extrabold text-[#1A1A28] line-clamp-1">{act.name}</h4>
+                          <h4 className="text-xs font-extrabold text-slate-900 line-clamp-1">{act.name}</h4>
                           <span className="text-[11px] font-bold text-[#F59E0B] flex items-center gap-0.5 shrink-0 ml-2">
                             <Star size={12} weight="fill" /> {act.rating}
                           </span>
                         </div>
 
-                        <p className="text-[11px] text-[#717182] font-semibold mb-2">{act.vendorName}</p>
+                        <p className="text-[11px] text-slate-500 font-medium mb-2.5">{act.vendorName}</p>
 
-                        <div className="flex items-center gap-3 text-[10px] text-[#555566] mb-3">
+                        <div className="flex items-center gap-3 text-[11px] text-slate-600 mb-3">
                           <span className="flex items-center gap-1">
-                            <Clock size={12} /> {act.duration}
+                            <Clock size={13} className="text-slate-400" /> {act.duration}
                           </span>
                           <span className="flex items-center gap-1">
-                            <MapPin size={12} /> {act.location}
+                            <MapPin size={13} className="text-slate-400" /> {act.location}
                           </span>
                         </div>
 
-                        <div className="flex items-center justify-between pt-2 border-t border-gray-50">
-                          <span className="text-[10px] font-extrabold text-[#10B981]">
-                            1 Corporate Credit or $45
+                        <div className="flex items-center justify-between pt-2.5 border-t border-slate-50">
+                          <span className="text-[11px] font-extrabold text-[#10B981]">
+                            Included in Subscription
                           </span>
                           <button
                             onClick={() => setSelectedActivity(act)}
-                            className="py-1.5 px-3 rounded-xl bg-gradient-to-r from-[#33C4F0] to-[#1AB0DC] text-white text-xs font-bold shadow-2xs hover:opacity-95 transition"
+                            className="py-1.5 px-3.5 bg-[#33C4F0] text-white text-xs font-bold shadow-xs hover:bg-[#1AB0DC] transition"
+                            style={{ borderRadius: '12px 12px 28px 12px' }}
                           >
                             Book Session
                           </button>
@@ -950,7 +956,7 @@ export function ClientMobileApp() {
         {activeTab === 'bookings' && (
           <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-black text-[#1A1A28] uppercase tracking-wider">
+              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                 My Mobile Passes ({myBookings.length})
               </h3>
               <span className="text-[10px] font-bold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
@@ -959,24 +965,32 @@ export function ClientMobileApp() {
             </div>
 
             {myBookings.length === 0 ? (
-              <div className="text-center py-10 bg-white rounded-2xl border border-gray-100 p-6">
-                <CalendarBlank size={36} className="text-gray-300 mx-auto mb-2" />
-                <p className="text-xs font-bold text-[#1A1A28]">No Bookings Yet</p>
-                <p className="text-[11px] text-[#717182] mb-3">Discover sessions and book your first experience.</p>
+              <div
+                className="text-center py-10 bg-white border border-slate-100 p-6"
+                style={{ borderRadius: '20px 20px 54px 20px' }}
+              >
+                <CalendarBlank size={36} className="text-slate-300 mx-auto mb-2" />
+                <p className="text-xs font-bold text-slate-900">No Bookings Yet</p>
+                <p className="text-[11px] text-slate-500 mb-3">Discover sessions and book your first experience.</p>
                 <button
                   onClick={() => setActiveTab('discover')}
-                  className="py-2 px-4 bg-[#33C4F0] text-white text-xs font-bold rounded-xl"
+                  className="py-2 px-4 bg-[#33C4F0] text-white text-xs font-bold"
+                  style={{ borderRadius: '12px 12px 28px 12px' }}
                 >
                   Explore Sessions
                 </button>
               </div>
             ) : (
               myBookings.map((bk) => (
-                <div key={bk.id} className="bg-white rounded-2xl border border-gray-100 shadow-2xs p-3.5 space-y-3">
+                <div
+                  key={bk.id}
+                  className="bg-white border border-slate-100 shadow-sm p-3.5 space-y-3"
+                  style={{ borderRadius: '20px 20px 54px 20px' }}
+                >
                   <div className="flex items-center gap-3">
                     <div
                       className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0"
-                      style={{ backgroundColor: `${bk.color}20` }}
+                      style={{ backgroundColor: `${bk.color}15` }}
                     >
                       {bk.symbol}
                     </div>
@@ -985,20 +999,20 @@ export function ClientMobileApp() {
                         <span className="text-[10px] font-extrabold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
                           {bk.status}
                         </span>
-                        <span className="text-[10px] font-bold text-[#717182]">{bk.seats} Ticket</span>
+                        <span className="text-[10px] font-bold text-slate-400">{bk.seats} Ticket</span>
                       </div>
-                      <h4 className="text-xs font-bold text-[#1A1A28] truncate mt-0.5">{bk.activityName}</h4>
-                      <p className="text-[11px] text-[#717182]">{bk.vendorName}</p>
+                      <h4 className="text-xs font-bold text-slate-900 truncate mt-0.5">{bk.activityName}</h4>
+                      <p className="text-[11px] text-slate-500">{bk.vendorName}</p>
                     </div>
                   </div>
 
-                  <div className="bg-[#F8FAFC] p-2.5 rounded-xl space-y-1 text-[11px]">
-                    <div className="flex items-center justify-between text-[#1A1A28] font-semibold">
-                      <span className="flex items-center gap-1 text-gray-500"><Clock size={12} /> Date & Time:</span>
+                  <div className="bg-slate-50 p-2.5 rounded-xl space-y-1 text-[11px]">
+                    <div className="flex items-center justify-between text-slate-800 font-medium">
+                      <span className="flex items-center gap-1 text-slate-400"><Clock size={12} /> Date & Time:</span>
                       <span>{bk.date} • {bk.time}</span>
                     </div>
-                    <div className="flex items-center justify-between text-[#1A1A28] font-semibold">
-                      <span className="flex items-center gap-1 text-gray-500"><MapPin size={12} /> Location:</span>
+                    <div className="flex items-center justify-between text-slate-800 font-medium">
+                      <span className="flex items-center gap-1 text-slate-400"><MapPin size={12} /> Location:</span>
                       <span className="truncate max-w-[160px]">{bk.location}</span>
                     </div>
                   </div>
@@ -1006,7 +1020,7 @@ export function ClientMobileApp() {
                   <div className="flex gap-2 pt-1">
                     <button
                       onClick={() => setSelectedQrPass(bk)}
-                      className="flex-1 py-2 px-3 bg-[#1A1A28] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-2xs hover:bg-[#2A2A3E] transition"
+                      className="flex-1 py-2.5 px-3 bg-slate-900 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-xs hover:bg-slate-800 transition"
                     >
                       <QrCode size={16} /> Show Mobile Pass
                     </button>
@@ -1020,74 +1034,85 @@ export function ClientMobileApp() {
         {/* TAB 4: PROFILE */}
         {activeTab === 'profile' && (
           <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
-            {/* User Info Header */}
-            <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-2xs flex items-center gap-3">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#33C4F0] to-[#1AB0DC] text-white flex items-center justify-center text-xl font-bold shadow-md">
-                {regName ? regName.charAt(0) : 'A'}
+            {/* User Info Header with Personality Archetype & Signature Corner Radius */}
+            <div
+              className="bg-white p-4 border border-slate-100 shadow-sm flex items-center gap-3"
+              style={{ borderRadius: '20px 20px 54px 20px' }}
+            >
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#33C4F0] to-[#1AB0DC] text-white flex items-center justify-center text-xl font-bold shadow-md shrink-0">
+                🧭
               </div>
               <div>
-                <h3 className="text-sm font-black text-[#1A1A28]">{regName || 'Alex Morgan'}</h3>
-                <p className="text-xs text-[#1AB0DC] font-semibold">Harmonious Creator 🎨</p>
-                <p className="text-[10px] text-[#717182]">Acme Corp • Senior Designer</p>
+                <div className="flex items-center gap-1.5">
+                  <h3 className="text-sm font-extrabold text-slate-900">{regName || 'Alex Morgan'}</h3>
+                  <span className="text-[10px] font-extrabold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-full">
+                    The Explorer 🧭
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 font-medium">Personality Type: Harmonious Explorer</p>
+                <p className="text-[11px] text-slate-400">Subscription Tier: All-Access Pass</p>
               </div>
             </div>
 
             {/* Wellness Stats Grid */}
             <div className="grid grid-cols-3 gap-2">
-              <div className="bg-white p-3 rounded-2xl border border-gray-100 text-center">
+              <div className="bg-white p-3 border border-slate-100 text-center" style={{ borderRadius: '16px 16px 36px 16px' }}>
                 <p className="text-lg font-black text-[#33C4F0]">12</p>
-                <p className="text-[10px] font-bold text-[#717182]">Sessions</p>
+                <p className="text-[10px] font-bold text-slate-400">Sessions</p>
               </div>
-              <div className="bg-white p-3 rounded-2xl border border-gray-100 text-center">
+              <div className="bg-white p-3 border border-slate-100 text-center" style={{ borderRadius: '16px 16px 36px 16px' }}>
                 <p className="text-lg font-black text-[#8B5CF6]">18.5h</p>
-                <p className="text-[10px] font-bold text-[#717182]">Mindful Hours</p>
+                <p className="text-[10px] font-bold text-slate-400">Mindful Hours</p>
               </div>
-              <div className="bg-white p-3 rounded-2xl border border-gray-100 text-center">
+              <div className="bg-white p-3 border border-slate-100 text-center" style={{ borderRadius: '16px 16px 36px 16px' }}>
                 <p className="text-lg font-black text-[#10B981]">5 Days</p>
-                <p className="text-[10px] font-bold text-[#717182]">Streak 🔥</p>
+                <p className="text-[10px] font-bold text-slate-400">Streak 🔥</p>
               </div>
             </div>
 
-            {/* Quick Actions List */}
-            <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden divide-y divide-gray-50 text-xs">
+            {/* Quick Actions List with Signature Corner Radius */}
+            <div
+              className="bg-white border border-slate-100 overflow-hidden divide-y divide-slate-50 text-xs shadow-xs"
+              style={{ borderRadius: '20px 20px 54px 20px' }}
+            >
               <button
                 onClick={() => navigate('/test')}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-gray-50 text-left"
+                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 text-left transition"
               >
-                <div className="flex items-center gap-2.5 text-[#1A1A28] font-bold">
+                <div className="flex items-center gap-2.5 text-slate-900 font-bold">
                   <Sparkle size={18} className="text-[#8B5CF6]" />
-                  <span>Personality Test Results</span>
+                  <span>Personality Type Details & Archetype</span>
                 </div>
-                <CaretRight size={16} className="text-gray-400" />
+                <CaretRight size={16} className="text-slate-400" />
               </button>
 
               <button
                 onClick={() => setActiveTab('discover')}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-gray-50 text-left"
+                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 text-left transition"
               >
-                <div className="flex items-center gap-2.5 text-[#1A1A28] font-bold">
+                <div className="flex items-center gap-2.5 text-slate-900 font-bold">
                   <BookmarkSimple size={18} className="text-[#EF4444]" />
                   <span>Saved Activities ({savedActivityIds.length})</span>
                 </div>
-                <CaretRight size={16} className="text-gray-400" />
+                <CaretRight size={16} className="text-slate-400" />
               </button>
 
               <button
                 onClick={() => navigate('/invites')}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-gray-50 text-left"
+                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 text-left transition"
               >
-                <div className="flex items-center gap-2.5 text-[#1A1A28] font-bold">
+                <div className="flex items-center gap-2.5 text-slate-900 font-bold">
                   <Buildings size={18} className="text-[#10B981]" />
-                  <span>Corporate Perks & Invites</span>
+                  <span>Corporate Subscription & Invites</span>
                 </div>
-                <CaretRight size={16} className="text-gray-400" />
+                <CaretRight size={16} className="text-slate-400" />
               </button>
 
               <button
                 onClick={() => navigate('/dashboard')}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-gray-50 text-left text-[#1AB0DC]"
+                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 text-left text-[#1AB0DC] transition"
               >
-                <div className="flex items-center gap-2.5 font-extrabold">
+                <div className="flex items-center gap-2.5 font-bold">
                   <Desktop size={18} />
                   <span>Switch to Desktop Version</span>
                 </div>
@@ -1096,7 +1121,7 @@ export function ClientMobileApp() {
 
               <button
                 onClick={() => setActiveScreen('login')}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-red-50 text-left text-[#EF4444]"
+                className="w-full p-3.5 flex items-center justify-between hover:bg-red-50 text-left text-[#EF4444] transition"
               >
                 <div className="flex items-center gap-2.5 font-bold">
                   <SignOut size={18} />
@@ -1108,7 +1133,7 @@ export function ClientMobileApp() {
         )}
 
         {/* BOTTOM NAVIGATION BAR */}
-        <div className="bg-white/95 backdrop-blur-md border-t border-gray-100 px-3 py-2 flex items-center justify-around absolute bottom-0 inset-x-0 z-30 shadow-lg">
+        <div className="bg-white/95 backdrop-blur-md border-t border-slate-100 px-3 py-2 flex items-center justify-around absolute bottom-0 inset-x-0 z-30 shadow-lg">
           {[
             { id: 'feed', label: 'Feed', icon: House },
             { id: 'discover', label: 'Discover', icon: Compass },
@@ -1121,14 +1146,14 @@ export function ClientMobileApp() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as TabType)}
-                className={`flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition relative ${
-                  isActive ? 'text-[#33C4F0] font-bold' : 'text-[#717182] hover:text-[#1A1A28]'
+                className={`flex flex-col items-center gap-0.5 py-1 px-3.5 rounded-xl transition relative ${
+                  isActive ? 'text-[#33C4F0] font-bold' : 'text-slate-400 hover:text-slate-700'
                 }`}
               >
                 <Icon size={20} weight={isActive ? 'fill' : 'regular'} />
                 <span className="text-[10px]">{tab.label}</span>
                 {tab.badge ? (
-                  <span className="absolute top-0 right-2 w-4 h-4 bg-[#33C4F0] text-white text-[9px] font-black rounded-full flex items-center justify-center">
+                  <span className="absolute top-0 right-2.5 w-4 h-4 bg-[#33C4F0] text-white text-[9px] font-black rounded-full flex items-center justify-center">
                     {tab.badge}
                   </span>
                 ) : null}
@@ -1342,93 +1367,25 @@ export function ClientMobileApp() {
 
   return (
     <div className="min-h-screen bg-[#0F172A] flex flex-col items-center justify-center p-2 sm:p-6 text-slate-100 font-sans relative overflow-x-hidden">
-      {/* Top Banner Control Bar (Outside Phone) */}
-      <div className="w-full max-w-4xl flex items-center justify-between mb-4 px-2 z-10">
-        <div className="flex items-center gap-2">
-          <Link
-            to="/dashboard"
-            className="flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white transition bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700"
-          >
-            <CaretLeft size={16} /> Exit to Desktop Web App
-          </Link>
-          <span className="hidden sm:inline-block text-xs font-semibold text-slate-400">
-            CreativeSelf Mobile Edition • Client Focus
-          </span>
-        </div>
-
-        {/* View Mode Toggle */}
-        <div className="flex items-center gap-2 bg-slate-800/90 p-1 rounded-full border border-slate-700">
-          <button
-            onClick={() => setViewMode('mockup')}
-            className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 transition ${
-              viewMode === 'mockup'
-                ? 'bg-[#33C4F0] text-slate-950 shadow-md'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <DeviceMobile size={14} /> iPhone Frame
-          </button>
-          <button
-            onClick={() => setViewMode('fullscreen')}
-            className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 transition ${
-              viewMode === 'fullscreen'
-                ? 'bg-[#33C4F0] text-slate-950 shadow-md'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Desktop size={14} /> Full Screen
-          </button>
-        </div>
+      {/* Top Banner Control Bar */}
+      <div className="w-full max-w-[440px] flex items-center justify-between mb-3 px-1 z-10">
+        <Link
+          to="/dashboard"
+          className="flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white transition bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700 shadow-sm"
+        >
+          <CaretLeft size={16} /> Exit to Desktop Web App
+        </Link>
+        <span className="text-xs font-semibold text-slate-400">
+          CreativeSelf Mobile
+        </span>
       </div>
 
-      {/* RENDER MOCKUP VS FULLSCREEN */}
-      {viewMode === 'mockup' ? (
-        /* PHONE CONTAINER MOCKUP */
-        <div className="relative my-auto">
-          {/* External Ambient Glow */}
-          <div className="absolute -inset-4 rounded-[60px] bg-gradient-to-r from-[#33C4F0]/30 to-[#8B5CF6]/30 blur-2xl opacity-75" />
-
-          {/* Smartphone Hardware Frame */}
-          <div className="relative w-[360px] h-[740px] bg-[#1E293B] rounded-[50px] p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] border-4 border-slate-700/80 flex flex-col">
-            {/* Top Notch / Dynamic Island */}
-            <div className="absolute top-5 left-1/2 -translate-x-1/2 w-28 h-4 bg-black rounded-full z-40 flex items-center justify-between px-2">
-              <div className="w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-800" />
-              <div className="w-2 h-2 rounded-full bg-[#10B981]/80" />
-            </div>
-
-            {/* Mobile Screen Surface */}
-            <div className="w-full h-full bg-white rounded-[38px] overflow-hidden flex flex-col relative pt-5 shadow-inner">
-              {/* iOS Status Bar */}
-              <div className="h-6 px-6 flex items-center justify-between text-[11px] font-bold text-slate-900 z-30 select-none pointer-events-none">
-                <span>09:41</span>
-                <div className="flex items-center gap-1 text-[10px]">
-                  <span>5G</span>
-                  <div className="w-5 h-2.5 border border-slate-800 rounded-xs p-0.5 flex items-center">
-                    <div className="w-full h-full bg-slate-900 rounded-2xs" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Main Content Area */}
-              <div className="flex-1 overflow-hidden relative">
-                {renderMobileScreenContent()}
-              </div>
-
-              {/* iOS Home Bar */}
-              <div className="h-4 bg-white flex items-center justify-center z-30">
-                <div className="w-32 h-1 bg-slate-300 rounded-full" />
-              </div>
-            </div>
-          </div>
+      {/* MOBILE APPLICATION CONTAINER (NO MOCKUP FRAME, FLAT CORNERS, WIDTH 440px) */}
+      <div className="w-full max-w-[440px] h-[820px] max-h-[calc(100vh-80px)] bg-white text-slate-900 rounded-none shadow-2xl overflow-hidden relative flex flex-col border border-slate-800/60">
+        <div className="flex-1 overflow-hidden relative">
+          {renderMobileScreenContent()}
         </div>
-      ) : (
-        /* FULLSCREEN RESPONSIVE CONTAINER */
-        <div className="w-full max-w-md h-[780px] bg-white text-slate-900 rounded-3xl shadow-2xl overflow-hidden relative flex flex-col border border-slate-800">
-          <div className="flex-1 overflow-hidden relative">
-            {renderMobileScreenContent()}
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }
