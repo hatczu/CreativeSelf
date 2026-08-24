@@ -230,7 +230,7 @@ export function BookingDetailPage() {
               </div>
 
               {/* Highlights */}
-              {'highlights' in activity && activity.highlights && activity.highlights.length > 0 && (
+              {activity.highlights && activity.highlights.length > 0 && (
                 <div className="mt-6 space-y-3">
                   <h4 className="text-xs font-extrabold uppercase tracking-wider text-gray-900">
                     Session Highlights
@@ -249,7 +249,7 @@ export function BookingDetailPage() {
           </div>
 
           {/* Timeline / What to Expect */}
-          {'whatToExpect' in activity && activity.whatToExpect && activity.whatToExpect.length > 0 && (
+          {activity.whatToExpect && activity.whatToExpect.length > 0 && (
             <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-100/80 shadow-sm space-y-4">
               <h3 className="text-base font-extrabold text-[#1a1a28] flex items-center gap-2">
                 <Clock size={18} className="text-[#33c4f0]" />
@@ -273,13 +273,13 @@ export function BookingDetailPage() {
 
           {/* Requirements & Venue */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-3xl border border-gray-100/80 shadow-sm space-y-3">
+            <div className="bg-[#ffffff] p-6 rounded-3xl border border-gray-100/80 shadow-sm space-y-3">
               <h3 className="text-sm font-extrabold text-[#1a1a28] flex items-center gap-2">
                 <Info size={16} className="text-[#33c4f0]" />
                 What to Bring
               </h3>
               <ul className="text-xs text-gray-600 space-y-2 list-disc pl-4">
-                {'whatToBring' in activity && activity.whatToBring ? (
+                {activity.whatToBring && activity.whatToBring.length > 0 ? (
                   activity.whatToBring.map((item, idx) => <li key={idx}>{item}</li>)
                 ) : (
                   <li>All materials and gear are fully supplied by the host studio.</li>

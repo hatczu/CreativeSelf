@@ -22,6 +22,11 @@ export interface ActivityItem {
   color?: string;
   symbol?: string;
   image?: string;
+  highlights?: string[];
+  whatToExpect?: { time: string; title: string; detail: string }[];
+  requirements?: string[];
+  whatToBring?: string[];
+  included?: string[];
 }
 
 export interface EmployeeInvite {

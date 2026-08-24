@@ -672,7 +672,7 @@ export function RegisterPage() {
                   </button>
                 </div>
               </form>
-             </motion.div>
+            </motion.div>
           ) : (
             /* Step 4: Multi-Card Subscription Layout (Reference Image Design in CreativeSelf Theme) */
             <motion.div key="s4-view" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="w-full max-w-5xl mx-auto">

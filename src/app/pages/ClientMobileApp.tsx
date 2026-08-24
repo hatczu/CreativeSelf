@@ -40,9 +40,12 @@ import {
   Palette,
   Flower,
   Moon,
+  Users,
+  PaperPlaneRight as Send,
+  Images as PhotosIcon,
 } from '@phosphor-icons/react';
 import { samplePostsData, PostData } from '../data/postsData';
-import { mockActivities, themeCategories, Activity } from '../data/subscriptionData';
+import { mockVendors, mockActivities, themeCategories, Activity } from '../data/subscriptionData';
 
 type ScreenType = 'onboarding' | 'login' | 'register' | 'feed' | 'discover' | 'bookings' | 'profile';
 type TabType = 'feed' | 'discover' | 'bookings' | 'profile';
@@ -65,9 +68,18 @@ export function ClientMobileApp() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
+  const [phoneInput, setPhoneInput] = useState('');
+  const [jobTitleInput, setJobTitleInput] = useState('');
   const [regStep, setRegStep] = useState(1);
   const [regName, setRegName] = useState('');
   const [regAccountType, setRegAccountType] = useState<'individual' | 'corporate'>('individual');
+  const [orgSize, setOrgSize] = useState('just-me');
+  const [companyNameInput, setCompanyNameInput] = useState('');
+  const [industryInput, setIndustryInput] = useState('Technology & Design');
+  const [websiteInput, setWebsiteInput] = useState('');
+  const [planCategory, setPlanCategory] = useState<'individual' | 'corporate'>('individual');
+  const [billingCycle, setBillingCycle] = useState<'annual' | 'monthly'>('annual');
+  const [selectedPlanId, setSelectedPlanId] = useState<string>('advanced-creative');
   const [selectedGoals, setSelectedGoals] = useState<string[]>(['Mindfulness & Calm', 'Creative Expression']);
 
   // Client App states
@@ -79,6 +91,10 @@ export function ClientMobileApp() {
   const [moodCheckIn, setMoodCheckIn] = useState<string | null>('😌 Calm');
   const [savedActivityIds, setSavedActivityIds] = useState<string[]>(['beginner-painting-workshop', 'desk-to-mat-yoga']);
   const [likedPostIds, setLikedPostIds] = useState<string[]>(['breathe', 'colour']);
+  const [postDetailImgIdx, setPostDetailImgIdx] = useState<number>(0);
+  const [postDetailCommentText, setPostDetailCommentText] = useState<string>('');
+  const [postDetailComments, setPostDetailComments] = useState<Record<string, any[]>>({});
+  const [selectedBrandId, setSelectedBrandId] = useState<string | null>(null);
 
   // Bookings list state
   const [myBookings, setMyBookings] = useState([
@@ -474,160 +490,514 @@ export function ClientMobileApp() {
       );
     }
 
-    // 3. REGISTER SCREEN
+    // 3. REGISTER SCREEN (Aligned 1-to-1 with RegisterPage Fields in Light Mode CreativeSelf Design System)
     if (activeScreen === 'register') {
       return (
-        <div className="flex flex-col h-full bg-white justify-between p-6 overflow-y-auto">
+        <div className="flex flex-col h-full bg-[#F8FAFC] text-[#1A1A28] justify-between p-5 overflow-y-auto font-sans relative">
           <div>
-            {/* Top Bar */}
-            <div className="flex items-center justify-between pt-2 mb-4">
-              <button
-                onClick={() => setActiveScreen('login')}
-                className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200"
-              >
-                <CaretLeft size={18} weight="bold" />
-              </button>
-              <span className="text-xs font-extrabold text-[#717182] uppercase tracking-wider">Step {regStep} of 2</span>
-              <div className="w-9" />
+            {/* Top Bar Navigation */}
+            <div className="flex items-center justify-between pt-1 mb-3">
+              {regStep === 4 ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-[#33C4F0]/15 flex items-center justify-center text-[#1AB0DC]">
+                    <Sparkle size={18} weight="fill" />
+                  </div>
+                  <span className="text-xs font-black tracking-wider text-[#1A1A28] uppercase">CreativeSelf</span>
+                </div>
+              ) : regStep > 1 ? (
+                <button
+                  type="button"
+                  onClick={() => setRegStep(regStep - 1)}
+                  className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[#1A1A28] hover:bg-slate-200 transition"
+                >
+                  <CaretLeft size={16} weight="bold" />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setActiveScreen('login')}
+                  className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[#1A1A28] hover:bg-slate-200 transition"
+                >
+                  <CaretLeft size={16} weight="bold" />
+                </button>
+              )}
+
+              {regStep < 4 ? (
+                <span className="text-[11px] font-extrabold text-[#717182] uppercase tracking-wider">
+                  Step {regStep} of 4
+                </span>
+              ) : null}
+
+              {regStep === 4 ? (
+                <button
+                  type="button"
+                  onClick={() => handleDemoLogin('client')}
+                  className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[#1A1A28] hover:bg-slate-200 transition"
+                >
+                  <X size={16} weight="bold" />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setActiveScreen('login')}
+                  className="text-xs font-semibold text-[#717182] hover:text-[#1A1A28]"
+                >
+                  Log in
+                </button>
+              )}
             </div>
 
-            <h1 className="text-2xl font-black text-[#1A1A28] mb-1">Create Account 🚀</h1>
-            <p className="text-xs text-[#717182] mb-5">Start your personalized creative wellbeing journey.</p>
+            {/* Segmented Line Progress Bar (for Steps 1-3) */}
+            {regStep < 4 && (
+              <div className="grid grid-cols-4 gap-1.5 mb-5">
+                {[1, 2, 3, 4].map((sNum) => (
+                  <div
+                    key={sNum}
+                    className={`h-1 rounded-full transition-all duration-300 ${
+                      regStep >= sNum ? 'bg-[#1A1A28]' : 'bg-slate-200'
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
 
             {regStep === 1 ? (
-              <div className="space-y-3.5 mb-6">
-                <div>
-                  <label className="block text-[11px] font-bold text-[#717182] mb-1 uppercase">Full Name</label>
-                  <input
-                    type="text"
-                    placeholder="Alex Morgan"
-                    value={regName}
-                    onChange={(e) => setRegName(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs font-semibold text-[#1A1A28] focus:outline-none focus:border-[#33C4F0]"
-                  />
-                </div>
+              /* Step 1: Personal Details */
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                <h1 className="text-xl sm:text-2xl font-bold text-[#1A1A28] tracking-tight mb-1">
+                  Enter Your Details
+                </h1>
+                <p className="text-xs text-[#717182] leading-relaxed mb-4">
+                  Create your personal profile to unlock curated activity recommendations.
+                </p>
 
-                <div>
-                  <label className="block text-[11px] font-bold text-[#717182] mb-1 uppercase">Email or Mobile Number</label>
-                  <input
-                    type="text"
-                    placeholder="alex@company.com or +1 (555) 000-1234"
-                    value={emailInput}
-                    onChange={(e) => setEmailInput(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs font-semibold text-[#1A1A28] focus:outline-none focus:border-[#33C4F0]"
-                  />
-                </div>
+                <div className="space-y-3 mb-5">
+                  <div>
+                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Full Name</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Alex Morgan"
+                      value={regName}
+                      onChange={(e) => setRegName(e.target.value)}
+                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-[11px] font-bold text-[#717182] mb-1 uppercase">Account Type</label>
-                  <div className="grid grid-cols-2 gap-2 mt-1">
-                    <button
-                      type="button"
-                      onClick={() => setRegAccountType('individual')}
-                      className={`p-3 rounded-xl border text-left transition ${
-                        regAccountType === 'individual'
-                          ? 'border-[#33C4F0] bg-[#E8F9FF] text-[#147C9E]'
-                          : 'border-gray-200 bg-white text-[#717182]'
-                      }`}
-                    >
-                      <User size={20} className="mb-1" />
-                      <p className="text-xs font-bold">Individual</p>
-                      <p className="text-[10px] opacity-80">Personal account</p>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setRegAccountType('corporate')}
-                      className={`p-3 rounded-xl border text-left transition ${
-                        regAccountType === 'corporate'
-                          ? 'border-[#10B981] bg-[#ECFDF5] text-[#065F46]'
-                          : 'border-gray-200 bg-white text-[#717182]'
-                      }`}
-                    >
-                      <Buildings size={20} className="mb-1" />
-                      <p className="text-xs font-bold">Corporate</p>
-                      <p className="text-[10px] opacity-80">Employee credits</p>
-                    </button>
+                  <div>
+                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Work / Personal Email</label>
+                    <input
+                      type="email"
+                      placeholder="alex@company.com"
+                      value={emailInput}
+                      onChange={(e) => setEmailInput(e.target.value)}
+                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Password</label>
+                    <input
+                      type="password"
+                      placeholder="••••••••"
+                      value={passwordInput}
+                      onChange={(e) => setPasswordInput(e.target.value)}
+                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Phone Number (Optional)</label>
+                    <input
+                      type="tel"
+                      placeholder="+1 (555) 000-0000"
+                      value={phoneInput}
+                      onChange={(e) => setPhoneInput(e.target.value)}
+                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Job Title / Role (Optional)</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Creative Lead, Founder"
+                      value={jobTitleInput}
+                      onChange={(e) => setJobTitleInput(e.target.value)}
+                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
+                    />
                   </div>
                 </div>
-              </div>
-            ) : (
-              <div className="space-y-4 mb-6">
-                <div>
-                  <label className="block text-[11px] font-bold text-[#717182] mb-2 uppercase">Select Your Wellbeing Goals</label>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      'Mindfulness & Calm 🧘',
-                      'Creative Expression 🎨',
-                      'Movement & Flow 💃',
-                      'Chocolate & Culinary 🍫',
-                      'Tech & Making 🤖',
-                      'Outward Exploration ⛰️',
-                      'Stress Reset 🌿',
-                      'Team Connection 🤝',
-                    ].map((goal) => {
-                      const isSelected = selectedGoals.includes(goal);
-                      return (
-                        <button
-                          key={goal}
-                          type="button"
-                          onClick={() => {
-                            setSelectedGoals((prev) =>
-                              isSelected ? prev.filter((g) => g !== goal) : [...prev, goal]
-                            );
-                          }}
-                          className={`py-2 px-3 rounded-full text-xs font-bold border transition ${
-                            isSelected
-                              ? 'bg-[#33C4F0] text-white border-[#33C4F0] shadow-2xs'
-                              : 'bg-gray-50 text-[#555566] border-gray-200 hover:border-gray-300'
-                          }`}
-                        >
-                          {isSelected && '✓ '}
-                          {goal}
-                        </button>
-                      );
-                    })}
+              </motion.div>
+            ) : regStep === 2 ? (
+              /* Step 2: Team Scale & Purpose */
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                <h1 className="text-xl sm:text-2xl font-bold text-[#1A1A28] tracking-tight mb-1">
+                  How will you use CreativeSelf?
+                </h1>
+                <p className="text-xs text-[#717182] leading-relaxed mb-4">
+                  Choose your scale so we can configure individual or corporate features for you.
+                </p>
+
+                <div className="space-y-3 mb-5">
+                  <div
+                    onClick={() => {
+                      setRegAccountType('individual');
+                      setPlanCategory('individual');
+                      setOrgSize('just-me');
+                    }}
+                    className={`cursor-pointer p-3.5 rounded-2xl border text-left flex items-center justify-between transition ${
+                      regAccountType === 'individual'
+                        ? 'border-[#1A1A28] bg-white ring-1 ring-[#1A1A28] shadow-sm'
+                        : 'border-slate-200 bg-white'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-[#1A1A28]">
+                        <User size={18} weight="bold" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-[#1A1A28]">Individual Explorer</p>
+                        <p className="text-[10px] text-[#717182]">Personal creative activities & AI coaching</p>
+                      </div>
+                    </div>
+                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                      regAccountType === 'individual' ? 'bg-[#1A1A28] border-[#1A1A28] text-white' : 'border-slate-300'
+                    }`}>
+                      {regAccountType === 'individual' && <Check size={10} weight="bold" />}
+                    </div>
+                  </div>
+
+                  <div
+                    onClick={() => {
+                      setRegAccountType('corporate');
+                      setPlanCategory('corporate');
+                      if (orgSize === 'just-me') setOrgSize('0-50');
+                    }}
+                    className={`cursor-pointer p-3.5 rounded-2xl border text-left flex items-center justify-between transition ${
+                      regAccountType === 'corporate'
+                        ? 'border-[#1A1A28] bg-white ring-1 ring-[#1A1A28] shadow-sm'
+                        : 'border-slate-200 bg-white'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center">
+                        <Buildings size={18} weight="bold" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-[#1A1A28]">Corporate & Team Benefits</p>
+                        <p className="text-[10px] text-[#717182]">Employee wellness credits & team analytics</p>
+                      </div>
+                    </div>
+                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                      regAccountType === 'corporate' ? 'bg-[#1A1A28] border-[#1A1A28] text-white' : 'border-slate-300'
+                    }`}>
+                      {regAccountType === 'corporate' && <Check size={10} weight="bold" />}
+                    </div>
                   </div>
                 </div>
 
                 {regAccountType === 'corporate' && (
-                  <div className="bg-[#ECFDF5] p-3.5 rounded-xl border border-[#10B981]/30">
-                    <label className="block text-[10px] font-bold text-[#065F46] uppercase mb-1">Company Code (Optional)</label>
-                    <input
-                      type="text"
-                      placeholder="e.g. ACME-WELLNESS-2026"
-                      className="w-full px-3 py-2 rounded-lg border border-[#10B981]/30 text-xs font-semibold text-[#1A1A28] bg-white focus:outline-none"
-                    />
-                    <p className="text-[10px] text-[#047857] mt-1">Unlocks instant $250 quarterly wellness credits.</p>
+                  <div className="mb-5 bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs">
+                    <label className="block text-[11px] font-bold text-[#1A1A28] mb-2">Select Team Employee Count:</label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { id: '0-50', label: '0 - 50 employees' },
+                        { id: '51-200', label: '51 - 200 employees' },
+                        { id: '201-500', label: '201 - 500 employees' },
+                        { id: '500+', label: '500+ employees' },
+                      ].map((opt) => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setOrgSize(opt.id)}
+                          className={`py-2 px-2 text-[11px] font-medium rounded-full transition border ${
+                            orgSize === opt.id
+                              ? 'bg-[#1A1A28] text-white border-[#1A1A28]'
+                              : 'bg-slate-50 text-[#1A1A28] border-slate-200 hover:bg-slate-100'
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
-              </div>
+              </motion.div>
+            ) : regStep === 3 ? (
+              /* Step 3: Organization Details */
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                <h1 className="text-xl sm:text-2xl font-bold text-[#1A1A28] tracking-tight mb-1">
+                  Tell us about your organization
+                </h1>
+                <p className="text-xs text-[#717182] leading-relaxed mb-4">
+                  Provide your organization details to customize your workspace.
+                </p>
+
+                <div className="space-y-3.5 mb-5">
+                  <div>
+                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Company / Organization Name</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Acme Creative Agency"
+                      value={companyNameInput}
+                      onChange={(e) => setCompanyNameInput(e.target.value)}
+                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Industry / Focus Area</label>
+                    <select
+                      value={industryInput}
+                      onChange={(e) => setIndustryInput(e.target.value)}
+                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white shadow-2xs"
+                    >
+                      <option value="Technology & Design">Technology & Design</option>
+                      <option value="Creative Arts & Media">Creative Arts & Media</option>
+                      <option value="Healthcare & Wellness">Healthcare & Wellness</option>
+                      <option value="Education & Non-Profit">Education & Non-Profit</option>
+                      <option value="Corporate & Financial Services">Corporate & Financial Services</option>
+                      <option value="Freelance / Individual">Freelance / Individual</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Company Website (Optional)</label>
+                    <input
+                      type="url"
+                      placeholder="https://company.com"
+                      value={websiteInput}
+                      onChange={(e) => setWebsiteInput(e.target.value)}
+                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            ) : (
+              /* Step 4: Light Mode CreativeSelf Paywall (Cover Carousel + Stacked Cards) */
+              (() => {
+                const planDetailsMap: Record<string, {
+                  title: string;
+                  btnText: string;
+                  benefits: { icon: string; text: string }[];
+                }> = {
+                  'advanced-creative': {
+                    title: 'Level up your growth with the Pro plan',
+                    btnText: 'Upgrade to Pro',
+                    benefits: [
+                      { icon: '🎧', text: 'Unlimited, 24/7 activity reservations*' },
+                      { icon: '🪐', text: 'Explore 100+ workshops & wellness experiences' },
+                      { icon: '🧠', text: 'Acumen AI personalized coaching & recommendations' },
+                      { icon: '✨', text: 'Priority booking, VIP masterclasses & more' },
+                    ],
+                  },
+                  'basic-creative': {
+                    title: 'Level up your growth with the Pro Monthly plan',
+                    btnText: 'Subscribe to Pro',
+                    benefits: [
+                      { icon: '🎧', text: 'Flexible month-to-month reservation access*' },
+                      { icon: '🪐', text: 'Access to 100+ workshops & experiences' },
+                      { icon: '🧠', text: 'Acumen AI personalized insights & guidance' },
+                      { icon: '✨', text: 'Cancel anytime in App Store' },
+                    ],
+                  },
+                  'elite-creative': {
+                    title: 'Level up your growth with the Lifetime VIP plan',
+                    btnText: 'Upgrade to Lifetime VIP',
+                    benefits: [
+                      { icon: '👑', text: 'Permanent lifetime unlimited access*' },
+                      { icon: '🪐', text: 'Unlimited access to all present & future brands' },
+                      { icon: '🧠', text: '1-on-1 dedicated mentor & executive coaching' },
+                      { icon: '✨', text: 'Executive VIP events & priority reservations' },
+                    ],
+                  },
+                };
+
+                const currentPlan = planDetailsMap[selectedPlanId] || planDetailsMap['advanced-creative'];
+
+                return (
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+                    {/* Cover Art Cards Horizontal Carousel (CreativeSelf Pastel Theme) */}
+                    <div className="flex gap-2.5 overflow-x-auto pb-1 -mx-5 px-5 scrollbar-none">
+                      <div className="w-24 sm:w-28 h-32 sm:h-36 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 p-3 flex flex-col justify-between shrink-0 shadow-sm border border-amber-300 relative overflow-hidden">
+                        <div className="w-full h-full absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+                        <span className="text-[10px] font-black text-[#1A1A28] bg-white/90 px-1.5 py-0.5 rounded-md self-start relative z-10">Ceramics</span>
+                        <p className="text-xs font-black text-white relative z-10">Potting & Clay</p>
+                      </div>
+
+                      <div className="w-24 sm:w-28 h-32 sm:h-36 rounded-2xl bg-gradient-to-br from-[#33C4F0] to-[#1AB0DC] p-3 flex flex-col justify-between shrink-0 shadow-sm border border-cyan-300 relative overflow-hidden">
+                        <div className="w-full h-full absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+                        <span className="text-[10px] font-black text-[#1A1A28] bg-white/90 px-1.5 py-0.5 rounded-md self-start relative z-10">Art</span>
+                        <p className="text-xs font-black text-white relative z-10">Oil Painting</p>
+                      </div>
+
+                      <div className="w-24 sm:w-28 h-32 sm:h-36 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 p-3 flex flex-col justify-between shrink-0 shadow-sm border border-emerald-400 relative overflow-hidden">
+                        <div className="w-full h-full absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+                        <span className="text-[10px] font-black text-[#1A1A28] bg-white/90 px-1.5 py-0.5 rounded-md self-start relative z-10">Wellness</span>
+                        <p className="text-xs font-black text-white relative z-10">Mindfulness</p>
+                      </div>
+
+                      <div className="w-24 sm:w-28 h-32 sm:h-36 rounded-2xl bg-gradient-to-br from-rose-500 to-rose-600 p-3 flex flex-col justify-between shrink-0 shadow-sm border border-rose-400 relative overflow-hidden">
+                        <div className="w-full h-full absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+                        <span className="text-[10px] font-black text-[#1A1A28] bg-white/90 px-1.5 py-0.5 rounded-md self-start relative z-10">Culinary</span>
+                        <p className="text-xs font-black text-white relative z-10">Artisan Bread</p>
+                      </div>
+                    </div>
+
+                    {/* Headline Title & Icon Benefit List (Light Mode) */}
+                    <div>
+                      <h1 className="text-lg sm:text-xl font-extrabold text-[#1A1A28] tracking-tight leading-snug mb-3">
+                        {currentPlan.title}
+                      </h1>
+
+                      <div className="space-y-2 text-xs text-[#1A1A28]">
+                        {currentPlan.benefits.map((b, idx) => (
+                          <div key={idx} className="flex items-start gap-2.5">
+                            <span className="text-sm shrink-0 leading-none">{b.icon}</span>
+                            <span className="font-semibold text-slate-700 text-[11px] leading-tight">{b.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Vertical Stacked Subscription Cards (Light Mode CreativeSelf Style) */}
+                    <div className="space-y-2.5 pt-1">
+                      {/* Card 1: Pro Yearly */}
+                      <div
+                        onClick={() => setSelectedPlanId('advanced-creative')}
+                        className={`cursor-pointer p-3.5 rounded-2xl transition-all relative ${
+                          selectedPlanId === 'advanced-creative'
+                            ? 'bg-white border-2 border-[#1AB0DC] ring-2 ring-[#33C4F0]/20 shadow-sm text-[#1A1A28]'
+                            : 'bg-white border border-slate-200 text-[#1A1A28] hover:border-slate-300'
+                        }`}
+                      >
+                        {/* MOST POPULAR Amber Badge */}
+                        <div className="absolute -top-2.5 right-4 bg-amber-400 text-slate-900 font-extrabold text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-2xs">
+                          MOST POPULAR
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-xs font-extrabold text-[#1A1A28]">Pro Yearly</p>
+                            <div className="flex items-baseline gap-1 mt-0.5">
+                              <span className="text-base font-black text-[#1A1A28]">$39.00</span>
+                              <span className="text-[10px] text-[#717182] font-semibold">/ yr</span>
+                            </div>
+                            <p className="text-[10px] text-[#717182] mt-1 font-medium">
+                              Best value — $3.25/mo, paid annually.
+                            </p>
+                          </div>
+
+                          {/* Checkmark Circle */}
+                          <div className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
+                            selectedPlanId === 'advanced-creative' ? 'bg-[#1AB0DC] text-white' : 'border border-slate-300 text-transparent'
+                          }`}>
+                            <Check size={11} weight="bold" />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Card 2: Pro Monthly */}
+                      <div
+                        onClick={() => setSelectedPlanId('basic-creative')}
+                        className={`cursor-pointer p-3.5 rounded-2xl transition-all relative ${
+                          selectedPlanId === 'basic-creative'
+                            ? 'bg-white border-2 border-[#1AB0DC] ring-2 ring-[#33C4F0]/20 shadow-sm text-[#1A1A28]'
+                            : 'bg-white border border-slate-200 text-[#1A1A28] hover:border-slate-300'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-xs font-extrabold text-[#1A1A28]">Pro Monthly</p>
+                            <div className="flex items-baseline gap-1 mt-0.5">
+                              <span className="text-base font-black text-[#1A1A28]">$49.00</span>
+                              <span className="text-[10px] text-[#717182] font-semibold">/ mo</span>
+                            </div>
+                            <p className="text-[10px] text-[#717182] mt-1 font-medium">
+                              Flexible access — billed monthly.
+                            </p>
+                          </div>
+
+                          {/* Checkmark Circle */}
+                          <div className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
+                            selectedPlanId === 'basic-creative' ? 'bg-[#1AB0DC] text-white' : 'border border-slate-300 text-transparent'
+                          }`}>
+                            <Check size={11} weight="bold" />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Card 3: Lifetime VIP */}
+                      <div
+                        onClick={() => setSelectedPlanId('elite-creative')}
+                        className={`cursor-pointer p-3.5 rounded-2xl transition-all relative ${
+                          selectedPlanId === 'elite-creative'
+                            ? 'bg-white border-2 border-[#1AB0DC] ring-2 ring-[#33C4F0]/20 shadow-sm text-[#1A1A28]'
+                            : 'bg-white border border-slate-200 text-[#1A1A28] hover:border-slate-300'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-xs font-extrabold text-[#1A1A28]">Lifetime VIP</p>
+                            <div className="flex items-baseline gap-1 mt-0.5">
+                              <span className="text-base font-black text-[#1A1A28]">$99.00</span>
+                              <span className="text-[10px] text-[#717182] font-semibold">one-time</span>
+                            </div>
+                            <p className="text-[10px] text-[#717182] mt-1 font-medium">
+                              Pay once — permanent unlimited access.
+                            </p>
+                          </div>
+
+                          {/* Checkmark Circle */}
+                          <div className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
+                            selectedPlanId === 'elite-creative' ? 'bg-[#1AB0DC] text-white' : 'border border-slate-300 text-transparent'
+                          }`}>
+                            <Check size={11} weight="bold" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })()
             )}
           </div>
 
-          {/* Action Buttons */}
-          <div>
-            {regStep === 1 ? (
+          {/* Action Buttons & CreativeSelf Dark Pill CTA */}
+          <div className="pt-3 space-y-2">
+            {regStep < 4 ? (
               <button
-                onClick={() => setRegStep(2)}
-                className="w-full py-3.5 rounded-2xl font-bold text-xs text-white bg-gradient-to-r from-[#33C4F0] to-[#1AB0DC] shadow-md shadow-[#33C4F0]/30 hover:opacity-95 transition mb-3 active:scale-[0.99]"
+                type="button"
+                onClick={() => setRegStep(regStep + 1)}
+                className="w-full py-3.5 rounded-full font-bold text-xs text-white bg-[#1A1A28] hover:bg-black shadow-md transition active:scale-[0.99]"
               >
-                Next Step: Select Goals →
+                Continue
               </button>
             ) : (
-              <button
-                onClick={() => handleDemoLogin('client')}
-                className="w-full py-3.5 rounded-2xl font-bold text-xs text-white bg-gradient-to-r from-[#33C4F0] to-[#1AB0DC] shadow-md shadow-[#33C4F0]/30 hover:opacity-95 transition mb-3 active:scale-[0.99]"
-              >
-                Complete Registration 🎉
-              </button>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => handleDemoLogin('client')}
+                  className="w-full py-3.5 rounded-full font-extrabold text-xs text-white bg-[#1A1A28] hover:bg-black transition active:scale-[0.99] text-center shadow-md mb-2"
+                >
+                  {selectedPlanId === 'elite-creative' ? 'Upgrade to Lifetime VIP' : 'Upgrade to Pro'}
+                </button>
+
+                <p className="text-center text-[10px] text-[#717182] font-medium">
+                  Cancel anytime in App Store
+                </p>
+              </div>
             )}
 
-            <p className="text-center text-xs text-[#717182]">
-              Already have an account?{' '}
-              <button onClick={() => setActiveScreen('login')} className="text-[#1AB0DC] font-bold underline">
-                Log In
+            {regStep > 1 && regStep < 4 ? (
+              <button
+                type="button"
+                onClick={() => setRegStep(regStep - 1)}
+                className="w-full py-2.5 rounded-full font-semibold text-xs text-[#717182] bg-slate-100 hover:bg-slate-200 transition text-center"
+              >
+                Back
               </button>
-            </p>
+            ) : null}
           </div>
         </div>
       );
@@ -706,32 +1076,6 @@ export function ClientMobileApp() {
                 >
                   Explore Sessions
                 </button>
-              </div>
-
-              {/* Minimal Mood Check-in Strip */}
-              <div className="pt-2 border-t border-slate-50 flex items-center justify-between gap-2 overflow-x-auto scrollbar-none">
-                <span className="text-[11px] font-bold text-slate-400 shrink-0">Mood:</span>
-                <div className="flex gap-1.5 overflow-x-auto scrollbar-none">
-                  {[
-                    '😌 Calm',
-                    '⚡ Energized',
-                    '🎨 Creative',
-                    '🧘 Grounded',
-                    '😴 Rested',
-                  ].map((label) => (
-                    <button
-                      key={label}
-                      onClick={() => setMoodCheckIn(label)}
-                      className={`py-1 px-2.5 rounded-lg text-[11px] font-semibold whitespace-nowrap transition ${
-                        moodCheckIn === label
-                          ? 'bg-[#E8F9FF] text-[#147C9E] font-bold border border-[#33C4F0]/30'
-                          : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
-                      }`}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
               </div>
             </div>
 
@@ -840,115 +1184,294 @@ export function ClientMobileApp() {
           </div>
         )}
 
-        {/* TAB 2: DISCOVER */}
+        {/* TAB 2: DISCOVER (Aligned 1-to-1 with Web Discover Page: Service Brands First) */}
         {activeTab === 'discover' && (
           <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
-            {/* Search Input */}
-            <div className="relative">
-              <MagnifyingGlass size={16} className="absolute left-3.5 top-3.5 text-slate-400" />
-              <input
-                type="text"
-                placeholder="Search watercolour, sound bath, yoga..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-xs font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#33C4F0] shadow-xs transition"
-              />
-            </div>
-
-            {/* Category Pills */}
-            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
-              {themeCategories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`py-1.5 px-3.5 rounded-full text-xs font-bold flex items-center gap-1.5 whitespace-nowrap transition ${
-                    selectedCategory === cat.id
-                      ? 'bg-slate-900 text-white shadow-xs'
-                      : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'
-                  }`}
+            {selectedBrandId === null ? (
+              /* VIEW 1: SERVICE BRANDS GRID (Matched to Web DiscoverPage.tsx) */
+              <>
+                {/* Header Banner */}
+                <div
+                  className="bg-white p-4 border border-slate-100 shadow-sm space-y-2"
+                  style={{ borderRadius: '20px 20px 54px 20px' }}
                 >
-                  <span>{cat.symbol}</span>
-                  <span>{cat.name}</span>
-                </button>
-              ))}
-            </div>
+                  <div className="flex items-center gap-1.5 text-[10px] font-extrabold text-purple-600 bg-purple-50 border border-purple-100 px-2.5 py-0.5 rounded-full w-fit">
+                    <Sparkle size={12} className="text-purple-600 animate-pulse" />
+                    Acumen AI Service Brand Engine
+                  </div>
+                  <h2 className="text-base font-black text-slate-900 leading-tight">
+                    Choose a Service Brand for your Pro Plan
+                  </h2>
+                  <p className="text-[11px] text-slate-500 font-medium leading-relaxed">
+                    Select a service brand below to access all of its included workshops, activities, and coaching sessions.
+                  </p>
+                </div>
 
-            {/* Activities List */}
-            <div className="space-y-3.5">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                  Available Sessions ({mockActivities.length})
-                </h3>
-                <span className="text-[10px] font-bold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
-                  Subscription Pass
-                </span>
-              </div>
+                {/* Search Input */}
+                <div className="relative">
+                  <MagnifyingGlass size={16} className="absolute left-3.5 top-3.5 text-slate-400" />
+                  <input
+                    type="text"
+                    placeholder="Search service brands, specialty, location..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-xs font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#33C4F0] shadow-xs transition"
+                  />
+                </div>
 
-              {mockActivities
-                .filter((act) => {
-                  const matchesCat = selectedCategory === 'all' || act.vendorName.toLowerCase().includes(selectedCategory.toLowerCase()) || act.category.toLowerCase().includes(selectedCategory.toLowerCase());
-                  const matchesSearch = !searchQuery || act.name.toLowerCase().includes(searchQuery.toLowerCase()) || act.description.toLowerCase().includes(searchQuery.toLowerCase());
-                  return matchesCat && matchesSearch;
-                })
-                .map((act) => {
-                  const isSaved = savedActivityIds.includes(act.id);
-                  return (
+                {/* Theme Category Pills */}
+                <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+                  {themeCategories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setSelectedCategory(cat.id)}
+                      className={`py-1.5 px-3.5 rounded-full text-xs font-bold flex items-center gap-1.5 whitespace-nowrap transition ${
+                        selectedCategory === cat.id
+                          ? 'bg-slate-900 text-white shadow-xs'
+                          : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'
+                      }`}
+                    >
+                      <span>{cat.symbol}</span>
+                      <span>{cat.name}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Service Brands List */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                      Service Brands ({mockVendors.length})
+                    </h3>
+                    <span className="text-[10px] font-bold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
+                      1 Brand Entitlement
+                    </span>
+                  </div>
+
+                  {mockVendors
+                    .filter((vendor) => {
+                      const matchesCat = selectedCategory === 'all' || vendor.theme.toLowerCase().includes(selectedCategory.toLowerCase()) || vendor.specialty.toLowerCase().includes(selectedCategory.toLowerCase());
+                      const matchesSearch = !searchQuery || vendor.name.toLowerCase().includes(searchQuery.toLowerCase()) || vendor.specialty.toLowerCase().includes(searchQuery.toLowerCase()) || vendor.description.toLowerCase().includes(searchQuery.toLowerCase());
+                      return matchesCat && matchesSearch;
+                    })
+                    .map((vendor) => {
+                      const vendorActivities = mockActivities.filter((a) => a.vendorId === vendor.id);
+                      const aiMatchScore = vendor.id === 'studio-lumen' ? 98 : vendor.id === 'cocoa-collective' ? 95 : 92;
+
+                      return (
+                        <div
+                          key={vendor.id}
+                          className="bg-white border border-slate-100 shadow-sm overflow-hidden hover:border-[#33C4F0]/40 transition"
+                          style={{ borderRadius: '20px 20px 54px 20px' }}
+                        >
+                          {/* Brand Cover Image */}
+                          <div className="relative h-40 w-full overflow-hidden bg-slate-100">
+                            <img src={vendor.image} alt={vendor.name} className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                            {/* Acumen AI Badge */}
+                            <div className="absolute top-3 right-3 bg-purple-900/80 backdrop-blur text-purple-200 border border-purple-400/30 text-[10px] font-extrabold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-md">
+                              <Sparkle size={11} className="text-purple-300 fill-purple-300" />
+                              {aiMatchScore}% Acumen Match
+                            </div>
+
+                            {/* Brand Header overlay */}
+                            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                              <div className="flex items-center gap-2.5">
+                                <div className="w-10 h-10 rounded-2xl bg-white shadow-md flex items-center justify-center text-xl shrink-0">
+                                  {vendor.avatar}
+                                </div>
+                                <div className="min-w-0">
+                                  <span className="text-[9px] font-extrabold text-white bg-white/20 px-2 py-0.5 rounded-md uppercase backdrop-blur">
+                                    {vendor.theme}
+                                  </span>
+                                  <h3 className="text-sm font-black text-white truncate">{vendor.name}</h3>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Brand Body */}
+                          <div className="p-3.5 space-y-3">
+                            <div className="flex items-center justify-between text-[11px] text-slate-500 font-semibold">
+                              <span className="flex items-center gap-1 text-[#F59E0B] font-extrabold">
+                                <Star size={13} weight="fill" /> {vendor.rating} ({vendor.reviewsCount} reviews)
+                              </span>
+                              <span className="flex items-center gap-1 text-slate-600">
+                                <MapPin size={13} className="text-slate-400" /> {vendor.location}
+                              </span>
+                            </div>
+
+                            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                              {vendor.specialty}
+                            </p>
+
+                            {/* Included Services Photo Preview */}
+                            <div className="border-t border-slate-100 pt-2.5">
+                              <p className="text-[10px] font-extrabold uppercase tracking-wider text-[#717182] mb-2">
+                                Included Services Preview ({vendorActivities.length} available):
+                              </p>
+                              <div className="grid grid-cols-3 gap-1.5">
+                                {vendorActivities.slice(0, 3).map((act) => (
+                                  <div
+                                    key={act.id}
+                                    onClick={() => setSelectedActivity(act)}
+                                    className="cursor-pointer bg-slate-50 rounded-xl overflow-hidden border border-slate-100 hover:border-[#33C4F0] transition group"
+                                  >
+                                    <div className="h-14 w-full relative">
+                                      <img src={act.image} alt={act.name} className="w-full h-full object-cover group-hover:scale-105 transition" />
+                                    </div>
+                                    <p className="text-[10px] font-extrabold text-slate-900 truncate p-1">
+                                      {act.name}
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Action Button: View Brand Services */}
+                            <button
+                              type="button"
+                              onClick={() => setSelectedBrandId(vendor.id)}
+                              className="w-full py-2.5 bg-[#1A1A28] text-white hover:bg-black text-xs font-extrabold rounded-full transition shadow-xs flex items-center justify-center gap-1.5 mt-1"
+                            >
+                              View Brand Services & Workshops ({vendorActivities.length}) →
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </>
+            ) : (
+              /* VIEW 2: SELECTED SERVICE BRAND'S SERVICES & WORKSHOPS (Matched to Web VendorDetailPage.tsx) */
+              (() => {
+                const selectedVendor = mockVendors.find((v) => v.id === selectedBrandId) || mockVendors[0];
+                const vendorActivities = mockActivities.filter((a) => a.vendorId === selectedVendor.id);
+
+                return (
+                  <div className="space-y-4">
+                    {/* Back to All Brands Navigation Button */}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedBrandId(null)}
+                      className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-white border border-slate-200 px-3.5 py-1.5 rounded-full shadow-2xs hover:bg-slate-50 transition"
+                    >
+                      <CaretLeft size={16} weight="bold" /> Back to All Service Brands
+                    </button>
+
+                    {/* Brand Banner Header Card */}
                     <div
-                      key={act.id}
-                      className="bg-white border border-slate-100 shadow-sm overflow-hidden hover:border-[#33C4F0]/40 transition"
+                      className="bg-white border border-slate-100 shadow-sm overflow-hidden"
                       style={{ borderRadius: '20px 20px 54px 20px' }}
                     >
-                      <div className="relative h-36 w-full">
-                        <img src={act.image} alt={act.name} className="w-full h-full object-cover" />
-                        <button
-                          onClick={() => toggleSaveActivity(act.id)}
-                          className={`absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-sm transition ${
-                            isSaved ? 'text-[#EF4444]' : 'text-slate-600'
-                          }`}
-                        >
-                          <BookmarkSimple size={16} weight={isSaved ? 'fill' : 'regular'} />
-                        </button>
-                        <div className="absolute bottom-2.5 left-2.5 bg-slate-900/80 backdrop-blur text-white text-[10px] font-bold px-2.5 py-0.5 rounded-md flex items-center gap-1">
-                          <span>{act.symbol}</span> {act.category}
+                      <div className="relative h-44 w-full">
+                        <img src={selectedVendor.image} alt={selectedVendor.name} className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 rounded-2xl bg-white text-2xl flex items-center justify-center shadow-md">
+                              {selectedVendor.avatar}
+                            </div>
+                            <div>
+                              <span className="text-[10px] font-extrabold uppercase bg-white/20 px-2 py-0.5 rounded-md backdrop-blur">
+                                {selectedVendor.theme}
+                              </span>
+                              <h1 className="text-base font-black truncate">{selectedVendor.name}</h1>
+                            </div>
+                          </div>
+                          <span className="text-xs font-black text-amber-400 bg-black/60 px-2.5 py-1 rounded-full backdrop-blur">
+                            ★ {selectedVendor.rating}
+                          </span>
                         </div>
                       </div>
 
-                      <div className="p-3.5">
-                        <div className="flex items-start justify-between mb-1">
-                          <h4 className="text-xs font-extrabold text-slate-900 line-clamp-1">{act.name}</h4>
-                          <span className="text-[11px] font-bold text-[#F59E0B] flex items-center gap-0.5 shrink-0 ml-2">
-                            <Star size={12} weight="fill" /> {act.rating}
-                          </span>
-                        </div>
-
-                        <p className="text-[11px] text-slate-500 font-medium mb-2.5">{act.vendorName}</p>
-
-                        <div className="flex items-center gap-3 text-[11px] text-slate-600 mb-3">
-                          <span className="flex items-center gap-1">
-                            <Clock size={13} className="text-slate-400" /> {act.duration}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MapPin size={13} className="text-slate-400" /> {act.location}
-                          </span>
-                        </div>
-
-                        <div className="flex items-center justify-between pt-2.5 border-t border-slate-50">
-                          <span className="text-[11px] font-extrabold text-[#10B981]">
-                            Included in Subscription
-                          </span>
-                          <button
-                            onClick={() => setSelectedActivity(act)}
-                            className="py-1.5 px-3.5 bg-[#33C4F0] text-white text-xs font-bold shadow-xs hover:bg-[#1AB0DC] transition"
-                            style={{ borderRadius: '12px 12px 28px 12px' }}
-                          >
-                            Book Session
-                          </button>
+                      <div className="p-4 space-y-2">
+                        <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                          {selectedVendor.description}
+                        </p>
+                        <div className="flex items-center justify-between text-[11px] text-slate-500 font-bold border-t border-slate-100 pt-2">
+                          <span>📍 {selectedVendor.location}</span>
+                          <span className="text-[#10B981]">{vendorActivities.length} Included Sessions</span>
                         </div>
                       </div>
                     </div>
-                  );
-                })}
-            </div>
+
+                    {/* Available Services Subheader */}
+                    <div className="flex items-center justify-between pt-1">
+                      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Available Services & Workshops ({vendorActivities.length})
+                      </h3>
+                      <span className="text-[10px] font-bold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
+                        Included in Pass
+                      </span>
+                    </div>
+
+                    {/* Vendor Activities List */}
+                    <div className="space-y-3.5">
+                      {vendorActivities.map((act) => {
+                        const isSaved = savedActivityIds.includes(act.id);
+                        return (
+                          <div
+                            key={act.id}
+                            className="bg-white border border-slate-100 shadow-sm overflow-hidden hover:border-[#33C4F0]/40 transition"
+                            style={{ borderRadius: '20px 20px 54px 20px' }}
+                          >
+                            <div className="relative h-36 w-full">
+                              <img src={act.image} alt={act.name} className="w-full h-full object-cover" />
+                              <button
+                                onClick={() => toggleSaveActivity(act.id)}
+                                className={`absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-sm transition ${
+                                  isSaved ? 'text-[#EF4444]' : 'text-slate-600'
+                                }`}
+                              >
+                                <BookmarkSimple size={16} weight={isSaved ? 'fill' : 'regular'} />
+                              </button>
+                              <div className="absolute bottom-2.5 left-2.5 bg-slate-900/80 backdrop-blur text-white text-[10px] font-bold px-2.5 py-0.5 rounded-md flex items-center gap-1">
+                                <span>{act.symbol}</span> {act.category}
+                              </div>
+                            </div>
+
+                            <div className="p-3.5">
+                              <div className="flex items-start justify-between mb-1">
+                                <h4 className="text-xs font-extrabold text-slate-900 line-clamp-1">{act.name}</h4>
+                                <span className="text-[11px] font-bold text-[#F59E0B] flex items-center gap-0.5 shrink-0 ml-2">
+                                  <Star size={12} weight="fill" /> {act.rating}
+                                </span>
+                              </div>
+
+                              <p className="text-[11px] text-slate-500 font-medium mb-2.5">{act.vendorName}</p>
+
+                              <div className="flex items-center gap-3 text-[11px] text-slate-600 mb-3">
+                                <span className="flex items-center gap-1">
+                                  <Clock size={13} className="text-slate-400" /> {act.duration}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <MapPin size={13} className="text-slate-400" /> {act.location}
+                                </span>
+                              </div>
+
+                              <div className="flex items-center justify-between pt-2.5 border-t border-slate-50">
+                                <span className="text-[11px] font-extrabold text-[#10B981]">
+                                  Included in Subscription
+                                </span>
+                                <button
+                                  onClick={() => setSelectedActivity(act)}
+                                  className="py-1.5 px-3.5 bg-[#33C4F0] text-white text-xs font-bold shadow-xs hover:bg-[#1AB0DC] transition"
+                                  style={{ borderRadius: '12px 12px 28px 12px' }}
+                                >
+                                  Book Session
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })()
+            )}
           </div>
         )}
 
@@ -1042,15 +1565,71 @@ export function ClientMobileApp() {
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#33C4F0] to-[#1AB0DC] text-white flex items-center justify-center text-xl font-bold shadow-md shrink-0">
                 🧭
               </div>
-              <div>
-                <div className="flex items-center gap-1.5">
-                  <h3 className="text-sm font-extrabold text-slate-900">{regName || 'Alex Morgan'}</h3>
-                  <span className="text-[10px] font-extrabold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-full">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <h3 className="text-sm font-extrabold text-slate-900 truncate">{regName || 'Alex Morgan'}</h3>
+                  <span className="text-[10px] font-extrabold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-full shrink-0">
                     The Explorer 🧭
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 font-medium">Personality Type: Harmonious Explorer</p>
-                <p className="text-[11px] text-slate-400">Subscription Tier: All-Access Pass</p>
+                <p className="text-xs text-slate-500 font-medium truncate">{emailInput || 'alex@company.com'}</p>
+                <p className="text-[11px] text-[#10B981] font-bold">Active Pro Annual Subscriber</p>
+              </div>
+            </div>
+
+            {/* Account Details Card (Aligned 1-to-1 with Web Registration Fields) */}
+            <div
+              className="bg-white p-4 border border-slate-100 shadow-sm space-y-2.5"
+              style={{ borderRadius: '20px 20px 54px 20px' }}
+            >
+              <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                <h4 className="text-xs font-black uppercase text-[#1A1A28] tracking-wider">Account & Organization Info</h4>
+                <span className="text-[10px] font-bold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-md">Verified Profile</span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                  <p className="text-[9px] font-bold text-slate-400">FULL NAME</p>
+                  <p className="font-extrabold text-slate-900 truncate">{regName || 'Alex Morgan'}</p>
+                </div>
+                <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                  <p className="text-[9px] font-bold text-slate-400">ROLE / TITLE</p>
+                  <p className="font-extrabold text-slate-900 truncate">{jobTitleInput || 'Creative Lead'}</p>
+                </div>
+                <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                  <p className="text-[9px] font-bold text-slate-400">COMPANY</p>
+                  <p className="font-extrabold text-slate-900 truncate">{companyNameInput || 'Acme Agency'}</p>
+                </div>
+                <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                  <p className="text-[9px] font-bold text-slate-400">INDUSTRY</p>
+                  <p className="font-extrabold text-slate-900 truncate">{industryInput || 'Technology & Design'}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Active Subscription & Pass Balance Card */}
+            <div
+              className="bg-gradient-to-br from-[#E8F9FF] via-white to-sky-50 p-4 border border-[#33C4F0]/30 shadow-sm space-y-2.5"
+              style={{ borderRadius: '20px 20px 54px 20px' }}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-black text-[#1A1A28]">Pro Annual Plan</p>
+                  <p className="text-[10px] text-slate-500 font-medium">$39.00 / yr • Renews Aug 2027</p>
+                </div>
+                <span className="text-xs font-black text-[#10B981] bg-[#ECFDF5] px-2.5 py-1 rounded-full border border-emerald-200">
+                  4 Pass Credits Left
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setRegStep(4)}
+                  className="w-full py-2.5 bg-[#1A1A28] text-white hover:bg-black text-xs font-bold rounded-xl transition text-center shadow-xs"
+                >
+                  Manage Subscription / Upgrade Plan
+                </button>
               </div>
             </div>
 
@@ -1162,147 +1741,487 @@ export function ClientMobileApp() {
           })}
         </div>
 
-        {/* MODAL: ACTIVITY DETAIL & BOOKING SHEET */}
+        {/* FULL PAGE VIEW: ACTIVITY DETAIL SCREEN */}
         <AnimatePresence>
           {selectedActivity && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-end justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              className="absolute inset-0 bg-[#F8FAFC] z-50 overflow-y-auto flex flex-col text-[#1A1A28] font-sans"
             >
-              <motion.div
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                exit={{ y: '100%' }}
-                className="bg-white rounded-t-3xl w-full max-h-[85%] overflow-y-auto p-5 space-y-4 shadow-2xl relative"
-              >
+              {/* Sticky Header Navigation */}
+              <div className="bg-white/95 backdrop-blur-md px-4 py-3 border-b border-slate-200/80 sticky top-0 z-30 flex items-center justify-between shadow-2xs">
                 <button
+                  type="button"
                   onClick={() => setSelectedActivity(null)}
-                  className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200"
+                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full transition"
                 >
-                  <X size={16} />
+                  <CaretLeft size={16} weight="bold" /> Back to Discover
                 </button>
 
-                <div className="flex items-center gap-2 text-xs font-bold text-[#33C4F0]">
-                  <span>{selectedActivity.symbol}</span> {selectedActivity.category}
+                <button
+                  type="button"
+                  onClick={() => toggleSaveActivity(selectedActivity.id)}
+                  className={`p-2 rounded-full border transition ${
+                    savedActivityIds.includes(selectedActivity.id)
+                      ? 'bg-rose-50 border-rose-200 text-rose-500'
+                      : 'bg-slate-50 border-slate-200 text-slate-600'
+                  }`}
+                >
+                  <BookmarkSimple size={16} weight={savedActivityIds.includes(selectedActivity.id) ? 'fill' : 'regular'} />
+                </button>
+              </div>
+
+              {/* Scrollable Content Body */}
+              <div className="p-4 space-y-4 pb-12 flex-1">
+                {/* Hero Card */}
+                <div className="bg-white p-4.5 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
+                  <div className="relative h-52 sm:h-60 w-full rounded-2xl overflow-hidden shadow-sm bg-slate-100 border border-slate-200">
+                    <img src={selectedActivity.image} alt={selectedActivity.name} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+
+                    {/* Category Pill Tag */}
+                    <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur text-[#1A1A28] text-xs font-extrabold px-3 py-1 rounded-full shadow-md flex items-center gap-1">
+                      <span>{selectedActivity.symbol}</span> {selectedActivity.category}
+                    </div>
+
+                    {/* Rating Badge */}
+                    <div className="absolute top-3 right-3 bg-amber-400 text-slate-900 text-xs font-black px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
+                      <Star size={13} weight="fill" /> {selectedActivity.rating}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h1 className="text-lg font-black text-[#1A1A28] leading-snug tracking-tight">{selectedActivity.name}</h1>
+                    <div className="flex items-center gap-1.5 mt-1">
+                      <p className="text-xs font-extrabold text-[#1AB0DC]">Hosted by {selectedActivity.vendorName}</p>
+                      <ShieldCheck size={14} className="text-[#33C4F0]" weight="fill" />
+                    </div>
+                  </div>
+
+                  {/* Metadata Specs Bar */}
+                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100 text-xs font-semibold text-slate-700">
+                    <div className="bg-slate-50 p-2.5 rounded-2xl flex items-center gap-2 border border-slate-100">
+                      <Clock size={16} className="text-[#33C4F0]" />
+                      <div>
+                        <p className="text-[9px] text-[#717182] font-bold">DURATION</p>
+                        <p className="text-xs font-black text-[#1A1A28]">{selectedActivity.duration}</p>
+                      </div>
+                    </div>
+                    <div className="bg-slate-50 p-2.5 rounded-2xl flex items-center gap-2 border border-slate-100">
+                      <MapPin size={16} className="text-[#33C4F0]" />
+                      <div>
+                        <p className="text-[9px] text-[#717182] font-bold">LOCATION</p>
+                        <p className="text-xs font-black text-[#1A1A28] truncate">{selectedActivity.location}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <h2 className="text-base font-black text-[#1A1A28] leading-snug">
-                  {selectedActivity.name}
-                </h2>
-                <p className="text-xs font-semibold text-[#717182]">{selectedActivity.vendorName}</p>
-
-                <div className="h-40 rounded-2xl overflow-hidden">
-                  <img src={selectedActivity.image} alt={selectedActivity.name} className="w-full h-full object-cover" />
+                {/* Description & Overview */}
+                <div className="bg-white p-4.5 rounded-3xl border border-slate-200/80 shadow-xs space-y-2.5">
+                  <h2 className="text-[10px] font-extrabold uppercase tracking-widest text-[#33C4F0]">
+                    About This Experience
+                  </h2>
+                  <p className="text-xs text-[#525266] leading-relaxed font-medium">
+                    {selectedActivity.description}
+                  </p>
                 </div>
 
-                <p className="text-xs text-[#555566] leading-relaxed">{selectedActivity.description}</p>
-
-                {/* Highlights */}
-                <div>
-                  <p className="text-[11px] font-extrabold text-[#1A1A28] uppercase mb-2">Highlights</p>
-                  <ul className="space-y-1.5">
-                    {selectedActivity.highlights.map((h, i) => (
-                      <li key={i} className="text-xs text-[#555566] flex items-start gap-2">
-                        <CheckCircle size={14} className="text-[#10B981] shrink-0 mt-0.5" />
-                        <span>{h}</span>
-                      </li>
+                {/* Session Highlights */}
+                <div className="bg-white p-4.5 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
+                  <h3 className="text-[10px] font-extrabold uppercase tracking-widest text-[#147C9E]">
+                    What's Included in Your Session
+                  </h3>
+                  <div className="space-y-2">
+                    {selectedActivity.highlights.map((highlight, index) => (
+                      <div
+                        key={index}
+                        className="flex items-start gap-2.5 rounded-2xl bg-[#F8FCFF] p-3 border border-[#33C4F0]/15"
+                      >
+                        <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#10B981]/15 text-[#087E58] mt-0.5">
+                          <Check size={12} weight="bold" />
+                        </span>
+                        <span className="text-xs font-semibold text-[#1A1A28] leading-tight">{highlight}</span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
 
-                {/* Time Slot Picker */}
-                <div>
-                  <p className="text-[11px] font-extrabold text-[#1A1A28] uppercase mb-2">Available Slot</p>
+                {/* Time Slot Picker & Instant Booking Card */}
+                <div className="bg-gradient-to-br from-[#E8F9FF] via-white to-sky-50 p-4.5 rounded-3xl border border-[#33C4F0]/30 shadow-xs space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs font-black text-[#1A1A28]">Select Date & Time</p>
+                      <p className="text-[10px] text-[#717182]">Instant confirmation with your Pro Pass</p>
+                    </div>
+                    <span className="text-xs font-black text-[#10B981] bg-[#ECFDF5] px-2.5 py-1 rounded-full border border-emerald-200">
+                      Included with Pass
+                    </span>
+                  </div>
+
                   <div className="space-y-2">
                     {selectedActivity.schedule.map((sch) => (
                       <button
                         key={sch.id}
+                        type="button"
                         onClick={() => setBookingSelectedSlot(`${sch.date} • ${sch.time}`)}
-                        className={`w-full p-3 rounded-xl border text-left flex items-center justify-between text-xs transition ${
+                        className={`w-full p-3 rounded-2xl border text-left flex items-center justify-between text-xs transition ${
                           bookingSelectedSlot.includes(sch.date)
-                            ? 'border-[#33C4F0] bg-[#E8F9FF] text-[#147C9E] font-bold'
-                            : 'border-gray-200 bg-white text-[#1A1A28] font-semibold'
+                            ? 'border-[#33C4F0] bg-white ring-2 ring-[#33C4F0]/30 text-[#1A1A28] font-black shadow-2xs'
+                            : 'border-slate-200 bg-white text-[#1A1A28] font-semibold hover:border-slate-300'
                         }`}
                       >
                         <div>
-                          <p>{sch.date}</p>
-                          <p className="text-[10px] text-[#717182]">{sch.time}</p>
+                          <p className="font-bold">{sch.date}</p>
+                          <p className="text-[10px] text-[#717182] font-medium">{sch.time}</p>
                         </div>
-                        <span className="text-[10px] font-bold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] font-extrabold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
                           {sch.seatsLeft} seats left
                         </span>
                       </button>
                     ))}
                   </div>
-                </div>
 
-                {/* Book Action Button */}
-                <button
-                  onClick={() => handleConfirmBooking(selectedActivity)}
-                  className="w-full py-3.5 rounded-2xl font-bold text-xs text-white bg-gradient-to-r from-[#33C4F0] to-[#1AB0DC] shadow-lg shadow-[#33C4F0]/30 hover:opacity-95 transition active:scale-[0.99]"
-                >
-                  Confirm & Redeem Mobile Booking →
-                </button>
-              </motion.div>
+                  <button
+                    type="button"
+                    onClick={() => handleConfirmBooking(selectedActivity)}
+                    className="w-full py-3 bg-[#1A1A28] text-white hover:bg-black text-xs font-extrabold rounded-full shadow-md transition active:scale-[0.99] flex items-center justify-center gap-2 mt-2"
+                  >
+                    <Sparkle size={16} weight="fill" className="text-amber-400" />
+                    Confirm & Redeem Mobile Booking
+                  </button>
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* MODAL: POST DETAIL VIEW */}
+        {/* FULL PAGE VIEW: POST DETAIL SCREEN */}
         <AnimatePresence>
           {selectedPost && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-end justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              className="absolute inset-0 bg-[#F8FAFC] z-50 overflow-y-auto flex flex-col text-[#1A1A28] font-sans"
             >
-              <motion.div
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                exit={{ y: '100%' }}
-                className="bg-white rounded-t-3xl w-full max-h-[85%] overflow-y-auto p-5 space-y-4 shadow-2xl relative"
-              >
+              {/* Sticky Top Header Navigation */}
+              <div className="bg-white/95 backdrop-blur-md px-4 py-3 border-b border-slate-200/80 sticky top-0 z-30 flex items-center justify-between shadow-2xs">
                 <button
-                  onClick={() => setSelectedPost(null)}
-                  className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200"
+                  type="button"
+                  onClick={() => {
+                    setSelectedPost(null);
+                    setPostDetailImgIdx(0);
+                  }}
+                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full transition"
                 >
-                  <X size={16} />
+                  <CaretLeft size={16} weight="bold" /> Back to Feed
                 </button>
 
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">{selectedPost.emoji}</span>
-                  <div>
-                    <p className="text-xs font-bold text-[#1A1A28]">{selectedPost.provider}</p>
-                    <p className="text-[10px] text-[#717182]">{selectedPost.category}</p>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#1AB0DC] bg-[#E8F9FF] px-2.5 py-1 rounded-full">
+                    {selectedPost.category}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (likedPostIds.includes(selectedPost.id)) {
+                        setLikedPostIds(likedPostIds.filter((id) => id !== selectedPost.id));
+                      } else {
+                        setLikedPostIds([...likedPostIds, selectedPost.id]);
+                      }
+                    }}
+                    className={`p-2 rounded-full border transition ${
+                      likedPostIds.includes(selectedPost.id)
+                        ? 'bg-rose-50 border-rose-200 text-rose-500'
+                        : 'bg-slate-50 border-slate-200 text-slate-600'
+                    }`}
+                  >
+                    <Heart size={16} weight={likedPostIds.includes(selectedPost.id) ? 'fill' : 'bold'} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Scrollable Content Body */}
+              <div className="p-4 space-y-4 pb-12 flex-1">
+                {/* Hero Header Card */}
+                <div className="bg-white p-4.5 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
+                  {/* Provider Info */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-10 h-10 rounded-2xl bg-[#E8F9FF] text-[#147C9E] flex items-center justify-center text-xl shadow-2xs">
+                        {selectedPost.emoji}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-1.5">
+                          <p className="text-xs font-extrabold text-[#1A1A28]">{selectedPost.provider}</p>
+                          <ShieldCheck size={14} className="text-[#33C4F0]" weight="fill" />
+                        </div>
+                        <p className="text-[10px] text-[#717182]">
+                          {selectedPost.handle || `@${selectedPost.provider.toLowerCase().replace(/\s+/g, '')}`} • {selectedPost.date || 'Today'}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-md">
+                      {(selectedPost as any).readTime || '3 min read'}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h1 className="text-lg font-black text-[#1A1A28] leading-snug tracking-tight">
+                    {selectedPost.title}
+                  </h1>
+
+                  {/* Multi-Photo Carousel */}
+                  {(() => {
+                    const postImages = selectedPost.images && selectedPost.images.length > 0
+                      ? selectedPost.images
+                      : selectedPost.image
+                      ? [selectedPost.image]
+                      : [];
+
+                    if (postImages.length === 0) return null;
+
+                    const safeIndex = postDetailImgIdx % postImages.length;
+
+                    return (
+                      <div className="space-y-2 pt-1">
+                        <div className="relative h-52 sm:h-60 w-full rounded-2xl overflow-hidden shadow-sm bg-slate-100 border border-slate-200">
+                          <img
+                            src={postImages[safeIndex]}
+                            alt={selectedPost.title}
+                            className="w-full h-full object-cover transition-all duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+
+                          {/* Image Counter Badge */}
+                          {postImages.length > 1 && (
+                            <div className="absolute top-2.5 right-2.5 bg-black/75 backdrop-blur-md text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full flex items-center gap-1">
+                              <PhotosIcon size={12} />
+                              <span>{safeIndex + 1} of {postImages.length}</span>
+                            </div>
+                          )}
+
+                          {/* Carousel Chevrons */}
+                          {postImages.length > 1 && (
+                            <>
+                              <button
+                                type="button"
+                                onClick={() => setPostDetailImgIdx(safeIndex === 0 ? postImages.length - 1 : safeIndex - 1)}
+                                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 text-[#1A1A28] shadow-md flex items-center justify-center hover:bg-white transition"
+                              >
+                                <CaretLeft size={16} weight="bold" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setPostDetailImgIdx(safeIndex === postImages.length - 1 ? 0 : safeIndex + 1)}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 text-[#1A1A28] shadow-md flex items-center justify-center hover:bg-white transition"
+                              >
+                                <CaretRight size={16} weight="bold" />
+                              </button>
+                            </>
+                          )}
+                        </div>
+
+                        {/* Thumbnail Strip */}
+                        {postImages.length > 1 && (
+                          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                            {postImages.map((imgUrl, idx) => (
+                              <button
+                                key={idx}
+                                type="button"
+                                onClick={() => setPostDetailImgIdx(idx)}
+                                className={`relative h-12 w-16 shrink-0 rounded-xl overflow-hidden border-2 transition ${
+                                  safeIndex === idx
+                                    ? 'border-[#33C4F0] scale-105 shadow-2xs'
+                                    : 'border-transparent opacity-60 hover:opacity-100'
+                                }`}
+                              >
+                                <img src={imgUrl} alt={`Thumb ${idx + 1}`} className="w-full h-full object-cover" />
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
+                </div>
+
+                {/* The Story & Narrative Section */}
+                <div className="bg-white p-4.5 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
+                  <h2 className="text-[10px] font-extrabold uppercase tracking-widest text-[#33C4F0]">
+                    The Story Behind the Session
+                  </h2>
+                  <p className="text-sm font-bold text-[#1A1A28] leading-relaxed">
+                    {selectedPost.copy}
+                  </p>
+
+                  {selectedPost.fullStory && (
+                    <div className="text-xs text-[#525266] leading-relaxed whitespace-pre-line border-t border-slate-100 pt-3">
+                      {selectedPost.fullStory}
+                    </div>
+                  )}
+
+                  {/* Metadata Tags Row */}
+                  <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-[11px] font-extrabold">
+                    {selectedPost.duration && (
+                      <span className="rounded-full bg-[#F2FBFE] px-3 py-1.5 text-[#147C9E] flex items-center gap-1.5">
+                        <Clock size={14} />
+                        {selectedPost.duration}
+                      </span>
+                    )}
+                    {selectedPost.seats && (
+                      <span className="rounded-full bg-[#F2FBFE] px-3 py-1.5 text-[#147C9E] flex items-center gap-1.5">
+                        <Users size={14} />
+                        {selectedPost.seats}
+                      </span>
+                    )}
+                    {selectedPost.service && (
+                      <span className="rounded-full bg-[#E8F9FF] px-3 py-1.5 text-[#147C9E]">
+                        🎨 {selectedPost.service}
+                      </span>
+                    )}
                   </div>
                 </div>
 
-                <h2 className="text-base font-black text-[#1A1A28] leading-snug">{selectedPost.title}</h2>
-
-                {selectedPost.image && (
-                  <div className="h-44 rounded-2xl overflow-hidden">
-                    <img src={selectedPost.image} alt={selectedPost.title} className="w-full h-full object-cover" />
-                  </div>
-                )}
-
-                <p className="text-xs text-[#555566] leading-relaxed whitespace-pre-line">
-                  {selectedPost.fullStory || selectedPost.copy}
-                </p>
-
-                {selectedPost.highlights && (
-                  <div className="bg-[#F8FAFC] p-3 rounded-xl border border-gray-100">
-                    <p className="text-[11px] font-extrabold text-[#1A1A28] mb-1.5 uppercase">Highlights</p>
-                    <ul className="space-y-1 text-xs text-[#555566]">
-                      {selectedPost.highlights.map((h, idx) => (
-                        <li key={idx}>• {h}</li>
+                {/* Experience Highlights Section */}
+                {selectedPost.highlights && selectedPost.highlights.length > 0 && (
+                  <div className="bg-white p-4.5 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
+                    <h3 className="text-[10px] font-extrabold uppercase tracking-widest text-[#147C9E]">
+                      What Makes This Experience Special
+                    </h3>
+                    <div className="space-y-2">
+                      {selectedPost.highlights.map((highlight, index) => (
+                        <div
+                          key={index}
+                          className="flex items-start gap-2.5 rounded-2xl bg-[#F8FCFF] p-3 border border-[#33C4F0]/15"
+                        >
+                          <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#10B981]/15 text-[#087E58] mt-0.5">
+                            <Check size={12} weight="bold" />
+                          </span>
+                          <span className="text-xs font-semibold text-[#1A1A28] leading-tight">{highlight}</span>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 )}
-              </motion.div>
+
+                {/* Session Booking & Inquiry Card */}
+                <div className="bg-gradient-to-br from-[#E8F9FF] via-white to-sky-50 p-4.5 rounded-3xl border border-[#33C4F0]/30 shadow-xs space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs font-black text-[#1A1A28]">Book This Session</p>
+                      <p className="text-[10px] text-[#717182]">Included with your CreativeSelf Pro Pass</p>
+                    </div>
+                    <span className="text-xs font-black text-[#1AB0DC] bg-white px-2.5 py-1 rounded-full border border-[#33C4F0]/30 shadow-2xs">
+                      1 Pass Credit
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMyBookings([
+                        {
+                          id: `bk-${Date.now()}`,
+                          activityName: selectedPost.title,
+                          vendorName: selectedPost.provider,
+                          date: 'Tomorrow, 10:00 AM',
+                          time: '10:00 AM - 11:00 AM',
+                          location: 'Creative Hub • Studio 4B',
+                          status: 'Confirmed',
+                          seats: 1,
+                          color: '#33C4F0',
+                          symbol: selectedPost.emoji || '✨',
+                          qrCode: `CS-PASS-${Date.now()}`,
+                          image: selectedPost.image || '',
+                        },
+                        ...myBookings,
+                      ]);
+                      setBookingSuccessMsg(`Successfully booked "${selectedPost.title}"! Added to your Bookings tab.`);
+                      setSelectedPost(null);
+                    }}
+                    className="w-full py-3 bg-[#1A1A28] text-white hover:bg-black text-xs font-extrabold rounded-full shadow-md transition active:scale-[0.99] flex items-center justify-center gap-2"
+                  >
+                    <Sparkle size={16} weight="fill" className="text-amber-400" />
+                    Reserve Experience Now
+                  </button>
+                </div>
+
+                {/* Interactive Comments Section */}
+                <div className="bg-white p-4.5 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                    <p className="text-xs font-extrabold text-[#1A1A28] flex items-center gap-1.5">
+                      <ChatCircle size={16} className="text-[#33C4F0]" weight="bold" />
+                      Comments ({postDetailComments[selectedPost.id]?.length ?? (selectedPost.commentsList?.length || selectedPost.comments || 0)})
+                    </p>
+                  </div>
+
+                  {/* List of Comments */}
+                  <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
+                    {(postDetailComments[selectedPost.id] || selectedPost.commentsList || [
+                      { id: 'c1', user: 'Sophia Lin', avatar: '👩‍🎨', time: '2h ago', text: 'This session looks absolutely incredible! Can wait for next week.' },
+                      { id: 'c2', user: 'Marcus Vance', avatar: '🧘‍♂️', time: '5h ago', text: 'Loved the ceramic grounding technique. High quality instruction!' },
+                    ]).map((c: any) => (
+                      <div key={c.id} className="flex items-start gap-2.5 bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                        <span className="text-lg shrink-0">{c.avatar || '👤'}</span>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between">
+                            <p className="text-[11px] font-bold text-[#1A1A28]">{c.user}</p>
+                            <span className="text-[9px] text-[#717182]">{c.time}</span>
+                          </div>
+                          <p className="text-xs text-[#525266] mt-0.5 leading-snug">{c.text}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Add New Comment Input */}
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      if (!postDetailCommentText.trim()) return;
+
+                      const currentList = postDetailComments[selectedPost.id] || selectedPost.commentsList || [
+                        { id: 'c1', user: 'Sophia Lin', avatar: '👩‍🎨', time: '2h ago', text: 'This session looks absolutely incredible! Can wait for next week.' },
+                        { id: 'c2', user: 'Marcus Vance', avatar: '🧘‍♂️', time: '5h ago', text: 'Loved the ceramic grounding technique. High quality instruction!' },
+                      ];
+
+                      setPostDetailComments({
+                        ...postDetailComments,
+                        [selectedPost.id]: [
+                          ...currentList,
+                          {
+                            id: `cm-${Date.now()}`,
+                            user: regName || 'Alex Morgan',
+                            avatar: '✨',
+                            time: 'Just now',
+                            text: postDetailCommentText.trim(),
+                          },
+                        ],
+                      });
+                      setPostDetailCommentText('');
+                    }}
+                    className="flex items-center gap-2 pt-2 border-t border-slate-100"
+                  >
+                    <input
+                      type="text"
+                      placeholder="Add a comment..."
+                      value={postDetailCommentText}
+                      onChange={(e) => setPostDetailCommentText(e.target.value)}
+                      className="flex-1 px-3.5 py-2.5 bg-slate-100 rounded-full text-xs font-medium text-[#1A1A28] focus:outline-none focus:bg-white border border-transparent focus:border-[#33C4F0]"
+                    />
+                    <button
+                      type="submit"
+                      className="p-2.5 bg-[#33C4F0] hover:bg-[#1AB0DC] text-white rounded-full transition shadow-2xs shrink-0"
+                    >
+                      <Send size={15} weight="bold" />
+                    </button>
+                  </form>
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
