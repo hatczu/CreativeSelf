@@ -354,10 +354,10 @@ export function ClientMobileApp() {
             }}
           />
 
-          {/* Top Skip Button Header */}
+          {/* Top Skip Button Header (Redirects directly to Mobile Homepage) */}
           <div className="relative z-30 flex items-center justify-end p-5 pt-3">
             <button
-              onClick={() => setActiveScreen('login')}
+              onClick={() => handleDemoLogin('client')}
               className="text-[14px] font-medium text-white transition py-1 px-3 rounded-full hover:opacity-80 drop-shadow-md"
               style={{ fontFamily: 'Poppins, sans-serif' }}
             >
@@ -448,165 +448,130 @@ export function ClientMobileApp() {
       );
     }
 
-    // 2. LOGIN SCREEN
+    // 2. LOGIN SCREEN (ALIGNED TO CURRENT DESIGN SYSTEM)
     if (activeScreen === 'login') {
       return (
-        <div className="flex flex-col h-full bg-white justify-between p-6 overflow-y-auto">
-          {/* Top Header */}
-          <div>
-            <div className="flex items-center justify-between pt-2 mb-6">
+        <div className="relative flex flex-col h-full bg-[#F7FCFF] text-[#1A1A28] justify-between p-5 overflow-hidden font-sans isolate">
+          {/* Inverted Prism Kaleidoscope Top Graphic */}
+          <div className="absolute top-[-598px] left-[-437px] w-[839px] h-[839px] pointer-events-none z-0 flex items-center justify-center">
+            <div className="relative w-full h-full rounded-full overflow-hidden flex items-center justify-center">
+              <img
+                src={kaleidoscope}
+                alt="CreativeSelf Inverted Prism"
+                className="w-full h-full object-cover scale-110 rotate-[-139.79deg]"
+              />
+            </div>
+          </div>
+
+          {/* Soft Cyan Blur Overlay */}
+          <div
+            className="absolute top-[-40px] left-0 right-0 h-[180px] pointer-events-none z-2"
+            style={{
+              background: 'linear-gradient(180deg, rgba(218, 250, 255, 0.88) 0%, rgba(218, 250, 255, 0.52) 60%, rgba(247, 252, 255, 0) 100%)',
+              filter: 'blur(65px)',
+            }}
+          />
+
+          {/* Top Navigation Row (Back Button & Demo shortcut) */}
+          <div className="relative z-10 space-y-3 pt-1">
+            <div className="flex items-center justify-between">
+              {/* Circular Back Button */}
               <button
+                type="button"
                 onClick={() => setActiveScreen('onboarding')}
-                className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200"
+                className="w-9 h-9 rounded-full bg-white/80 backdrop-blur-md shadow-2xs border border-gray-200/60 flex items-center justify-center text-gray-700 hover:bg-white transition"
               >
                 <CaretLeft size={18} weight="bold" />
               </button>
-              <span className="text-xs font-extrabold text-[#717182] uppercase tracking-wider">Client Mobile Login</span>
+
               <button
+                type="button"
                 onClick={() => handleDemoLogin('client')}
-                className="text-xs font-bold text-[#1AB0DC] bg-[#E8F9FF] px-2.5 py-1 rounded-full border border-[#33C4F0]/30"
+                className="text-[12px] font-bold text-[#00B0D9] bg-white/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#33C4F0]/30 shadow-2xs"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
               >
-                Demo
+                Quick Demo
               </button>
             </div>
+          </div>
 
-            <h1 className="text-2xl font-black text-[#1A1A28] mb-1">Welcome Back 👋</h1>
-            <p className="text-xs text-[#717182] mb-6">Sign in to manage your bookings and access creative wellbeing.</p>
+          {/* Login Form Main Content (Pushed down to match exact vertical title height of Registration screens) */}
+          <div className="relative z-10 flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pt-14 pb-4 sm:pt-16 space-y-4">
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+              <div>
+                <h1 className="text-[24px] font-bold text-[#1A1A28] leading-[29px]" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
+                  Welcome Back 👋
+                </h1>
+                <p className="text-[12px] font-normal text-[#6A7282] leading-[18px] mt-1.5" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                  Sign in to access your creative wellness workspace and manage bookings.
+                </p>
+              </div>
 
-            {/* Auth Method Tabs */}
-            <div className="flex rounded-xl bg-gray-100 p-1 mb-5">
-              <button
-                onClick={() => setAuthMethod('phone')}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg transition ${
-                  authMethod === 'phone'
-                    ? 'bg-white text-[#1A1A28] shadow-sm'
-                    : 'text-[#717182] hover:text-[#1A1A28]'
-                }`}
-              >
-                Phone (OTP)
-              </button>
-              <button
-                onClick={() => setAuthMethod('email')}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg transition ${
-                  authMethod === 'email'
-                    ? 'bg-white text-[#1A1A28] shadow-sm'
-                    : 'text-[#717182] hover:text-[#1A1A28]'
-                }`}
-              >
-                Email & Password
-              </button>
-            </div>
-
-            {/* Input Form */}
-            {authMethod === 'phone' ? (
-              <div className="space-y-4 mb-6">
+              {/* Form Fields */}
+              <div className="space-y-3.5 pt-1">
+                {/* Email / Username */}
                 <div>
-                  <label className="block text-[11px] font-bold text-[#717182] mb-1.5 uppercase">Mobile Phone Number</label>
+                  <label className="block text-[12px] font-medium text-[#1A1A28] mb-1" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    Email or Username
+                  </label>
                   <div className="relative flex items-center">
-                    <span className="absolute left-3 text-xs font-bold text-gray-500">+1</span>
+                    <EnvelopeSimple size={18} className="absolute left-3.5 text-[#99A1AF]" />
                     <input
-                      type="tel"
-                      placeholder="(555) 000-1234"
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 text-xs font-semibold text-[#1A1A28] focus:outline-none focus:border-[#33C4F0]"
+                      type="email"
+                      placeholder="youname@email.com"
+                      value={emailInput}
+                      onChange={(e) => setEmailInput(e.target.value)}
+                      className="w-full pl-10 pr-4 py-3 bg-white border border-[#E5E7EB] text-xs font-normal text-[#1A1A28] focus:outline-none focus:border-[#33C4F0] placeholder-[#2A2A3A]/50 shadow-2xs"
+                      style={{ borderRadius: '14px 14px 32px 14px', fontFamily: 'Poppins, sans-serif' }}
+                    />
+                  </div>
+                </div>
+
+                {/* Password */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-[12px] font-medium text-[#1A1A28]" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                      Password
+                    </label>
+                    <button type="button" className="text-[11px] font-medium text-[#33C4F0] hover:underline" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                      Forgot Password?
+                    </button>
+                  </div>
+                  <div className="relative flex items-center">
+                    <LockKey size={18} className="absolute left-3.5 text-[#99A1AF]" />
+                    <input
+                      type="password"
+                      placeholder="••••••••"
+                      value={passwordInput}
+                      onChange={(e) => setPasswordInput(e.target.value)}
+                      className="w-full pl-10 pr-4 py-3 bg-white border border-[#E5E7EB] text-xs font-normal text-[#1A1A28] focus:outline-none focus:border-[#33C4F0] placeholder-[#2A2A3A]/50 shadow-2xs"
+                      style={{ borderRadius: '14px 14px 32px 14px', fontFamily: 'Poppins, sans-serif' }}
                     />
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className="space-y-3 mb-6">
-                <div>
-                  <label className="block text-[11px] font-bold text-[#717182] mb-1.5 uppercase">Email Address</label>
-                  <input
-                    type="email"
-                    placeholder="alex.morgan@company.com"
-                    value={emailInput}
-                    onChange={(e) => setEmailInput(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs font-semibold text-[#1A1A28] focus:outline-none focus:border-[#33C4F0]"
-                  />
-                </div>
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label className="text-[11px] font-bold text-[#717182] uppercase">Password</label>
-                    <button type="button" className="text-[10px] font-bold text-[#1AB0DC]">Forgot?</button>
-                  </div>
-                  <input
-                    type="password"
-                    placeholder="••••••••"
-                    value={passwordInput}
-                    onChange={(e) => setPasswordInput(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs font-semibold text-[#1A1A28] focus:outline-none focus:border-[#33C4F0]"
-                  />
-                </div>
-              </div>
-            )}
+            </motion.div>
+          </div>
 
-            {/* Login Action */}
+          {/* Fixed Bottom Action Container */}
+          <div className="relative z-20 shrink-0 pt-3 pb-1 space-y-2.5 bg-[#F7FCFF]">
             <button
+              type="button"
               onClick={() => handleDemoLogin('client')}
-              className="w-full py-3.5 rounded-2xl font-bold text-xs text-white bg-gradient-to-r from-[#33C4F0] to-[#1AB0DC] shadow-md shadow-[#33C4F0]/30 hover:opacity-95 transition mb-4 active:scale-[0.99]"
+              className="w-full h-[46px] flex items-center justify-center font-bold text-[14px] text-white bg-gradient-to-r from-[#33C4F0] to-[#00B0D9] shadow-md shadow-[#33C4F0]/30 hover:opacity-95 transition active:scale-[0.99]"
+              style={{ borderRadius: '26px 26px 62px 26px', fontFamily: 'Poppins, sans-serif' }}
             >
-              Sign In to App
+              Log In
             </button>
 
-            {/* Divider */}
-            <div className="relative flex items-center justify-center my-4">
-              <div className="border-t border-gray-200 w-full" />
-              <span className="bg-white px-3 text-[10px] font-bold text-gray-400 uppercase">Or continue with</span>
-            </div>
-
-            {/* Social Logins */}
-            <div className="grid grid-cols-2 gap-2 mb-6">
-              <button
-                type="button"
-                onClick={() => handleDemoLogin('corporate')}
-                className="py-2.5 px-3 rounded-xl border border-gray-200 flex items-center justify-center gap-2 text-xs font-semibold text-[#1A1A28] hover:bg-gray-50 transition"
-              >
-                <Buildings size={16} className="text-[#10B981]" /> Corporate SSO
-              </button>
-              <button
-                type="button"
-                onClick={() => handleDemoLogin('client')}
-                className="py-2.5 px-3 rounded-xl border border-gray-200 flex items-center justify-center gap-2 text-xs font-semibold text-[#1A1A28] hover:bg-gray-50 transition"
-              >
-                <span className="font-bold text-xs">G</span> Google
-              </button>
-            </div>
-          </div>
-
-          {/* Quick Demo Fill Buttons */}
-          <div className="bg-[#E8F9FF]/60 rounded-2xl p-3.5 border border-[#33C4F0]/20 mb-4">
-            <p className="text-[11px] font-extrabold text-[#147C9E] mb-2 flex items-center gap-1">
-              <Sparkle size={13} weight="fill" /> Quick Demo Test Accounts:
-            </p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => handleDemoLogin('client')}
-                className="flex-1 py-2 px-2 bg-white rounded-lg text-[10px] font-bold text-[#1A1A28] border border-gray-200 hover:border-[#33C4F0] shadow-2xs text-center"
-              >
-                👤 Individual Client
-              </button>
-              <button
-                onClick={() => handleDemoLogin('corporate')}
-                className="flex-1 py-2 px-2 bg-white rounded-lg text-[10px] font-bold text-[#10B981] border border-gray-200 hover:border-[#10B981] shadow-2xs text-center"
-              >
-                🏢 Corporate Employee
-              </button>
-            </div>
-          </div>
-
-          {/* Switch to Register */}
-          <div className="text-center pb-2">
-            <p className="text-xs text-[#717182]">
-              Don't have a CreativeSelf account?{' '}
-              <button
-                onClick={() => setActiveScreen('register')}
-                className="text-[#1AB0DC] font-bold underline"
-              >
-                Create Account
-              </button>
-            </p>
+            <button
+              type="button"
+              onClick={() => setActiveScreen('register')}
+              className="w-full text-center text-[14px] font-medium text-[#6A7282] hover:text-[#1A1A28] transition py-1"
+              style={{ fontFamily: 'Poppins, sans-serif' }}
+            >
+              Don't have an account? <span className="text-[#33C4F0] font-medium underline">Create Account</span>
+            </button>
           </div>
         </div>
       );
