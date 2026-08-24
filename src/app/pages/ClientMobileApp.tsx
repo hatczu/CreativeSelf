@@ -48,6 +48,7 @@ import {
 import { samplePostsData, PostData } from '../data/postsData';
 import { mockVendors, mockActivities, themeCategories, Activity } from '../data/subscriptionData';
 import kaleidoscope from '../../imports/CS_Kaleidescope_Juice_Drop.png';
+import logoIcon from '../../imports/Logo.png';
 
 type ScreenType = 'onboarding' | 'login' | 'register' | 'feed' | 'discover' | 'bookings' | 'profile';
 type TabType = 'feed' | 'discover' | 'bookings' | 'profile';
@@ -211,36 +212,40 @@ export function ClientMobileApp() {
 
   const onboardingSlides = [
     {
-      title: 'Discover Creative Wellness',
-      subtitle: 'Nurture your mind, body & soul through curated artistic experiences.',
-      desc: 'Connect with verified sound healers, watercolour studios, movement coaches, and culinary crafts.',
-      icon: '🎨',
-      bgGradient: 'from-[#33C4F0]/20 via-[#E8F9FF] to-[#FFF]',
-      accentColor: '#33C4F0',
+      titlePrefix: 'Discover ',
+      titleHighlight: 'Creative Wellness',
+      highlightColor: '#33C4F0',
+      subtext: 'Nurture your mind, body & soul through curated artistic experiences.',
+      buttonColor: '#00B0D9',
+      buttonText: 'Next',
+      accentGradient: 'linear-gradient(180deg, #33C4F0 0%, rgba(255, 255, 255, 0) 100%)',
     },
     {
-      title: 'Personalized Archetypes',
-      subtitle: 'Tailored recommendations based on your personality test results.',
-      desc: 'Whether you are a Harmonious Creator or an Energetic Explorer, unlock sessions crafted for your vibe.',
-      icon: '✨',
-      bgGradient: 'from-[#8B5CF6]/20 via-[#F3E8FF] to-[#FFF]',
-      accentColor: '#8B5CF6',
+      titlePrefix: 'Personalized ',
+      titleHighlight: 'Archetypes',
+      highlightColor: '#A5289E',
+      subtext: 'Tailored recommendations based on your personality test results.',
+      buttonColor: '#A5289E',
+      buttonText: 'Next',
+      accentGradient: 'linear-gradient(180deg, #ED33F0 0%, rgba(255, 255, 255, 0) 100%)',
     },
     {
-      title: 'Corporate Benefits',
-      subtitle: 'Seamlessly redeem company wellbeing allowances & join team sessions.',
-      desc: 'Use corporate credits for personal retreats or sync with coworkers for group movement breaks.',
-      icon: '🏛️',
-      bgGradient: 'from-[#10B981]/20 via-[#ECFDF5] to-[#FFF]',
-      accentColor: '#10B981',
+      titlePrefix: 'Corporate ',
+      titleHighlight: 'Benefits',
+      highlightColor: '#FE7A03',
+      subtext: 'Seamlessly redeem company wellbeing allowances & join team sessions.',
+      buttonColor: '#FE7A03',
+      buttonText: 'Next',
+      accentGradient: 'linear-gradient(180deg, #F0D733 0%, rgba(255, 255, 255, 0) 100%)',
     },
     {
-      title: 'Book & Track Growth',
-      subtitle: 'Instant mobile scheduling with digital passes & mood tracking.',
-      desc: 'Check in with a single QR code, save favorite practitioners, and watch your creative streak blossom.',
-      icon: '📱',
-      bgGradient: 'from-[#F59E0B]/20 via-[#FEF3C7] to-[#FFF]',
-      accentColor: '#F59E0B',
+      titlePrefix: 'Book & Track ',
+      titleHighlight: 'Growth',
+      highlightColor: '#6FD352',
+      subtext: 'Instant mobile scheduling with digital passes & mood tracking.',
+      buttonColor: '#6FD352',
+      buttonText: 'Get Started',
+      accentGradient: 'linear-gradient(180deg, #3CF033 0%, rgba(255, 255, 255, 0) 100%)',
     },
   ];
 
@@ -295,109 +300,148 @@ export function ClientMobileApp() {
 
   // Render Inner Content of Mobile Screen
   const renderMobileScreenContent = () => {
-    // 1. ONBOARDING SCREEN
+    // 1. ONBOARDING SCREEN (EXACT FIGMA 4-SLIDE DESIGN MATCH)
     if (activeScreen === 'onboarding') {
       const slide = onboardingSlides[onboardingStep];
       return (
-        <div className={`flex flex-col h-full bg-gradient-to-b ${slide.bgGradient} justify-between p-6 overflow-y-auto`}>
-          {/* Top Bar */}
-          <div className="flex items-center justify-between pt-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-[#1AB0DC] bg-white/80 border border-[#33C4F0]/30 shadow-sm">
-              <Sparkle size={12} weight="fill" /> CreativeSelf Mobile
-            </span>
+        <div className="relative flex flex-col h-full bg-[#F7FCFF] text-[#1A1A28] justify-between overflow-hidden font-sans isolate">
+          {/* 1. BOTTOM LAYER: Prism Kaleidoscope Top Graphic (Shifted higher for bigger gap) */}
+          <div className="absolute top-[-260px] sm:top-[-280px] left-1/2 -translate-x-1/2 w-[560px] h-[560px] sm:w-[660px] sm:h-[660px] pointer-events-none z-10 flex items-center justify-center">
+            <div className="relative w-full h-full rounded-full overflow-hidden flex items-center justify-center">
+              <img
+                src={kaleidoscope}
+                alt="CreativeSelf Kaleidoscope Prism"
+                className="w-full h-full object-cover scale-110 rotate-[2.3deg]"
+              />
+            </div>
+          </div>
+
+          {/* 2. MIDDLE LAYER: Soft Cyan Blur Overlay (Shifted higher up near top edge) */}
+          <div
+            className="absolute top-[-40px] left-0 right-0 h-[180px] pointer-events-none z-20"
+            style={{
+              background: 'linear-gradient(180deg, rgba(218, 250, 255, 0.88) 0%, rgba(218, 250, 255, 0.52) 60%, rgba(247, 252, 255, 0) 100%)',
+              filter: 'blur(65px)',
+            }}
+          />
+
+          {/* 3. TOP LAYER: CreativeSelf Logo (z-30) */}
+          <div className="absolute top-[40px] sm:top-[50px] left-1/2 -translate-x-1/2 pointer-events-none z-30 flex items-center justify-center">
+            <img
+              src={logoIcon}
+              alt="CreativeSelf Logo"
+              className="w-16 h-16 sm:w-18 sm:h-18 object-contain drop-shadow-lg"
+            />
+          </div>
+
+          {/* Bottom Gradient Accent Row (Rectangle 3: 135px height, 0.2 opacity, inverted matrix) */}
+          <div
+            className="absolute bottom-0 left-0 right-0 h-[135px] pointer-events-none z-0"
+            style={{
+              background: 'linear-gradient(180deg, #33C4F0 0%, rgba(255, 255, 255, 0) 100%)',
+              opacity: 0.2,
+              transform: 'scaleY(-1)',
+            }}
+          />
+
+          {/* Bottom Right Teardrop Watermark Shape (Rectangle 2: 135px x 135px, left 247px, bottom 310px) */}
+          <div
+            className="absolute left-[247px] bottom-[310px] w-[135px] h-[135px] pointer-events-none z-5 transition-all duration-500"
+            style={{
+              background: slide.accentGradient,
+              opacity: 0.2,
+              borderRadius: '999px 0px 999px 999px',
+            }}
+          />
+
+          {/* Top Skip Button Header */}
+          <div className="relative z-30 flex items-center justify-end p-5 pt-3">
             <button
               onClick={() => setActiveScreen('login')}
-              className="text-xs font-bold text-[#717182] hover:text-[#1A1A28] transition py-1 px-3 rounded-full hover:bg-white/60"
+              className="text-[14px] font-medium text-white transition py-1 px-3 rounded-full hover:opacity-80 drop-shadow-md"
+              style={{ fontFamily: 'Poppins, sans-serif' }}
             >
               Skip
             </button>
           </div>
 
-          {/* Center Graphic & Info */}
-          <div className="flex flex-col items-center text-center my-auto py-6">
-            <motion.div
-              key={onboardingStep}
-              initial={{ scale: 0.8, opacity: 0, y: 10 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="relative mb-6"
-            >
-              <div
-                className="w-28 h-28 rounded-3xl flex items-center justify-center text-5xl shadow-xl border border-white/60"
-                style={{
-                  background: `linear-gradient(135deg, white 0%, ${slide.accentColor}20 100%)`,
-                  boxShadow: `0 20px 40px ${slide.accentColor}30`,
-                }}
+          {/* Spacer positioning text lower down */}
+          <div className="h-[265px] sm:h-[285px] shrink-0 z-3 pointer-events-none" />
+
+          {/* Middle Onboarding Content Box */}
+          <div className="relative z-10 flex flex-col justify-start items-center px-6 flex-1 text-center overflow-y-auto">
+            {/* Title & Subtext Group */}
+            <div className="space-y-2.5 w-full max-w-[320px] pt-2">
+              <motion.h2
+                key={`title-${onboardingStep}`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-[24px] font-bold text-[#1A1A28] leading-[29px] tracking-tight"
+                style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}
               >
-                {slide.icon}
-              </div>
-              <div
-                className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-md"
-                style={{ backgroundColor: slide.accentColor }}
+                {slide.titlePrefix}
+                <span style={{ color: slide.highlightColor }}>{slide.titleHighlight}</span>
+              </motion.h2>
+
+              <motion.p
+                key={`sub-${onboardingStep}`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.05 }}
+                className="text-[14px] font-normal text-[#6A7282] leading-[21px]"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
               >
-                {onboardingStep + 1}
-              </div>
-            </motion.div>
-
-            <motion.h2
-              key={`t-${onboardingStep}`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-2xl font-extrabold text-[#1A1A28] mb-2 leading-tight"
-            >
-              {slide.title}
-            </motion.h2>
-
-            <p className="text-xs font-semibold text-[#1AB0DC] mb-3 px-2">
-              {slide.subtitle}
-            </p>
-
-            <p className="text-xs text-[#555566] leading-relaxed max-w-xs px-2">
-              {slide.desc}
-            </p>
+                {slide.subtext}
+              </motion.p>
+            </div>
           </div>
 
-          {/* Bottom Actions */}
-          <div className="flex flex-col gap-4 pb-2">
-            {/* Dots */}
-            <div className="flex justify-center gap-2">
-              {onboardingSlides.map((_, idx) => (
+          {/* Pinned Bottom Action Group (Fixed at bottom) */}
+          <div className="relative z-20 shrink-0 px-6 pb-6 pt-2 flex flex-col items-center gap-3 w-full">
+            {/* Row of 4 Pagination Dots */}
+            <div className="flex items-center justify-center gap-1.5 h-2 mb-1">
+              {onboardingSlides.map((s, idx) => (
                 <button
                   key={idx}
                   onClick={() => setOnboardingStep(idx)}
-                  className={`h-2 rounded-full transition-all ${
-                    onboardingStep === idx
-                      ? 'w-6 bg-[#33C4F0]'
-                      : 'w-2 bg-gray-300 hover:bg-gray-400'
-                  }`}
-                  aria-label={`Go to slide ${idx + 1}`}
+                  className="w-2 h-2 rounded-full transition-all duration-300"
+                  style={{
+                    backgroundColor: idx === onboardingStep ? s.buttonColor : '#D9D9D9',
+                  }}
+                  aria-label={`Go to onboarding slide ${idx + 1}`}
                 />
               ))}
             </div>
 
-            {/* Buttons */}
-            {onboardingStep < onboardingSlides.length - 1 ? (
-              <button
-                onClick={() => setOnboardingStep((prev) => prev + 1)}
-                className="w-full py-3.5 px-6 rounded-2xl font-bold text-sm text-white bg-gradient-to-r from-[#33C4F0] to-[#1AB0DC] shadow-lg shadow-[#33C4F0]/30 hover:opacity-95 flex items-center justify-center gap-2 transition active:scale-[0.99]"
-              >
-                Continue <CaretRight size={16} weight="bold" />
-              </button>
-            ) : (
-              <button
-                onClick={() => setActiveScreen('login')}
-                className="w-full py-3.5 px-6 rounded-2xl font-bold text-sm text-white bg-gradient-to-r from-[#33C4F0] to-[#1AB0DC] shadow-lg shadow-[#33C4F0]/30 hover:opacity-95 flex items-center justify-center gap-2 transition active:scale-[0.99]"
-              >
-                Get Started Now <Sparkle size={16} weight="fill" />
-              </button>
-            )}
+            {/* Main Action Button */}
+            <button
+              onClick={() => {
+                if (onboardingStep < onboardingSlides.length - 1) {
+                  setOnboardingStep((prev) => prev + 1);
+                } else {
+                  setRegStep(1);
+                  setActiveScreen('register');
+                }
+              }}
+              className="w-full max-w-[340px] h-[46px] flex items-center justify-center text-white text-[14px] font-bold transition-all duration-200 active:scale-[0.99] hover:opacity-95"
+              style={{
+                backgroundColor: slide.buttonColor,
+                borderRadius: '26px 26px 62px 26px',
+                boxShadow: '0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                fontFamily: 'Century Gothic, Poppins, sans-serif',
+              }}
+            >
+              {slide.buttonText}
+            </button>
 
+            {/* Footer Login Link */}
             <button
               onClick={() => setActiveScreen('login')}
-              className="text-xs text-center font-semibold text-[#717182] hover:text-[#1A1A28]"
+              className="text-[14px] font-medium text-[#6A7282] hover:text-[#1A1A28] transition"
+              style={{ fontFamily: 'Poppins, sans-serif' }}
             >
-              Already have an account? <span className="text-[#1AB0DC] underline font-bold">Log In</span>
+              Already have an account? <span className="text-[#00B0D9] font-medium underline">Log in</span>
             </button>
           </div>
         </div>
@@ -568,180 +612,171 @@ export function ClientMobileApp() {
       );
     }
 
-    // 3. REGISTER SCREEN (Aligned 1-to-1 with RegisterPage Fields in Light Mode CreativeSelf Design System)
+    // 3. REGISTER SCREEN (EXACT FIGMA 4-STEP SPEC MATCH)
     if (activeScreen === 'register') {
       return (
-        <div className="flex flex-col h-full bg-[#F8FAFC] text-[#1A1A28] justify-between p-5 overflow-y-auto font-sans relative">
-          <div>
-            {/* Top Bar Navigation */}
-            <div className="flex items-center justify-between pt-1 mb-3">
-              {regStep === 4 ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-[#33C4F0]/15 flex items-center justify-center text-[#1AB0DC]">
-                    <Sparkle size={18} weight="fill" />
-                  </div>
-                  <span className="text-xs font-black tracking-wider text-[#1A1A28] uppercase">CreativeSelf</span>
-                </div>
-              ) : regStep > 1 ? (
-                <button
-                  type="button"
-                  onClick={() => setRegStep(regStep - 1)}
-                  className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[#1A1A28] hover:bg-slate-200 transition"
-                >
-                  <CaretLeft size={16} weight="bold" />
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => setActiveScreen('login')}
-                  className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[#1A1A28] hover:bg-slate-200 transition"
-                >
-                  <CaretLeft size={16} weight="bold" />
-                </button>
-              )}
+        <div className="relative flex flex-col h-full bg-[#F7FCFF] text-[#1A1A28] justify-between p-5 overflow-hidden font-sans isolate">
+          {/* Inverted Prism Kaleidoscope Top Graphic (Figma Spec - Smooth Circular Overflow Clip) */}
+          <div className="absolute top-[-598px] left-[-437px] w-[839px] h-[839px] pointer-events-none z-0 flex items-center justify-center">
+            <div className="relative w-full h-full rounded-full overflow-hidden flex items-center justify-center">
+              <img
+                src={kaleidoscope}
+                alt="CreativeSelf Inverted Prism"
+                className="w-full h-full object-cover scale-110 rotate-[-139.79deg]"
+              />
+            </div>
+          </div>
 
-              {regStep < 4 ? (
-                <span className="text-[11px] font-extrabold text-[#717182] uppercase tracking-wider">
-                  Step {regStep} of 4
-                </span>
-              ) : null}
+          {/* Soft Cyan Blur Overlay (Shifted higher up near top edge) */}
+          <div
+            className="absolute top-[-40px] left-0 right-0 h-[180px] pointer-events-none z-2"
+            style={{
+              background: 'linear-gradient(180deg, rgba(218, 250, 255, 0.88) 0%, rgba(218, 250, 255, 0.52) 60%, rgba(247, 252, 255, 0) 100%)',
+              filter: 'blur(65px)',
+            }}
+          />
 
-              {regStep === 4 ? (
-                <button
-                  type="button"
-                  onClick={() => handleDemoLogin('client')}
-                  className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[#1A1A28] hover:bg-slate-200 transition"
-                >
-                  <X size={16} weight="bold" />
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => setActiveScreen('login')}
-                  className="text-xs font-semibold text-[#717182] hover:text-[#1A1A28]"
-                >
-                  Log in
-                </button>
-              )}
+          {/* Top Navigation Row (Back Button, 4 Segment Progress Bars, Log in Link) */}
+          <div className="relative z-10 space-y-3 pt-1">
+            <div className="flex items-center justify-between">
+              {/* Circular Back Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (regStep > 1) {
+                    setRegStep(regStep - 1);
+                  } else {
+                    setActiveScreen('onboarding');
+                  }
+                }}
+                className="w-9 h-9 bg-[#F3F4F6] rounded-full flex items-center justify-center text-[#1A1A28] hover:bg-slate-200 transition shadow-2xs"
+              >
+                <CaretLeft size={18} weight="bold" />
+              </button>
+
+              {/* Step indicator link on right */}
+              <button
+                type="button"
+                onClick={() => setActiveScreen('login')}
+                className="text-[14px] font-medium text-[#33C4F0] hover:underline"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Log in
+              </button>
             </div>
 
-            {/* Segmented Line Progress Bar (for Steps 1-3) */}
-            {regStep < 4 && (
-              <div className="grid grid-cols-4 gap-1.5 mb-5">
-                {[1, 2, 3, 4].map((sNum) => (
-                  <div
-                    key={sNum}
-                    className={`h-1 rounded-full transition-all duration-300 ${
-                      regStep >= sNum ? 'bg-[#1A1A28]' : 'bg-slate-200'
-                    }`}
-                  />
-                ))}
-              </div>
-            )}
+            {/* 4-Segment Line Progress Bar */}
+            <div className="flex items-center gap-2 w-full h-1">
+              <div className={`h-1 flex-1 rounded-full transition-all ${regStep >= 1 ? 'bg-[#33C4F0]' : 'bg-[#E5E7EB]'}`} />
+              <div className={`h-1 flex-1 rounded-full transition-all ${regStep >= 2 ? 'bg-[#33C4F0]' : 'bg-[#E5E7EB]'}`} />
+              <div className={`h-1 flex-1 rounded-full transition-all ${regStep >= 3 ? 'bg-[#33C4F0]' : 'bg-[#E5E7EB]'}`} />
+              <div className={`h-1 flex-1 rounded-full transition-all ${regStep >= 4 ? 'bg-[#33C4F0]' : 'bg-[#E5E7EB]'}`} />
+            </div>
+          </div>
 
+          {/* Step Main Content (Identical top height offset pt-10 sm:pt-12 across all steps) */}
+          <div className="relative z-10 flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pt-10 pb-4 sm:pt-12 space-y-4">
             {regStep === 1 ? (
-              /* Step 1: Personal Details */
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-                <h1 className="text-xl sm:text-2xl font-bold text-[#1A1A28] tracking-tight mb-1">
-                  Enter Your Details
-                </h1>
-                <p className="text-xs text-[#717182] leading-relaxed mb-4">
-                  Create your personal profile to unlock curated activity recommendations.
-                </p>
+              /* Step 1: Enter Username & Details */
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+                <div>
+                  <h1 className="text-[24px] font-bold text-[#1A1A28] leading-[29px] font-sans" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
+                    Enter Username
+                  </h1>
+                  <p className="text-[12px] font-normal text-[#6A7282] leading-[18px] mt-1.5" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    This will be your public handle and part of your unique page link, fans will use this to support you.
+                  </p>
+                </div>
 
-                <div className="space-y-3 mb-5">
+                <div className="space-y-3.5 pt-1">
+                  {/* Full Name */}
                   <div>
-                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Full Name</label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Alex Morgan"
-                      value={regName}
-                      onChange={(e) => setRegName(e.target.value)}
-                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
-                    />
+                    <label className="block text-[12px] font-medium text-[#1A1A28] mb-1" style={{ fontFamily: 'Poppins, sans-serif' }}>Full Name</label>
+                    <div className="relative flex items-center">
+                      <User size={18} className="absolute left-3.5 text-[#99A1AF]" />
+                      <input
+                        type="text"
+                        placeholder="e.g. Alex Morgan"
+                        value={regName}
+                        onChange={(e) => setRegName(e.target.value)}
+                        className="w-full pl-10 pr-4 py-3 bg-white border border-[#E5E7EB] text-xs font-normal text-[#1A1A28] focus:outline-none focus:border-[#33C4F0] placeholder-[#2A2A3A]/50 shadow-2xs"
+                        style={{ borderRadius: '14px 14px 32px 14px', fontFamily: 'Poppins, sans-serif' }}
+                      />
+                    </div>
                   </div>
 
+                  {/* Email */}
                   <div>
-                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Work / Personal Email</label>
-                    <input
-                      type="email"
-                      placeholder="alex@company.com"
-                      value={emailInput}
-                      onChange={(e) => setEmailInput(e.target.value)}
-                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
-                    />
+                    <label className="block text-[12px] font-medium text-[#1A1A28] mb-1" style={{ fontFamily: 'Poppins, sans-serif' }}>Email</label>
+                    <div className="relative flex items-center">
+                      <EnvelopeSimple size={18} className="absolute left-3.5 text-[#99A1AF]" />
+                      <input
+                        type="email"
+                        placeholder="youname@email.com"
+                        value={emailInput}
+                        onChange={(e) => setEmailInput(e.target.value)}
+                        className="w-full pl-10 pr-4 py-3 bg-white border border-[#E5E7EB] text-xs font-normal text-[#1A1A28] focus:outline-none focus:border-[#33C4F0] placeholder-[#2A2A3A]/50 shadow-2xs"
+                        style={{ borderRadius: '14px 14px 32px 14px', fontFamily: 'Poppins, sans-serif' }}
+                      />
+                    </div>
                   </div>
 
+                  {/* Password */}
                   <div>
-                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Password</label>
-                    <input
-                      type="password"
-                      placeholder="••••••••"
-                      value={passwordInput}
-                      onChange={(e) => setPasswordInput(e.target.value)}
-                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Phone Number (Optional)</label>
-                    <input
-                      type="tel"
-                      placeholder="+1 (555) 000-0000"
-                      value={phoneInput}
-                      onChange={(e) => setPhoneInput(e.target.value)}
-                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Job Title / Role (Optional)</label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Creative Lead, Founder"
-                      value={jobTitleInput}
-                      onChange={(e) => setJobTitleInput(e.target.value)}
-                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
-                    />
+                    <label className="block text-[12px] font-medium text-[#1A1A28] mb-1" style={{ fontFamily: 'Poppins, sans-serif' }}>Password</label>
+                    <div className="relative flex items-center">
+                      <LockKey size={18} className="absolute left-3.5 text-[#99A1AF]" />
+                      <input
+                        type="password"
+                        placeholder="••••••••"
+                        value={passwordInput}
+                        onChange={(e) => setPasswordInput(e.target.value)}
+                        className="w-full pl-10 pr-4 py-3 bg-white border border-[#E5E7EB] text-xs font-normal text-[#1A1A28] focus:outline-none focus:border-[#33C4F0] placeholder-[#2A2A3A]/50 shadow-2xs"
+                        style={{ borderRadius: '14px 14px 32px 14px', fontFamily: 'Poppins, sans-serif' }}
+                      />
+                    </div>
                   </div>
                 </div>
               </motion.div>
             ) : regStep === 2 ? (
-              /* Step 2: Team Scale & Purpose */
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-                <h1 className="text-xl sm:text-2xl font-bold text-[#1A1A28] tracking-tight mb-1">
-                  How will you use CreativeSelf?
-                </h1>
-                <p className="text-xs text-[#717182] leading-relaxed mb-4">
-                  Choose your scale so we can configure individual or corporate features for you.
-                </p>
+              /* Step 2: Account Purpose */
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+                <div>
+                  <h1 className="text-[24px] font-bold text-[#1A1A28] leading-[29px]" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
+                    How will you use CreativeSelf?
+                  </h1>
+                  <p className="text-[12px] font-normal text-[#6A7282] leading-[18px] mt-1.5" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    Select your account type to configure individual or corporate features.
+                  </p>
+                </div>
 
-                <div className="space-y-3 mb-5">
+                <div className="space-y-3 pt-1">
                   <div
                     onClick={() => {
                       setRegAccountType('individual');
                       setPlanCategory('individual');
                       setOrgSize('just-me');
                     }}
-                    className={`cursor-pointer p-3.5 rounded-2xl border text-left flex items-center justify-between transition ${
+                    className={`cursor-pointer p-4 border text-left flex items-center justify-between transition-all ${
                       regAccountType === 'individual'
-                        ? 'border-[#1A1A28] bg-white ring-1 ring-[#1A1A28] shadow-sm'
-                        : 'border-slate-200 bg-white'
+                        ? 'border-[#33C4F0] bg-white shadow-xs ring-1 ring-[#33C4F0]/30'
+                        : 'border-[#E5E7EB] bg-white'
                     }`}
+                    style={{ borderRadius: '14px 14px 32px 14px' }}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-[#1A1A28]">
-                        <User size={18} weight="bold" />
+                      <div className="w-10 h-10 rounded-full bg-[#ECFEFF] text-[#007595] flex items-center justify-center">
+                        <User size={20} weight="bold" />
                       </div>
                       <div>
                         <p className="text-xs font-bold text-[#1A1A28]">Individual Explorer</p>
-                        <p className="text-[10px] text-[#717182]">Personal creative activities & AI coaching</p>
+                        <p className="text-[11px] text-[#6A7282]">Personal creative wellness & AI</p>
                       </div>
                     </div>
-                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                      regAccountType === 'individual' ? 'bg-[#1A1A28] border-[#1A1A28] text-white' : 'border-slate-300'
+                    <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${
+                      regAccountType === 'individual' ? 'bg-[#33C4F0] border-[#33C4F0] text-white' : 'border-slate-300'
                     }`}>
-                      {regAccountType === 'individual' && <Check size={10} weight="bold" />}
+                      {regAccountType === 'individual' && <Check size={12} weight="bold" />}
                     </div>
                   </div>
 
@@ -751,331 +786,205 @@ export function ClientMobileApp() {
                       setPlanCategory('corporate');
                       if (orgSize === 'just-me') setOrgSize('0-50');
                     }}
-                    className={`cursor-pointer p-3.5 rounded-2xl border text-left flex items-center justify-between transition ${
+                    className={`cursor-pointer p-4 border text-left flex items-center justify-between transition-all ${
                       regAccountType === 'corporate'
-                        ? 'border-[#1A1A28] bg-white ring-1 ring-[#1A1A28] shadow-sm'
-                        : 'border-slate-200 bg-white'
+                        ? 'border-[#33C4F0] bg-white shadow-xs ring-1 ring-[#33C4F0]/30'
+                        : 'border-[#E5E7EB] bg-white'
                     }`}
+                    style={{ borderRadius: '14px 14px 32px 14px' }}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center">
-                        <Buildings size={18} weight="bold" />
+                      <div className="w-10 h-10 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center">
+                        <Buildings size={20} weight="bold" />
                       </div>
                       <div>
-                        <p className="text-xs font-bold text-[#1A1A28]">Corporate & Team Benefits</p>
-                        <p className="text-[10px] text-[#717182]">Employee wellness credits & team analytics</p>
+                        <p className="text-xs font-bold text-[#1A1A28]">Corporate & Team</p>
+                        <p className="text-[11px] text-[#6A7282]">Employee credits & analytics</p>
                       </div>
                     </div>
-                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                      regAccountType === 'corporate' ? 'bg-[#1A1A28] border-[#1A1A28] text-white' : 'border-slate-300'
+                    <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${
+                      regAccountType === 'corporate' ? 'bg-[#33C4F0] border-[#33C4F0] text-white' : 'border-slate-300'
                     }`}>
-                      {regAccountType === 'corporate' && <Check size={10} weight="bold" />}
+                      {regAccountType === 'corporate' && <Check size={12} weight="bold" />}
                     </div>
                   </div>
                 </div>
-
-                {regAccountType === 'corporate' && (
-                  <div className="mb-5 bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-2xs">
-                    <label className="block text-[11px] font-bold text-[#1A1A28] mb-2">Select Team Employee Count:</label>
-                    <div className="grid grid-cols-2 gap-2">
-                      {[
-                        { id: '0-50', label: '0 - 50 employees' },
-                        { id: '51-200', label: '51 - 200 employees' },
-                        { id: '201-500', label: '201 - 500 employees' },
-                        { id: '500+', label: '500+ employees' },
-                      ].map((opt) => (
-                        <button
-                          key={opt.id}
-                          type="button"
-                          onClick={() => setOrgSize(opt.id)}
-                          className={`py-2 px-2 text-[11px] font-medium rounded-full transition border ${
-                            orgSize === opt.id
-                              ? 'bg-[#1A1A28] text-white border-[#1A1A28]'
-                              : 'bg-slate-50 text-[#1A1A28] border-slate-200 hover:bg-slate-100'
-                          }`}
-                        >
-                          {opt.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </motion.div>
             ) : regStep === 3 ? (
               /* Step 3: Organization Details */
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-                <h1 className="text-xl sm:text-2xl font-bold text-[#1A1A28] tracking-tight mb-1">
-                  Tell us about your organization
-                </h1>
-                <p className="text-xs text-[#717182] leading-relaxed mb-4">
-                  Provide your organization details to customize your workspace.
-                </p>
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+                <div>
+                  <h1 className="text-[24px] font-bold text-[#1A1A28] leading-[29px]" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
+                    Tell us about your organization
+                  </h1>
+                  <p className="text-[12px] font-normal text-[#6A7282] leading-[18px] mt-1.5" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    Provide your organization details to customize your workspace.
+                  </p>
+                </div>
 
-                <div className="space-y-3.5 mb-5">
+                <div className="space-y-3.5 pt-1">
                   <div>
-                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Company / Organization Name</label>
+                    <label className="block text-[12px] font-medium text-[#1A1A28] mb-1">Company / Organization Name</label>
                     <input
                       type="text"
                       placeholder="e.g. Acme Creative Agency"
                       value={companyNameInput}
                       onChange={(e) => setCompanyNameInput(e.target.value)}
-                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
+                      className="w-full px-4 py-3 bg-white border border-[#E5E7EB] text-xs font-normal text-[#1A1A28] focus:outline-none focus:border-[#33C4F0] shadow-2xs"
+                      style={{ borderRadius: '14px 14px 32px 14px', fontFamily: 'Poppins, sans-serif' }}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Industry / Focus Area</label>
+                    <label className="block text-[12px] font-medium text-[#1A1A28] mb-1">Industry / Focus Area</label>
                     <select
                       value={industryInput}
                       onChange={(e) => setIndustryInput(e.target.value)}
-                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white shadow-2xs"
+                      className="w-full px-4 py-3 bg-white border border-[#E5E7EB] text-xs font-normal text-[#1A1A28] focus:outline-none focus:border-[#33C4F0] shadow-2xs"
+                      style={{ borderRadius: '14px 14px 32px 14px', fontFamily: 'Poppins, sans-serif' }}
                     >
                       <option value="Technology & Design">Technology & Design</option>
                       <option value="Creative Arts & Media">Creative Arts & Media</option>
                       <option value="Healthcare & Wellness">Healthcare & Wellness</option>
                       <option value="Education & Non-Profit">Education & Non-Profit</option>
                       <option value="Corporate & Financial Services">Corporate & Financial Services</option>
-                      <option value="Freelance / Individual">Freelance / Individual</option>
                     </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-semibold text-[#1A1A28] mb-1 ml-1">Company Website (Optional)</label>
-                    <input
-                      type="url"
-                      placeholder="https://company.com"
-                      value={websiteInput}
-                      onChange={(e) => setWebsiteInput(e.target.value)}
-                      className="w-full px-4 py-3 rounded-full border border-slate-200 text-xs font-medium text-[#1A1A28] focus:outline-none focus:border-[#1A1A28] bg-white placeholder-slate-400 shadow-2xs"
-                    />
                   </div>
                 </div>
               </motion.div>
             ) : (
-              /* Step 4: Light Mode CreativeSelf Paywall (Cover Carousel + Stacked Cards) */
-              (() => {
-                const planDetailsMap: Record<string, {
-                  title: string;
-                  btnText: string;
-                  benefits: { icon: string; text: string }[];
-                }> = {
-                  'advanced-creative': {
-                    title: 'Level up your growth with the Pro plan',
-                    btnText: 'Upgrade to Pro',
-                    benefits: [
-                      { icon: '🎧', text: 'Unlimited, 24/7 activity reservations*' },
-                      { icon: '🪐', text: 'Explore 100+ workshops & wellness experiences' },
-                      { icon: '🧠', text: 'Acumen AI personalized coaching & recommendations' },
-                      { icon: '✨', text: 'Priority booking, VIP masterclasses & more' },
-                    ],
-                  },
-                  'basic-creative': {
-                    title: 'Level up your growth with the Pro Monthly plan',
-                    btnText: 'Subscribe to Pro',
-                    benefits: [
-                      { icon: '🎧', text: 'Flexible month-to-month reservation access*' },
-                      { icon: '🪐', text: 'Access to 100+ workshops & experiences' },
-                      { icon: '🧠', text: 'Acumen AI personalized insights & guidance' },
-                      { icon: '✨', text: 'Cancel anytime in App Store' },
-                    ],
-                  },
-                  'elite-creative': {
-                    title: 'Level up your growth with the Lifetime VIP plan',
-                    btnText: 'Upgrade to Lifetime VIP',
-                    benefits: [
-                      { icon: '👑', text: 'Permanent lifetime unlimited access*' },
-                      { icon: '🪐', text: 'Unlimited access to all present & future brands' },
-                      { icon: '🧠', text: '1-on-1 dedicated mentor & executive coaching' },
-                      { icon: '✨', text: 'Executive VIP events & priority reservations' },
-                    ],
-                  },
-                };
+              /* Step 4: Plan Selection */
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+                <div>
+                  <h1 className="text-[24px] font-bold text-[#1A1A28] leading-[29px]" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
+                    Select your CreativeSelf plan
+                  </h1>
+                  <p className="text-[12px] font-normal text-[#6A7282] leading-[18px] mt-1.5" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    Tailored learning & wellness packages to elevate your creative growth.
+                  </p>
+                </div>
 
-                const currentPlan = planDetailsMap[selectedPlanId] || planDetailsMap['advanced-creative'];
+                <div className="space-y-3 pt-1">
+                  {[
+                    {
+                      id: 'basic-creative',
+                      title: 'Basic Creative',
+                      price: '$7',
+                      period: '/month',
+                      popular: false,
+                      features: ['1 service brand', '2 activities'],
+                    },
+                    {
+                      id: 'advanced-creative',
+                      title: 'Advanced Creative',
+                      price: '$18',
+                      period: '/month',
+                      popular: true,
+                      features: ['2 service brands', '4 activities'],
+                    },
+                    {
+                      id: 'elite-creative',
+                      title: 'Elite Creative',
+                      price: '$35',
+                      period: '/month',
+                      popular: false,
+                      features: ['Unlimited service brands', 'Unlimited activities'],
+                    },
+                  ].map((plan) => (
+                    <div
+                      key={plan.id}
+                      onClick={() => setSelectedPlanId(plan.id)}
+                      className={`cursor-pointer p-4 sm:p-4.5 transition-all relative border ${
+                        plan.popular
+                          ? 'bg-[#00B0D9] text-white shadow-md border-[#00B0D9]'
+                          : selectedPlanId === plan.id
+                          ? 'bg-white border-[#33C4F0] text-[#1A1A28] ring-1 ring-[#33C4F0]'
+                          : 'bg-white border-[#E5E7EB] text-[#1A1A28]'
+                      }`}
+                      style={{ borderRadius: '16px 16px 36px 16px' }}
+                    >
+                      {plan.popular && (
+                        <span className="absolute -top-2.5 right-4 bg-amber-400 text-slate-950 font-extrabold text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-2xs">
+                          + Most Popular
+                        </span>
+                      )}
+                      <div className="flex items-start justify-between">
+                        <div className="space-y-1">
+                          <p className={`text-[11px] font-extrabold uppercase tracking-wider ${plan.popular ? 'text-white' : 'text-slate-500'}`}>
+                            {plan.title}
+                          </p>
+                          <p className="text-2xl font-black leading-none">{plan.price} <span className="text-xs font-medium opacity-80">{plan.period}</span></p>
 
-                return (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-                    {/* Cover Art Cards Horizontal Carousel (CreativeSelf Pastel Theme) */}
-                    <div className="flex gap-2.5 overflow-x-auto pb-1 -mx-5 px-5 scrollbar-none">
-                      <div className="w-24 sm:w-28 h-32 sm:h-36 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 p-3 flex flex-col justify-between shrink-0 shadow-sm border border-amber-300 relative overflow-hidden">
-                        <div className="w-full h-full absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
-                        <span className="text-[10px] font-black text-[#1A1A28] bg-white/90 px-1.5 py-0.5 rounded-md self-start relative z-10">Ceramics</span>
-                        <p className="text-xs font-black text-white relative z-10">Potting & Clay</p>
-                      </div>
-
-                      <div className="w-24 sm:w-28 h-32 sm:h-36 rounded-2xl bg-gradient-to-br from-[#33C4F0] to-[#1AB0DC] p-3 flex flex-col justify-between shrink-0 shadow-sm border border-cyan-300 relative overflow-hidden">
-                        <div className="w-full h-full absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
-                        <span className="text-[10px] font-black text-[#1A1A28] bg-white/90 px-1.5 py-0.5 rounded-md self-start relative z-10">Art</span>
-                        <p className="text-xs font-black text-white relative z-10">Oil Painting</p>
-                      </div>
-
-                      <div className="w-24 sm:w-28 h-32 sm:h-36 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 p-3 flex flex-col justify-between shrink-0 shadow-sm border border-emerald-400 relative overflow-hidden">
-                        <div className="w-full h-full absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
-                        <span className="text-[10px] font-black text-[#1A1A28] bg-white/90 px-1.5 py-0.5 rounded-md self-start relative z-10">Wellness</span>
-                        <p className="text-xs font-black text-white relative z-10">Mindfulness</p>
-                      </div>
-
-                      <div className="w-24 sm:w-28 h-32 sm:h-36 rounded-2xl bg-gradient-to-br from-rose-500 to-rose-600 p-3 flex flex-col justify-between shrink-0 shadow-sm border border-rose-400 relative overflow-hidden">
-                        <div className="w-full h-full absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
-                        <span className="text-[10px] font-black text-[#1A1A28] bg-white/90 px-1.5 py-0.5 rounded-md self-start relative z-10">Culinary</span>
-                        <p className="text-xs font-black text-white relative z-10">Artisan Bread</p>
-                      </div>
-                    </div>
-
-                    {/* Headline Title & Icon Benefit List (Light Mode) */}
-                    <div>
-                      <h1 className="text-lg sm:text-xl font-extrabold text-[#1A1A28] tracking-tight leading-snug mb-3">
-                        {currentPlan.title}
-                      </h1>
-
-                      <div className="space-y-2 text-xs text-[#1A1A28]">
-                        {currentPlan.benefits.map((b, idx) => (
-                          <div key={idx} className="flex items-start gap-2.5">
-                            <span className="text-sm shrink-0 leading-none">{b.icon}</span>
-                            <span className="font-semibold text-slate-700 text-[11px] leading-tight">{b.text}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Vertical Stacked Subscription Cards (Light Mode CreativeSelf Style) */}
-                    <div className="space-y-2.5 pt-1">
-                      {/* Card 1: Pro Yearly */}
-                      <div
-                        onClick={() => setSelectedPlanId('advanced-creative')}
-                        className={`cursor-pointer p-3.5 rounded-2xl transition-all relative ${
-                          selectedPlanId === 'advanced-creative'
-                            ? 'bg-white border-2 border-[#1AB0DC] ring-2 ring-[#33C4F0]/20 shadow-sm text-[#1A1A28]'
-                            : 'bg-white border border-slate-200 text-[#1A1A28] hover:border-slate-300'
-                        }`}
-                      >
-                        {/* MOST POPULAR Amber Badge */}
-                        <div className="absolute -top-2.5 right-4 bg-amber-400 text-slate-900 font-extrabold text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-2xs">
-                          MOST POPULAR
-                        </div>
-
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-xs font-extrabold text-[#1A1A28]">Pro Yearly</p>
-                            <div className="flex items-baseline gap-1 mt-0.5">
-                              <span className="text-base font-black text-[#1A1A28]">$39.00</span>
-                              <span className="text-[10px] text-[#717182] font-semibold">/ yr</span>
-                            </div>
-                            <p className="text-[10px] text-[#717182] mt-1 font-medium">
-                              Best value — $3.25/mo, paid annually.
-                            </p>
-                          </div>
-
-                          {/* Checkmark Circle */}
-                          <div className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
-                            selectedPlanId === 'advanced-creative' ? 'bg-[#1AB0DC] text-white' : 'border border-slate-300 text-transparent'
-                          }`}>
-                            <Check size={11} weight="bold" />
+                          {/* Feature List (Brands & Services) */}
+                          <div className="pt-2 space-y-1">
+                            {plan.features.map((feat, idx) => (
+                              <div key={idx} className="flex items-center gap-2 text-[12px]">
+                                <div className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${plan.popular ? 'bg-white/20 text-white' : 'bg-[#ECFEFF] text-[#007595]'}`}>
+                                  <Check size={10} weight="bold" />
+                                </div>
+                                <span className={plan.popular ? 'text-white/90 font-medium' : 'text-[#6A7282] font-medium'}>{feat}</span>
+                              </div>
+                            ))}
                           </div>
                         </div>
-                      </div>
 
-                      {/* Card 2: Pro Monthly */}
-                      <div
-                        onClick={() => setSelectedPlanId('basic-creative')}
-                        className={`cursor-pointer p-3.5 rounded-2xl transition-all relative ${
-                          selectedPlanId === 'basic-creative'
-                            ? 'bg-white border-2 border-[#1AB0DC] ring-2 ring-[#33C4F0]/20 shadow-sm text-[#1A1A28]'
-                            : 'bg-white border border-slate-200 text-[#1A1A28] hover:border-slate-300'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-xs font-extrabold text-[#1A1A28]">Pro Monthly</p>
-                            <div className="flex items-baseline gap-1 mt-0.5">
-                              <span className="text-base font-black text-[#1A1A28]">$49.00</span>
-                              <span className="text-[10px] text-[#717182] font-semibold">/ mo</span>
-                            </div>
-                            <p className="text-[10px] text-[#717182] mt-1 font-medium">
-                              Flexible access — billed monthly.
-                            </p>
-                          </div>
-
-                          {/* Checkmark Circle */}
-                          <div className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
-                            selectedPlanId === 'basic-creative' ? 'bg-[#1AB0DC] text-white' : 'border border-slate-300 text-transparent'
-                          }`}>
-                            <Check size={11} weight="bold" />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Card 3: Lifetime VIP */}
-                      <div
-                        onClick={() => setSelectedPlanId('elite-creative')}
-                        className={`cursor-pointer p-3.5 rounded-2xl transition-all relative ${
-                          selectedPlanId === 'elite-creative'
-                            ? 'bg-white border-2 border-[#1AB0DC] ring-2 ring-[#33C4F0]/20 shadow-sm text-[#1A1A28]'
-                            : 'bg-white border border-slate-200 text-[#1A1A28] hover:border-slate-300'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-xs font-extrabold text-[#1A1A28]">Lifetime VIP</p>
-                            <div className="flex items-baseline gap-1 mt-0.5">
-                              <span className="text-base font-black text-[#1A1A28]">$99.00</span>
-                              <span className="text-[10px] text-[#717182] font-semibold">one-time</span>
-                            </div>
-                            <p className="text-[10px] text-[#717182] mt-1 font-medium">
-                              Pay once — permanent unlimited access.
-                            </p>
-                          </div>
-
-                          {/* Checkmark Circle */}
-                          <div className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
-                            selectedPlanId === 'elite-creative' ? 'bg-[#1AB0DC] text-white' : 'border border-slate-300 text-transparent'
-                          }`}>
-                            <Check size={11} weight="bold" />
-                          </div>
+                        <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-all ${
+                          selectedPlanId === plan.id ? (plan.popular ? 'bg-white text-[#00B0D9] border-white' : 'bg-[#33C4F0] text-white border-[#33C4F0]') : 'border-slate-300'
+                        }`}>
+                          {selectedPlanId === plan.id && <Check size={12} weight="bold" />}
                         </div>
                       </div>
                     </div>
-                  </motion.div>
-                );
-              })()
+                  ))}
+                </div>
+              </motion.div>
             )}
+
           </div>
 
-          {/* Action Buttons & CreativeSelf Dark Pill CTA */}
-          <div className="pt-3 space-y-2">
-            {regStep < 4 ? (
-              <button
-                type="button"
-                onClick={() => setRegStep(regStep + 1)}
-                className="w-full py-3.5 rounded-full font-bold text-xs text-white bg-[#1A1A28] hover:bg-black shadow-md transition active:scale-[0.99]"
-              >
-                Continue
-              </button>
-            ) : (
-              <div>
-                <button
-                  type="button"
-                  onClick={() => handleDemoLogin('client')}
-                  className="w-full py-3.5 rounded-full font-extrabold text-xs text-white bg-[#1A1A28] hover:bg-black transition active:scale-[0.99] text-center shadow-md mb-2"
-                >
-                  {selectedPlanId === 'elite-creative' ? 'Upgrade to Lifetime VIP' : 'Upgrade to Pro'}
-                </button>
+          {/* Pinned Bottom Action Group (Fixed at bottom) */}
+          <div className="relative z-20 shrink-0 pt-3 pb-1 space-y-2 bg-[#F7FCFF]">
+            <button
+              type="button"
+              onClick={() => {
+                if (regStep < 4) {
+                  setRegStep(regStep + 1);
+                } else {
+                  handleDemoLogin('client');
+                }
+              }}
+              className="w-full h-[46px] flex items-center justify-center text-white text-[14px] font-bold shadow-md transition-all duration-200 active:scale-[0.99] hover:opacity-95"
+              style={{
+                backgroundColor: '#33C4F0',
+                borderRadius: '26px 26px 62px 26px',
+                fontFamily: 'Century Gothic, Poppins, sans-serif',
+              }}
+            >
+              {regStep === 4 ? 'Complete Registration' : 'Continue'}
+            </button>
 
-                <p className="text-center text-[10px] text-[#717182] font-medium">
-                  Cancel anytime in App Store
-                </p>
-              </div>
-            )}
-
-            {regStep > 1 && regStep < 4 ? (
+            {regStep > 1 ? (
               <button
                 type="button"
                 onClick={() => setRegStep(regStep - 1)}
-                className="w-full py-2.5 rounded-full font-semibold text-xs text-[#717182] bg-slate-100 hover:bg-slate-200 transition text-center"
+                className="w-full h-[46px] flex items-center justify-center bg-[#F0F9FF] text-[#33C4F0] text-[14px] font-bold transition hover:bg-[#E0F2FE] active:scale-[0.99]"
+                style={{
+                  borderRadius: '26px 26px 62px 26px',
+                  fontFamily: 'Century Gothic, Poppins, sans-serif',
+                }}
               >
                 Back
               </button>
-            ) : null}
+            ) : (
+              <button
+                type="button"
+                onClick={() => setActiveScreen('login')}
+                className="w-full text-center text-[14px] font-medium text-[#6A7282] hover:text-[#1A1A28] transition py-1"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                Already have an account? <span className="text-[#33C4F0] font-medium underline">Log in</span>
+              </button>
+            )}
           </div>
         </div>
       );
@@ -2526,7 +2435,7 @@ export function ClientMobileApp() {
   return (
     <div className="min-h-screen bg-[#0F172A] flex flex-col items-center justify-center p-2 sm:p-6 text-slate-100 font-sans relative overflow-x-hidden">
       {/* Top Banner Control Bar */}
-      <div className="w-full max-w-[440px] flex items-center justify-between mb-3 px-1 z-10">
+      <div className="w-full max-w-[402px] flex items-center justify-between mb-2.5 px-1 z-10">
         <Link
           to="/dashboard"
           className="flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white transition bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700 shadow-sm"
@@ -2538,8 +2447,8 @@ export function ClientMobileApp() {
         </span>
       </div>
 
-      {/* MOBILE APPLICATION CONTAINER (NO MOCKUP FRAME, FLAT CORNERS, WIDTH 440px) */}
-      <div className="w-full max-w-[440px] h-[820px] max-h-[calc(100vh-80px)] bg-white text-slate-900 rounded-none shadow-2xl overflow-hidden relative flex flex-col border border-slate-800/60">
+      {/* MOBILE APPLICATION CONTAINER (NATIVE 402px RATIO) */}
+      <div className="w-full max-w-[402px] h-[874px] max-h-[calc(100vh-65px)] bg-white text-slate-900 rounded-none shadow-2xl overflow-hidden relative flex flex-col border border-slate-800/60 shrink-0">
         <div className="flex-1 overflow-hidden relative">
           {renderMobileScreenContent()}
         </div>
