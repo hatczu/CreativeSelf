@@ -47,6 +47,7 @@ import {
 } from '@phosphor-icons/react';
 import { samplePostsData, PostData } from '../data/postsData';
 import { mockVendors, mockActivities, themeCategories, Activity } from '../data/subscriptionData';
+import kaleidoscope from '../../imports/CS_Kaleidescope_Juice_Drop.png';
 
 type ScreenType = 'onboarding' | 'login' | 'register' | 'feed' | 'discover' | 'bookings' | 'profile';
 type TabType = 'feed' | 'discover' | 'bookings' | 'profile';
@@ -1136,7 +1137,7 @@ export function ClientMobileApp() {
                   }}
                 />
 
-                {/* Rectangle 2 Watermark: left 174px, bottom 46px, w: 49px, h: 49px */}
+                {/* Rectangle 2 Watermark (Clean Figma Gradient Shape) */}
                 <div
                   className="absolute pointer-events-none opacity-20"
                   style={{
