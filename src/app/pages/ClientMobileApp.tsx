@@ -1211,43 +1211,46 @@ export function ClientMobileApp() {
 
         {/* TAB 2: DISCOVER */}
         {activeTab === 'discover' && (
-          <div className="flex-1 overflow-y-auto pb-20">
+          <div className="flex-1 overflow-y-auto pb-20 space-y-4 px-4 pt-6">
             {selectedBrandId === null ? (
               /* VIEW 1: SERVICE BRANDS LIST (FRAMELESS NATIVE MOBILE) */
               <div className="space-y-4">
                 {/* Header Banner */}
-                <div className="px-4 pt-3 pb-3 border-b border-slate-100 space-y-1.5">
-                  <div className="flex items-center gap-1.5 text-[10px] font-extrabold text-purple-600 bg-purple-50 border border-purple-100 px-2.5 py-0.5 rounded-full w-fit">
-                    <Sparkle size={12} className="text-purple-600 animate-pulse" />
-                    Acumen AI Service Brand Engine
+                <div className="pb-3 border-b border-slate-100 space-y-1.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <h2 className="text-[16px] font-extrabold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
+                      Choose a Service Brand
+                    </h2>
+                    {/* Active User Plan Badge (Matching Feed Badge Spec) */}
+                    <span className="text-[10px] font-bold text-[#1AB0DC] bg-[#E8F9FF] border border-[#33C4F0]/30 px-2.5 py-1 rounded-full shadow-2xs flex items-center gap-1 shrink-0">
+                      <Sparkle size={11} className="text-[#33C4F0] fill-[#33C4F0]" />
+                      {selectedPlanId === 'elite-creative' ? 'Elite Plan' : selectedPlanId === 'basic-creative' ? 'Basic Plan' : 'Advanced Plan'}
+                    </span>
                   </div>
-                  <h2 className="text-base font-black text-slate-900 leading-tight">
-                    Choose a Service Brand for your Pro Plan
-                  </h2>
-                  <p className="text-[11px] text-slate-500 font-medium leading-relaxed">
+                  <p className="text-[12px] text-[#6A7282] font-medium leading-relaxed">
                     Select a service brand below to access all included workshops & activities.
                   </p>
                 </div>
 
                 {/* Search Input */}
                 <div className="relative">
-                  <MagnifyingGlass size={16} className="absolute left-3.5 top-3.5 text-slate-400" />
+                  <MagnifyingGlass size={16} className="absolute left-3.5 top-3 text-slate-400" />
                   <input
                     type="text"
                     placeholder="Search service brands, specialty, location..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-slate-200 text-xs font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#33C4F0] shadow-xs transition"
+                    className="w-full pl-10 pr-4 py-2 rounded-2xl bg-white border border-slate-200 text-xs font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#33C4F0] shadow-xs transition"
                   />
                 </div>
 
-                {/* Theme Category Pills */}
-                <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+                {/* Theme Category Pills (Smooth horizontal scroll without visible scrollbar) */}
+                <div className="flex gap-2 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                   {themeCategories.map((cat) => (
                     <button
                       key={cat.id}
                       onClick={() => setSelectedCategory(cat.id)}
-                      className={`py-1.5 px-3.5 rounded-full text-xs font-bold flex items-center gap-1.5 whitespace-nowrap transition ${
+                      className={`py-1.5 px-3 rounded-full text-[11px] font-bold flex items-center gap-1.5 whitespace-nowrap transition ${
                         selectedCategory === cat.id
                           ? 'bg-slate-900 text-white shadow-xs'
                           : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'
@@ -1261,8 +1264,8 @@ export function ClientMobileApp() {
 
                 {/* Service Brands List */}
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                  <div className="flex items-center justify-between pt-1">
+                    <h3 className="text-[13px] font-extrabold text-[#1A1A28] uppercase tracking-wider">
                       Service Brands ({mockVendors.length})
                     </h3>
                     <span className="text-[10px] font-bold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
@@ -1283,12 +1286,12 @@ export function ClientMobileApp() {
                       return (
                         <div key={vendor.id} className="py-4 border-b border-slate-100 space-y-3">
                           {/* Brand Cover Image */}
-                          <div className="relative h-44 w-full bg-slate-100 overflow-hidden">
+                          <div className="relative h-44 w-full bg-slate-100 overflow-hidden" style={{ borderRadius: '20px 20px 50px 20px' }}>
                             <img src={vendor.image} alt={vendor.name} className="w-full h-full object-cover" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
                             {/* Acumen AI Badge */}
-                            <div className="absolute top-3 right-3 bg-purple-900/80 backdrop-blur text-purple-200 border border-purple-400/30 text-[10px] font-extrabold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-md">
+                            <div className="absolute top-3 right-3 bg-purple-900/80 backdrop-blur text-purple-200 border border-purple-400/30 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-md">
                               <Sparkle size={11} className="text-purple-300 fill-purple-300" />
                               {aiMatchScore}% Acumen Match
                             </div>
@@ -1310,7 +1313,7 @@ export function ClientMobileApp() {
                           </div>
 
                           {/* Brand Body */}
-                          <div className="px-4 space-y-3">
+                          <div className="space-y-2.5">
                             <div className="flex items-center justify-between text-[11px] text-slate-500 font-semibold">
                               <span className="flex items-center gap-1 text-[#F59E0B] font-extrabold">
                                 <Star size={13} weight="fill" /> {vendor.rating} ({vendor.reviewsCount} reviews)
@@ -1326,7 +1329,7 @@ export function ClientMobileApp() {
 
                             {/* Included Services Photo Preview */}
                             <div className="pt-1">
-                              <p className="text-[10px] font-extrabold uppercase tracking-wider text-[#717182] mb-2">
+                              <p className="text-[10px] font-extrabold uppercase tracking-wider text-[#717182] mb-1.5">
                                 Included Services Preview ({vendorActivities.length} available):
                               </p>
                               <div className="grid grid-cols-3 gap-2">
@@ -1347,13 +1350,14 @@ export function ClientMobileApp() {
                               </div>
                             </div>
 
-                            {/* Action Button: View Brand Services */}
+                            {/* Smaller, Sleek Action Button: View Brand Services */}
                             <button
                               type="button"
                               onClick={() => setSelectedBrandId(vendor.id)}
-                              className="w-full py-3 bg-[#1A1A28] text-white hover:bg-black text-xs font-extrabold rounded-full transition shadow-xs flex items-center justify-center gap-1.5 mt-1"
+                              className="w-full h-[36px] bg-[#1A1A28] text-white hover:bg-black text-[12px] font-bold rounded-full transition shadow-2xs flex items-center justify-center gap-1.5 mt-1"
+                              style={{ fontFamily: 'Poppins, sans-serif' }}
                             >
-                              View Brand Services & Workshops ({vendorActivities.length}) →
+                              View Services & Workshops ({vendorActivities.length}) →
                             </button>
                           </div>
                         </div>
@@ -1474,8 +1478,8 @@ export function ClientMobileApp() {
                                 </span>
                                 <button
                                   onClick={() => setSelectedActivity(act)}
-                                  className="py-1.5 px-3.5 bg-[#33C4F0] text-white text-xs font-bold shadow-xs hover:bg-[#1AB0DC] transition"
-                                  style={{ borderRadius: '12px 12px 28px 12px' }}
+                                  className="h-[32px] px-3 bg-[#33C4F0] text-white text-[11px] font-bold shadow-2xs hover:bg-[#1AB0DC] transition flex items-center justify-center"
+                                  style={{ borderRadius: '10px 10px 24px 10px', fontFamily: 'Poppins, sans-serif' }}
                                 >
                                   Book Session
                                 </button>
@@ -1494,13 +1498,16 @@ export function ClientMobileApp() {
 
         {/* TAB 3: BOOKINGS */}
         {activeTab === 'bookings' && (
-          <div className="flex-1 overflow-y-auto pb-20">
-            <div className="px-4 pt-3 pb-2 flex items-center justify-between border-b border-slate-100">
-              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                My Mobile Passes ({myBookings.length})
-              </h3>
-              <span className="text-[10px] font-bold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
-                Active Passes
+          <div className="flex-1 overflow-y-auto pb-20 space-y-4 px-4 pt-3">
+            <div className="pb-2 border-b border-slate-100 flex items-center justify-between">
+              <div>
+                <h2 className="text-[20px] font-extrabold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
+                  My Bookings & Passes
+                </h2>
+                <p className="text-[12px] text-[#6A7282] font-medium">Access your active mobile passes and ticket QR codes.</p>
+              </div>
+              <span className="text-[10px] font-bold text-[#10B981] bg-[#ECFDF5] px-2.5 py-1 rounded-full border border-emerald-200 shrink-0">
+                {myBookings.length} Active
               </span>
             </div>
 
@@ -1565,15 +1572,23 @@ export function ClientMobileApp() {
 
         {/* TAB 4: PROFILE */}
         {activeTab === 'profile' && (
-          <div className="flex-1 overflow-y-auto pb-20">
+          <div className="flex-1 overflow-y-auto pb-20 space-y-4 px-4 pt-3">
+            {/* Header Title */}
+            <div className="pb-2 border-b border-slate-100">
+              <h2 className="text-[20px] font-extrabold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
+                Account Profile
+              </h2>
+              <p className="text-[12px] text-[#6A7282] font-medium">Manage your personal details, workspace, and plan options.</p>
+            </div>
+
             {/* User Header */}
-            <div className="p-4 border-b border-slate-100 flex items-center gap-3.5">
+            <div className="pb-3 border-b border-slate-100 flex items-center gap-3.5">
               <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-[#33C4F0] to-[#1AB0DC] text-white flex items-center justify-center text-xl font-bold shadow-xs shrink-0">
                 🧭
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5 flex-wrap">
-                  <h3 className="text-sm font-extrabold text-slate-900 truncate">{regName || 'Alex Morgan'}</h3>
+                  <h3 className="text-base font-extrabold text-slate-900 truncate">{regName || 'Alex Morgan'}</h3>
                   <span className="text-[10px] font-extrabold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-full shrink-0">
                     The Explorer 🧭
                   </span>
@@ -1584,9 +1599,9 @@ export function ClientMobileApp() {
             </div>
 
             {/* Account Details Section */}
-            <div className="p-4 border-b border-slate-100 space-y-2.5">
+            <div className="pb-3 border-b border-slate-100 space-y-2.5">
               <div className="flex items-center justify-between pb-1">
-                <h4 className="text-xs font-black uppercase text-[#1A1A28] tracking-wider">Account & Organization</h4>
+                <h3 className="text-[13px] font-extrabold uppercase text-[#1A1A28] tracking-wider">Account & Organization</h3>
                 <span className="text-[10px] font-bold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-md">Verified Profile</span>
               </div>
 
