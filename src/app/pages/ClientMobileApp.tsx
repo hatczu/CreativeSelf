@@ -1103,42 +1103,113 @@ export function ClientMobileApp() {
         {/* TAB 1: FEED / HOME */}
         {activeTab === 'feed' && (
           <div className="flex-1 overflow-y-auto pb-20">
-            {/* THE EXPLORER ARCHETYPE & SUBSCRIPTION FEATURE CARD (PASTEL LIGHT GLASS TEARDROP) */}
+            {/* THE EXPLORER ARCHETYPE FEATURE CARD (EXACT FIGMA PIXEL PERFECT MATCH) */}
             <div className="p-4 pb-2">
               <div
                 onClick={() => navigate('/test')}
-                className="bg-gradient-to-br from-[#E8F9FF] via-[#F3E8FF]/60 to-[#E0F2FE] text-slate-900 p-4.5 border border-[#33C4F0]/30 shadow-xs cursor-pointer hover:border-[#33C4F0]/60 hover:scale-[1.005] transition-all duration-200 relative overflow-hidden group space-y-3"
+                className="w-full h-[126px] bg-white border border-[#F3F4F6] cursor-pointer hover:shadow-xs transition-all duration-200 relative overflow-hidden group shrink-0"
                 style={{ borderRadius: '28px 28px 84px 28px' }}
               >
-                {/* Background ambient glow */}
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#33C4F0]/15 rounded-full blur-2xl pointer-events-none" />
-                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-300/20 rounded-full blur-2xl pointer-events-none" />
+                {/* Background Glow 1 (Top Right): left 317px, top -39px, w: 128px, h: 128px */}
+                <div
+                  className="absolute pointer-events-none rounded-full"
+                  style={{
+                    width: '128px',
+                    height: '128px',
+                    right: '-10px',
+                    top: '-39px',
+                    backgroundColor: 'rgba(51, 196, 240, 0.15)',
+                    filter: 'blur(40px)',
+                  }}
+                />
 
-                {/* Top Badge Row */}
-                <div className="flex items-center justify-between relative z-10">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-white bg-[#33C4F0] px-2.5 py-0.5 rounded-full shadow-2xs">
+                {/* Background Glow 2 (Bottom Left): left -39px, top 25px, w: 128px, h: 128px */}
+                <div
+                  className="absolute pointer-events-none rounded-full"
+                  style={{
+                    width: '128px',
+                    height: '128px',
+                    left: '-39px',
+                    top: '25px',
+                    backgroundColor: 'rgba(178, 223, 255, 0.2)',
+                    filter: 'blur(40px)',
+                  }}
+                />
+
+                {/* Rectangle 2 Watermark: left 174px, bottom 46px, w: 49px, h: 49px */}
+                <div
+                  className="absolute pointer-events-none opacity-20"
+                  style={{
+                    width: '49px',
+                    height: '49px',
+                    left: '174px',
+                    bottom: '46px',
+                    background: 'linear-gradient(180deg, #33B4F0 0%, rgba(255, 255, 255, 0) 100%)',
+                    borderRadius: '362.6px 0px 362.6px 362.6px',
+                  }}
+                />
+
+                {/* Top Row Container: top 19px, left 19px, right 19px, height 21px */}
+                <div
+                  className="absolute left-[19px] right-[19px] top-[19px] h-[21px] flex items-center justify-between z-10"
+                >
+                  {/* Badge Text */}
+                  <div
+                    className="flex items-center justify-center px-[10px] py-[2px] bg-[#ECFEFF] border border-[#A2F4FD] h-[21px]"
+                    style={{ borderRadius: '9999px' }}
+                  >
+                    <span
+                      className="text-[10px] font-medium text-[#007595] leading-[15px]"
+                      style={{ fontFamily: 'Poppins, sans-serif' }}
+                    >
                       Pass Active
                     </span>
-                    <span className="text-[10px] font-extrabold text-purple-700 bg-purple-100/90 px-2.5 py-0.5 rounded-full border border-purple-200">
-                      Verified Archetype
-                    </span>
                   </div>
-                  <CaretRight size={18} className="text-slate-400 group-hover:text-slate-900 group-hover:translate-x-0.5 transition-transform" weight="bold" />
+
+                  {/* Icon Vector Chevron */}
+                  <CaretRight size={18} className="text-[#90A1B9] group-hover:text-[#0F172B] transition-colors" />
                 </div>
 
-                {/* Content Row */}
-                <div className="flex items-center gap-3.5 relative z-10">
-                  <div className="w-12 h-12 rounded-2xl bg-white border border-[#33C4F0]/25 shadow-xs flex items-center justify-center text-2xl shrink-0">
-                    🧭
+                {/* Content Container: top 52px, left 19px, right 19px, height 55px, gap 14px */}
+                <div
+                  className="absolute left-[19px] right-[19px] top-[52px] h-[55px] flex items-center gap-[14px] z-10"
+                >
+                  {/* Icon Container 48x48 */}
+                  <div
+                    className="w-[48px] h-[48px] bg-white rounded-[16px] flex items-center justify-center shrink-0"
+                    style={{
+                      boxShadow: '0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    }}
+                  >
+                    <span
+                      className="text-[24px] leading-[32px] text-[#0F172B]"
+                      style={{ fontFamily: 'Poppins, sans-serif' }}
+                    >
+                      🧭
+                    </span>
                   </div>
-                  <div>
-                    <h3 className="text-base font-black text-slate-900 leading-tight flex items-center gap-1.5">
-                      The Explorer 🧭
-                    </h3>
-                    <p className="text-xs font-normal text-slate-600 mt-0.5 leading-snug">
-                      New places & creative experiences to keep your inspiration moving.
-                    </p>
+
+                  {/* Text Container */}
+                  <div className="flex flex-col items-start justify-center flex-1 min-w-0 h-[55px]">
+                    {/* Heading 3 */}
+                    <div className="flex items-center gap-[6px] h-[20px] w-full">
+                      <h3
+                        className="text-[16px] font-bold text-[#0F172B] leading-[20px] truncate"
+                        style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}
+                      >
+                        The Explorer 🧭
+                      </h3>
+                    </div>
+
+                    {/* Paragraph */}
+                    <div className="pt-[2px] w-full">
+                      <p
+                        className="text-[12px] font-normal text-[#90A1B9] leading-[16px] line-clamp-2"
+                        style={{ fontFamily: 'Poppins, sans-serif' }}
+                      >
+                        New places & creative experiences to keep your inspiration moving.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
