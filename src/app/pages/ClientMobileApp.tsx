@@ -41,6 +41,7 @@ import {
   Flower,
   Moon,
   Users,
+  PaperPlaneRight,
   PaperPlaneRight as Send,
   Images as PhotosIcon,
 } from '@phosphor-icons/react';
@@ -49,6 +50,81 @@ import { mockVendors, mockActivities, themeCategories, Activity } from '../data/
 
 type ScreenType = 'onboarding' | 'login' | 'register' | 'feed' | 'discover' | 'bookings' | 'profile';
 type TabType = 'feed' | 'discover' | 'bookings' | 'profile';
+
+const brandStories = [
+  {
+    id: 'art',
+    name: 'Art',
+    emoji: '🎨',
+    vendorId: 'abc-creative-studio',
+    vendorName: 'ABC Creative Studio',
+    title: 'Watercolour & Expressive Painting Masterclass',
+    image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80',
+    gradient: 'from-purple-500 via-pink-400 to-[#33C4F0]',
+    quote: 'Express yourself freely without worrying about perfection.',
+    category: 'Heart of Art',
+  },
+  {
+    id: 'yoga',
+    name: 'Yoga',
+    emoji: '🧘',
+    vendorId: 'maya-ellison-studio',
+    vendorName: 'Maya Ellison Mindful Movement',
+    title: 'Restorative Desk-to-Mat Yoga Flow',
+    image: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=1200&q=80',
+    gradient: 'from-[#33C4F0] via-teal-400 to-emerald-400',
+    quote: 'Reset your spine and calm your thoughts with daily breathwork.',
+    category: 'Athletic Fanatics',
+  },
+  {
+    id: 'tasting',
+    name: 'Tasting',
+    emoji: '🍫',
+    vendorId: 'cocoa-collective',
+    vendorName: 'Cocoa Collective',
+    title: 'Artisanal Dark Chocolate & Cocoa Bean Pairing',
+    image: 'https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=1200&q=80',
+    gradient: 'from-amber-400 via-orange-400 to-rose-400',
+    quote: 'Savor rich cocoa aromas and learn bean-to-bar tempering secrets.',
+    category: 'Chowdown',
+  },
+  {
+    id: 'rhythm',
+    name: 'Rhythm',
+    emoji: '💃',
+    vendorId: 'rhythm-room',
+    vendorName: 'The Rhythm Room',
+    title: 'Expressive Dance & Vinyl DJ Jam Sessions',
+    image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1200&q=80',
+    gradient: 'from-purple-500 via-indigo-500 to-sky-400',
+    quote: 'Unlock high energy and joy through improvisational movement.',
+    category: 'Moves & Grooves',
+  },
+  {
+    id: 'robotics',
+    name: 'Robotics',
+    emoji: '🤖',
+    vendorId: 'digital-makers-lab',
+    vendorName: 'Technut Makers Studio',
+    title: 'Creative Robotics & 3D Printed Prototyping',
+    image: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=1200&q=80',
+    gradient: 'from-cyan-400 via-blue-500 to-indigo-500',
+    quote: 'Build interactive electronic widgets with code & hands-on assembly.',
+    category: 'Technut',
+  },
+  {
+    id: 'photo',
+    name: 'Photo',
+    emoji: '📸',
+    vendorId: 'outward-exploration-co',
+    vendorName: 'Outward Exploration Co.',
+    title: 'Urban Heritage & Mobile Portrait Walk',
+    image: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1200&q=80',
+    gradient: 'from-rose-400 via-[#33C4F0] to-purple-500',
+    quote: 'Capture secret architectural angles and natural light contrasts.',
+    category: 'Trip and Tell',
+  },
+];
 
 export function ClientMobileApp() {
   const navigate = useNavigate();
@@ -95,6 +171,7 @@ export function ClientMobileApp() {
   const [postDetailCommentText, setPostDetailCommentText] = useState<string>('');
   const [postDetailComments, setPostDetailComments] = useState<Record<string, any[]>>({});
   const [selectedBrandId, setSelectedBrandId] = useState<string | null>(null);
+  const [activeStoryIdx, setActiveStoryIdx] = useState<number | null>(null);
 
   // Bookings list state
   const [myBookings, setMyBookings] = useState([
@@ -1005,31 +1082,7 @@ export function ClientMobileApp() {
 
     // MAIN CLIENT APP CONTENT (Tabs: Feed, Discover, Bookings, Profile)
     return (
-      <div className="flex flex-col h-full bg-[#F8FAFC] justify-between relative overflow-hidden">
-        {/* TOP STATUS / HEADER BAR */}
-        <div className="bg-white/90 backdrop-blur-md px-4 py-3 border-b border-slate-100 flex items-center justify-between sticky top-0 z-20">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#33C4F0] to-[#1AB0DC] flex items-center justify-center text-white font-extrabold text-sm shadow-sm">
-              {regName ? regName.charAt(0) : 'A'}
-            </div>
-            <div>
-              <p className="text-xs font-extrabold text-slate-900 leading-tight">
-                {regName || 'Alex Morgan'}
-              </p>
-              <p className="text-[11px] text-[#1AB0DC] font-semibold">The Explorer 🧭 • Harmonious Creator</p>
-            </div>
-          </div>
-
-          <button
-            onClick={() => setActiveTab('bookings')}
-            className="relative p-2.5 rounded-full bg-slate-50 text-slate-600 hover:bg-slate-100 transition text-xs border border-slate-100"
-            title="Notifications & Passes"
-          >
-            <Bell size={17} />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-[#EF4444] rounded-full ring-2 ring-white" />
-          </button>
-        </div>
-
+      <div className="flex flex-col h-full bg-white justify-between relative overflow-hidden">
         {/* NOTIFICATION TOAST */}
         <AnimatePresence>
           {bookingSuccessMsg && (
@@ -1037,8 +1090,7 @@ export function ClientMobileApp() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute top-14 inset-x-3 z-50 bg-[#10B981] text-white p-3.5 shadow-xl text-xs font-bold flex items-center justify-between"
-              style={{ borderRadius: '16px 16px 36px 16px' }}
+              className="absolute top-14 inset-x-3 z-50 bg-[#10B981] text-white p-3.5 shadow-xl text-xs font-bold flex items-center justify-between rounded-2xl"
             >
               <span>{bookingSuccessMsg}</span>
               <button onClick={() => setBookingSuccessMsg(null)}>
@@ -1050,151 +1102,175 @@ export function ClientMobileApp() {
 
         {/* TAB 1: FEED / HOME */}
         {activeTab === 'feed' && (
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
-            {/* WELCOME & PERSONALITY TYPE SUMMARY CARD WITH SIGNATURE CORNER RADIUS */}
-            <div
-              className="bg-white p-4 border border-slate-100 shadow-sm space-y-3"
-              style={{ borderRadius: '20px 20px 54px 20px' }}
-            >
-              {/* Header Info */}
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-md">
-                    Subscription Pass Active
-                  </span>
-                  <div className="mt-1">
-                    <span className="text-base font-black text-slate-900 block">The Explorer 🧭</span>
-                    <p className="text-[11px] text-slate-500 mt-0.5">
-                      New places, perspectives, and possibilities keep your creativity moving.
+          <div className="flex-1 overflow-y-auto pb-20">
+            {/* THE EXPLORER ARCHETYPE & SUBSCRIPTION FEATURE CARD (PASTEL LIGHT GLASS TEARDROP) */}
+            <div className="p-4 pb-2">
+              <div
+                onClick={() => navigate('/test')}
+                className="bg-gradient-to-br from-[#E8F9FF] via-[#F3E8FF]/60 to-[#E0F2FE] text-slate-900 p-4.5 border border-[#33C4F0]/30 shadow-xs cursor-pointer hover:border-[#33C4F0]/60 hover:scale-[1.005] transition-all duration-200 relative overflow-hidden group space-y-3"
+                style={{ borderRadius: '28px 28px 84px 28px' }}
+              >
+                {/* Background ambient glow */}
+                <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#33C4F0]/15 rounded-full blur-2xl pointer-events-none" />
+                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-300/20 rounded-full blur-2xl pointer-events-none" />
+
+                {/* Top Badge Row */}
+                <div className="flex items-center justify-between relative z-10">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-white bg-[#33C4F0] px-2.5 py-0.5 rounded-full shadow-2xs">
+                      Pass Active
+                    </span>
+                    <span className="text-[10px] font-extrabold text-purple-700 bg-purple-100/90 px-2.5 py-0.5 rounded-full border border-purple-200">
+                      Verified Archetype
+                    </span>
+                  </div>
+                  <CaretRight size={18} className="text-slate-400 group-hover:text-slate-900 group-hover:translate-x-0.5 transition-transform" weight="bold" />
+                </div>
+
+                {/* Content Row */}
+                <div className="flex items-center gap-3.5 relative z-10">
+                  <div className="w-12 h-12 rounded-2xl bg-white border border-[#33C4F0]/25 shadow-xs flex items-center justify-center text-2xl shrink-0">
+                    🧭
+                  </div>
+                  <div>
+                    <h3 className="text-base font-black text-slate-900 leading-tight flex items-center gap-1.5">
+                      The Explorer 🧭
+                    </h3>
+                    <p className="text-xs font-normal text-slate-600 mt-0.5 leading-snug">
+                      New places & creative experiences to keep your inspiration moving.
                     </p>
                   </div>
                 </div>
-                <button
-                  onClick={() => setActiveTab('discover')}
-                  className="py-2 px-3 bg-[#33C4F0] text-white text-xs font-bold shadow-xs hover:bg-[#1AB0DC] transition shrink-0 ml-2"
-                  style={{ borderRadius: '12px 12px 28px 12px' }}
-                >
-                  Explore Sessions
-                </button>
               </div>
             </div>
 
-            {/* QUICK LINK: PERSONALITY TYPE TEST & ARCHETYPE CARD WITH SIGNATURE CORNER RADIUS */}
-            <div
-              onClick={() => navigate('/test')}
-              className="bg-gradient-to-r from-purple-50 via-indigo-50/50 to-sky-50/40 p-3.5 border border-purple-100 cursor-pointer hover:border-purple-200 transition flex items-center justify-between shadow-xs"
-              style={{ borderRadius: '20px 20px 54px 20px' }}
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-white shadow-xs flex items-center justify-center text-xl shrink-0">
-                  🧭
-                </div>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs font-black text-slate-900">Personality Type: The Explorer</span>
-                    <span className="text-[10px] font-extrabold text-purple-600 bg-purple-100 px-1.5 py-0.5 rounded-md">Verified</span>
-                  </div>
-                  <p className="text-[11px] text-slate-500 mt-0.5">View your tailored insights & archetype profile →</p>
-                </div>
+            {/* SERVICE BRAND STORIES SECTION (FRAMELESS HORIZONTAL CAROUSEL) */}
+            <div className="py-3 border-b border-slate-100 space-y-2.5">
+              <div className="flex items-center justify-between px-4">
+                <h3 className="text-[11px] font-extrabold text-[#717182] uppercase tracking-wider">
+                  SERVICE BRAND STORIES
+                </h3>
+                <span className="text-xs font-bold text-[#33C4F0]">
+                  {brandStories.length} Active Studios
+                </span>
               </div>
-              <CaretRight size={16} className="text-slate-400 shrink-0" />
+
+              <div className="grid grid-cols-6 gap-1 px-3 py-1 text-center">
+                {brandStories.map((story, idx) => (
+                  <button
+                    key={story.id}
+                    onClick={() => setActiveStoryIdx(idx)}
+                    className="flex flex-col items-center shrink-0 group focus:outline-none"
+                  >
+                    <div className={`p-[2px] rounded-full bg-gradient-to-tr ${story.gradient} shadow-xs group-hover:scale-105 transition-transform duration-200`}>
+                      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white flex items-center justify-center text-xl border border-white shadow-xs">
+                        {story.emoji}
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-bold text-[#1A1A28] mt-1 text-center tracking-tight truncate w-full">
+                      {story.name}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* FEED SECTION HEADER */}
-            <div className="flex items-center justify-between pt-1">
+            <div className="flex items-center justify-between px-4 pt-3 pb-1">
               <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                 Community Feed
               </h3>
               <span className="text-[11px] font-semibold text-slate-400">{samplePostsData.length} Stories</span>
             </div>
 
-            {/* FEED POST LIST */}
-            {samplePostsData.map((post) => {
-              const isLiked = likedPostIds.includes(post.id);
-              return (
-                <div
-                  key={post.id}
-                  className="bg-white border border-slate-100 shadow-sm overflow-hidden"
-                  style={{ borderRadius: '20px 20px 54px 20px' }}
-                >
-                  {/* Post Header */}
-                  <div className="p-3.5 flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-xl p-1.5 bg-slate-50 rounded-xl">{post.emoji}</span>
-                      <div>
-                        <p className="text-xs font-extrabold text-slate-900">{post.provider}</p>
-                        <p className="text-[11px] text-slate-400">{post.category}</p>
+            {/* FEED POST LIST (FRAMELESS NATIVE MOBILE LIST) */}
+            <div className="divide-y divide-slate-100">
+              {samplePostsData.map((post) => {
+                const isLiked = likedPostIds.includes(post.id);
+                return (
+                  <div key={post.id} className="py-4 space-y-3">
+                    {/* Post Header */}
+                    <div className="px-4 flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-xl p-1 bg-slate-100 rounded-full">{post.emoji}</span>
+                        <div>
+                          <p className="text-xs font-extrabold text-slate-900">{post.provider}</p>
+                          <p className="text-[11px] text-slate-400">{post.category}</p>
+                        </div>
                       </div>
+                      <span className="text-[10px] font-bold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-full">
+                        {post.duration}
+                      </span>
                     </div>
-                    <span className="text-[10px] font-bold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-full">
-                      {post.duration}
-                    </span>
-                  </div>
 
-                  {/* Post Image */}
-                  {post.image && (
-                    <div
-                      className="h-44 w-full overflow-hidden relative cursor-pointer"
-                      onClick={() => setSelectedPost(post)}
-                    >
-                      <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-3.5">
-                        <p className="text-white text-xs font-bold leading-tight">{post.title}</p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Post Body & Actions */}
-                  <div className="p-3.5">
-                    <p className="text-xs text-slate-600 line-clamp-2 mb-3 leading-relaxed">
-                      {post.copy}
-                    </p>
-
-                    <div className="flex items-center justify-between text-xs pt-2 border-t border-slate-50">
-                      <div className="flex items-center gap-4 text-slate-400">
-                        <button
-                          onClick={() => toggleLikePost(post.id)}
-                          className={`flex items-center gap-1 font-bold transition ${
-                            isLiked ? 'text-[#EF4444]' : 'hover:text-slate-700'
-                          }`}
+                    {/* Post Teardrop Preview Image (NO Title Overlay) */}
+                    {post.image && (
+                      <div className="px-4">
+                        <div
+                          className="h-52 w-full overflow-hidden relative cursor-pointer shadow-xs transition-transform hover:scale-[1.01]"
+                          style={{ borderRadius: '24px 24px 72px 24px' }}
+                          onClick={() => setSelectedPost(post)}
                         >
-                          <Heart size={16} weight={isLiked ? 'fill' : 'regular'} />
-                          <span>{post.likes + (isLiked ? 1 : 0)}</span>
-                        </button>
+                          <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Post Title, Body & Actions */}
+                    <div className="px-4 space-y-2">
+                      <h3
+                        onClick={() => setSelectedPost(post)}
+                        className="text-base font-black text-slate-900 leading-snug tracking-tight cursor-pointer hover:text-[#1AB0DC] transition"
+                      >
+                        {post.title}
+                      </h3>
+                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                        {post.copy}
+                      </p>
+
+                      <div className="flex items-center justify-between text-xs pt-1">
+                        <div className="flex items-center gap-4 text-slate-400">
+                          <button
+                            onClick={() => toggleLikePost(post.id)}
+                            className={`flex items-center gap-1 font-bold transition ${
+                              isLiked ? 'text-[#EF4444]' : 'hover:text-slate-700'
+                            }`}
+                          >
+                            <Heart size={16} weight={isLiked ? 'fill' : 'regular'} />
+                            <span>{post.likes + (isLiked ? 1 : 0)}</span>
+                          </button>
+                          <button
+                            onClick={() => setSelectedPost(post)}
+                            className="flex items-center gap-1 font-bold hover:text-slate-700 transition"
+                          >
+                            <ChatCircle size={16} />
+                            <span>{post.comments}</span>
+                          </button>
+                        </div>
+
                         <button
                           onClick={() => setSelectedPost(post)}
-                          className="flex items-center gap-1 font-bold hover:text-slate-700 transition"
+                          className="text-[11px] font-bold text-[#1AB0DC] hover:underline flex items-center gap-0.5"
                         >
-                          <ChatCircle size={16} />
-                          <span>{post.comments}</span>
+                          Read More <CaretRight size={12} />
                         </button>
                       </div>
-
-                      <button
-                        onClick={() => setSelectedPost(post)}
-                        className="text-[11px] font-bold text-[#1AB0DC] hover:underline flex items-center gap-0.5"
-                      >
-                        Read More <CaretRight size={12} />
-                      </button>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         )}
 
-        {/* TAB 2: DISCOVER (Aligned 1-to-1 with Web Discover Page: Service Brands First) */}
+        {/* TAB 2: DISCOVER */}
         {activeTab === 'discover' && (
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
+          <div className="flex-1 overflow-y-auto pb-20">
             {selectedBrandId === null ? (
-              /* VIEW 1: SERVICE BRANDS GRID (Matched to Web DiscoverPage.tsx) */
-              <>
+              /* VIEW 1: SERVICE BRANDS LIST (FRAMELESS NATIVE MOBILE) */
+              <div className="space-y-4">
                 {/* Header Banner */}
-                <div
-                  className="bg-white p-4 border border-slate-100 shadow-sm space-y-2"
-                  style={{ borderRadius: '20px 20px 54px 20px' }}
-                >
+                <div className="px-4 pt-3 pb-3 border-b border-slate-100 space-y-1.5">
                   <div className="flex items-center gap-1.5 text-[10px] font-extrabold text-purple-600 bg-purple-50 border border-purple-100 px-2.5 py-0.5 rounded-full w-fit">
                     <Sparkle size={12} className="text-purple-600 animate-pulse" />
                     Acumen AI Service Brand Engine
@@ -1203,7 +1279,7 @@ export function ClientMobileApp() {
                     Choose a Service Brand for your Pro Plan
                   </h2>
                   <p className="text-[11px] text-slate-500 font-medium leading-relaxed">
-                    Select a service brand below to access all of its included workshops, activities, and coaching sessions.
+                    Select a service brand below to access all included workshops & activities.
                   </p>
                 </div>
 
@@ -1259,13 +1335,9 @@ export function ClientMobileApp() {
                       const aiMatchScore = vendor.id === 'studio-lumen' ? 98 : vendor.id === 'cocoa-collective' ? 95 : 92;
 
                       return (
-                        <div
-                          key={vendor.id}
-                          className="bg-white border border-slate-100 shadow-sm overflow-hidden hover:border-[#33C4F0]/40 transition"
-                          style={{ borderRadius: '20px 20px 54px 20px' }}
-                        >
+                        <div key={vendor.id} className="py-4 border-b border-slate-100 space-y-3">
                           {/* Brand Cover Image */}
-                          <div className="relative h-40 w-full overflow-hidden bg-slate-100">
+                          <div className="relative h-44 w-full bg-slate-100 overflow-hidden">
                             <img src={vendor.image} alt={vendor.name} className="w-full h-full object-cover" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
@@ -1276,7 +1348,7 @@ export function ClientMobileApp() {
                             </div>
 
                             {/* Brand Header overlay */}
-                            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                            <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
                               <div className="flex items-center gap-2.5">
                                 <div className="w-10 h-10 rounded-2xl bg-white shadow-md flex items-center justify-center text-xl shrink-0">
                                   {vendor.avatar}
@@ -1292,7 +1364,7 @@ export function ClientMobileApp() {
                           </div>
 
                           {/* Brand Body */}
-                          <div className="p-3.5 space-y-3">
+                          <div className="px-4 space-y-3">
                             <div className="flex items-center justify-between text-[11px] text-slate-500 font-semibold">
                               <span className="flex items-center gap-1 text-[#F59E0B] font-extrabold">
                                 <Star size={13} weight="fill" /> {vendor.rating} ({vendor.reviewsCount} reviews)
@@ -1307,11 +1379,11 @@ export function ClientMobileApp() {
                             </p>
 
                             {/* Included Services Photo Preview */}
-                            <div className="border-t border-slate-100 pt-2.5">
+                            <div className="pt-1">
                               <p className="text-[10px] font-extrabold uppercase tracking-wider text-[#717182] mb-2">
                                 Included Services Preview ({vendorActivities.length} available):
                               </p>
-                              <div className="grid grid-cols-3 gap-1.5">
+                              <div className="grid grid-cols-3 gap-2">
                                 {vendorActivities.slice(0, 3).map((act) => (
                                   <div
                                     key={act.id}
@@ -1333,7 +1405,7 @@ export function ClientMobileApp() {
                             <button
                               type="button"
                               onClick={() => setSelectedBrandId(vendor.id)}
-                              className="w-full py-2.5 bg-[#1A1A28] text-white hover:bg-black text-xs font-extrabold rounded-full transition shadow-xs flex items-center justify-center gap-1.5 mt-1"
+                              className="w-full py-3 bg-[#1A1A28] text-white hover:bg-black text-xs font-extrabold rounded-full transition shadow-xs flex items-center justify-center gap-1.5 mt-1"
                             >
                               View Brand Services & Workshops ({vendorActivities.length}) →
                             </button>
@@ -1342,9 +1414,8 @@ export function ClientMobileApp() {
                       );
                     })}
                 </div>
-              </>
+              </div>
             ) : (
-              /* VIEW 2: SELECTED SERVICE BRAND'S SERVICES & WORKSHOPS (Matched to Web VendorDetailPage.tsx) */
               (() => {
                 const selectedVendor = mockVendors.find((v) => v.id === selectedBrandId) || mockVendors[0];
                 const vendorActivities = mockActivities.filter((a) => a.vendorId === selectedVendor.id);
@@ -1477,8 +1548,8 @@ export function ClientMobileApp() {
 
         {/* TAB 3: BOOKINGS */}
         {activeTab === 'bookings' && (
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
-            <div className="flex items-center justify-between">
+          <div className="flex-1 overflow-y-auto pb-20">
+            <div className="px-4 pt-3 pb-2 flex items-center justify-between border-b border-slate-100">
               <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                 My Mobile Passes ({myBookings.length})
               </h3>
@@ -1488,81 +1559,70 @@ export function ClientMobileApp() {
             </div>
 
             {myBookings.length === 0 ? (
-              <div
-                className="text-center py-10 bg-white border border-slate-100 p-6"
-                style={{ borderRadius: '20px 20px 54px 20px' }}
-              >
+              <div className="text-center py-12 px-4">
                 <CalendarBlank size={36} className="text-slate-300 mx-auto mb-2" />
                 <p className="text-xs font-bold text-slate-900">No Bookings Yet</p>
-                <p className="text-[11px] text-slate-500 mb-3">Discover sessions and book your first experience.</p>
+                <p className="text-[11px] text-slate-500 mb-4">Discover sessions and book your first experience.</p>
                 <button
                   onClick={() => setActiveTab('discover')}
-                  className="py-2 px-4 bg-[#33C4F0] text-white text-xs font-bold"
-                  style={{ borderRadius: '12px 12px 28px 12px' }}
+                  className="py-2 px-5 bg-[#33C4F0] text-white text-xs font-bold rounded-full shadow-xs"
                 >
                   Explore Sessions
                 </button>
               </div>
             ) : (
-              myBookings.map((bk) => (
-                <div
-                  key={bk.id}
-                  className="bg-white border border-slate-100 shadow-sm p-3.5 space-y-3"
-                  style={{ borderRadius: '20px 20px 54px 20px' }}
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0"
-                      style={{ backgroundColor: `${bk.color}15` }}
-                    >
-                      {bk.symbol}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-extrabold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
-                          {bk.status}
-                        </span>
-                        <span className="text-[10px] font-bold text-slate-400">{bk.seats} Ticket</span>
+              <div className="divide-y divide-slate-100">
+                {myBookings.map((bk) => (
+                  <div key={bk.id} className="p-4 space-y-3">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0"
+                        style={{ backgroundColor: `${bk.color}15` }}
+                      >
+                        {bk.symbol}
                       </div>
-                      <h4 className="text-xs font-bold text-slate-900 truncate mt-0.5">{bk.activityName}</h4>
-                      <p className="text-[11px] text-slate-500">{bk.vendorName}</p>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-extrabold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
+                            {bk.status}
+                          </span>
+                          <span className="text-[10px] font-bold text-slate-400">{bk.seats} Ticket</span>
+                        </div>
+                        <h4 className="text-xs font-bold text-slate-900 truncate mt-0.5">{bk.activityName}</h4>
+                        <p className="text-[11px] text-slate-500">{bk.vendorName}</p>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="bg-slate-50 p-2.5 rounded-xl space-y-1 text-[11px]">
-                    <div className="flex items-center justify-between text-slate-800 font-medium">
-                      <span className="flex items-center gap-1 text-slate-400"><Clock size={12} /> Date & Time:</span>
-                      <span>{bk.date} • {bk.time}</span>
+                    <div className="bg-slate-50 p-3 rounded-2xl space-y-1 text-[11px]">
+                      <div className="flex items-center justify-between text-slate-800 font-medium">
+                        <span className="flex items-center gap-1 text-slate-400"><Clock size={12} /> Date & Time:</span>
+                        <span>{bk.date} • {bk.time}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-slate-800 font-medium">
+                        <span className="flex items-center gap-1 text-slate-400"><MapPin size={12} /> Location:</span>
+                        <span className="truncate max-w-[160px]">{bk.location}</span>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-between text-slate-800 font-medium">
-                      <span className="flex items-center gap-1 text-slate-400"><MapPin size={12} /> Location:</span>
-                      <span className="truncate max-w-[160px]">{bk.location}</span>
-                    </div>
-                  </div>
 
-                  <div className="flex gap-2 pt-1">
                     <button
                       onClick={() => setSelectedQrPass(bk)}
-                      className="flex-1 py-2.5 px-3 bg-slate-900 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-xs hover:bg-slate-800 transition"
+                      className="w-full py-3 px-3 bg-slate-900 text-white text-xs font-bold rounded-full flex items-center justify-center gap-1.5 shadow-xs hover:bg-slate-800 transition"
                     >
                       <QrCode size={16} /> Show Mobile Pass
                     </button>
                   </div>
-                </div>
-              ))
+                ))}
+              </div>
             )}
           </div>
         )}
 
         {/* TAB 4: PROFILE */}
         {activeTab === 'profile' && (
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-20">
-            {/* User Info Header with Personality Archetype & Signature Corner Radius */}
-            <div
-              className="bg-white p-4 border border-slate-100 shadow-sm flex items-center gap-3"
-              style={{ borderRadius: '20px 20px 54px 20px' }}
-            >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#33C4F0] to-[#1AB0DC] text-white flex items-center justify-center text-xl font-bold shadow-md shrink-0">
+          <div className="flex-1 overflow-y-auto pb-20">
+            {/* User Header */}
+            <div className="p-4 border-b border-slate-100 flex items-center gap-3.5">
+              <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-[#33C4F0] to-[#1AB0DC] text-white flex items-center justify-center text-xl font-bold shadow-xs shrink-0">
                 🧭
               </div>
               <div className="min-w-0 flex-1">
@@ -1577,13 +1637,10 @@ export function ClientMobileApp() {
               </div>
             </div>
 
-            {/* Account Details Card (Aligned 1-to-1 with Web Registration Fields) */}
-            <div
-              className="bg-white p-4 border border-slate-100 shadow-sm space-y-2.5"
-              style={{ borderRadius: '20px 20px 54px 20px' }}
-            >
-              <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                <h4 className="text-xs font-black uppercase text-[#1A1A28] tracking-wider">Account & Organization Info</h4>
+            {/* Account Details Section */}
+            <div className="p-4 border-b border-slate-100 space-y-2.5">
+              <div className="flex items-center justify-between pb-1">
+                <h4 className="text-xs font-black uppercase text-[#1A1A28] tracking-wider">Account & Organization</h4>
                 <span className="text-[10px] font-bold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-md">Verified Profile</span>
               </div>
 
@@ -1607,11 +1664,8 @@ export function ClientMobileApp() {
               </div>
             </div>
 
-            {/* Active Subscription & Pass Balance Card */}
-            <div
-              className="bg-gradient-to-br from-[#E8F9FF] via-white to-sky-50 p-4 border border-[#33C4F0]/30 shadow-sm space-y-2.5"
-              style={{ borderRadius: '20px 20px 54px 20px' }}
-            >
+            {/* Subscription & Pass Balance Section */}
+            <div className="p-4 border-b border-slate-100 space-y-2.5">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs font-black text-[#1A1A28]">Pro Annual Plan</p>
@@ -1622,43 +1676,38 @@ export function ClientMobileApp() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 pt-1">
-                <button
-                  type="button"
-                  onClick={() => setRegStep(4)}
-                  className="w-full py-2.5 bg-[#1A1A28] text-white hover:bg-black text-xs font-bold rounded-xl transition text-center shadow-xs"
-                >
-                  Manage Subscription / Upgrade Plan
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => setRegStep(4)}
+                className="w-full py-2.5 bg-[#1A1A28] text-white hover:bg-black text-xs font-bold rounded-xl transition text-center shadow-xs"
+              >
+                Manage Subscription / Upgrade Plan
+              </button>
             </div>
 
-            {/* Wellness Stats Grid */}
-            <div className="grid grid-cols-3 gap-2">
-              <div className="bg-white p-3 border border-slate-100 text-center" style={{ borderRadius: '16px 16px 36px 16px' }}>
+            {/* Wellness Stats Row */}
+            <div className="p-4 border-b border-slate-100 grid grid-cols-3 gap-2">
+              <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 text-center">
                 <p className="text-lg font-black text-[#33C4F0]">12</p>
                 <p className="text-[10px] font-bold text-slate-400">Sessions</p>
               </div>
-              <div className="bg-white p-3 border border-slate-100 text-center" style={{ borderRadius: '16px 16px 36px 16px' }}>
+              <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 text-center">
                 <p className="text-lg font-black text-[#8B5CF6]">18.5h</p>
                 <p className="text-[10px] font-bold text-slate-400">Mindful Hours</p>
               </div>
-              <div className="bg-white p-3 border border-slate-100 text-center" style={{ borderRadius: '16px 16px 36px 16px' }}>
+              <div className="bg-slate-50 p-3 rounded-2xl border border-slate-100 text-center">
                 <p className="text-lg font-black text-[#10B981]">5 Days</p>
                 <p className="text-[10px] font-bold text-slate-400">Streak 🔥</p>
               </div>
             </div>
 
-            {/* Quick Actions List with Signature Corner Radius */}
-            <div
-              className="bg-white border border-slate-100 overflow-hidden divide-y divide-slate-50 text-xs shadow-xs"
-              style={{ borderRadius: '20px 20px 54px 20px' }}
-            >
+            {/* Native Mobile Settings Action List */}
+            <div className="divide-y divide-slate-100 text-xs">
               <button
                 onClick={() => navigate('/test')}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 text-left transition"
+                className="w-full p-4 flex items-center justify-between hover:bg-slate-50 text-left transition"
               >
-                <div className="flex items-center gap-2.5 text-slate-900 font-bold">
+                <div className="flex items-center gap-3 text-slate-900 font-bold">
                   <Sparkle size={18} className="text-[#8B5CF6]" />
                   <span>Personality Type Details & Archetype</span>
                 </div>
@@ -1667,9 +1716,9 @@ export function ClientMobileApp() {
 
               <button
                 onClick={() => setActiveTab('discover')}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 text-left transition"
+                className="w-full p-4 flex items-center justify-between hover:bg-slate-50 text-left transition"
               >
-                <div className="flex items-center gap-2.5 text-slate-900 font-bold">
+                <div className="flex items-center gap-3 text-slate-900 font-bold">
                   <BookmarkSimple size={18} className="text-[#EF4444]" />
                   <span>Saved Activities ({savedActivityIds.length})</span>
                 </div>
@@ -1678,9 +1727,9 @@ export function ClientMobileApp() {
 
               <button
                 onClick={() => navigate('/invites')}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 text-left transition"
+                className="w-full p-4 flex items-center justify-between hover:bg-slate-50 text-left transition"
               >
-                <div className="flex items-center gap-2.5 text-slate-900 font-bold">
+                <div className="flex items-center gap-3 text-slate-900 font-bold">
                   <Buildings size={18} className="text-[#10B981]" />
                   <span>Corporate Subscription & Invites</span>
                 </div>
@@ -1689,9 +1738,9 @@ export function ClientMobileApp() {
 
               <button
                 onClick={() => navigate('/dashboard')}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 text-left text-[#1AB0DC] transition"
+                className="w-full p-4 flex items-center justify-between hover:bg-slate-50 text-left text-[#1AB0DC] transition"
               >
-                <div className="flex items-center gap-2.5 font-bold">
+                <div className="flex items-center gap-3 font-bold">
                   <Desktop size={18} />
                   <span>Switch to Desktop Version</span>
                 </div>
@@ -1700,9 +1749,9 @@ export function ClientMobileApp() {
 
               <button
                 onClick={() => setActiveScreen('login')}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-red-50 text-left text-[#EF4444] transition"
+                className="w-full p-4 flex items-center justify-between hover:bg-red-50 text-left text-[#EF4444] transition"
               >
-                <div className="flex items-center gap-2.5 font-bold">
+                <div className="flex items-center gap-3 font-bold">
                   <SignOut size={18} />
                   <span>Log Out</span>
                 </div>
@@ -1890,7 +1939,7 @@ export function ClientMobileApp() {
                     className="w-full py-3 bg-[#1A1A28] text-white hover:bg-black text-xs font-extrabold rounded-full shadow-md transition active:scale-[0.99] flex items-center justify-center gap-2 mt-2"
                   >
                     <Sparkle size={16} weight="fill" className="text-amber-400" />
-                    Confirm & Redeem Mobile Booking
+                    Confirm & Redeem
                   </button>
                 </div>
               </div>
@@ -1905,19 +1954,19 @@ export function ClientMobileApp() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="absolute inset-0 bg-[#F8FAFC] z-50 overflow-y-auto flex flex-col text-[#1A1A28] font-sans"
+              className="absolute inset-0 bg-white z-50 overflow-y-auto flex flex-col text-[#1A1A28] font-sans"
             >
               {/* Sticky Top Header Navigation */}
-              <div className="bg-white/95 backdrop-blur-md px-4 py-3 border-b border-slate-200/80 sticky top-0 z-30 flex items-center justify-between shadow-2xs">
+              <div className="bg-white/95 backdrop-blur-md px-4 py-3 border-b border-slate-100 sticky top-0 z-30 flex items-center justify-between">
                 <button
                   type="button"
                   onClick={() => {
                     setSelectedPost(null);
                     setPostDetailImgIdx(0);
                   }}
-                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full transition"
+                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-full transition"
                 >
-                  <CaretLeft size={16} weight="bold" /> Back to Feed
+                  <CaretLeft size={16} weight="bold" /> Back
                 </button>
 
                 <div className="flex items-center gap-1.5">
@@ -1944,14 +1993,14 @@ export function ClientMobileApp() {
                 </div>
               </div>
 
-              {/* Scrollable Content Body */}
-              <div className="p-4 space-y-4 pb-12 flex-1">
-                {/* Hero Header Card */}
-                <div className="bg-white p-4.5 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
+              {/* Scrollable Content Body (Frameless Native Mobile Article View) */}
+              <div className="pb-16 flex-1 divide-y divide-slate-100">
+                {/* Header & Hero Image Section */}
+                <div className="p-4 space-y-3">
                   {/* Provider Info */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-10 h-10 rounded-2xl bg-[#E8F9FF] text-[#147C9E] flex items-center justify-center text-xl shadow-2xs">
+                      <div className="w-10 h-10 rounded-2xl bg-[#E8F9FF] text-[#147C9E] flex items-center justify-center text-xl shadow-xs">
                         {selectedPost.emoji}
                       </div>
                       <div>
@@ -1964,17 +2013,17 @@ export function ClientMobileApp() {
                         </p>
                       </div>
                     </div>
-                    <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-md">
+                    <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
                       {(selectedPost as any).readTime || '3 min read'}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h1 className="text-lg font-black text-[#1A1A28] leading-snug tracking-tight">
+                  <h1 className="text-xl font-black text-slate-900 leading-snug tracking-tight pt-1">
                     {selectedPost.title}
                   </h1>
 
-                  {/* Multi-Photo Carousel */}
+                  {/* Teardrop Hero Image / Multi-Photo Carousel */}
                   {(() => {
                     const postImages = selectedPost.images && selectedPost.images.length > 0
                       ? selectedPost.images
@@ -1988,17 +2037,19 @@ export function ClientMobileApp() {
 
                     return (
                       <div className="space-y-2 pt-1">
-                        <div className="relative h-52 sm:h-60 w-full rounded-2xl overflow-hidden shadow-sm bg-slate-100 border border-slate-200">
+                        <div
+                          className="relative h-56 sm:h-64 w-full overflow-hidden bg-slate-100 shadow-xs"
+                          style={{ borderRadius: '24px 24px 72px 24px' }}
+                        >
                           <img
                             src={postImages[safeIndex]}
                             alt={selectedPost.title}
                             className="w-full h-full object-cover transition-all duration-300"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
 
                           {/* Image Counter Badge */}
                           {postImages.length > 1 && (
-                            <div className="absolute top-2.5 right-2.5 bg-black/75 backdrop-blur-md text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full flex items-center gap-1">
+                            <div className="absolute top-3 right-3 bg-black/75 backdrop-blur-md text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full flex items-center gap-1">
                               <PhotosIcon size={12} />
                               <span>{safeIndex + 1} of {postImages.length}</span>
                             </div>
@@ -2050,22 +2101,25 @@ export function ClientMobileApp() {
                 </div>
 
                 {/* The Story & Narrative Section */}
-                <div className="bg-white p-4.5 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
-                  <h2 className="text-[10px] font-extrabold uppercase tracking-widest text-[#33C4F0]">
+                <div className="p-4 space-y-2.5">
+                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#33C4F0] block">
+                    Session Narrative
+                  </span>
+                  <h2 className="text-base font-black text-slate-900 leading-snug">
                     The Story Behind the Session
                   </h2>
-                  <p className="text-sm font-bold text-[#1A1A28] leading-relaxed">
+                  <p className="text-xs text-slate-600 leading-relaxed pt-1">
                     {selectedPost.copy}
                   </p>
 
                   {selectedPost.fullStory && (
-                    <div className="text-xs text-[#525266] leading-relaxed whitespace-pre-line border-t border-slate-100 pt-3">
+                    <div className="text-xs text-slate-600 leading-relaxed whitespace-pre-line pt-2 border-t border-slate-50">
                       {selectedPost.fullStory}
                     </div>
                   )}
 
                   {/* Metadata Tags Row */}
-                  <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-[11px] font-extrabold">
+                  <div className="flex flex-wrap items-center gap-2 pt-2 text-[11px] font-extrabold">
                     {selectedPost.duration && (
                       <span className="rounded-full bg-[#F2FBFE] px-3 py-1.5 text-[#147C9E] flex items-center gap-1.5">
                         <Clock size={14} />
@@ -2088,34 +2142,37 @@ export function ClientMobileApp() {
 
                 {/* Experience Highlights Section */}
                 {selectedPost.highlights && selectedPost.highlights.length > 0 && (
-                  <div className="bg-white p-4.5 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
-                    <h3 className="text-[10px] font-extrabold uppercase tracking-widest text-[#147C9E]">
+                  <div className="p-4 space-y-2.5">
+                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#147C9E] block">
+                      Key Highlights
+                    </span>
+                    <h3 className="text-base font-black text-slate-900 leading-snug">
                       What Makes This Experience Special
                     </h3>
-                    <div className="space-y-2">
+                    <div className="space-y-2 pt-1">
                       {selectedPost.highlights.map((highlight, index) => (
                         <div
                           key={index}
-                          className="flex items-start gap-2.5 rounded-2xl bg-[#F8FCFF] p-3 border border-[#33C4F0]/15"
+                          className="flex items-start gap-2.5 rounded-2xl bg-slate-50 p-3 border border-slate-100"
                         >
                           <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#10B981]/15 text-[#087E58] mt-0.5">
                             <Check size={12} weight="bold" />
                           </span>
-                          <span className="text-xs font-semibold text-[#1A1A28] leading-tight">{highlight}</span>
+                          <span className="text-xs font-semibold text-slate-800 leading-tight">{highlight}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                 )}
 
-                {/* Session Booking & Inquiry Card */}
-                <div className="bg-gradient-to-br from-[#E8F9FF] via-white to-sky-50 p-4.5 rounded-3xl border border-[#33C4F0]/30 shadow-xs space-y-3">
+                {/* Session Booking Section */}
+                <div className="p-4 space-y-3">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-xs font-black text-[#1A1A28]">Book This Session</p>
-                      <p className="text-[10px] text-[#717182]">Included with your CreativeSelf Pro Pass</p>
+                      <h3 className="text-base font-black text-slate-900">Book This Session</h3>
+                      <p className="text-[10px] text-slate-500 font-medium">Included with your CreativeSelf Pro Pass</p>
                     </div>
-                    <span className="text-xs font-black text-[#1AB0DC] bg-white px-2.5 py-1 rounded-full border border-[#33C4F0]/30 shadow-2xs">
+                    <span className="text-xs font-black text-[#10B981] bg-[#ECFDF5] px-2.5 py-1 rounded-full border border-emerald-200">
                       1 Pass Credit
                     </span>
                   </div>
@@ -2143,7 +2200,7 @@ export function ClientMobileApp() {
                       setBookingSuccessMsg(`Successfully booked "${selectedPost.title}"! Added to your Bookings tab.`);
                       setSelectedPost(null);
                     }}
-                    className="w-full py-3 bg-[#1A1A28] text-white hover:bg-black text-xs font-extrabold rounded-full shadow-md transition active:scale-[0.99] flex items-center justify-center gap-2"
+                    className="w-full py-3 bg-[#1A1A28] text-white hover:bg-black text-xs font-extrabold rounded-full shadow-xs transition active:scale-[0.99] flex items-center justify-center gap-2"
                   >
                     <Sparkle size={16} weight="fill" className="text-amber-400" />
                     Reserve Experience Now
@@ -2151,12 +2208,12 @@ export function ClientMobileApp() {
                 </div>
 
                 {/* Interactive Comments Section */}
-                <div className="bg-white p-4.5 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                    <p className="text-xs font-extrabold text-[#1A1A28] flex items-center gap-1.5">
-                      <ChatCircle size={16} className="text-[#33C4F0]" weight="bold" />
+                <div className="p-4 space-y-3">
+                  <div className="flex items-center justify-between pb-1">
+                    <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                      <ChatCircle size={18} className="text-[#33C4F0]" weight="bold" />
                       Comments ({postDetailComments[selectedPost.id]?.length ?? (selectedPost.commentsList?.length || selectedPost.comments || 0)})
-                    </p>
+                    </h3>
                   </div>
 
                   {/* List of Comments */}
@@ -2215,9 +2272,9 @@ export function ClientMobileApp() {
                     />
                     <button
                       type="submit"
-                      className="p-2.5 bg-[#33C4F0] hover:bg-[#1AB0DC] text-white rounded-full transition shadow-2xs shrink-0"
+                      className="p-2.5 bg-[#33C4F0] text-white rounded-full hover:bg-[#1AB0DC] transition shadow-xs shrink-0"
                     >
-                      <Send size={15} weight="bold" />
+                      <PaperPlaneRight size={14} weight="bold" />
                     </button>
                   </form>
                 </div>
@@ -2279,6 +2336,116 @@ export function ClientMobileApp() {
               </motion.div>
             </motion.div>
           )}
+        </AnimatePresence>
+
+        {/* FULL SCREEN INTERACTIVE STORY VIEWER MODAL */}
+        <AnimatePresence>
+          {activeStoryIdx !== null && (() => {
+            const currentStory = brandStories[activeStoryIdx];
+            return (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="absolute inset-0 bg-slate-950 z-50 flex flex-col justify-between overflow-hidden text-white font-sans"
+              >
+                {/* Background Image with Dark Overlay */}
+                <div className="absolute inset-0 z-0">
+                  <img
+                    src={currentStory.image}
+                    alt={currentStory.title}
+                    className="w-full h-full object-cover opacity-80"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/90" />
+                </div>
+
+                {/* Top Navigation & Segmented Progress Bars */}
+                <div className="relative z-10 p-4 pt-3 space-y-3">
+                  {/* Progress Bar Segments */}
+                  <div className="flex items-center gap-1.5">
+                    {brandStories.map((s, idx) => (
+                      <div
+                        key={s.id}
+                        className="flex-1 h-1 rounded-full overflow-hidden bg-white/30"
+                      >
+                        <div
+                          className={`h-full transition-all duration-300 ${
+                            idx === activeStoryIdx
+                              ? 'bg-white w-full'
+                              : idx < activeStoryIdx
+                              ? 'bg-white w-full'
+                              : 'w-0'
+                          }`}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Header Row */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <div className={`p-[2px] rounded-full bg-gradient-to-tr ${currentStory.gradient}`}>
+                        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-base">
+                          {currentStory.emoji}
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-xs font-black tracking-wide text-white leading-tight">{currentStory.vendorName}</p>
+                        <p className="text-[10px] text-sky-300 font-semibold">{currentStory.category} • Active Story</p>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => setActiveStoryIdx(null)}
+                      className="w-8 h-8 rounded-full bg-black/50 backdrop-blur-md text-white/80 hover:text-white flex items-center justify-center border border-white/20 transition"
+                    >
+                      <X size={16} weight="bold" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Touch/Click Navigation Areas (Left = Prev, Right = Next) */}
+                <div className="absolute inset-0 z-10 flex">
+                  <div
+                    onClick={() => setActiveStoryIdx(activeStoryIdx > 0 ? activeStoryIdx - 1 : null)}
+                    className="w-1/3 h-full cursor-pointer"
+                  />
+                  <div
+                    onClick={() => setActiveStoryIdx(activeStoryIdx < brandStories.length - 1 ? activeStoryIdx + 1 : null)}
+                    className="w-2/3 h-full cursor-pointer"
+                  />
+                </div>
+
+                {/* Bottom Story Card Overlay */}
+                <div className="relative z-20 p-5 space-y-4 bg-gradient-to-t from-black via-black/80 to-transparent pt-12">
+                  <div className="space-y-2">
+                    <span className="text-[10px] font-extrabold tracking-wider uppercase px-2.5 py-1 rounded-full bg-[#33C4F0] text-slate-950 inline-block shadow-sm">
+                      {currentStory.name} Studio Experience
+                    </span>
+                    <h2 className="text-xl font-black text-white leading-tight drop-shadow-md">
+                      {currentStory.title}
+                    </h2>
+                    <p className="text-xs text-slate-200 font-medium italic border-l-2 border-[#33C4F0] pl-3 py-0.5">
+                      "{currentStory.quote}"
+                    </p>
+                  </div>
+
+                  <div className="flex gap-2 pt-2">
+                    <button
+                      onClick={() => {
+                        setSelectedBrandId(currentStory.vendorId);
+                        setActiveTab('discover');
+                        setActiveStoryIdx(null);
+                      }}
+                      className="flex-1 py-3.5 px-4 bg-gradient-to-r from-[#33C4F0] to-[#1AB0DC] text-white text-xs font-black rounded-2xl shadow-lg shadow-[#33C4F0]/30 hover:opacity-95 transition flex items-center justify-center gap-2 active:scale-[0.99]"
+                    >
+                      <Sparkle size={15} weight="fill" /> View Studio & Book Session
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })()}
         </AnimatePresence>
       </div>
     );
