@@ -44,6 +44,7 @@ import {
   PaperPlaneRight,
   PaperPlaneRight as Send,
   Images as PhotosIcon,
+  Eye,
 } from '@phosphor-icons/react';
 import { samplePostsData, PostData } from '../data/postsData';
 import { mockVendors, mockActivities, themeCategories, Activity } from '../data/subscriptionData';
@@ -487,7 +488,7 @@ export function ClientMobileApp() {
               <button
                 type="button"
                 onClick={() => handleDemoLogin('client')}
-                className="text-[12px] font-bold text-[#00B0D9] bg-white/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#33C4F0]/30 shadow-2xs"
+                className="text-[12px] font-semibold text-[#00B0D9] bg-white/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#33C4F0]/30 shadow-2xs"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
                 Quick Demo
@@ -533,7 +534,7 @@ export function ClientMobileApp() {
                     <label className="text-[12px] font-medium text-[#1A1A28]" style={{ fontFamily: 'Poppins, sans-serif' }}>
                       Password
                     </label>
-                    <button type="button" className="text-[11px] font-medium text-[#33C4F0] hover:underline" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    <button type="button" className="text-[11px] font-semibold text-[#33C4F0] hover:underline" style={{ fontFamily: 'Poppins, sans-serif' }}>
                       Forgot Password?
                     </button>
                   </div>
@@ -567,10 +568,10 @@ export function ClientMobileApp() {
             <button
               type="button"
               onClick={() => setActiveScreen('register')}
-              className="w-full text-center text-[14px] font-medium text-[#6A7282] hover:text-[#1A1A28] transition py-1"
+              className="w-full text-center text-[14px] font-semibold text-[#6A7282] hover:text-[#1A1A28] transition py-1"
               style={{ fontFamily: 'Poppins, sans-serif' }}
             >
-              Don't have an account? <span className="text-[#33C4F0] font-medium underline">Create Account</span>
+              Don't have an account? <span className="text-[#33C4F0] font-semibold underline">Create Account</span>
             </button>
           </div>
         </div>
@@ -623,7 +624,7 @@ export function ClientMobileApp() {
               <button
                 type="button"
                 onClick={() => setActiveScreen('login')}
-                className="text-[14px] font-medium text-[#33C4F0] hover:underline"
+                className="text-[14px] font-semibold text-[#33C4F0] hover:underline"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
                 Log in
@@ -869,7 +870,7 @@ export function ClientMobileApp() {
                       style={{ borderRadius: '16px 16px 36px 16px' }}
                     >
                       {plan.popular && (
-                        <span className="absolute -top-2.5 right-4 bg-amber-400 text-slate-950 font-extrabold text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-2xs">
+                        <span className="absolute -top-2.5 right-4 bg-amber-400 text-slate-950 font-semibold text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-2xs">
                           + Most Popular
                         </span>
                       )}
@@ -944,10 +945,10 @@ export function ClientMobileApp() {
               <button
                 type="button"
                 onClick={() => setActiveScreen('login')}
-                className="w-full text-center text-[14px] font-medium text-[#6A7282] hover:text-[#1A1A28] transition py-1"
+                className="w-full text-center text-[14px] font-semibold text-[#6A7282] hover:text-[#1A1A28] transition py-1"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
-                Already have an account? <span className="text-[#33C4F0] font-medium underline">Log in</span>
+                Already have an account? <span className="text-[#33C4F0] font-semibold underline">Log in</span>
               </button>
             )}
           </div>
@@ -977,7 +978,7 @@ export function ClientMobileApp() {
 
         {/* TAB 1: FEED / HOME */}
         {activeTab === 'feed' && (
-          <div className="flex-1 overflow-y-auto pb-20">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden pb-20 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {/* THE EXPLORER ARCHETYPE FEATURE CARD (EXACT FIGMA PIXEL PERFECT MATCH) */}
             <div className="p-4 pb-2">
               <div
@@ -1034,7 +1035,7 @@ export function ClientMobileApp() {
                     style={{ borderRadius: '9999px' }}
                   >
                     <span
-                      className="text-[10px] font-medium text-[#007595] leading-[15px]"
+                      className="text-[10px] font-semibold text-[#007595] leading-[15px]"
                       style={{ fontFamily: 'Poppins, sans-serif' }}
                     >
                       Pass Active
@@ -1096,7 +1097,7 @@ export function ClientMobileApp() {
                 <h3 className="text-[11px] font-extrabold text-[#717182] uppercase tracking-wider">
                   SERVICE BRAND STORIES
                 </h3>
-                <span className="text-xs font-bold text-[#33C4F0]">
+                <span className="text-xs font-semibold text-[#33C4F0]">
                   {brandStories.length} Active Studios
                 </span>
               </div>
@@ -1113,7 +1114,7 @@ export function ClientMobileApp() {
                         {story.emoji}
                       </div>
                     </div>
-                    <span className="text-[11px] font-bold text-[#1A1A28] mt-1 text-center tracking-tight truncate w-full">
+                    <span className="text-[11px] font-semibold text-[#1A1A28] mt-1 text-center tracking-tight truncate w-full">
                       {story.name}
                     </span>
                   </button>
@@ -1144,7 +1145,7 @@ export function ClientMobileApp() {
                           <p className="text-[11px] text-slate-400">{post.category}</p>
                         </div>
                       </div>
-                      <span className="text-[10px] font-bold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-semibold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-full">
                         {post.duration}
                       </span>
                     </div>
@@ -1211,7 +1212,7 @@ export function ClientMobileApp() {
 
         {/* TAB 2: DISCOVER */}
         {activeTab === 'discover' && (
-          <div className="flex-1 overflow-y-auto pb-20 space-y-4 px-4 pt-6">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden pb-20 space-y-4 px-4 pt-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {selectedBrandId === null ? (
               /* VIEW 1: SERVICE BRANDS LIST (FRAMELESS NATIVE MOBILE) */
               <div className="space-y-4">
@@ -1222,7 +1223,7 @@ export function ClientMobileApp() {
                       Choose a Service Brand
                     </h2>
                     {/* Active User Plan Badge (Matching Feed Badge Spec) */}
-                    <span className="text-[10px] font-bold text-[#1AB0DC] bg-[#E8F9FF] border border-[#33C4F0]/30 px-2.5 py-1 rounded-full shadow-2xs flex items-center gap-1 shrink-0">
+                    <span className="text-[10px] font-semibold text-[#1AB0DC] bg-[#E8F9FF] border border-[#33C4F0]/30 px-2.5 py-1 rounded-full shadow-2xs flex items-center gap-1 shrink-0">
                       <Sparkle size={11} className="text-[#33C4F0] fill-[#33C4F0]" />
                       {selectedPlanId === 'elite-creative' ? 'Elite Plan' : selectedPlanId === 'basic-creative' ? 'Basic Plan' : 'Advanced Plan'}
                     </span>
@@ -1250,7 +1251,7 @@ export function ClientMobileApp() {
                     <button
                       key={cat.id}
                       onClick={() => setSelectedCategory(cat.id)}
-                      className={`py-1.5 px-3 rounded-full text-[11px] font-bold flex items-center gap-1.5 whitespace-nowrap transition ${
+                      className={`py-1.5 px-3 rounded-full text-[11px] font-semibold flex items-center gap-1.5 whitespace-nowrap transition ${
                         selectedCategory === cat.id
                           ? 'bg-slate-900 text-white shadow-xs'
                           : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'
@@ -1268,7 +1269,7 @@ export function ClientMobileApp() {
                     <h3 className="text-[13px] font-extrabold text-[#1A1A28] uppercase tracking-wider">
                       Service Brands ({mockVendors.length})
                     </h3>
-                    <span className="text-[10px] font-bold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] font-semibold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
                       1 Brand Entitlement
                     </span>
                   </div>
@@ -1284,80 +1285,159 @@ export function ClientMobileApp() {
                       const aiMatchScore = vendor.id === 'studio-lumen' ? 98 : vendor.id === 'cocoa-collective' ? 95 : 92;
 
                       return (
-                        <div key={vendor.id} className="py-4 border-b border-slate-100 space-y-3">
-                          {/* Brand Cover Image */}
-                          <div className="relative h-44 w-full bg-slate-100 overflow-hidden" style={{ borderRadius: '20px 20px 50px 20px' }}>
-                            <img src={vendor.image} alt={vendor.name} className="w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                        <div key={vendor.id} className="py-[16px] border-b border-[#F1F5F9] space-y-3">
+                          {/* Header row above card */}
+                          <div className="flex items-center justify-between px-0 h-[36px]">
+                            <div className="flex items-center gap-[10px] min-w-0 flex-1">
+                              <div className="w-[28px] h-[36px] bg-[#F1F5F9] rounded-full p-[4px] flex items-center justify-center shrink-0">
+                                <span className="text-[20px] leading-[28px] font-normal text-[#0F172B]" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                                  {vendor.avatar}
+                                </span>
+                              </div>
+                              <div className="flex flex-col justify-start min-w-0 flex-1">
+                                <h4 className="text-[12px] font-[800] text-[#0F172B] leading-[16px] truncate" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                                  {vendor.name}
+                                </h4>
+                                <p className="text-[11px] font-normal text-[#90A1B9] leading-[17px] truncate" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                                  {vendor.specialty}
+                                </p>
+                              </div>
+                            </div>
+                            <span className="text-[10px] font-[700] text-[#1AB0DC] bg-[#E8F9FF] px-[8px] py-[2px] rounded-full shrink-0 ml-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                              {vendorActivities[0]?.duration || '45 min'}
+                            </span>
+                          </div>
+
+                          {/* Main Brand Image Container */}
+                          <div className="relative h-[176px] w-full bg-gradient-to-tr from-purple-800 via-indigo-700 to-sky-600 overflow-hidden isolate" style={{ borderRadius: '20px 20px 50px 20px' }}>
+                            <img
+                              src={vendor.image}
+                              alt=""
+                              className="w-full h-full object-cover relative z-0"
+                              onError={(e) => {
+                                (e.target as HTMLElement).style.display = 'none';
+                              }}
+                            />
+                            <div className="absolute inset-0 z-[1]" style={{ background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%)' }} />
 
                             {/* Acumen AI Badge */}
-                            <div className="absolute top-3 right-3 bg-purple-900/80 backdrop-blur text-purple-200 border border-purple-400/30 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-md">
-                              <Sparkle size={11} className="text-purple-300 fill-purple-300" />
+                            <div
+                              className="absolute top-3 right-3 text-[#E9D4FF] text-[10px] font-[800] px-[10px] py-[2px] rounded-full flex items-center gap-1 shadow-md z-[2]"
+                              style={{
+                                background: 'rgba(89, 22, 139, 0.8)',
+                                border: '1px solid rgba(194, 122, 255, 0.3)',
+                                backdropFilter: 'blur(8px)',
+                                fontFamily: 'Poppins, sans-serif',
+                              }}
+                            >
+                              <Sparkle size={11} className="text-[#DAB2FF] fill-[#DAB2FF]" />
                               {aiMatchScore}% Acumen Match
                             </div>
 
-                            {/* Brand Header overlay */}
-                            <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
-                              <div className="flex items-center gap-2.5">
-                                <div className="w-10 h-10 rounded-2xl bg-white shadow-md flex items-center justify-center text-xl shrink-0">
+                            {/* Brand Info Overlay */}
+                            <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between z-[3]">
+                              <div className="flex items-center gap-[10px] min-w-0">
+                                <div className="w-[40px] h-[40px] rounded-[16px] bg-white shadow-md flex items-center justify-center text-[20px] shrink-0">
                                   {vendor.avatar}
                                 </div>
-                                <div className="min-w-0">
-                                  <span className="text-[9px] font-extrabold text-white bg-white/20 px-2 py-0.5 rounded-md uppercase backdrop-blur">
+                                <div className="min-w-0 flex flex-col justify-start">
+                                  <span
+                                    className="text-[9px] font-[800] text-white bg-white/20 px-2 py-[2px] rounded-[19.6px] uppercase backdrop-blur-md inline-block w-fit mb-0.5"
+                                    style={{ fontFamily: 'Poppins, sans-serif' }}
+                                  >
                                     {vendor.theme}
                                   </span>
-                                  <h3 className="text-sm font-black text-white truncate">{vendor.name}</h3>
+                                  <h3
+                                    className="text-[14px] font-[700] text-white leading-[20px] truncate"
+                                    style={{ fontFamily: 'Century Gothic, sans-serif' }}
+                                  >
+                                    {vendor.name}
+                                  </h3>
                                 </div>
                               </div>
                             </div>
                           </div>
 
-                          {/* Brand Body */}
-                          <div className="space-y-2.5">
-                            <div className="flex items-center justify-between text-[11px] text-slate-500 font-semibold">
-                              <span className="flex items-center gap-1 text-[#F59E0B] font-extrabold">
-                                <Star size={13} weight="fill" /> {vendor.rating} ({vendor.reviewsCount} reviews)
-                              </span>
-                              <span className="flex items-center gap-1 text-slate-600">
-                                <MapPin size={13} className="text-slate-400" /> {vendor.location}
-                              </span>
-                            </div>
+                          {/* Rating & Location Meta Row */}
+                          <div className="flex items-center gap-2 text-[12px] font-[700] pt-1" style={{ fontFamily: 'Century Gothic, sans-serif' }}>
+                            <span className="flex items-center gap-1 text-[#FE9A00]">
+                              <Star size={14} weight="fill" className="text-[#FFB900]" />
+                              {vendor.rating}
+                            </span>
+                            <span className="text-[#717182]">•</span>
+                            <span className="text-[#717182]">{vendor.location}</span>
+                          </div>
 
-                            <p className="text-xs text-slate-600 font-medium leading-relaxed">
-                              {vendor.specialty}
-                            </p>
+                          {/* Description */}
+                          <p className="text-[12px] font-normal text-[#101828] leading-[20px] py-[8px]" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                            {vendor.description || vendor.specialty}
+                          </p>
 
-                            {/* Included Services Photo Preview */}
-                            <div className="pt-1">
-                              <p className="text-[10px] font-extrabold uppercase tracking-wider text-[#717182] mb-1.5">
-                                Included Services Preview ({vendorActivities.length} available):
-                              </p>
-                              <div className="grid grid-cols-3 gap-2">
-                                {vendorActivities.slice(0, 3).map((act) => (
-                                  <div
-                                    key={act.id}
-                                    onClick={() => setSelectedActivity(act)}
-                                    className="cursor-pointer bg-slate-50 rounded-xl overflow-hidden border border-slate-100 hover:border-[#33C4F0] transition group"
-                                  >
-                                    <div className="h-14 w-full relative">
-                                      <img src={act.image} alt={act.name} className="w-full h-full object-cover group-hover:scale-105 transition" />
-                                    </div>
-                                    <p className="text-[10px] font-extrabold text-slate-900 truncate p-1">
+                          {/* FEATURED SERVICES Section */}
+                          <div className="border-t border-[#33C4F0]/15 pt-[16px] space-y-3">
+                            <h4
+                              className="text-[10px] font-[700] text-[#6A7282] uppercase tracking-[1.54px] leading-[16px]"
+                              style={{ fontFamily: 'Century Gothic, sans-serif' }}
+                            >
+                              FEATURED SERVICES:
+                            </h4>
+
+                            <div className="flex items-center gap-3 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] max-w-full">
+                              {vendorActivities.map((act) => (
+                                <div
+                                  key={act.id}
+                                  onClick={() => setSelectedActivity(act)}
+                                  className="cursor-pointer flex items-start bg-[#F8FDFF] border border-[#33C4F0]/20 min-w-[262px] w-[262px] h-[52px] shrink-0 overflow-hidden"
+                                  style={{ borderRadius: '20px 20px 48px 20px' }}
+                                >
+                                  <div className="w-[52px] h-[52px] bg-[#E5E7EB] shrink-0 overflow-hidden relative flex items-center justify-center text-lg">
+                                    <span className="text-slate-400 select-none z-0">{act.symbol || vendor.avatar || '🎨'}</span>
+                                    <img
+                                      src={act.image}
+                                      alt=""
+                                      className="w-full h-full object-cover absolute inset-0 z-10"
+                                      onError={(e) => {
+                                        (e.target as HTMLElement).style.display = 'none';
+                                      }}
+                                    />
+                                  </div>
+                                  <div className="px-[10px] pr-[20px] py-[4px] flex flex-col justify-center min-w-0 flex-1">
+                                    <h5
+                                      className="text-[12px] font-[700] text-[#414153] leading-[24px] truncate"
+                                      style={{ fontFamily: 'Century Gothic, sans-serif' }}
+                                    >
                                       {act.name}
+                                    </h5>
+                                    <p
+                                      className="text-[11px] font-[500] text-[#717182] leading-[15px]"
+                                      style={{ fontFamily: 'Poppins, sans-serif' }}
+                                    >
+                                      {act.duration}
                                     </p>
                                   </div>
-                                ))}
-                              </div>
+                                </div>
+                              ))}
                             </div>
+                          </div>
 
-                            {/* Smaller, Sleek Action Button: View Brand Services */}
+                          {/* CTA Action Buttons */}
+                          <div className="flex items-center gap-[6px] pt-1">
+                            <button
+                              type="button"
+                              onClick={() => setSelectedVendor(vendor)}
+                              className="flex-1 h-[34px] bg-[#F8FDFF] border border-[#33C4F0]/30 text-[#147C9E] text-[12px] font-[700] flex items-center justify-center gap-[6px] transition hover:bg-[#E8F9FF]"
+                              style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
+                            >
+                              <Eye size={15} className="text-[#147C9E]" />
+                              View
+                            </button>
                             <button
                               type="button"
                               onClick={() => setSelectedBrandId(vendor.id)}
-                              className="w-full h-[36px] bg-[#1A1A28] text-white hover:bg-black text-[12px] font-bold rounded-full transition shadow-2xs flex items-center justify-center gap-1.5 mt-1"
-                              style={{ fontFamily: 'Poppins, sans-serif' }}
+                              className="flex-1 h-[32px] bg-[#33C4F0] text-white text-[12px] font-[700] flex items-center justify-center gap-[6px] transition hover:opacity-90 shadow-2xs"
+                              style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
                             >
-                              View Services & Workshops ({vendorActivities.length}) →
+                              Subscribe
                             </button>
                           </div>
                         </div>
@@ -1395,13 +1475,13 @@ export function ClientMobileApp() {
                               {selectedVendor.avatar}
                             </div>
                             <div>
-                              <span className="text-[10px] font-extrabold uppercase bg-white/20 px-2 py-0.5 rounded-md backdrop-blur">
+                              <span className="text-[10px] font-semibold uppercase bg-white/20 px-2 py-0.5 rounded-md backdrop-blur">
                                 {selectedVendor.theme}
                               </span>
                               <h1 className="text-base font-black truncate">{selectedVendor.name}</h1>
                             </div>
                           </div>
-                          <span className="text-xs font-black text-amber-400 bg-black/60 px-2.5 py-1 rounded-full backdrop-blur">
+                          <span className="text-xs font-semibold text-amber-400 bg-black/60 px-2.5 py-1 rounded-full backdrop-blur">
                             ★ {selectedVendor.rating}
                           </span>
                         </div>
@@ -1423,7 +1503,7 @@ export function ClientMobileApp() {
                       <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                         Available Services & Workshops ({vendorActivities.length})
                       </h3>
-                      <span className="text-[10px] font-bold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-semibold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
                         Included in Pass
                       </span>
                     </div>
@@ -1448,7 +1528,7 @@ export function ClientMobileApp() {
                               >
                                 <BookmarkSimple size={16} weight={isSaved ? 'fill' : 'regular'} />
                               </button>
-                              <div className="absolute bottom-2.5 left-2.5 bg-slate-900/80 backdrop-blur text-white text-[10px] font-bold px-2.5 py-0.5 rounded-md flex items-center gap-1">
+                              <div className="absolute bottom-2.5 left-2.5 bg-slate-900/80 backdrop-blur text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-md flex items-center gap-1">
                                 <span>{act.symbol}</span> {act.category}
                               </div>
                             </div>
@@ -1498,15 +1578,15 @@ export function ClientMobileApp() {
 
         {/* TAB 3: BOOKINGS */}
         {activeTab === 'bookings' && (
-          <div className="flex-1 overflow-y-auto pb-20 space-y-4 px-4 pt-3">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden pb-20 space-y-4 px-4 pt-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <div className="pb-2 border-b border-slate-100 flex items-center justify-between">
               <div>
                 <h2 className="text-[20px] font-extrabold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
                   My Bookings & Passes
                 </h2>
-                <p className="text-[12px] text-[#6A7282] font-medium">Access your active mobile passes and ticket QR codes.</p>
+                <p className="text-[12px] text-[#6A7282] font-semibold">Access your active mobile passes and ticket QR codes.</p>
               </div>
-              <span className="text-[10px] font-bold text-[#10B981] bg-[#ECFDF5] px-2.5 py-1 rounded-full border border-emerald-200 shrink-0">
+              <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full flex items-center gap-1 border border-emerald-200/60 shrink-0">
                 {myBookings.length} Active
               </span>
             </div>
@@ -1536,7 +1616,7 @@ export function ClientMobileApp() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-extrabold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
+                          <span className="text-[10px] font-semibold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
                             {bk.status}
                           </span>
                           <span className="text-[10px] font-bold text-slate-400">{bk.seats} Ticket</span>
@@ -1572,13 +1652,13 @@ export function ClientMobileApp() {
 
         {/* TAB 4: PROFILE */}
         {activeTab === 'profile' && (
-          <div className="flex-1 overflow-y-auto pb-20 space-y-4 px-4 pt-3">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden pb-20 space-y-4 px-4 pt-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {/* Header Title */}
             <div className="pb-2 border-b border-slate-100">
               <h2 className="text-[20px] font-extrabold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
                 Account Profile
               </h2>
-              <p className="text-[12px] text-[#6A7282] font-medium">Manage your personal details, workspace, and plan options.</p>
+              <p className="text-[12px] text-[#6A7282] font-semibold">Manage your personal details, workspace, and plan options.</p>
             </div>
 
             {/* User Header */}
@@ -1589,7 +1669,7 @@ export function ClientMobileApp() {
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5 flex-wrap">
                   <h3 className="text-base font-extrabold text-slate-900 truncate">{regName || 'Alex Morgan'}</h3>
-                  <span className="text-[10px] font-extrabold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-full shrink-0">
+                  <span className="text-[10px] font-semibold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-full shrink-0">
                     The Explorer 🧭
                   </span>
                 </div>
@@ -1602,7 +1682,7 @@ export function ClientMobileApp() {
             <div className="pb-3 border-b border-slate-100 space-y-2.5">
               <div className="flex items-center justify-between pb-1">
                 <h3 className="text-[13px] font-extrabold uppercase text-[#1A1A28] tracking-wider">Account & Organization</h3>
-                <span className="text-[10px] font-bold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-md">Verified Profile</span>
+                <span className="text-[10px] font-semibold text-[#1AB0DC] bg-[#E8F9FF] px-2 py-0.5 rounded-md">Verified Profile</span>
               </div>
 
               <div className="grid grid-cols-2 gap-2 text-xs">
@@ -1630,7 +1710,7 @@ export function ClientMobileApp() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs font-black text-[#1A1A28]">Pro Annual Plan</p>
-                  <p className="text-[10px] text-slate-500 font-medium">$39.00 / yr • Renews Aug 2027</p>
+                  <p className="text-[10px] text-slate-500 font-semibold">$39.00 / yr • Renews Aug 2027</p>
                 </div>
                 <span className="text-xs font-black text-[#10B981] bg-[#ECFDF5] px-2.5 py-1 rounded-full border border-emerald-200">
                   4 Pass Credits Left
@@ -1931,7 +2011,7 @@ export function ClientMobileApp() {
                 </button>
 
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#1AB0DC] bg-[#E8F9FF] px-2.5 py-1 rounded-full">
+                  <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full uppercase tracking-wider border border-amber-200/60">
                     {selectedPost.category}
                   </span>
                   <button
@@ -2039,7 +2119,7 @@ export function ClientMobileApp() {
 
                         {/* Thumbnail Strip */}
                         {postImages.length > 1 && (
-                          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                          <div className="flex items-center gap-2 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                             {postImages.map((imgUrl, idx) => (
                               <button
                                 key={idx}
@@ -2380,7 +2460,7 @@ export function ClientMobileApp() {
                 {/* Bottom Story Card Overlay */}
                 <div className="relative z-20 p-5 space-y-4 bg-gradient-to-t from-black via-black/80 to-transparent pt-12">
                   <div className="space-y-2">
-                    <span className="text-[10px] font-extrabold tracking-wider uppercase px-2.5 py-1 rounded-full bg-[#33C4F0] text-slate-950 inline-block shadow-sm">
+                    <span className="text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-[#33C4F0] text-slate-950 inline-block shadow-sm">
                       {currentStory.name} Studio Experience
                     </span>
                     <h2 className="text-xl font-black text-white leading-tight drop-shadow-md">
