@@ -1,6 +1,7 @@
 import React from 'react';
-import { MagnifyingGlass, Sparkle, Star, Clock, MapPin, BookmarkSimple, CaretLeft, Eye } from '@phosphor-icons/react';
+import { Sparkle, Star, Check, Eye, CaretLeft, MagnifyingGlass, BookmarkSimple, Clock, MapPin } from '@phosphor-icons/react';
 import { mockVendors, mockActivities, themeCategories, Activity } from '@/app/data/subscriptionData';
+import { useSubscription } from '@/app/context/SubscriptionContext';
 
 interface MobileDiscoverScreenProps {
   selectedBrandId: string | null;
@@ -8,9 +9,9 @@ interface MobileDiscoverScreenProps {
   selectedCategory: string;
   setSelectedCategory: (cat: string) => void;
   searchQuery: string;
-  setSearchQuery: (q: string) => void;
+  setSearchQuery: (query: string) => void;
   selectedPlanId: string;
-  setSelectedActivity: (act: Activity | null) => void;
+  setSelectedActivity: (activity: Activity | null) => void;
   savedActivityIds: string[];
   toggleSaveActivity: (id: string) => void;
 }
@@ -27,6 +28,8 @@ export function MobileDiscoverScreen({
   savedActivityIds,
   toggleSaveActivity,
 }: MobileDiscoverScreenProps) {
+  const { planName, selectedBrand, selectBrand } = useSubscription();
+
   return (
     <div className="flex-1 overflow-y-auto overflow-x-hidden pb-20 space-y-4 px-4 pt-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
       {selectedBrandId === null ? (
@@ -34,17 +37,17 @@ export function MobileDiscoverScreen({
         <div className="space-y-4">
           {/* Header Banner */}
           <div className="pb-3 border-b border-slate-100 space-y-1.5">
-            <div className="flex items-center justify-between gap-2">
-              <h2 className="text-[16px] font-extrabold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
+            <div>
+              <span className="text-[10px] font-semibold text-[#1AB0DC] bg-[#E8F9FF] border border-[#33C4F0]/30 px-2.5 py-1 rounded-full shadow-2xs inline-flex items-center gap-1 w-fit mb-1.5">
+                <Sparkle size={11} className="text-[#33C4F0] fill-[#33C4F0]" />
+                {planName || (selectedPlanId === 'elite-creative' ? 'Elite Plan' : selectedPlanId === 'basic-creative' ? 'Basic Plan' : 'Advanced Plan')}
+              </span>
+              <h2 className="text-[16px] font-semibold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
                 Choose a Service Brand
               </h2>
-              <span className="text-[10px] font-semibold text-[#1AB0DC] bg-[#E8F9FF] border border-[#33C4F0]/30 px-2.5 py-1 rounded-full shadow-2xs flex items-center gap-1 shrink-0">
-                <Sparkle size={11} className="text-[#33C4F0] fill-[#33C4F0]" />
-                {selectedPlanId === 'elite-creative' ? 'Elite Plan' : selectedPlanId === 'basic-creative' ? 'Basic Plan' : 'Advanced Plan'}
-              </span>
             </div>
             <p className="text-[12px] text-[#6A7282] font-medium leading-relaxed">
-              Select a service brand below to access all included workshops & activities.
+              Select a service brand below to subscribe your plan entitlement & access included activities.
             </p>
           </div>
 
@@ -81,7 +84,7 @@ export function MobileDiscoverScreen({
           {/* Service Brands List */}
           <div className="space-y-4">
             <div className="flex items-center justify-between pt-1">
-              <h3 className="text-[13px] font-extrabold text-[#1A1A28] uppercase tracking-wider">
+              <h3 className="text-[13px] font-semibold text-[#1A1A28] uppercase tracking-wider">
                 Service Brands ({mockVendors.length})
               </h3>
               <span className="text-[10px] font-semibold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
@@ -98,33 +101,16 @@ export function MobileDiscoverScreen({
               .map((vendor) => {
                 const vendorActivities = mockActivities.filter((a) => a.vendorId === vendor.id);
                 const aiMatchScore = vendor.id === 'studio-lumen' ? 98 : vendor.id === 'cocoa-collective' ? 95 : 92;
+                const isSubscribedToVendor = selectedBrand?.id === vendor.id;
 
                 return (
                   <div key={vendor.id} className="py-[16px] border-b border-[#F1F5F9] space-y-3">
-                    {/* Header row above card */}
-                    <div className="flex items-center justify-between px-0 h-[36px]">
-                      <div className="flex items-center gap-[10px] min-w-0 flex-1">
-                        <div className="w-[28px] h-[36px] bg-[#F1F5F9] rounded-full p-[4px] flex items-center justify-center shrink-0">
-                          <span className="text-[20px] leading-[28px] font-normal text-[#0F172B]" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                            {vendor.avatar}
-                          </span>
-                        </div>
-                        <div className="flex flex-col justify-start min-w-0 flex-1">
-                          <h4 className="text-[12px] font-[800] text-[#0F172B] leading-[16px] truncate" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                            {vendor.name}
-                          </h4>
-                          <p className="text-[11px] font-normal text-[#90A1B9] leading-[17px] truncate" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                            {vendor.specialty}
-                          </p>
-                        </div>
-                      </div>
-                      <span className="text-[10px] font-[700] text-[#1AB0DC] bg-[#E8F9FF] px-[8px] py-[2px] rounded-full shrink-0 ml-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                        {vendorActivities[0]?.duration || '45 min'}
-                      </span>
-                    </div>
-
                     {/* Main Brand Image Container */}
-                    <div className="relative h-[176px] w-full bg-gradient-to-tr from-purple-800 via-indigo-700 to-sky-600 overflow-hidden isolate" style={{ borderRadius: '20px 20px 50px 20px' }}>
+                    <div
+                      onClick={() => setSelectedBrandId(vendor.id)}
+                      className="relative h-[176px] w-full bg-gradient-to-tr from-purple-800 via-indigo-700 to-sky-600 overflow-hidden isolate cursor-pointer"
+                      style={{ borderRadius: '20px 20px 50px 20px' }}
+                    >
                       <img
                         src={vendor.image}
                         alt=""
@@ -135,17 +121,17 @@ export function MobileDiscoverScreen({
                       />
                       <div className="absolute inset-0 z-[1]" style={{ background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%)' }} />
 
-                      <div
-                        className="absolute top-3 right-3 text-[#E9D4FF] text-[10px] font-[800] px-[10px] py-[2px] rounded-full flex items-center gap-1 shadow-md z-[2]"
-                        style={{
-                          background: 'rgba(89, 22, 139, 0.8)',
-                          border: '1px solid rgba(194, 122, 255, 0.3)',
-                          backdropFilter: 'blur(8px)',
-                          fontFamily: 'Poppins, sans-serif',
-                        }}
-                      >
-                        <Sparkle size={11} className="text-[#DAB2FF] fill-[#DAB2FF]" />
-                        {aiMatchScore}% Acumen Match
+                      {/* Subscription Status Badge Top-Left */}
+                      <div className="absolute top-3 left-3 z-[2]">
+                        {isSubscribedToVendor ? (
+                          <span className="text-[10px] font-semibold text-[#10B981] bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-md flex items-center gap-1" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                            <Check size={11} /> Subscribed
+                          </span>
+                        ) : (
+                          <span className="text-[10px] font-semibold text-[#147C9E] bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-md" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                            Available in Plan
+                          </span>
+                        )}
                       </div>
 
                       <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between z-[3]">
@@ -155,13 +141,13 @@ export function MobileDiscoverScreen({
                           </div>
                           <div className="min-w-0 flex flex-col justify-start">
                             <span
-                              className="text-[9px] font-[800] text-white bg-white/20 px-2 py-[2px] rounded-[19.6px] uppercase backdrop-blur-md inline-block w-fit mb-0.5"
+                              className="text-[9px] font-semibold text-white bg-white/20 px-2 py-[2px] rounded-[19.6px] uppercase backdrop-blur-md inline-block w-fit mb-0.5"
                               style={{ fontFamily: 'Poppins, sans-serif' }}
                             >
                               {vendor.theme}
                             </span>
                             <h3
-                              className="text-[14px] font-[700] text-white leading-[20px] truncate"
+                              className="text-[14px] font-semibold text-white leading-[20px] truncate"
                               style={{ fontFamily: 'Century Gothic, sans-serif' }}
                             >
                               {vendor.name}
@@ -171,34 +157,41 @@ export function MobileDiscoverScreen({
                       </div>
                     </div>
 
-                    {/* Rating & Location */}
-                    <div className="flex items-center gap-2 text-[12px] font-[700] pt-1" style={{ fontFamily: 'Century Gothic, sans-serif' }}>
+                    {/* Rating, Location & AI Match */}
+                    <div className="flex items-center gap-2 text-[12px] font-semibold pt-1" style={{ fontFamily: 'Century Gothic, sans-serif' }}>
                       <span className="flex items-center gap-1 text-[#FE9A00]">
                         <Star size={14} weight="fill" className="text-[#FFB900]" />
                         {vendor.rating}
                       </span>
                       <span className="text-[#717182]">•</span>
-                      <span className="text-[#717182]">{vendor.location}</span>
+                      <span className="text-[#717182] truncate">{vendor.location}</span>
+                      <span className="ml-auto inline-flex items-center gap-1 text-[10px] font-semibold text-[#7E22CE] bg-[#F3E8FF] border border-[#D8B4FE]/60 px-2.5 py-0.5 rounded-full shrink-0 shadow-2xs" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                        <Sparkle size={11} className="text-[#9333EA] fill-[#9333EA]" />
+                        {aiMatchScore}% Acumen Match
+                      </span>
                     </div>
 
                     <p className="text-[12px] font-normal text-[#101828] leading-[20px] py-[8px]" style={{ fontFamily: 'Poppins, sans-serif' }}>
                       {vendor.description || vendor.specialty}
                     </p>
 
-                    {/* FEATURED SERVICES */}
+                    {/* FEATURED SERVICES PREVIEW */}
                     <div className="border-t border-[#33C4F0]/15 pt-[16px] space-y-3">
                       <h4
-                        className="text-[10px] font-[700] text-[#6A7282] uppercase tracking-[1.54px] leading-[16px]"
+                        className="text-[10px] font-semibold text-[#6A7282] uppercase tracking-[1.54px] leading-[16px]"
                         style={{ fontFamily: 'Century Gothic, sans-serif' }}
                       >
-                        FEATURED SERVICES:
+                        FEATURED SERVICES ({vendorActivities.length}):
                       </h4>
 
                       <div className="flex items-center gap-3 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] max-w-full">
                         {vendorActivities.map((act) => (
                           <div
                             key={act.id}
-                            onClick={() => setSelectedActivity(act)}
+                            onClick={() => {
+                              setSelectedBrandId(vendor.id);
+                              setSelectedActivity(act);
+                            }}
                             className="cursor-pointer flex items-start bg-[#F8FDFF] border border-[#33C4F0]/20 min-w-[262px] w-[262px] h-[52px] shrink-0 overflow-hidden"
                             style={{ borderRadius: '20px 20px 48px 20px' }}
                           >
@@ -215,13 +208,13 @@ export function MobileDiscoverScreen({
                             </div>
                             <div className="px-[10px] pr-[20px] py-[4px] flex flex-col justify-center min-w-0 flex-1">
                               <h5
-                                className="text-[12px] font-[700] text-[#414153] leading-[24px] truncate"
+                                className="text-[12px] font-semibold text-[#414153] leading-[24px] truncate"
                                 style={{ fontFamily: 'Century Gothic, sans-serif' }}
                               >
                                 {act.name}
                               </h5>
                               <p
-                                className="text-[11px] font-[500] text-[#717182] leading-[15px]"
+                                className="text-[11px] font-medium text-[#717182] leading-[15px]"
                                 style={{ fontFamily: 'Poppins, sans-serif' }}
                               >
                                 {act.duration}
@@ -237,20 +230,43 @@ export function MobileDiscoverScreen({
                       <button
                         type="button"
                         onClick={() => setSelectedBrandId(vendor.id)}
-                        className="flex-1 h-[34px] bg-[#F8FDFF] border border-[#33C4F0]/30 text-[#147C9E] text-[12px] font-[700] flex items-center justify-center gap-[6px] transition hover:bg-[#E8F9FF]"
+                        className="flex-1 h-[34px] bg-[#F8FDFF] border border-[#33C4F0]/30 text-[#147C9E] text-[12px] font-semibold flex items-center justify-center gap-[6px] transition hover:bg-[#E8F9FF]"
                         style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
                       >
                         <Eye size={15} className="text-[#147C9E]" />
-                        View
+                        View Brand Details
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => setSelectedBrandId(vendor.id)}
-                        className="flex-1 h-[32px] bg-[#33C4F0] text-white text-[12px] font-[700] flex items-center justify-center gap-[6px] transition hover:opacity-90 shadow-2xs"
-                        style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
-                      >
-                        Subscribe
-                      </button>
+
+                      {isSubscribedToVendor ? (
+                        <button
+                          type="button"
+                          onClick={() => setSelectedBrandId(vendor.id)}
+                          className="flex-1 h-[34px] bg-[#10B981] text-white text-[12px] font-semibold flex items-center justify-center gap-[6px] transition shadow-2xs"
+                          style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
+                        >
+                          <Check size={15} />
+                          Subscribed
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            selectBrand({
+                              id: vendor.id,
+                              name: vendor.name,
+                              rating: vendor.rating,
+                              specialty: vendor.specialty,
+                              color: vendor.color,
+                              avatar: vendor.avatar,
+                            });
+                            setSelectedBrandId(vendor.id);
+                          }}
+                          className="flex-1 h-[34px] bg-[#33C4F0] text-white text-[12px] font-semibold flex items-center justify-center gap-[6px] transition hover:opacity-90 shadow-2xs"
+                          style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
+                        >
+                          Subscribe
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
@@ -261,121 +277,270 @@ export function MobileDiscoverScreen({
         (() => {
           const selectedVendor = mockVendors.find((v) => v.id === selectedBrandId) || mockVendors[0];
           const vendorActivities = mockActivities.filter((a) => a.vendorId === selectedVendor.id);
+          const isSubscribedToSelectedVendor = selectedBrand?.id === selectedVendor.id;
 
           return (
             <div className="space-y-4">
+              {/* Back Button */}
               <button
                 type="button"
                 onClick={() => setSelectedBrandId(null)}
-                className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-white border border-slate-200 px-3.5 py-1.5 rounded-full shadow-2xs hover:bg-slate-50 transition"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-full transition"
               >
                 <CaretLeft size={16} weight="bold" /> Back to All Service Brands
               </button>
 
-              <div
-                className="bg-white border border-slate-100 shadow-sm overflow-hidden"
-                style={{ borderRadius: '20px 20px 54px 20px' }}
-              >
-                <div className="relative h-44 w-full">
-                  <img src={selectedVendor.image} alt={selectedVendor.name} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-white text-2xl flex items-center justify-center shadow-md">
+              {/* 1. BRAND DETAILS FIRST (Top Section) */}
+              <div className="py-[16px] border-b border-[#F1F5F9] space-y-3">
+                {/* Main Brand Image Container */}
+                <div className="relative h-[176px] w-full bg-gradient-to-tr from-purple-800 via-indigo-700 to-sky-600 overflow-hidden isolate" style={{ borderRadius: '20px 20px 50px 20px' }}>
+                  <img
+                    src={selectedVendor.image}
+                    alt={selectedVendor.name}
+                    className="w-full h-full object-cover relative z-0"
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.display = 'none';
+                    }}
+                  />
+                  <div className="absolute inset-0 z-[1]" style={{ background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%)' }} />
+
+                  {/* Subscription Status Badge Top-Left */}
+                  <div className="absolute top-3 left-3 z-[2]">
+                    {isSubscribedToSelectedVendor ? (
+                      <span className="text-[10px] font-semibold text-[#10B981] bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-md flex items-center gap-1" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                        <Check size={11} /> Subscribed Brand
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-semibold text-[#147C9E] bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-md" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                        Preview Mode
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between z-[3]">
+                    <div className="flex items-center gap-[10px] min-w-0">
+                      <div className="w-[40px] h-[40px] rounded-[16px] bg-white shadow-md flex items-center justify-center text-[20px] shrink-0">
                         {selectedVendor.avatar}
                       </div>
-                      <div>
-                        <span className="text-[10px] font-semibold uppercase bg-white/20 px-2 py-0.5 rounded-md backdrop-blur">
+                      <div className="min-w-0 flex flex-col justify-start">
+                        <span
+                          className="text-[9px] font-semibold text-white bg-white/20 px-2 py-[2px] rounded-[19.6px] uppercase backdrop-blur-md inline-block w-fit mb-0.5"
+                          style={{ fontFamily: 'Poppins, sans-serif' }}
+                        >
                           {selectedVendor.theme}
                         </span>
-                        <h1 className="text-base font-black truncate">{selectedVendor.name}</h1>
+                        <h3
+                          className="text-[14px] font-semibold text-white leading-[20px] truncate"
+                          style={{ fontFamily: 'Century Gothic, sans-serif' }}
+                        >
+                          {selectedVendor.name}
+                        </h3>
                       </div>
                     </div>
-                    <span className="text-xs font-semibold text-amber-400 bg-black/60 px-2.5 py-1 rounded-full backdrop-blur">
-                      ★ {selectedVendor.rating}
+                  </div>
+                </div>
+
+                {/* Rating, Location & AI Match */}
+                <div className="flex items-center gap-2 text-[12px] font-semibold pt-1" style={{ fontFamily: 'Century Gothic, sans-serif' }}>
+                  <span className="flex items-center gap-1 text-[#FE9A00]">
+                    <Star size={14} weight="fill" className="text-[#FFB900]" />
+                    {selectedVendor.rating}
+                  </span>
+                  <span className="text-[#717182]">•</span>
+                  <span className="text-[#717182] truncate">{selectedVendor.location}</span>
+                  <span className="ml-auto inline-flex items-center gap-1 text-[10px] font-semibold text-[#7E22CE] bg-[#F3E8FF] border border-[#D8B4FE]/60 px-2.5 py-0.5 rounded-full shrink-0 shadow-2xs" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    <Sparkle size={11} className="text-[#9333EA] fill-[#9333EA]" />
+                    {selectedVendor.id === 'studio-lumen' ? 98 : selectedVendor.id === 'cocoa-collective' ? 95 : 92}% Acumen Match
+                  </span>
+                </div>
+
+                <p className="text-[12px] font-normal text-[#101828] leading-[20px] py-[4px]" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                  {selectedVendor.description}
+                </p>
+
+                {/* Subscription Status & Action Banner */}
+                {!isSubscribedToSelectedVendor ? (
+                  <div className="rounded-2xl bg-[#E8F9FF] border border-[#33C4F0]/30 p-3.5 space-y-2">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-[#147C9E]">
+                      <Eye size={16} className="text-[#33C4F0] shrink-0" />
+                      <span>Preview Mode: You are exploring {selectedVendor.name}'s activities.</span>
+                    </div>
+                    <p className="text-[11px] text-[#525266] font-medium leading-relaxed">
+                      Subscribe to this service brand with your {planName || 'plan'} entitlement to unlock activity bookings.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        selectBrand({
+                          id: selectedVendor.id,
+                          name: selectedVendor.name,
+                          rating: selectedVendor.rating,
+                          specialty: selectedVendor.specialty,
+                          color: selectedVendor.color,
+                          avatar: selectedVendor.avatar,
+                        });
+                      }}
+                      className="w-full h-[36px] bg-[#1A1A28] hover:bg-[#33C4F0] text-white text-[12px] font-semibold flex items-center justify-center gap-2 rounded-full transition shadow-xs"
+                      style={{ fontFamily: 'Century Gothic, sans-serif' }}
+                    >
+                      <Check size={15} />
+                      Subscribe to {selectedVendor.name}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="rounded-2xl bg-[#ECFDF5] border border-[#10B981]/30 p-3 flex items-center justify-between text-xs text-[#087E58] font-semibold">
+                    <span className="flex items-center gap-2">
+                      <Check size={16} className="text-[#10B981]" />
+                      Subscribed Brand — All workshops below are included in your pass.
                     </span>
                   </div>
-                </div>
-
-                <div className="p-4 space-y-2">
-                  <p className="text-xs text-slate-600 font-medium leading-relaxed">
-                    {selectedVendor.description}
-                  </p>
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 font-bold border-t border-slate-100 pt-2">
-                    <span>📍 {selectedVendor.location}</span>
-                    <span className="text-[#10B981]">{vendorActivities.length} Included Sessions</span>
-                  </div>
-                </div>
+                )}
               </div>
 
-              <div className="flex items-center justify-between pt-1">
-                <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                  Available Services & Workshops ({vendorActivities.length})
-                </h3>
-                <span className="text-[10px] font-semibold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">
-                  Included in Pass
-                </span>
-              </div>
+              {/* 2. AVAILABLE SERVICES & WORKSHOPS BELOW */}
+              <div className="space-y-2 pt-1">
+                <div className="flex items-center justify-between">
+                  <h3
+                    className="text-[10px] font-semibold text-[#6A7282] uppercase tracking-[1.54px] leading-[16px]"
+                    style={{ fontFamily: 'Century Gothic, sans-serif' }}
+                  >
+                    AVAILABLE SERVICES & WORKSHOPS ({vendorActivities.length})
+                  </h3>
+                  {isSubscribedToSelectedVendor ? (
+                    <span className="text-[10px] font-semibold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                      Included in Pass
+                    </span>
+                  ) : (
+                    <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                      Subscription Required
+                    </span>
+                  )}
+                </div>
 
-              <div className="space-y-3.5">
-                {vendorActivities.map((act) => {
-                  const isSaved = savedActivityIds.includes(act.id);
-                  return (
-                    <div
-                      key={act.id}
-                      className="bg-white border border-slate-100 shadow-sm overflow-hidden hover:border-[#33C4F0]/40 transition"
-                      style={{ borderRadius: '20px 20px 54px 20px' }}
-                    >
-                      <div className="relative h-36 w-full">
-                        <img src={act.image} alt={act.name} className="w-full h-full object-cover" />
-                        <button
-                          onClick={() => toggleSaveActivity(act.id)}
-                          className={`absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-sm transition ${
-                            isSaved ? 'text-[#EF4444]' : 'text-slate-600'
-                          }`}
-                        >
-                          <BookmarkSimple size={16} weight={isSaved ? 'fill' : 'regular'} />
-                        </button>
-                        <div className="absolute bottom-2.5 left-2.5 bg-slate-900/80 backdrop-blur text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-md flex items-center gap-1">
-                          <span>{act.symbol}</span> {act.category}
-                        </div>
-                      </div>
-
-                      <div className="p-3.5">
-                        <div className="flex items-start justify-between mb-1">
-                          <h4 className="text-xs font-extrabold text-slate-900 line-clamp-1">{act.name}</h4>
-                          <span className="text-[11px] font-bold text-[#F59E0B] flex items-center gap-0.5 shrink-0 ml-2">
-                            <Star size={12} weight="fill" /> {act.rating}
+                {/* List of Available Activities */}
+                <div className="divide-y divide-[#F1F5F9]">
+                  {vendorActivities.map((act) => {
+                    const isSaved = savedActivityIds.includes(act.id);
+                    return (
+                      <div key={act.id} className="py-[16px] space-y-3">
+                        {/* Activity Header Row */}
+                        <div className="flex items-center justify-between h-[36px]">
+                          <div className="flex items-center gap-[10px] min-w-0 flex-1">
+                            <div className="w-[32px] h-[32px] bg-[#E8F9FF] rounded-full flex items-center justify-center shrink-0 text-base">
+                              {act.symbol || selectedVendor.avatar}
+                            </div>
+                            <div className="flex flex-col justify-start min-w-0 flex-1">
+                              <h4 className="text-[12px] font-semibold text-[#0F172B] leading-[16px] truncate" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                                {act.name}
+                              </h4>
+                              <p className="text-[11px] font-normal text-[#90A1B9] leading-[17px] truncate" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                                {act.category} • {act.duration}
+                              </p>
+                            </div>
+                          </div>
+                          <span className="text-[11px] font-semibold text-[#FE9A00] flex items-center gap-1 shrink-0 ml-2" style={{ fontFamily: 'Century Gothic, sans-serif' }}>
+                            <Star size={13} weight="fill" className="text-[#FFB900]" />
+                            {act.rating}
                           </span>
                         </div>
 
-                        <p className="text-[11px] text-slate-500 font-medium mb-2.5">{act.vendorName}</p>
+                        {/* Activity Image */}
+                        <div className="relative h-[160px] w-full bg-slate-100 overflow-hidden isolate shadow-2xs" style={{ borderRadius: '20px 20px 50px 20px' }}>
+                          <img
+                            src={act.image}
+                            alt={act.name}
+                            className="w-full h-full object-cover relative z-0"
+                            onError={(e) => {
+                              (e.target as HTMLElement).style.display = 'none';
+                            }}
+                          />
+                          <div className="absolute inset-0 z-[1]" style={{ background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 60%)' }} />
 
-                        <div className="flex items-center gap-3 text-[11px] text-slate-600 mb-3">
-                          <span className="flex items-center gap-1">
-                            <Clock size={13} className="text-slate-400" /> {act.duration}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MapPin size={13} className="text-slate-400" /> {act.location}
-                          </span>
-                        </div>
-
-                        <div className="flex items-center justify-between pt-2.5 border-t border-slate-50">
-                          <span className="text-[11px] font-extrabold text-[#10B981]">
-                            Included in Subscription
-                          </span>
                           <button
-                            onClick={() => setSelectedActivity(act)}
-                            className="h-[32px] px-3 bg-[#33C4F0] text-white text-[11px] font-bold shadow-2xs hover:bg-[#1AB0DC] transition flex items-center justify-center"
-                            style={{ borderRadius: '10px 10px 24px 10px', fontFamily: 'Poppins, sans-serif' }}
+                            type="button"
+                            onClick={() => toggleSaveActivity(act.id)}
+                            className={`absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-sm transition z-[2] ${
+                              isSaved ? 'text-[#EF4444]' : 'text-slate-600'
+                            }`}
                           >
-                            Book Session
+                            <BookmarkSimple size={16} weight={isSaved ? 'fill' : 'regular'} />
                           </button>
+
+                          <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between z-[3]">
+                            <span className="text-[10px] font-semibold text-white bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full flex items-center gap-1" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                              <span>{act.symbol}</span> {act.category}
+                            </span>
+                            {isSubscribedToSelectedVendor ? (
+                              <span className="text-[10px] font-semibold text-[#10B981] bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full shadow-2xs" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                                Included in Pass
+                              </span>
+                            ) : (
+                              <span className="text-[10px] font-semibold text-amber-800 bg-amber-100/90 backdrop-blur-md px-2.5 py-1 rounded-full shadow-2xs" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                                Subscribe Brand First
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Details row: Duration & Location */}
+                        <div className="flex items-center justify-between text-[11px] font-semibold text-[#717182] pt-1" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                          <span className="flex items-center gap-1">
+                            <Clock size={14} className="text-[#33C4F0]" /> {act.duration}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <MapPin size={14} className="text-[#33C4F0]" /> {act.location}
+                          </span>
+                        </div>
+
+                        <p className="text-[12px] font-normal text-[#101828] leading-[18px]" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                          {act.description}
+                        </p>
+
+                        {/* CTA Buttons row */}
+                        <div className="flex items-center gap-[8px] pt-1">
+                          <button
+                            type="button"
+                            onClick={() => setSelectedActivity(act)}
+                            className="flex-1 h-[34px] bg-[#F8FDFF] border border-[#33C4F0]/30 text-[#147C9E] text-[12px] font-semibold flex items-center justify-center gap-[6px] transition hover:bg-[#E8F9FF]"
+                            style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
+                          >
+                            <Eye size={15} className="text-[#147C9E]" />
+                            View Details
+                          </button>
+                          {isSubscribedToSelectedVendor ? (
+                            <button
+                              type="button"
+                              onClick={() => setSelectedActivity(act)}
+                              className="flex-1 h-[34px] bg-[#33C4F0] text-white text-[12px] font-semibold flex items-center justify-center gap-[6px] transition hover:opacity-90 shadow-2xs"
+                              style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
+                            >
+                              Book Session
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                selectBrand({
+                                  id: selectedVendor.id,
+                                  name: selectedVendor.name,
+                                  rating: selectedVendor.rating,
+                                  specialty: selectedVendor.specialty,
+                                  color: selectedVendor.color,
+                                  avatar: selectedVendor.avatar,
+                                });
+                                setSelectedActivity(act);
+                              }}
+                              className="flex-1 h-[34px] bg-[#1A1A28] text-white text-[12px] font-semibold flex items-center justify-center gap-[6px] transition hover:bg-[#33C4F0] hover:text-[#1A1A28] shadow-2xs"
+                              style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
+                            >
+                              Subscribe & Book
+                            </button>
+                          )}
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             </div>
           );

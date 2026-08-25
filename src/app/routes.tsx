@@ -27,6 +27,8 @@ export const router = createBrowserRouter([
   // Standalone mobile routes
   { path: "/mobile", Component: ClientMobileApp },
   { path: "/mobile/:screen", Component: ClientMobileApp },
+  { path: "/mobile/discover/:brandId", Component: ClientMobileApp },
+  { path: "/mobile/discover/:brandId/:serviceId", Component: ClientMobileApp },
 
   // Main application routes wrapped in RootLayout
   {
@@ -36,6 +38,8 @@ export const router = createBrowserRouter([
       // Mobile app routes
       { path: "mobile", Component: ClientMobileApp },
       { path: "mobile/:screen", Component: ClientMobileApp },
+      { path: "mobile/discover/:brandId", Component: ClientMobileApp },
+      { path: "mobile/discover/:brandId/:serviceId", Component: ClientMobileApp },
 
       // Client Pages
       { index: true, Component: LandingPage },

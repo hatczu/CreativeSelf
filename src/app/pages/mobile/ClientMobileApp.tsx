@@ -108,13 +108,15 @@ export function ClientMobileApp() {
   const [searchParams] = useSearchParams();
 
   const getScreenFromUrl = (): ScreenType => {
+    const pathParts = location.pathname.split('/').filter(Boolean);
+    const mobileIdx = pathParts.indexOf('mobile');
+    const screenPart = mobileIdx !== -1 ? pathParts[mobileIdx + 1] : pathParts[0];
+
+    if (screenPart && ['onboarding', 'login', 'register', 'feed', 'discover', 'bookings', 'profile'].includes(screenPart)) {
+      return screenPart as ScreenType;
+    }
     if (params.screen && ['onboarding', 'login', 'register', 'feed', 'discover', 'bookings', 'profile'].includes(params.screen)) {
       return params.screen as ScreenType;
-    }
-    const pathParts = location.pathname.split('/').filter(Boolean);
-    const sub = pathParts[0] === 'mobile' ? pathParts[1] : undefined;
-    if (sub && ['onboarding', 'login', 'register', 'feed', 'discover', 'bookings', 'profile'].includes(sub)) {
-      return sub as ScreenType;
     }
     const qParam = searchParams.get('screen') as ScreenType;
     if (qParam && ['onboarding', 'login', 'register', 'feed', 'discover', 'bookings', 'profile'].includes(qParam)) {
@@ -129,13 +131,73 @@ export function ClientMobileApp() {
     ['feed', 'discover', 'bookings', 'profile'].includes(initialScreen) ? (initialScreen as TabType) : 'feed'
   );
 
-  useEffect(() => {
-    const screenFromUrl = getScreenFromUrl();
-    setActiveScreenState(screenFromUrl);
-    if (['feed', 'discover', 'bookings', 'profile'].includes(screenFromUrl)) {
-      setActiveTabState(screenFromUrl as TabType);
+  // Client App states
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
+  const [selectedPost, setSelectedPost] = useState<PostData | null>(null);
+  const [selectedQrPass, setSelectedQrPass] = useState<any | null>(null);
+  const [savedActivityIds, setSavedActivityIds] = useState<string[]>(['beginner-painting-workshop', 'desk-to-mat-yoga']);
+  const [likedPostIds, setLikedPostIds] = useState<string[]>(['breathe', 'colour']);
+  const [postDetailImgIdx, setPostDetailImgIdx] = useState<number>(0);
+  const [postDetailCommentText, setPostDetailCommentText] = useState<string>('');
+  const [postDetailComments, setPostDetailComments] = useState<Record<string, any[]>>({});
+  const [selectedBrandId, setSelectedBrandId] = useState<string | null>(null);
+  const [activeStoryIdx, setActiveStoryIdx] = useState<number | null>(null);
+
+  // Extended Routing Handlers for Mobile Discover
+  const handleSetSelectedBrandId = (brandId: string | null) => {
+    setSelectedBrandId(brandId);
+    if (brandId) {
+      navigate(`/mobile/discover/${brandId}`);
+    } else {
+      navigate('/mobile/discover');
     }
-  }, [location.pathname, params.screen]);
+  };
+
+  const handleSetSelectedActivity = (act: Activity | null) => {
+    setSelectedActivity(act);
+    if (act) {
+      const bId = act.vendorId || selectedBrandId || 'services';
+      navigate(`/mobile/discover/${bId}/${act.id}`);
+    } else if (selectedBrandId) {
+      navigate(`/mobile/discover/${selectedBrandId}`);
+    } else {
+      navigate('/mobile/discover');
+    }
+  };
+
+  useEffect(() => {
+    const pathParts = location.pathname.split('/').filter(Boolean);
+    const mobileIdx = pathParts.indexOf('mobile');
+    const screenPart = mobileIdx !== -1 ? pathParts[mobileIdx + 1] : pathParts[0];
+
+    if (screenPart === 'discover') {
+      setActiveScreenState('discover');
+      setActiveTabState('discover');
+
+      const brandPart = mobileIdx !== -1 ? pathParts[mobileIdx + 2] : pathParts[1];
+      const servicePart = mobileIdx !== -1 ? pathParts[mobileIdx + 3] : pathParts[2];
+
+      if (brandPart) {
+        setSelectedBrandId(brandPart);
+      } else {
+        setSelectedBrandId(null);
+      }
+
+      if (servicePart) {
+        const foundAct = mockActivities.find((a) => a.id === servicePart) || null;
+        setSelectedActivity(foundAct);
+      } else {
+        setSelectedActivity(null);
+      }
+    } else if (screenPart && ['feed', 'discover', 'bookings', 'profile'].includes(screenPart)) {
+      setActiveScreenState(screenPart as ScreenType);
+      setActiveTabState(screenPart as TabType);
+      setSelectedBrandId(null);
+      setSelectedActivity(null);
+    }
+  }, [location.pathname]);
 
   const setActiveScreen = (screen: ScreenType) => {
     setActiveScreenState(screen);
@@ -148,7 +210,11 @@ export function ClientMobileApp() {
   const setActiveTab = (tab: TabType) => {
     setActiveTabState(tab);
     setActiveScreenState(tab as ScreenType);
-    navigate(`/mobile/${tab}`);
+    if (tab === 'discover' && selectedBrandId) {
+      navigate(`/mobile/discover/${selectedBrandId}`);
+    } else {
+      navigate(`/mobile/${tab}`);
+    }
   };
 
   // Onboarding state
@@ -166,20 +232,6 @@ export function ClientMobileApp() {
   const [industryInput, setIndustryInput] = useState('Technology & Design');
   const [, setPlanCategory] = useState<'individual' | 'corporate'>('individual');
   const [selectedPlanId, setSelectedPlanId] = useState<string>('advanced-creative');
-
-  // Client App states
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
-  const [selectedPost, setSelectedPost] = useState<PostData | null>(null);
-  const [selectedQrPass, setSelectedQrPass] = useState<any | null>(null);
-  const [savedActivityIds, setSavedActivityIds] = useState<string[]>(['beginner-painting-workshop', 'desk-to-mat-yoga']);
-  const [likedPostIds, setLikedPostIds] = useState<string[]>(['breathe', 'colour']);
-  const [postDetailImgIdx, setPostDetailImgIdx] = useState<number>(0);
-  const [postDetailCommentText, setPostDetailCommentText] = useState<string>('');
-  const [postDetailComments, setPostDetailComments] = useState<Record<string, any[]>>({});
-  const [selectedBrandId, setSelectedBrandId] = useState<string | null>(null);
-  const [activeStoryIdx, setActiveStoryIdx] = useState<number | null>(null);
 
   // Bookings list state
   const [myBookings, setMyBookings] = useState([
@@ -248,58 +300,50 @@ export function ClientMobileApp() {
       titlePrefix: 'Book & Track ',
       titleHighlight: 'Growth',
       highlightColor: '#6FD352',
-      subtext: 'Instant mobile scheduling with digital passes & mood tracking.',
+      subtext: 'Scan QR tickets at studios and monitor your creative rhythm over time.',
       buttonColor: '#6FD352',
       buttonText: 'Get Started',
-      accentGradient: 'linear-gradient(180deg, #3CF033 0%, rgba(255, 255, 255, 0) 100%)',
+      accentGradient: 'linear-gradient(180deg, #6FD352 0%, rgba(255, 255, 255, 0) 100%)',
     },
   ];
 
-  const handleDemoLogin = (type: 'client' | 'corporate') => {
+  const handleDemoLogin = (type: 'client' | 'corporate' | string) => {
     if (type === 'corporate') {
       setRegName('Alex Morgan (Corporate Client)');
     } else {
       setRegName('Sophia Chen (Individual Client)');
     }
+    if (typeof type === 'string' && type.includes('@')) {
+      setEmailInput(type);
+    } else {
+      setEmailInput('sophia.chen@example.com');
+    }
     setActiveScreen('feed');
-    setActiveTab('feed');
   };
 
-  const toggleSaveActivity = (id: string) => {
-    setSavedActivityIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
-
-  const toggleLikePost = (id: string) => {
-    setLikedPostIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
-
-  const handleConfirmBooking = (activity: Activity) => {
+  const handleConfirmBooking = (act: Activity) => {
     const newBooking = {
       id: `bk-${Date.now()}`,
-      activityName: activity.name,
-      vendorName: activity.vendorName,
-      date: activity.schedule[0]?.date || 'Upcoming Date',
-      time: bookingSelectedSlot || activity.schedule[0]?.time || '2:00 PM - 3:30 PM',
-      location: activity.location,
+      activityName: act.name,
+      vendorName: act.vendorName,
+      date: bookingSelectedSlot.split('•')[0]?.trim() || 'Tomorrow',
+      time: bookingSelectedSlot.split('•')[1]?.trim() || '2:00 PM - 3:30 PM',
+      location: act.location,
       status: 'Confirmed',
       seats: 1,
-      color: activity.color,
-      symbol: activity.symbol,
-      qrCode: `CS-BOOK-${Math.floor(1000 + Math.random() * 9000)}-2026`,
-      image: activity.image,
+      color: act.color || '#33C4F0',
+      symbol: act.symbol || '🎨',
+      qrCode: `CS-${act.vendorId.toUpperCase().slice(0, 4)}-${Math.floor(1000 + Math.random() * 9000)}-2026`,
+      image: act.image,
     };
+
     setMyBookings([newBooking, ...myBookings]);
-    setSelectedActivity(null);
-    setBookingSuccessMsg(`🎉 Successfully booked "${activity.name}"!`);
+    setBookingSuccessMsg(`Successfully booked "${act.name}"!`);
+    handleSetSelectedActivity(null);
     setTimeout(() => setBookingSuccessMsg(null), 4000);
-    setActiveScreen('bookings');
-    setActiveTab('bookings');
   };
 
+  // SCREEN ROUTER RENDER LOGIC
   const renderMobileScreenContent = () => {
     if (activeScreen === 'onboarding') {
       return (
@@ -334,10 +378,6 @@ export function ClientMobileApp() {
           setRegStep={setRegStep}
           regName={regName}
           setRegName={setRegName}
-          emailInput={emailInput}
-          setEmailInput={setEmailInput}
-          passwordInput={passwordInput}
-          setPasswordInput={setPasswordInput}
           regAccountType={regAccountType}
           setRegAccountType={setRegAccountType}
           setPlanCategory={setPlanCategory}
@@ -347,6 +387,10 @@ export function ClientMobileApp() {
           setCompanyNameInput={setCompanyNameInput}
           industryInput={industryInput}
           setIndustryInput={setIndustryInput}
+          emailInput={emailInput}
+          setEmailInput={setEmailInput}
+          passwordInput={passwordInput}
+          setPasswordInput={setPasswordInput}
           selectedPlanId={selectedPlanId}
           setSelectedPlanId={setSelectedPlanId}
           setActiveScreen={setActiveScreen}
@@ -382,7 +426,13 @@ export function ClientMobileApp() {
             setActiveStoryIdx={setActiveStoryIdx}
             setSelectedPost={setSelectedPost}
             likedPostIds={likedPostIds}
-            toggleLikePost={toggleLikePost}
+            toggleLikePost={(id) => {
+              if (likedPostIds.includes(id)) {
+                setLikedPostIds(likedPostIds.filter((item) => item !== id));
+              } else {
+                setLikedPostIds([...likedPostIds, id]);
+              }
+            }}
           />
         )}
 
@@ -390,15 +440,21 @@ export function ClientMobileApp() {
         {activeTab === 'discover' && (
           <MobileDiscoverScreen
             selectedBrandId={selectedBrandId}
-            setSelectedBrandId={setSelectedBrandId}
+            setSelectedBrandId={handleSetSelectedBrandId}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             selectedPlanId={selectedPlanId}
-            setSelectedActivity={setSelectedActivity}
+            setSelectedActivity={handleSetSelectedActivity}
             savedActivityIds={savedActivityIds}
-            toggleSaveActivity={toggleSaveActivity}
+            toggleSaveActivity={(id) => {
+              if (savedActivityIds.includes(id)) {
+                setSavedActivityIds(savedActivityIds.filter((item) => item !== id));
+              } else {
+                setSavedActivityIds([...savedActivityIds, id]);
+              }
+            }}
           />
         )}
 
@@ -459,9 +515,15 @@ export function ClientMobileApp() {
         {/* ACTIVITY DETAIL SCREEN */}
         <MobileActivityDetailView
           selectedActivity={selectedActivity}
-          setSelectedActivity={setSelectedActivity}
+          setSelectedActivity={handleSetSelectedActivity}
           savedActivityIds={savedActivityIds}
-          toggleSaveActivity={toggleSaveActivity}
+          toggleSaveActivity={(id) => {
+            if (savedActivityIds.includes(id)) {
+              setSavedActivityIds(savedActivityIds.filter((item) => item !== id));
+            } else {
+              setSavedActivityIds([...savedActivityIds, id]);
+            }
+          }}
           bookingSelectedSlot={bookingSelectedSlot}
           setBookingSelectedSlot={setBookingSelectedSlot}
           handleConfirmBooking={handleConfirmBooking}
@@ -492,7 +554,7 @@ export function ClientMobileApp() {
           activeStoryIdx={activeStoryIdx}
           setActiveStoryIdx={setActiveStoryIdx}
           brandStories={brandStories}
-          setSelectedBrandId={setSelectedBrandId}
+          setSelectedBrandId={handleSetSelectedBrandId}
           setActiveTab={setActiveTab}
         />
       </div>

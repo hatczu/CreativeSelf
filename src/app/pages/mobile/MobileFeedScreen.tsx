@@ -34,9 +34,18 @@ export function MobileFeedScreen({
   const navigate = useNavigate();
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-20 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-      {/* THE EXPLORER ARCHETYPE FEATURE CARD */}
-      <div className="p-4 pb-2">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-20 relative [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      {/* Top Header Background Gradient from Figma (Rectangle 4) */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[260px] pointer-events-none z-0"
+        style={{
+          background: 'linear-gradient(180deg, #1AB0DC 0%, #8DEEEA 34.22%, #FFFFFF 82.86%)',
+        }}
+      />
+
+      <div className="relative z-10">
+        {/* THE EXPLORER ARCHETYPE FEATURE CARD */}
+        <div className="p-4 pb-2">
         <div
           onClick={() => navigate('/test')}
           className="w-full h-[126px] bg-white border border-[#F3F4F6] cursor-pointer hover:shadow-xs transition-all duration-200 relative overflow-hidden group shrink-0"
@@ -248,5 +257,6 @@ export function MobileFeedScreen({
         })}
       </div>
     </div>
-  );
+  </div>
+);
 }
