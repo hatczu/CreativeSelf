@@ -1424,7 +1424,7 @@ export function ClientMobileApp() {
                           <div className="flex items-center gap-[6px] pt-1">
                             <button
                               type="button"
-                              onClick={() => setSelectedVendor(vendor)}
+                              onClick={() => setSelectedBrandId(vendor.id)}
                               className="flex-1 h-[34px] bg-[#F8FDFF] border border-[#33C4F0]/30 text-[#147C9E] text-[12px] font-[700] flex items-center justify-center gap-[6px] transition hover:bg-[#E8F9FF]"
                               style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
                             >
