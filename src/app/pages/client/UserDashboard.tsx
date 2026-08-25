@@ -5,8 +5,8 @@ import {
   MusicNotes as Music, Mountains as Mountain, Cpu, Palette, CaretRight as ChevronRight, Bell, Gear as Settings,
   SquaresFour as LayoutDashboard, Compass, Trophy as Award, ShoppingBag, User
 } from '@phosphor-icons/react';
-import { personalityTypes } from '../components/landing/PersonalitySection';
-import { BlobShape } from '../components/shared/BlobShape';
+import { personalityTypes } from '@/app/components/landing/PersonalitySection';
+import { BlobShape } from '@/app/components/shared/BlobShape';
 
 const user = {
   name: 'Alex Rivera',

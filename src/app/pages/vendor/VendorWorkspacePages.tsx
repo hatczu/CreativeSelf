@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
-import { RoleSwitcher } from "../components/layout/RoleSwitcher";
-import { useSubscription } from "../context/SubscriptionContext";
+import { RoleSwitcher } from "@/app/components/layout/RoleSwitcher";
+import { useSubscription } from "@/app/context/SubscriptionContext";
 import {
   ChartBar as BarChart3,
   CalendarBlank as CalendarDays,
@@ -32,7 +32,7 @@ import {
   Funnel as ListFilter,
   ArrowRight,
 } from "@phosphor-icons/react";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import logoIcon from "@/imports/Logo.png";
 
 const services = [

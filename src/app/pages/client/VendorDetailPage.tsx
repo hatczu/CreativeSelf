@@ -1,11 +1,11 @@
 import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router';
-import { useSubscription, ActivityItem } from '../context/SubscriptionContext';
-import { mockVendors, mockActivities } from '../data/subscriptionData';
-import { SubscriptionEntitlementHeader } from '../components/shared/SubscriptionEntitlementHeader';
-import { ActivityLimitModal } from '../components/shared/ActivityLimitModal';
-import { UniversalSidebar } from '../components/layout/UniversalSidebar';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { useSubscription, ActivityItem } from '@/app/context/SubscriptionContext';
+import { mockVendors, mockActivities } from '@/app/data/subscriptionData';
+import { SubscriptionEntitlementHeader } from '@/app/components/shared/SubscriptionEntitlementHeader';
+import { ActivityLimitModal } from '@/app/components/shared/ActivityLimitModal';
+import { UniversalSidebar } from '@/app/components/layout/UniversalSidebar';
+import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
 import {
   Star,
   Check,

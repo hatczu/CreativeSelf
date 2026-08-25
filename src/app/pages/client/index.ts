@@ -1,0 +1,14 @@
+export { LandingPage } from './LandingPage';
+export { PersonalityTest } from './PersonalityTest';
+export { WellnessFeed } from './WellnessFeed';
+export { UserDashboard } from './UserDashboard';
+export { CorporateDashboard } from './CorporateDashboard';
+export { DiscoverPage } from './DiscoverPage';
+export { ServiceDetailPage } from './ServiceDetailPage';
+export { VendorDetailPage } from './VendorDetailPage';
+export { BrandServicesPage } from './BrandServicesPage';
+export { BookingsPage } from './BookingsPage';
+export { BookingDetailPage } from './BookingDetailPage';
+export { PostDetailPage } from './PostDetailPage';
+export { EmployeeInvitesDashboard } from './EmployeeInvitesDashboard';
+export { RegisterPage } from './RegisterPage';

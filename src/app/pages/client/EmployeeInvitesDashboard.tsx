@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router';
-import { useSubscription, EmployeeInvite } from '../context/SubscriptionContext';
-import { UniversalSidebar } from '../components/layout/UniversalSidebar';
-import { SubscriptionEntitlementHeader } from '../components/shared/SubscriptionEntitlementHeader';
-import { EmployeeSlotManagerModal } from '../components/corporate/EmployeeSlotManagerModal';
+import { useSubscription, EmployeeInvite } from '@/app/context/SubscriptionContext';
+import { UniversalSidebar } from '@/app/components/layout/UniversalSidebar';
+import { SubscriptionEntitlementHeader } from '@/app/components/shared/SubscriptionEntitlementHeader';
+import { EmployeeSlotManagerModal } from '@/app/components/corporate/EmployeeSlotManagerModal';
 import {
   Users,
   CheckCircle as CheckCircle2,

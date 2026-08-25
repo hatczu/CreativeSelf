@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkle as Sparkles, ArrowRight, MagnifyingGlass as Search, Tag, MapPin, Clock, Star, CheckCircle } from '@phosphor-icons/react';
-import { themeCategories, mockVendors, mockActivities } from '../data/subscriptionData';
+import { themeCategories, mockVendors, mockActivities } from '@/app/data/subscriptionData';
 
 export function BrandServicesPage() {
   const [activeCategory, setActiveCategory] = useState<string>('all');

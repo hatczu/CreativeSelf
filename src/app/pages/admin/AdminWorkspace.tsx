@@ -22,7 +22,7 @@ import {
   Users,
   X,
 } from "@phosphor-icons/react";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import logoIcon from "@/imports/Logo.png";
 
 type Section = "overview" | "clients" | "vendors" | "content" | "categories" | "users" | "reports" | "audit";

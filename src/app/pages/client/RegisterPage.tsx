@@ -20,9 +20,9 @@ import {
   Brain,
 } from '@phosphor-icons/react';
 import { useNavigate, useSearchParams, Link } from 'react-router';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-import kaleidoscope from '../../imports/CS_Kaleidescope_Juice_Drop.png';
-import logoIcon from '../../imports/Logo.png';
+import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
+import kaleidoscope from '@/imports/CS_Kaleidescope_Juice_Drop.png';
+import logoIcon from '@/imports/Logo.png';
 
 const orgSizeOptions = [
   {

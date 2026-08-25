@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { RoleSwitcher } from "../components/layout/RoleSwitcher";
+import { RoleSwitcher } from "@/app/components/layout/RoleSwitcher";
 import { ChartBar as BarChart3, CalendarBlank as CalendarDays, Check, CaretRight as ChevronRight, Image as ImageIcon, SquaresFour as LayoutDashboard, SignOut as LogOut, Package as PackageOpen, Plus, PaperPlaneRight as Send, Gear as Settings, Sparkle as Sparkles, X, Images as PhotosIcon } from "@phosphor-icons/react";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-import { samplePostsData, type PostData } from "../data/postsData";
+import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
+import { samplePostsData, type PostData } from "@/app/data/postsData";
 import logoIcon from "@/imports/Logo.png";
 
 const sampleImages = [

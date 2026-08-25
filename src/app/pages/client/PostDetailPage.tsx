@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router";
-import { UniversalSidebar } from "../components/layout/UniversalSidebar";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-import { getPostById, samplePostsData, type PostData } from "../data/postsData";
+import { UniversalSidebar } from "@/app/components/layout/UniversalSidebar";
+import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
+import { getPostById, samplePostsData, type PostData } from "@/app/data/postsData";
 import {
   ArrowLeft,
   CalendarBlank as CalendarDays,

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import { useSubscription } from "../context/SubscriptionContext";
-import { SubscriptionEntitlementHeader } from "../components/shared/SubscriptionEntitlementHeader";
-import { UniversalSidebar } from "../components/layout/UniversalSidebar";
-import { RoleSwitcher } from "../components/layout/RoleSwitcher";
-import { EmployeeSlotManagerModal } from "../components/corporate/EmployeeSlotManagerModal";
+import { useSubscription } from "@/app/context/SubscriptionContext";
+import { SubscriptionEntitlementHeader } from "@/app/components/shared/SubscriptionEntitlementHeader";
+import { UniversalSidebar } from "@/app/components/layout/UniversalSidebar";
+import { RoleSwitcher } from "@/app/components/layout/RoleSwitcher";
+import { EmployeeSlotManagerModal } from "@/app/components/corporate/EmployeeSlotManagerModal";
 import { CalendarBlank as CalendarDays, Check, Clock as Clock3, Compass, SquaresFour as LayoutDashboard, SignOut as LogOut, MapPin, MagnifyingGlass as Search, Gear as Settings, Users, Sparkle as Sparkles, X, Ticket, Plus, Lock, Clock } from "@phosphor-icons/react";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import logoIcon from "@/imports/Logo.png";
 
 const defaultUpcoming = [

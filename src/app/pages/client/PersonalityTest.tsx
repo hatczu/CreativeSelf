@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, ArrowRight, Sparkle as Sparkles, ArrowCounterClockwise as RotateCcw } from '@phosphor-icons/react';
-import { personalityTypes } from '../components/landing/PersonalitySection';
-import { DropletShape } from '../components/shared/BlobShape';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-import kaleidoscope from '../../imports/CS_Kaleidescope_Juice_Drop.png';
+import { personalityTypes } from '@/app/components/landing/PersonalitySection';
+import { DropletShape } from '@/app/components/shared/BlobShape';
+import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
+import kaleidoscope from '@/imports/CS_Kaleidescope_Juice_Drop.png';
 
 const questions = [
   {

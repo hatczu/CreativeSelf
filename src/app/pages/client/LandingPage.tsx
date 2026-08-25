@@ -1,11 +1,11 @@
 import { useOutletContext } from 'react-router';
-import { HeroSection } from '../components/landing/HeroSection';
-import { HeroCarouselSection } from '../components/landing/HeroCarouselSection';
-import { WellbeingSection } from '../components/landing/WellbeingSection';
-import { PersonalitySection } from '../components/landing/PersonalitySection';
-import { PricingSection } from '../components/landing/PricingSection';
-import { CorporateSection } from '../components/landing/CorporateSection';
-import { CorporateSurveySection } from '../components/landing/CorporateSurveySection';
+import { HeroSection } from '@/app/components/landing/HeroSection';
+import { HeroCarouselSection } from '@/app/components/landing/HeroCarouselSection';
+import { WellbeingSection } from '@/app/components/landing/WellbeingSection';
+import { PersonalitySection } from '@/app/components/landing/PersonalitySection';
+import { PricingSection } from '@/app/components/landing/PricingSection';
+import { CorporateSection } from '@/app/components/landing/CorporateSection';
+import { CorporateSurveySection } from '@/app/components/landing/CorporateSurveySection';
 
 interface LayoutContext {
   onOpenRegister?: (planId?: string, category?: 'individual' | 'corporate') => void;

@@ -1,4 +1,4 @@
-import { RegisterPage } from '../../pages/RegisterPage';
+import { RegisterPage } from '../../pages/client';
 
 export function triggerRegisterModal(planId?: string, category?: 'individual' | 'corporate') {
   const params = new URLSearchParams();

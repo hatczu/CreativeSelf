@@ -5,7 +5,7 @@ import {
   Gear as Settings, ShoppingBag, UserCheck, TrendUp as TrendingUp, Lightning as Zap,
   Bell, Plus, CaretRight as ChevronRight, Buildings as Building2
 } from '@phosphor-icons/react';
-import { BlobShape } from '../components/shared/BlobShape';
+import { BlobShape } from '@/app/components/shared/BlobShape';
 
 const company = {
   name: 'Nexus Creative Corp',

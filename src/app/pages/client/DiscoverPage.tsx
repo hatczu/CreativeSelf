@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router';
-import { useSubscription, ActivityItem } from '../context/SubscriptionContext';
-import { mockVendors, mockActivities, themeCategories } from '../data/subscriptionData';
-import { SubscriptionEntitlementHeader } from '../components/shared/SubscriptionEntitlementHeader';
-import { ActivityLimitModal } from '../components/shared/ActivityLimitModal';
-import { RoleSwitcher } from '../components/layout/RoleSwitcher';
+import { useSubscription, ActivityItem } from '@/app/context/SubscriptionContext';
+import { mockVendors, mockActivities, themeCategories } from '@/app/data/subscriptionData';
+import { SubscriptionEntitlementHeader } from '@/app/components/shared/SubscriptionEntitlementHeader';
+import { ActivityLimitModal } from '@/app/components/shared/ActivityLimitModal';
+import { RoleSwitcher } from '@/app/components/layout/RoleSwitcher';
 import {
   CalendarBlank as CalendarDays,
   Check,
@@ -22,8 +22,8 @@ import {
   Eye,
   Buildings as Building2,
 } from '@phosphor-icons/react';
-import { UniversalSidebar } from '../components/layout/UniversalSidebar';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { UniversalSidebar } from '@/app/components/layout/UniversalSidebar';
+import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
 import logoIcon from '@/imports/Logo.png';
 
 export function DiscoverPage() {

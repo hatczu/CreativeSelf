@@ -8,7 +8,7 @@ const FULL_LAYOUT_PATHS = ["/", "/test", "/services"];
 export function RootLayout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const isSignedInHome = pathname === "/dashboard" || pathname === "/corporate" || pathname.startsWith("/discover") || pathname === "/bookings" || pathname.startsWith("/vendor") || pathname.startsWith("/admin") || pathname === "/register";
+  const isSignedInHome = pathname === "/dashboard" || pathname === "/corporate" || pathname.startsWith("/discover") || pathname === "/bookings" || pathname.startsWith("/vendor") || pathname.startsWith("/admin") || pathname === "/register" || pathname.startsWith("/mobile");
   const showFooter = FULL_LAYOUT_PATHS.includes(pathname);
 
   const handleOpenRegister = (planId?: string, category?: 'individual' | 'corporate') => {

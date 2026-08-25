@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router';
-import { useSubscription, ActivityItem } from '../context/SubscriptionContext';
-import { mockActivities, mockVendors } from '../data/subscriptionData';
-import { SubscriptionEntitlementHeader } from '../components/shared/SubscriptionEntitlementHeader';
-import { EmployeeSlotManagerModal } from '../components/corporate/EmployeeSlotManagerModal';
-import { UniversalSidebar } from '../components/layout/UniversalSidebar';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { useSubscription, ActivityItem } from '@/app/context/SubscriptionContext';
+import { mockActivities, mockVendors } from '@/app/data/subscriptionData';
+import { SubscriptionEntitlementHeader } from '@/app/components/shared/SubscriptionEntitlementHeader';
+import { EmployeeSlotManagerModal } from '@/app/components/corporate/EmployeeSlotManagerModal';
+import { UniversalSidebar } from '@/app/components/layout/UniversalSidebar';
+import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
 import {
   CaretLeft as ChevronLeft,
   CalendarBlank as CalendarDays,

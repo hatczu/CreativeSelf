@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { UniversalSidebar } from "../components/layout/UniversalSidebar";
-import { samplePostsData, type PostData } from "../data/postsData";
+import { UniversalSidebar } from "@/app/components/layout/UniversalSidebar";
+import { samplePostsData, type PostData } from "@/app/data/postsData";
 import {
   CalendarBlank as CalendarDays,
   Check,
