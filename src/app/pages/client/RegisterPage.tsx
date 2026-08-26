@@ -70,7 +70,7 @@ const orgSizeOptions = [
 const individualPlans = [
   {
     id: 'basic-creative',
-    name: 'BASIC CREATIVE',
+    name: 'Basic Creative',
     tagline: '1 Service Brand, 2 Activities Per Month',
     features: ['1 Service Brand', '2 Activities Per Month', 'Creative Personality Assessment', 'Acumen AI recommendations'],
     price: 'Free',
@@ -81,7 +81,7 @@ const individualPlans = [
   },
   {
     id: 'advanced-creative',
-    name: 'ADVANCED CREATIVE',
+    name: 'Advanced Creative',
     tagline: '2 Service Brands, 4 Activities Per Month',
     features: ['2 Service Brands', '4 Activities Per Month', 'Deep Acumen AI Insights', 'Personalized Learning Track', 'Priority Reservations'],
     price: '$49',
@@ -92,7 +92,7 @@ const individualPlans = [
   },
   {
     id: 'elite-creative',
-    name: 'ELITE CREATIVE',
+    name: 'Elite Creative',
     tagline: '3 Service Brands and 6 Activities Per Month',
     features: ['3 Service Brands', '6 Activities Per Month', 'Unlimited Acumen AI Consultation', 'Exclusive Masterclasses', 'VIP Community Perks'],
     price: '$99',
@@ -103,7 +103,7 @@ const individualPlans = [
   },
   {
     id: 'one-on-one-creative',
-    name: 'ONE-ON-ONE CREATIVE',
+    name: 'One-on-One Creative',
     tagline: 'Custom Consulting and Coaching Fees Apply',
     features: ['Custom Consulting & Coaching', 'Tailored Learning Plan', '1-on-1 Dedicated Mentor', 'Flexible Schedule'],
     price: 'Custom',
@@ -117,7 +117,7 @@ const individualPlans = [
 const corporatePlans = [
   {
     id: 'basic-creative-team',
-    name: 'BASIC CREATIVE TEAM',
+    name: 'Basic Creative Team',
     tagline: '2 Service Brands, 4 Activities with 8 employees per Activity per Month',
     features: ['2 Service Brands', '4 Activities Per Month', '8 Employees per Activity', 'Team Engagement Analytics', 'Standard Support'],
     price: '$299',
@@ -128,7 +128,7 @@ const corporatePlans = [
   },
   {
     id: 'advanced-creative-team',
-    name: 'ADVANCED CREATIVE TEAM',
+    name: 'Advanced Creative Team',
     tagline: '4 Service Brands, 6 Activities with 10 employees per Activity per Month',
     features: ['4 Service Brands', '6 Activities Per Month', '10 Employees per Activity', 'Corporate Wellbeing Reports', 'Dedicated Account Manager'],
     price: '$599',
@@ -139,7 +139,7 @@ const corporatePlans = [
   },
   {
     id: 'elite-creative-team',
-    name: 'ELITE CREATIVE TEAM',
+    name: 'Elite Creative Team',
     tagline: '6 Service Brands, 12 Activities with 15 employees per Activity per Month',
     features: ['6 Service Brands', '12 Activities Per Month', '15 Employees per Activity', 'Executive Insights Portal', 'On-site Facilitation', 'Vendor Management'],
     price: '$1,199',
@@ -150,7 +150,7 @@ const corporatePlans = [
   },
   {
     id: 'custom-creative-corporate',
-    name: 'CUSTOM CREATIVE',
+    name: 'Custom Creative',
     tagline: 'Custom Creative Activities, Learning Plans and Corporate Consulting',
     features: ['Custom Creative Activities', 'Tailored Learning Plans', 'Corporate Consulting', 'Enterprise SLA & Security', 'Global Rollout Support'],
     price: 'Custom',

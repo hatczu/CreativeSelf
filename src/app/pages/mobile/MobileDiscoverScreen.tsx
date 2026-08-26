@@ -45,7 +45,7 @@ export function MobileDiscoverScreen({
                   {planName || (selectedPlanId === 'elite-creative' ? 'Elite Plan' : selectedPlanId === 'basic-creative' ? 'Basic Plan' : 'Pass Active')}
                 </span>
               </div>
-              <h2 className="text-[16px] font-semibold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
+              <h2 className="text-[18px] font-semibold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
                 Choose a Service Brand
               </h2>
             <p className="text-[12px] text-[#6A7282] font-normal leading-relaxed">
