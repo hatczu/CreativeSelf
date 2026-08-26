@@ -341,6 +341,7 @@ export function ClientMobileApp() {
       id: `bk-${Date.now()}`,
       activityName: act.name,
       vendorName: act.vendorName,
+      vendorLogo: (act as any).vendorLogo || act.image || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80',
       date: bookingSelectedSlot.split('•')[0]?.trim() || 'Tomorrow',
       time: bookingSelectedSlot.split('•')[1]?.trim() || '2:00 PM - 3:30 PM',
       location: act.location,
