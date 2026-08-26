@@ -42,6 +42,8 @@ export function MobileProfileScreen({
   savedActivityIds,
   setActiveTab,
   setActiveScreen,
+  navBarStyle,
+  setNavBarStyle,
 }: MobileProfileScreenProps) {
   const navigate = useNavigate();
   const [activeView, setActiveView] = useState<'menu' | 'profile-details' | 'settings'>('menu');
@@ -249,6 +251,41 @@ export function MobileProfileScreen({
                   }`}
                 />
               </button>
+            </div>
+
+            {/* Navigation Bar Style Selector */}
+            <div className="p-4 space-y-2.5">
+              <div>
+                <p className="font-semibold text-slate-900">Navigation Bar Style</p>
+                <p className="text-[10px] text-slate-500 font-medium mt-0.5">Customize bottom navigation theme & layout</p>
+              </div>
+              <div className="grid grid-cols-2 gap-2 pt-1">
+                {[
+                  { id: 'liquid-glass-icon', label: 'Glass (Icon Only)', desc: 'Floating blur pills' },
+                  { id: 'liquid-glass-text', label: 'Glass (With Text)', desc: 'Floating labeled pills' },
+                  { id: 'liquid-glass-dark', label: 'Dark Glass', desc: 'Dark floating blur' },
+                  { id: 'classic', label: 'Classic Bar', desc: 'Solid bottom dock' },
+                ].map((option) => {
+                  const isSelected = (navBarStyle || 'liquid-glass-icon') === option.id;
+                  return (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => setNavBarStyle?.(option.id as NavBarStyle)}
+                      className={`p-3 text-left rounded-xl border transition-all cursor-pointer ${
+                        isSelected
+                          ? 'border-[#007595] bg-[#E8F9FF] text-[#007595] shadow-xs'
+                          : 'border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700'
+                      }`}
+                    >
+                      <div className="text-[12px] font-semibold">{option.label}</div>
+                      <div className={`text-[10px] ${isSelected ? 'text-[#007595]/80' : 'text-slate-400'}`}>
+                        {option.desc}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
