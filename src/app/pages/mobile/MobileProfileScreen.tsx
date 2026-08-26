@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { Sparkle, CaretRight, BookmarkSimple, Buildings, Desktop, SignOut } from '@phosphor-icons/react';
+import { Sparkle, CaretRight, BookmarkSimple, Buildings, Desktop, SignOut, SlidersHorizontal, CheckCircle } from '@phosphor-icons/react';
+import { NavBarStyle } from './ClientMobileApp';
 
 interface MobileProfileScreenProps {
   regName: string;
@@ -12,6 +13,8 @@ interface MobileProfileScreenProps {
   savedActivityIds: string[];
   setActiveTab: (tab: any) => void;
   setActiveScreen: (screen: any) => void;
+  navBarStyle: NavBarStyle;
+  setNavBarStyle: (style: NavBarStyle) => void;
 }
 
 export function MobileProfileScreen({
@@ -24,11 +27,13 @@ export function MobileProfileScreen({
   savedActivityIds,
   setActiveTab,
   setActiveScreen,
+  navBarStyle,
+  setNavBarStyle,
 }: MobileProfileScreenProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-20 space-y-4 px-4 pt-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 space-y-4 px-4 pt-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
       {/* Header Title */}
       <div className="pb-2 border-b border-slate-100">
         <h2 className="text-[20px] font-extrabold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
@@ -51,6 +56,115 @@ export function MobileProfileScreen({
           </div>
           <p className="text-xs text-slate-500 font-medium truncate">{emailInput || 'alex@company.com'}</p>
           <p className="text-[11px] text-[#10B981] font-bold">Active Pro Annual Subscriber</p>
+        </div>
+      </div>
+
+      {/* Mobile Settings: Navigation Bar Style */}
+      <div className="p-4 bg-gradient-to-br from-slate-50 to-sky-50/40 rounded-2xl border border-slate-200/80 shadow-xs space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-lg bg-[#E8F9FF] text-[#33C4F0] flex items-center justify-center shrink-0">
+              <SlidersHorizontal size={16} weight="bold" />
+            </div>
+            <div>
+              <h3 className="text-xs font-extrabold text-[#1A1A28]">Nav Bar Style</h3>
+              <p className="text-[10px] text-slate-500 font-semibold">Mobile bottom navigation layout</p>
+            </div>
+          </div>
+          <span className="text-[10px] font-extrabold text-[#007595] bg-[#E8F9FF] px-2 py-0.5 rounded-full border border-[#33C4F0]/30">
+            Liquid Glass ✨
+          </span>
+        </div>
+
+        {/* Option Cards */}
+        <div className="grid grid-cols-2 gap-2 pt-1">
+          <button
+            type="button"
+            onClick={() => setNavBarStyle('liquid-glass-icon')}
+            className={`p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
+              navBarStyle === 'liquid-glass-icon'
+                ? 'bg-white border-[#33C4F0] shadow-md ring-2 ring-[#33C4F0]/20'
+                : 'bg-white/80 border-slate-200 hover:border-slate-300'
+            }`}
+          >
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-xs font-bold text-slate-900 flex items-center gap-1">
+                💧 Icon Only
+              </span>
+              {navBarStyle === 'liquid-glass-icon' && (
+                <CheckCircle weight="fill" size={15} className="text-[#33C4F0]" />
+              )}
+            </div>
+            <p className="text-[10px] text-slate-500 font-medium leading-tight">
+              65px Liquid Glass floating pill with 24px icon badges.
+            </p>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setNavBarStyle('liquid-glass-text')}
+            className={`p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
+              navBarStyle === 'liquid-glass-text'
+                ? 'bg-white border-[#33C4F0] shadow-md ring-2 ring-[#33C4F0]/20'
+                : 'bg-white/80 border-slate-200 hover:border-slate-300'
+            }`}
+          >
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-xs font-bold text-slate-900 flex items-center gap-1">
+                💬 With Text
+              </span>
+              {navBarStyle === 'liquid-glass-text' && (
+                <CheckCircle weight="fill" size={15} className="text-[#33C4F0]" />
+              )}
+            </div>
+            <p className="text-[10px] text-slate-500 font-medium leading-tight">
+              66px Liquid Glass floating pill with icon & Poppins text labels.
+            </p>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setNavBarStyle('liquid-glass-dark')}
+            className={`p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
+              navBarStyle === 'liquid-glass-dark'
+                ? 'bg-slate-900 border-[#33C4F0] shadow-md ring-2 ring-[#33C4F0]/30 text-white'
+                : 'bg-slate-900/90 border-slate-700 text-slate-200 hover:border-slate-600'
+            }`}
+          >
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-xs font-bold text-white flex items-center gap-1">
+                🌙 Dark Glass
+              </span>
+              {navBarStyle === 'liquid-glass-dark' && (
+                <CheckCircle weight="fill" size={15} className="text-[#33C4F0]" />
+              )}
+            </div>
+            <p className="text-[10px] text-slate-400 font-medium leading-tight">
+              Sleek dark-tinted liquid glass floating bar with glow.
+            </p>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setNavBarStyle('classic')}
+            className={`p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
+              navBarStyle === 'classic'
+                ? 'bg-white border-[#33C4F0] shadow-md ring-2 ring-[#33C4F0]/20'
+                : 'bg-white/80 border-slate-200 hover:border-slate-300'
+            }`}
+          >
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-xs font-bold text-slate-900 flex items-center gap-1">
+                📱 Classic Bar
+              </span>
+              {navBarStyle === 'classic' && (
+                <CheckCircle weight="fill" size={15} className="text-[#33C4F0]" />
+              )}
+            </div>
+            <p className="text-[10px] text-slate-500 font-medium leading-tight">
+              Edge-to-edge full width bottom navigation bar.
+            </p>
+          </button>
         </div>
       </div>
 

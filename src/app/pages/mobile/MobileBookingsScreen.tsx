@@ -13,7 +13,7 @@ export function MobileBookingsScreen({
   setSelectedQrPass,
 }: MobileBookingsScreenProps) {
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-20 space-y-4 px-4 pt-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 space-y-4 px-4 pt-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
       <div className="pb-2 border-b border-slate-100 flex items-center justify-between">
         <div>
           <h2 className="text-[20px] font-extrabold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>

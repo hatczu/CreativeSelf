@@ -31,7 +31,7 @@ export function MobileDiscoverScreen({
   const { planName, selectedBrand, selectBrand } = useSubscription();
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-20 bg-[#F1F5F9] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 bg-[#F1F5F9] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
       {selectedBrandId === null ? (
         /* VIEW 1: SERVICE BRANDS LIST */
         <div>

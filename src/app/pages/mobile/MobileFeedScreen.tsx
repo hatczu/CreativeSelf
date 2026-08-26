@@ -34,7 +34,7 @@ export function MobileFeedScreen({
   const navigate = useNavigate();
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-20 relative [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 relative [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
       {/* Top Header Background Gradient from Figma (Rectangle 4) */}
       <div
         className="absolute top-0 left-0 right-0 h-[260px] pointer-events-none z-0"

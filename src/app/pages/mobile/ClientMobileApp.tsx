@@ -6,7 +6,6 @@ import {
   Compass,
   CalendarBlank,
   User,
-  CaretLeft,
   X,
 } from '@phosphor-icons/react';
 import { PostData } from '@/app/data/postsData';
@@ -25,6 +24,7 @@ import { MobileStoryViewerModal } from './MobileStoryViewerModal';
 
 export type ScreenType = 'onboarding' | 'login' | 'register' | 'feed' | 'discover' | 'bookings' | 'profile';
 export type TabType = 'feed' | 'discover' | 'bookings' | 'profile';
+export type NavBarStyle = 'liquid-glass-icon' | 'liquid-glass-text' | 'liquid-glass-dark' | 'classic';
 
 export const brandStories = [
   {
@@ -144,6 +144,19 @@ export function ClientMobileApp() {
   const [postDetailComments, setPostDetailComments] = useState<Record<string, any[]>>({});
   const [selectedBrandId, setSelectedBrandId] = useState<string | null>(null);
   const [activeStoryIdx, setActiveStoryIdx] = useState<number | null>(null);
+
+  // Mobile Nav Bar Style preference (liquid glass icon-only, with text, dark glass, classic)
+  const [navBarStyle, setNavBarStyleState] = useState<NavBarStyle>(() => {
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('cs_mobile_navbar_style') : null;
+    return (saved as NavBarStyle) || 'liquid-glass-icon';
+  });
+
+  const setNavBarStyle = (style: NavBarStyle) => {
+    setNavBarStyleState(style);
+    try {
+      localStorage.setItem('cs_mobile_navbar_style', style);
+    } catch {}
+  };
 
   // Extended Routing Handlers for Mobile Discover
   const handleSetSelectedBrandId = (brandId: string | null) => {
@@ -479,38 +492,213 @@ export function ClientMobileApp() {
             savedActivityIds={savedActivityIds}
             setActiveTab={setActiveTab}
             setActiveScreen={setActiveScreen}
+            navBarStyle={navBarStyle}
+            setNavBarStyle={setNavBarStyle}
           />
         )}
 
         {/* BOTTOM NAVIGATION BAR */}
-        <div className="bg-white/95 backdrop-blur-md border-t border-slate-100 px-3 py-2 flex items-center justify-around absolute bottom-0 inset-x-0 z-30 shadow-lg">
-          {[
+        {(() => {
+          const navItems = [
             { id: 'feed', label: 'Feed', icon: House },
             { id: 'discover', label: 'Discover', icon: Compass },
             { id: 'bookings', label: 'Bookings', icon: CalendarBlank, badge: myBookings.length },
             { id: 'profile', label: 'Profile', icon: User },
-          ].map((tab) => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
+          ];
+
+          if (navBarStyle === 'classic') {
             return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as TabType)}
-                className={`flex flex-col items-center gap-0.5 py-1 px-3.5 rounded-xl transition relative ${
-                  isActive ? 'text-[#33C4F0] font-bold' : 'text-slate-400 hover:text-slate-700'
-                }`}
-              >
-                <Icon size={20} weight={isActive ? 'fill' : 'regular'} />
-                <span className="text-[10px]">{tab.label}</span>
-                {tab.badge ? (
-                  <span className="absolute top-0 right-2.5 w-4 h-4 bg-[#33C4F0] text-white text-[9px] font-black rounded-full flex items-center justify-center">
-                    {tab.badge}
-                  </span>
-                ) : null}
-              </button>
+              <div className="bg-white/95 backdrop-blur-md border-t border-slate-100 px-3 py-2 flex items-center justify-around absolute bottom-0 inset-x-0 z-30 shadow-lg">
+                {navItems.map((tab) => {
+                  const Icon = tab.icon;
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id as TabType)}
+                      className={`flex flex-col items-center gap-0.5 py-1 px-3.5 rounded-xl transition relative ${
+                        isActive ? 'text-[#33C4F0] font-bold' : 'text-slate-400 hover:text-slate-700'
+                      }`}
+                    >
+                      <Icon size={20} weight={isActive ? 'fill' : 'regular'} color={isActive ? '#33C4F0' : '#6A7282'} />
+                      <span className="text-[10px]" style={{ color: isActive ? '#33C4F0' : '#6A7282' }}>
+                        {tab.label}
+                      </span>
+                      {tab.badge ? (
+                        <span className="absolute top-0 right-2.5 w-4 h-4 bg-[#33C4F0] text-white text-[9px] font-black rounded-full flex items-center justify-center">
+                          {tab.badge}
+                        </span>
+                      ) : null}
+                    </button>
+                  );
+                })}
+              </div>
             );
-          })}
-        </div>
+          }
+
+          const isDark = navBarStyle === 'liquid-glass-dark';
+          const isIconOnly = navBarStyle === 'liquid-glass-icon';
+          const containerHeight = isIconOnly ? '65px' : '66px';
+          const buttonHeight = isIconOnly ? '48px' : '49px';
+          const iconSize = isIconOnly ? 24 : 20;
+
+          return (
+            <nav
+              style={{
+                position: 'absolute',
+                bottom: '26px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 'calc(100% - 32px)',
+                maxWidth: '368px',
+                height: containerHeight,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                zIndex: 30,
+                pointerEvents: 'auto',
+              }}
+            >
+              <div
+                style={{
+                  boxSizing: 'border-box',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '8px 10px',
+                  width: '100%',
+                  height: containerHeight,
+                  background: isDark ? 'rgba(26, 26, 40, 0.85)' : 'rgba(255, 255, 255, 0.8)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
+                  borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid #F1F5F9',
+                  border: isDark ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid rgba(255, 255, 255, 0.7)',
+                  borderRadius: '60px',
+                  boxShadow: isDark
+                    ? '0 12px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                    : '0 8px 32px rgba(31, 38, 135, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8)',
+                }}
+              >
+                {navItems.map((tab) => {
+                  const Icon = tab.icon;
+                  const isActive = activeTab === tab.id;
+                  const iconColor = isActive ? '#33C4F0' : isDark ? '#94A3B8' : '#6A7282';
+                  const textColor = isActive ? '#33C4F0' : isDark ? '#94A3B8' : '#6A7282';
+
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id as TabType)}
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: '6px 8px',
+                        gap: '2px',
+                        flex: '1 1 0%',
+                        maxWidth: '72px',
+                        height: buttonHeight,
+                        background: isActive
+                          ? isDark
+                            ? 'rgba(255, 255, 255, 0.12)'
+                            : 'rgba(0, 0, 0, 0.06)'
+                          : 'transparent',
+                        borderRadius: '25.6px',
+                        position: 'relative',
+                        transition: 'all 0.2s ease',
+                        isolation: 'isolate',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: `${iconSize}px`,
+                          height: `${iconSize}px`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flex: 'none',
+                          flexGrow: 0,
+                          zIndex: 0,
+                        }}
+                      >
+                        <Icon size={iconSize} color={iconColor} weight={isActive ? 'fill' : 'regular'} />
+                      </div>
+
+                      {!isIconOnly && (
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            padding: '0px',
+                            height: '15px',
+                            flex: 'none',
+                            flexGrow: 0,
+                            zIndex: 1,
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontFamily: "'Poppins', sans-serif",
+                              fontStyle: 'normal',
+                              fontWeight: isActive ? 600 : 500,
+                              fontSize: '10px',
+                              lineHeight: '15px',
+                              textAlign: 'center',
+                              color: textColor,
+                              display: 'block',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            {tab.label}
+                          </span>
+                        </div>
+                      )}
+
+                      {tab.badge ? (
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            padding: '0px',
+                            position: 'absolute',
+                            width: '16px',
+                            height: '16px',
+                            right: '12px',
+                            top: isIconOnly ? '6px' : '2px',
+                            background: '#33C4F0',
+                            borderRadius: '33554432px',
+                            flex: 'none',
+                            zIndex: 2,
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontFamily: "'Poppins', sans-serif",
+                              fontStyle: 'normal',
+                              fontWeight: 700,
+                              fontSize: '9px',
+                              lineHeight: '14px',
+                              textAlign: 'center',
+                              color: '#FFFFFF',
+                            }}
+                          >
+                            {tab.badge}
+                          </span>
+                        </div>
+                      ) : null}
+                    </button>
+                  );
+                })}
+              </div>
+            </nav>
+          );
+        })()}
 
         {/* ACTIVITY DETAIL SCREEN */}
         <MobileActivityDetailView
@@ -562,22 +750,9 @@ export function ClientMobileApp() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0F172A] flex flex-col items-center justify-center p-2 sm:p-6 text-slate-100 font-sans relative overflow-x-hidden">
-      {/* Top Banner Control Bar */}
-      <div className="w-full max-w-[402px] flex items-center justify-between mb-2.5 px-1 z-10">
-        <Link
-          to="/dashboard"
-          className="flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white transition bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700 shadow-sm"
-        >
-          <CaretLeft size={16} /> Exit to Desktop Web App
-        </Link>
-        <span className="text-xs font-semibold text-slate-400">
-          CreativeSelf Mobile
-        </span>
-      </div>
-
+    <div className="w-full min-h-screen h-dvh bg-white text-slate-900 font-sans relative overflow-hidden flex flex-col items-center justify-center">
       {/* MOBILE APPLICATION CONTAINER */}
-      <div className="w-full max-w-[402px] h-[874px] max-h-[calc(100vh-65px)] bg-white text-slate-900 rounded-none shadow-2xl overflow-hidden relative flex flex-col border border-slate-800/60 shrink-0">
+      <div className="w-full h-full max-w-md mx-auto bg-white text-slate-900 overflow-hidden relative flex flex-col shrink-0">
         <div className="flex-1 overflow-hidden relative">
           {renderMobileScreenContent()}
         </div>
