@@ -446,66 +446,39 @@ export function MobileBookingsScreen({
               className="w-full bg-white p-4 space-y-3 border border-slate-100 shadow-2xs hover:shadow-xs transition"
               style={{ borderRadius: '24px 24px 60px 24px' }}
             >
-              {/* Card Header Row: Title & Chevron Toggle */}
-              <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0 flex-1">
-                  <h4
-                    className="text-[14px] font-semibold text-[#0F172B] leading-[20px] truncate"
-                    style={{ fontFamily: 'Century Gothic, sans-serif' }}
-                  >
-                    {bk.activityName}
-                  </h4>
-                  <p
-                    className="text-[11px] font-medium text-[#64748B] flex items-center gap-1 mt-0.5"
-                    style={{ fontFamily: 'Poppins, sans-serif' }}
-                  >
-                    <Clock size={13} className="text-[#33C4F0] shrink-0" />
-                    <span>{bk.time}</span>
-                  </p>
+              {/* Card Header Row (Matching Feed Card Header Style) */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                  {bk.vendorLogo ? (
+                    <img
+                      src={bk.vendorLogo}
+                      alt={bk.vendorName}
+                      className="w-8 h-8 rounded-full object-cover shrink-0"
+                    />
+                  ) : (
+                    <span className="text-xl p-1 bg-slate-100 rounded-full flex items-center justify-center w-8 h-8 shrink-0">
+                      {bk.symbol || '🎨'}
+                    </span>
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-semibold text-slate-900 truncate">{bk.vendorName}</p>
+                    <p className="text-[11px] text-slate-400 truncate">Host & Studio Partner</p>
+                  </div>
                 </div>
 
                 <button
                   type="button"
                   onClick={() => toggleExpand(bk.id)}
-                  className="w-7 h-7 rounded-full bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-500 transition shrink-0"
+                  className="w-7 h-7 rounded-full bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-500 transition shrink-0 cursor-pointer"
                 >
                   {isExpanded ? <CaretUp size={14} /> : <CaretDown size={14} />}
                 </button>
               </div>
 
-              {/* Attendee / Participant Avatars Row (Matching reference mockup) */}
-              <div className="flex items-center justify-between pt-1 pb-1">
-                <div className="flex items-center">
-                  <div className="flex -space-x-2 overflow-hidden">
-                    {sampleAttendees.map((att) => (
-                      <img
-                        key={att.id}
-                        src={att.image}
-                        alt={att.name}
-                        className="inline-block h-7 w-7 rounded-full ring-2 ring-white object-cover shadow-2xs"
-                      />
-                    ))}
-                  </div>
-                  <span
-                    className="ml-2 text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5"
-                    style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Poppins, sans-serif' }}
-                  >
-                    +{bk.seats + 2} going
-                  </span>
-                </div>
-
-                <span
-                  className="text-[10px] font-semibold text-[#007595] bg-[#ECFEFF] border border-[#A2F4FD] px-2.5 py-0.5"
-                  style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Poppins, sans-serif' }}
-                >
-                  {bk.vendorName}
-                </span>
-              </div>
-
-              {/* Media Image Banner if available (Teardrop shape) */}
+              {/* Media Image Banner goes FIRST right after header */}
               {bk.image && (
                 <div
-                  className="relative h-[135px] w-full bg-slate-100 overflow-hidden isolate shadow-2xs cursor-pointer group"
+                  className="relative h-[150px] w-full bg-slate-100 overflow-hidden isolate shadow-2xs cursor-pointer group"
                   style={{ borderRadius: '20px 20px 50px 20px' }}
                   onClick={() => setSelectedQrPass(bk)}
                 >
@@ -524,46 +497,72 @@ export function MobileBookingsScreen({
                     }}
                   />
 
-                  {/* Top-Right Ticket Badge */}
+                  {/* Top-Right Status Badge (Confirmed) */}
                   <div className="absolute top-2.5 right-2.5 z-[2]">
                     <span
-                      className="text-[10px] font-semibold text-[#147C9E] bg-white/95 backdrop-blur-md px-2.5 py-0.5 shadow-sm flex items-center gap-1"
+                      className="text-[10px] font-semibold text-[#10B981] bg-white/95 backdrop-blur-md px-2.5 py-0.5 shadow-sm flex items-center gap-1"
                       style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Poppins, sans-serif' }}
                     >
-                      <Ticket size={12} className="text-[#33C4F0]" /> {bk.seats || 1} {bk.seats === 1 ? 'Ticket' : 'Tickets'}
+                      <Check size={11} className="text-[#10B981]" /> {bk.status || 'Confirmed'}
                     </span>
                   </div>
 
                   {/* Bottom Date Overlay */}
-                  <div className="absolute bottom-2.5 left-3 right-3 z-[2] flex items-center justify-between">
+                  <div className="absolute bottom-2.5 left-3 z-[2]">
                     <span
                       className="text-[10px] font-semibold text-white bg-black/40 backdrop-blur-md px-2.5 py-0.5 flex items-center gap-1"
                       style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Poppins, sans-serif' }}
                     >
                       <Clock size={12} className="text-[#33C4F0]" /> {bk.date}
                     </span>
-                    <span
-                      className="text-[10px] font-semibold text-white bg-[#33C4F0]/90 backdrop-blur-md px-2.5 py-0.5 flex items-center gap-1"
-                      style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Poppins, sans-serif' }}
-                    >
-                      <QrCode size={12} /> Entry QR Ready
-                    </span>
                   </div>
                 </div>
               )}
 
-              {/* Bottom Card Footer: Location Platform & Status Pill */}
+              {/* Activity Details: Title & Time BELOW the image */}
+              <div className="pt-0.5 space-y-0.5">
+                <h4
+                  className="text-[16px] font-semibold text-[#0F172B] leading-[22px] truncate"
+                  style={{ fontFamily: 'Century Gothic, sans-serif' }}
+                >
+                  {bk.activityName}
+                </h4>
+                <p
+                  className="text-[11px] font-medium text-[#64748B] flex items-center gap-1"
+                  style={{ fontFamily: 'Poppins, sans-serif' }}
+                >
+                  <Clock size={13} className="text-[#33C4F0] shrink-0" />
+                  <span>{bk.time}</span>
+                </p>
+              </div>
+
+              {/* Attendee / Participant Avatars Row */}
+              <div className="flex items-center justify-between pt-0.5 pb-0.5">
+                <div className="flex items-center">
+                  <div className="flex -space-x-2 overflow-hidden">
+                    {sampleAttendees.map((att) => (
+                      <img
+                        key={att.id}
+                        src={att.image}
+                        alt={att.name}
+                        className="inline-block h-7 w-7 rounded-full ring-2 ring-white object-cover shadow-2xs"
+                      />
+                    ))}
+                  </div>
+                  <span
+                    className="ml-2 text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5"
+                    style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Poppins, sans-serif' }}
+                  >
+                    +{bk.seats + 2} going
+                  </span>
+                </div>
+              </div>
+
+              {/* Bottom Card Footer: Location */}
               <div className="flex items-center justify-between text-[11px] font-medium text-slate-600 pt-1">
-                <span className="flex items-center gap-1 truncate max-w-[200px]" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                <span className="flex items-center gap-1 truncate" style={{ fontFamily: 'Poppins, sans-serif' }}>
                   <MapPin size={13} className="text-[#33C4F0] shrink-0" />
                   <span className="truncate">{bk.location}</span>
-                </span>
-
-                <span
-                  className="text-[10px] font-semibold text-[#10B981] bg-[#ECFDF5] border border-[#10B981]/25 px-2.5 py-0.5 flex items-center gap-1 shrink-0"
-                  style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Poppins, sans-serif' }}
-                >
-                  <Check size={11} /> {bk.status || 'Confirmed'}
                 </span>
               </div>
 
