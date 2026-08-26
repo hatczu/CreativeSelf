@@ -200,15 +200,19 @@ export function MobileBookingsScreen({
             </h2>
           </div>
 
-          {/* Calendar Icon Button with Teardrop Radius */}
+          {/* Calendar Icon Button with Teardrop Radius (Toggles Inline Full Calendar View) */}
           <button
             type="button"
-            onClick={() => setIsFullCalendarOpen(true)}
-            className="w-[44px] h-[40px] bg-[#F8FDFF] border border-[#33C4F0] flex items-center justify-center pr-[2px] text-[#147C9E] hover:bg-[#E8F9FF] transition shrink-0"
+            onClick={() => setIsFullCalendarOpen(!isFullCalendarOpen)}
+            className={`w-[44px] h-[40px] border flex items-center justify-center pr-[2px] transition shrink-0 cursor-pointer ${
+              isFullCalendarOpen
+                ? 'bg-[#007595] border-[#007595] text-white shadow-xs'
+                : 'bg-[#F8FDFF] border-[#33C4F0] text-[#147C9E] hover:bg-[#E8F9FF]'
+            }`}
             style={{ borderRadius: '20px 20px 48px 20px' }}
-            title="View Full Calendar"
+            title={isFullCalendarOpen ? "Hide Full Calendar" : "View Full Calendar"}
           >
-            <CalendarDots size={18} weight="regular" />
+            <CalendarDots size={18} weight={isFullCalendarOpen ? "fill" : "regular"} />
           </button>
         </div>
 
@@ -221,7 +225,7 @@ export function MobileBookingsScreen({
             type="button"
             onClick={handlePrevMonth}
             disabled={!canPrevMonth}
-            className="w-7 h-7 flex items-center justify-center text-[#45556C] hover:text-slate-900 disabled:opacity-30 transition"
+            className="w-7 h-7 flex items-center justify-center text-[#45556C] hover:text-slate-900 disabled:opacity-30 transition cursor-pointer"
             title="Previous Month"
           >
             <CaretLeft size={14} weight="bold" />
@@ -236,82 +240,147 @@ export function MobileBookingsScreen({
             type="button"
             onClick={handleNextMonth}
             disabled={!canNextMonth}
-            className="w-7 h-7 flex items-center justify-center text-[#45556C] hover:text-slate-900 disabled:opacity-30 transition"
+            className="w-7 h-7 flex items-center justify-center text-[#45556C] hover:text-slate-900 disabled:opacity-30 transition cursor-pointer"
             title="Next Month"
           >
             <CaretRight size={14} weight="bold" />
           </button>
         </div>
 
-        {/* Horizontal Date Selector Strip (6 Days visible for spacious layout) */}
-        <div className="flex items-center gap-1.5 justify-between pt-0.5">
-          <button
-            type="button"
-            onClick={() => setCurrentWeekIndex((prev) => Math.max(0, prev - 1))}
-            disabled={currentWeekIndex === 0}
-            className="w-7 h-7 bg-white border border-[#E2E8F0] flex items-center justify-center text-[#45556C] hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white transition shrink-0 self-center"
-            style={{ borderRadius: '10px 10px 22px 10px' }}
-            title="Previous Week"
-          >
-            <CaretLeft size={14} weight="bold" />
-          </button>
+        {/* CALENDAR DISPLAY: INLINE FULL MONTH GRID OR HORIZONTAL WEEK STRIP */}
+        {isFullCalendarOpen ? (
+          /* INLINE FULL MONTH CALENDAR VIEW (Native Mobile Layout) */
+          <div className="bg-[#F8FAFC]/80 p-3 border border-[#E2E8F0] space-y-2.5 rounded-2xl animate-in fade-in duration-200">
+            {/* Day Headers */}
+            <div className="grid grid-cols-7 gap-1 text-center">
+              {['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].map((d) => (
+                <span key={d} className="text-[9px] font-semibold text-[#64748B]" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                  {d}
+                </span>
+              ))}
+            </div>
 
-          <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] flex-1 justify-between">
-            {currentWeek.slice(0, 6).map((item) => {
-              const isSelected = selectedDateNum === item.date;
-              const hasBooking = item.hasBooking;
-              return (
+            {/* Date Cells Grid */}
+            <div className="grid grid-cols-7 gap-1.5">
+              {Array.from({ length: 31 }, (_, i) => i + 1).map((dayNum) => {
+                const isSelected = selectedDateNum === dayNum;
+                const hasBookingOnDate = weeksList.some((w) =>
+                  w.some((item) => item.month === currentWeek[0].month && item.date === dayNum && item.hasBooking)
+                );
+
+                return (
+                  <button
+                    key={dayNum}
+                    type="button"
+                    onClick={() => setSelectedDateNum(isSelected ? null : dayNum)}
+                    className={`h-9 flex flex-col items-center justify-center text-[12px] font-bold transition relative cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#1AB0DC] text-white shadow-xs'
+                        : hasBookingOnDate
+                        ? 'bg-[#ECFEFF] text-[#1AB0DC] border border-[#A2F4FD]'
+                        : 'bg-white text-[#314158] border border-slate-200/60 hover:bg-slate-100'
+                    }`}
+                    style={{ borderRadius: '10px 10px 22px 10px', fontFamily: 'Century Gothic, sans-serif' }}
+                  >
+                    {dayNum}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Inline Footer Controls */}
+            <div className="flex items-center justify-between pt-1.5 border-t border-slate-200/60 text-[11px]">
+              {selectedDateNum !== null ? (
                 <button
-                  key={`${item.month}-${item.date}`}
                   type="button"
-                  onClick={() => setSelectedDateNum(isSelected ? null : item.date)}
-                  className={`flex flex-col items-center justify-center flex-1 min-w-[42px] max-w-[52px] h-[61px] pt-[8px] pb-[14px] transition relative shrink-0 ${
-                    isSelected
-                      ? 'bg-[#1AB0DC] text-white shadow-xs'
-                      : 'bg-white border border-[#E2E8F0]/80 hover:border-slate-300'
-                  }`}
-                  style={{ borderRadius: '14px 14px 34px 14px' }}
+                  onClick={() => setSelectedDateNum(null)}
+                  className="text-[#007595] font-semibold hover:underline cursor-pointer"
                 >
-                  <span
-                    className={`text-[9px] font-semibold uppercase ${
-                      isSelected
-                        ? 'text-white opacity-90'
-                        : hasBooking
-                        ? 'text-[#1AB0DC]'
-                        : 'text-[#314158] opacity-80'
-                    }`}
-                    style={{ fontFamily: 'Poppins, sans-serif' }}
-                  >
-                    {item.day}
-                  </span>
-                  <span
-                    className={`text-[14px] font-bold mt-0.5 ${
-                      isSelected
-                        ? 'text-white'
-                        : hasBooking
-                        ? 'text-[#1AB0DC]'
-                        : 'text-[#314158]'
-                    }`}
-                    style={{ fontFamily: 'Century Gothic, sans-serif' }}
-                  >
-                    {item.date}
-                  </span>
+                  Clear Filter ({currentWeek[0].month} {selectedDateNum})
                 </button>
-              );
-            })}
+              ) : (
+                <span className="text-[10px] text-slate-400">Tap a date to filter schedule</span>
+              )}
+              <button
+                type="button"
+                onClick={() => setIsFullCalendarOpen(false)}
+                className="px-2.5 py-1 text-[10px] font-semibold text-slate-600 bg-slate-200/80 hover:bg-slate-300 rounded-full transition cursor-pointer"
+              >
+                Collapse Calendar
+              </button>
+            </div>
           </div>
+        ) : (
+          /* Horizontal Date Selector Strip (6 Days visible for spacious layout) */
+          <div className="flex items-center gap-1.5 justify-between pt-0.5">
+            <button
+              type="button"
+              onClick={() => setCurrentWeekIndex((prev) => Math.max(0, prev - 1))}
+              disabled={currentWeekIndex === 0}
+              className="w-7 h-7 bg-white border border-[#E2E8F0] flex items-center justify-center text-[#45556C] hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white transition shrink-0 self-center cursor-pointer"
+              style={{ borderRadius: '10px 10px 22px 10px' }}
+              title="Previous Week"
+            >
+              <CaretLeft size={14} weight="bold" />
+            </button>
 
-          <button
-            type="button"
-            onClick={() => setCurrentWeekIndex((prev) => Math.min(weeksList.length - 1, prev + 1))}
-            disabled={currentWeekIndex === weeksList.length - 1}
-            className="w-7 h-7 bg-white border border-[#E2E8F0] flex items-center justify-center text-[#45556C] hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white transition shrink-0 self-center"
-            style={{ borderRadius: '10px 10px 22px 10px' }}
-            title="Next Week"
-          >
-            <CaretRight size={14} weight="bold" />
-          </button>
-        </div>
+            <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] flex-1 justify-between">
+              {currentWeek.slice(0, 6).map((item) => {
+                const isSelected = selectedDateNum === item.date;
+                const hasBooking = item.hasBooking;
+                return (
+                  <button
+                    key={`${item.month}-${item.date}`}
+                    type="button"
+                    onClick={() => setSelectedDateNum(isSelected ? null : item.date)}
+                    className={`flex flex-col items-center justify-center flex-1 min-w-[42px] max-w-[52px] h-[61px] pt-[8px] pb-[14px] transition relative shrink-0 cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#1AB0DC] text-white shadow-xs'
+                        : 'bg-white border border-[#E2E8F0]/80 hover:border-slate-300'
+                    }`}
+                    style={{ borderRadius: '14px 14px 34px 14px' }}
+                  >
+                    <span
+                      className={`text-[9px] font-semibold uppercase ${
+                        isSelected
+                          ? 'text-white opacity-90'
+                          : hasBooking
+                          ? 'text-[#1AB0DC]'
+                          : 'text-[#314158] opacity-80'
+                      }`}
+                      style={{ fontFamily: 'Poppins, sans-serif' }}
+                    >
+                      {item.day}
+                    </span>
+                    <span
+                      className={`text-[14px] font-bold mt-0.5 ${
+                        isSelected
+                          ? 'text-white'
+                          : hasBooking
+                          ? 'text-[#1AB0DC]'
+                          : 'text-[#314158]'
+                      }`}
+                      style={{ fontFamily: 'Century Gothic, sans-serif' }}
+                    >
+                      {item.date}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setCurrentWeekIndex((prev) => Math.min(weeksList.length - 1, prev + 1))}
+              disabled={currentWeekIndex === weeksList.length - 1}
+              className="w-7 h-7 bg-white border border-[#E2E8F0] flex items-center justify-center text-[#45556C] hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white transition shrink-0 self-center cursor-pointer"
+              style={{ borderRadius: '10px 10px 22px 10px' }}
+              title="Next Week"
+            >
+              <CaretRight size={14} weight="bold" />
+            </button>
+          </div>
+        )}
 
         {/* Search Input Box */}
         <div
@@ -594,134 +663,6 @@ export function MobileBookingsScreen({
           </div>
         )}
       </div>
-
-      {/* FULL CALENDAR OVERLAY MODAL */}
-      {isFullCalendarOpen && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-          <div
-            className="w-full max-w-sm bg-white p-5 space-y-4 shadow-2xl border border-slate-100 animate-in fade-in zoom-in-95 duration-150 relative"
-            style={{ borderRadius: '28px 28px 64px 28px' }}
-          >
-            {/* Modal Header */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#ECFEFF] border border-[#A2F4FD] flex items-center justify-center text-[#147C9E]">
-                  <CalendarDots size={18} weight="regular" />
-                </div>
-                <div>
-                  <h3 className="text-[15px] font-semibold text-[#0F172B]" style={{ fontFamily: 'Century Gothic, sans-serif' }}>
-                    Full Calendar
-                  </h3>
-                  <p className="text-[10px] text-[#6A7282]" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                    Select a date to filter your schedule
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsFullCalendarOpen(false)}
-                className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition"
-              >
-                <X size={16} weight="bold" />
-              </button>
-            </div>
-
-            {/* Month Switcher inside Modal */}
-            <div
-              className="bg-[#F8FAFC] px-3 py-2 flex items-center justify-between border border-[#E2E8F0]/60 h-[44px]"
-              style={{ borderRadius: '16px 16px 36px 16px' }}
-            >
-              <button
-                type="button"
-                onClick={handlePrevMonth}
-                disabled={!canPrevMonth}
-                className="w-7 h-7 flex items-center justify-center text-[#45556C] hover:text-slate-900 disabled:opacity-30 transition"
-                title="Previous Month"
-              >
-                <CaretLeft size={14} weight="bold" />
-              </button>
-              <span className="text-[13px] font-bold text-[#0F172B]" style={{ fontFamily: 'Century Gothic, sans-serif' }}>
-                {currentWeek[0].month} {currentWeek[0].year}
-              </span>
-              <button
-                type="button"
-                onClick={handleNextMonth}
-                disabled={!canNextMonth}
-                className="w-7 h-7 flex items-center justify-center text-[#45556C] hover:text-slate-900 disabled:opacity-30 transition"
-                title="Next Month"
-              >
-                <CaretRight size={14} weight="bold" />
-              </button>
-            </div>
-
-            {/* Full Month Grid (31 Days) */}
-            <div className="space-y-2">
-              {/* Day Headers */}
-              <div className="grid grid-cols-7 gap-1 text-center">
-                {['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].map((d) => (
-                  <span key={d} className="text-[9px] font-semibold text-[#64748B]" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                    {d}
-                  </span>
-                ))}
-              </div>
-
-              {/* Date Cells Grid */}
-              <div className="grid grid-cols-7 gap-1.5">
-                {Array.from({ length: 31 }, (_, i) => i + 1).map((dayNum) => {
-                  const isSelected = selectedDateNum === dayNum;
-                  const hasBookingOnDate = weeksList.some((w) =>
-                    w.some((item) => item.month === currentWeek[0].month && item.date === dayNum && item.hasBooking)
-                  );
-
-                  return (
-                    <button
-                      key={dayNum}
-                      type="button"
-                      onClick={() => {
-                        setSelectedDateNum(isSelected ? null : dayNum);
-                        setIsFullCalendarOpen(false);
-                      }}
-                      className={`h-9 flex flex-col items-center justify-center text-[12px] font-bold transition relative ${
-                        isSelected
-                          ? 'bg-[#1AB0DC] text-white shadow-xs'
-                          : hasBookingOnDate
-                          ? 'bg-[#ECFEFF] text-[#1AB0DC] border border-[#A2F4FD]'
-                          : 'bg-slate-50 text-[#314158] hover:bg-slate-100'
-                      }`}
-                      style={{ borderRadius: '10px 10px 22px 10px', fontFamily: 'Century Gothic, sans-serif' }}
-                    >
-                      {dayNum}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Modal Footer */}
-            <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedDateNum(null);
-                  setIsFullCalendarOpen(false);
-                }}
-                className="flex-1 py-2 text-[11px] font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition"
-                style={{ borderRadius: '16px 16px 36px 16px', fontFamily: 'Poppins, sans-serif' }}
-              >
-                Clear Filter
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsFullCalendarOpen(false)}
-                className="flex-1 py-2 text-[11px] font-semibold text-white bg-[#1AB0DC] hover:opacity-90 transition shadow-xs"
-                style={{ borderRadius: '16px 16px 36px 16px', fontFamily: 'Poppins, sans-serif' }}
-              >
-                Done
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
