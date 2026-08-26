@@ -47,10 +47,10 @@ export function MobileOnboardingScreen({
 
       {/* 2. MIDDLE LAYER: Soft Cyan Blur Overlay */}
       <div
-        className="absolute top-[-40px] left-0 right-0 h-[180px] pointer-events-none z-20"
+        className="absolute top-[-40px] left-0 right-0 h-[220px] pointer-events-none z-20"
         style={{
-          background: 'linear-gradient(180deg, rgba(218, 250, 255, 0.88) 0%, rgba(218, 250, 255, 0.52) 60%, rgba(247, 252, 255, 0) 100%)',
-          filter: 'blur(65px)',
+          background: 'linear-gradient(180deg, rgba(247, 252, 255, 0.92) 0%, rgba(247, 252, 255, 0.7) 55%, rgba(247, 252, 255, 0) 100%)',
+          filter: 'blur(45px)',
         }}
       />
 
@@ -73,12 +73,12 @@ export function MobileOnboardingScreen({
         }}
       />
 
-      {/* Bottom Right Teardrop Watermark Shape */}
+      {/* Upper Right Teardrop Watermark Shape */}
       <div
-        className="absolute left-[247px] bottom-[310px] w-[135px] h-[135px] pointer-events-none z-5 transition-all duration-500"
+        className="absolute left-[285px] bottom-[395px] w-[135px] h-[135px] pointer-events-none z-5 transition-all duration-500"
         style={{
           background: slide.accentGradient,
-          opacity: 0.2,
+          opacity: 0.25,
           borderRadius: '999px 0px 999px 999px',
         }}
       />

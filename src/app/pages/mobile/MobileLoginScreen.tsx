@@ -29,16 +29,17 @@ export function MobileLoginScreen({
             src={kaleidoscope}
             alt="CreativeSelf Inverted Prism"
             className="w-full h-full object-cover scale-110 rotate-[-139.79deg]"
+            style={{ opacity: 0.2 }}
           />
         </div>
       </div>
 
-      {/* Soft Cyan Blur Overlay */}
+      {/* Soft Gradient Overlay (Subtly stronger for contrast) */}
       <div
-        className="absolute top-[-40px] left-0 right-0 h-[180px] pointer-events-none z-2"
+        className="absolute top-[-40px] left-0 right-0 h-[220px] pointer-events-none z-2"
         style={{
-          background: 'linear-gradient(180deg, rgba(218, 250, 255, 0.88) 0%, rgba(218, 250, 255, 0.52) 60%, rgba(247, 252, 255, 0) 100%)',
-          filter: 'blur(65px)',
+          background: 'linear-gradient(180deg, rgba(247, 252, 255, 0.92) 0%, rgba(247, 252, 255, 0.7) 55%, rgba(247, 252, 255, 0) 100%)',
+          filter: 'blur(45px)',
         }}
       />
 
