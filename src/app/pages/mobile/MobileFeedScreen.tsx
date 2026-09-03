@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { CaretRight, Heart, ChatCircle } from '@phosphor-icons/react';
+import { CaretRight, Heart, ChatCircle, ShieldCheck } from '@phosphor-icons/react';
 import { samplePostsData, PostData } from '@/app/data/postsData';
 
 interface BrandStory {
@@ -22,6 +22,9 @@ interface MobileFeedScreenProps {
   setSelectedPost: (post: PostData | null) => void;
   likedPostIds: string[];
   toggleLikePost: (id: string) => void;
+  savedPostIds?: string[];
+  toggleSavePost?: (id: string) => void;
+  onViewProvider?: (brandId: string) => void;
 }
 
 export function MobileFeedScreen({
@@ -142,7 +145,6 @@ export function MobileFeedScreen({
 
         {/* SERVICE BRAND STORIES SECTION */}
         <div className="py-2">
-
           <div className="grid grid-cols-6 gap-1 px-3 py-1 text-center">
             {brandStories.map((story, idx) => (
               <button
@@ -169,18 +171,64 @@ export function MobileFeedScreen({
             const isLiked = likedPostIds.includes(post.id);
             return (
               <div key={post.id} className="bg-white w-full py-4 space-y-3">
-                {/* Post Header */}
+                {/* Post Header - Brand Authored */}
                 <div className="px-4 flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-xl p-1 bg-slate-100 rounded-full">{post.emoji}</span>
+                  <div
+                    className="flex items-center gap-2.5 cursor-pointer group"
+                    onClick={() => setSelectedPost(post)}
+                  >
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-xl shrink-0 border border-slate-100 shadow-2xs group-hover:scale-105 transition-transform"
+                      style={{ background: `${post.color || '#1AB0DC'}18` }}
+                    >
+                      {post.emoji}
+                    </div>
                     <div>
-                      <p className="text-xs font-semibold text-slate-900">{post.provider}</p>
-                      <p className="text-[11px] text-slate-400">{post.category}</p>
+                      <div className="flex items-center gap-1.5">
+                        <p className="text-xs font-extrabold text-slate-900 leading-tight group-hover:text-[#1AB0DC] transition">
+                          {post.provider}
+                        </p>
+                        <ShieldCheck size={14} className="text-[#1AB0DC] shrink-0" weight="fill" />
+                      </div>
+                      <p className="text-[11px] font-medium text-slate-400 leading-tight mt-0.5">
+                        {post.handle || `@${post.provider.toLowerCase().replace(/\s+/g, '')}`}
+                      </p>
                     </div>
                   </div>
-                  <span className="text-[10px] font-semibold text-[#1AB0DC] bg-[#E8F9FF] px-2.5 py-0.5 rounded-full">
-                    {post.duration}
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className="text-[10px] font-bold px-2.5 py-0.5 rounded-full"
+                      style={{
+                        backgroundColor:
+                          post.category === 'Athletic Fanatics'
+                            ? '#ECFDF5'
+                            : post.category === 'Heart of Art'
+                            ? '#FFF1F2'
+                            : post.category === 'Moves & Grooves'
+                            ? '#F5F3FF'
+                            : post.category === 'Chowdown'
+                            ? '#FEF3C7'
+                            : '#F1F5F9',
+                        color:
+                          post.category === 'Athletic Fanatics'
+                            ? '#059669'
+                            : post.category === 'Heart of Art'
+                            ? '#E11D48'
+                            : post.category === 'Moves & Grooves'
+                            ? '#7C3AED'
+                            : post.category === 'Chowdown'
+                            ? '#D97706'
+                            : '#475569',
+                      }}
+                    >
+                      {post.category}
+                    </span>
+                    {post.duration && (
+                      <span className="text-[10px] font-semibold text-[#1AB0DC] bg-[#E8F9FF] px-2.5 py-0.5 rounded-full">
+                        {post.duration}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 {/* Post Preview Image (Full Width, rounded-none) */}
@@ -237,7 +285,7 @@ export function MobileFeedScreen({
             );
           })}
         </div>
+      </div>
     </div>
-  </div>
-);
+  );
 }

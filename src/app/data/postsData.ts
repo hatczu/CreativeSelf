@@ -28,13 +28,13 @@ export type PostData = {
 export const samplePostsData: PostData[] = [
   {
     id: "breathe",
-    provider: "Athletic Fanatics",
-    handle: "@athleticfanatics",
-    category: "Movement & mindfulness",
+    provider: "Maya Ellison Mindful Movement",
+    handle: "@mayaellison",
+    category: "Athletic Fanatics",
     title: "Reset the room: 45-minute desk-to-mat yoga",
     copy: "A gentle, team-friendly flow designed for the middle of a full workday. No experience or changing rooms needed.",
     fullStory:
-      "Modern workdays leave us holding tension in our shoulders, hips, and lower back without even realizing it. 'Reset the Room' is designed specifically to shift team energy in under an hour.\n\nGuided by certified movement practitioners from Athletic Fanatics, this experience transitions your team smoothly from desk posture into restorative grounding poses. We provide mats, gentle background soundscapes, and options for every mobility level.",
+      "Modern workdays leave us holding tension in our shoulders, hips, and lower back without even realizing it. 'Reset the Room' is designed specifically to shift team energy in under an hour.\n\nGuided by certified movement practitioners from Maya Ellison Mindful Movement, this experience transitions your team smoothly from desk posture into restorative grounding poses. We provide mats, gentle background soundscapes, and options for every mobility level.",
     date: "Wed, Aug 7 · 12:15 PM",
     duration: "45 min",
     seats: "18 places",
@@ -53,7 +53,7 @@ export const samplePostsData: PostData[] = [
     imageAlt: "Person taking a mindful pause at a desk",
     service: "Desk-to-Mat Yoga Flow",
     label: "Published",
-    authorRole: "Mindfulness Lead · Athletic Fanatics",
+    authorRole: "Mindfulness Lead · Maya Ellison Studio",
     authorAvatar: "🌿",
     highlights: [
       "No specialized activewear or changing rooms needed",
@@ -68,9 +68,9 @@ export const samplePostsData: PostData[] = [
   },
   {
     id: "colour",
-    provider: "Heart of Art",
-    handle: "@heartofart",
-    category: "Creative wellbeing",
+    provider: "Studio Lumen",
+    handle: "@studiolumen",
+    category: "Heart of Art",
     title: "Watercolour without perfection",
     copy: "A guided studio session where teams slow down, make a little mess, and leave with something that is entirely theirs.",
     fullStory:
@@ -92,7 +92,7 @@ export const samplePostsData: PostData[] = [
     imageAlt: "Paintbrush dipped into a colourful paint palette",
     service: "Watercolour without perfection",
     label: "Scheduled",
-    authorRole: "Studio Director · Heart of Art",
+    authorRole: "Studio Director · Studio Lumen",
     authorAvatar: "🎨",
     highlights: [
       "All art materials supplied & delivered directly to your venue",
@@ -107,9 +107,9 @@ export const samplePostsData: PostData[] = [
   },
   {
     id: "rhythm",
-    provider: "Moves & Grooves",
-    handle: "@movesandgrooves",
-    category: "Energy & connection",
+    provider: "The Rhythm Room",
+    handle: "@rhythmroom",
+    category: "Moves & Grooves",
     title: "Bring the energy back: rhythm lab",
     copy: "An all-level movement break built to shift the mood, wake up the body, and make a team laugh together.",
     fullStory:
@@ -129,7 +129,7 @@ export const samplePostsData: PostData[] = [
     ],
     service: "Rhythm & Movement Lab",
     label: "Published",
-    authorRole: "Performance Coach · Moves & Grooves",
+    authorRole: "Performance Coach · The Rhythm Room",
     authorAvatar: "✨",
     highlights: [
       "High-vibe energy booster perfect for Friday afternoons",
@@ -142,9 +142,9 @@ export const samplePostsData: PostData[] = [
   },
   {
     id: "food",
-    provider: "Chowdown",
-    handle: "@chowdown",
-    category: "Connection through food",
+    provider: "Cocoa Collective",
+    handle: "@cocoacollective",
+    category: "Chowdown",
     title: "The five-sense chocolate workshop",
     copy: "A deliciously hands-on tasting session that blends conversation, craft, and a small moment of indulgence.",
     fullStory:
@@ -165,7 +165,7 @@ export const samplePostsData: PostData[] = [
     imageAlt: "Artisan chocolate on a ceramic plate",
     service: "Artisan Chocolate Tasting",
     label: "Published",
-    authorRole: "Master Chocolatier · Chowdown",
+    authorRole: "Master Chocolatier · Cocoa Collective",
     authorAvatar: "🍫",
     highlights: [
       "Guided tasting of rare single-origin chocolates",
@@ -180,7 +180,7 @@ export const samplePostsData: PostData[] = [
     id: "watercolour",
     provider: "Studio Lumen",
     handle: "@studiolumen",
-    category: "Creative Wellbeing",
+    category: "Heart of Art",
     title: "A gentle kind of team reset",
     copy: "Watercolour gives busy minds a reason to slow down, notice more, and make something together.",
     fullStory: "A serene studio workshop curated to foster deep focus and collective quietude through medium exploration.",
@@ -205,7 +205,7 @@ export const samplePostsData: PostData[] = [
     id: "behind-scenes",
     provider: "Studio Lumen",
     handle: "@studiolumen",
-    category: "Behind the Scenes",
+    category: "Heart of Art",
     title: "A little colour goes a long way",
     copy: "A peek into how a Studio Lumen session turns a meeting room into a creative pause.",
     fullStory: "Inside look at how we transform sterile corporate boardroom spaces into warm, welcoming creative studios.",
@@ -230,7 +230,7 @@ export const samplePostsData: PostData[] = [
     id: "team-story",
     provider: "Studio Lumen",
     handle: "@studiolumen",
-    category: "Team Story",
+    category: "Heart of Art",
     title: "What Northstar Studio made together",
     copy: "Twelve people, a table of colour, and a surprisingly good afternoon.",
     fullStory: "Case study of Northstar Studio's quarter-end creative retreat with Studio Lumen.",

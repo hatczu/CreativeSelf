@@ -23,12 +23,14 @@ interface MobileBookingsScreenProps {
   myBookings: any[];
   setActiveTab: (tab: any) => void;
   setSelectedQrPass: (pass: any) => void;
+  onSelectBooking?: (booking: any) => void;
 }
 
 export function MobileBookingsScreen({
   myBookings,
   setActiveTab,
   setSelectedQrPass,
+  onSelectBooking,
 }: MobileBookingsScreenProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategoryTab, setSelectedCategoryTab] = useState<'sessions' | 'workshops' | 'passes'>('sessions');
@@ -176,8 +178,13 @@ export function MobileBookingsScreen({
 
   return (
     <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 bg-[#F1F5F9] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-      {/* TOP HEADER BLOCK (Matching Mobile Discover Header Spacing & Layout) */}
-      <div className="bg-white px-4 pt-5 pb-4 space-y-3 border-b border-slate-100">
+      {/* TOP HEADER BLOCK (Matching Mobile Discover Header Spacing & Gradient Layout) */}
+      <div
+        className="w-full px-4 pt-5 pb-4 space-y-3 border-b border-slate-100/80"
+        style={{
+          background: 'linear-gradient(180deg, #E0F2FE 0%, #F0F9FF 60%, #FFFFFF 100%)',
+        }}
+      >
         {/* Header Row: Title & Active Bookings Count & Calendar Teardrop Action Button */}
         <div className="flex items-start justify-between">
           <div>
@@ -317,15 +324,14 @@ export function MobileBookingsScreen({
               type="button"
               onClick={() => setCurrentWeekIndex((prev) => Math.max(0, prev - 1))}
               disabled={currentWeekIndex === 0}
-              className="w-7 h-7 bg-white border border-[#E2E8F0] flex items-center justify-center text-[#45556C] hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white transition shrink-0 self-center cursor-pointer"
-              style={{ borderRadius: '10px 10px 22px 10px' }}
+              className="w-4 h-7 p-0 bg-transparent border-0 flex items-center justify-center text-[#45556C] hover:text-[#0F172B] disabled:opacity-30 transition shrink-0 self-center cursor-pointer shadow-none outline-none focus:outline-none"
               title="Previous Week"
             >
-              <CaretLeft size={14} weight="bold" />
+              <CaretLeft size={16} weight="bold" />
             </button>
 
-            <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] flex-1 justify-between">
-              {currentWeek.slice(0, 6).map((item) => {
+            <div className="flex items-center gap-1 overflow-x-auto py-0.5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] flex-1 justify-between">
+              {currentWeek.slice(0, 7).map((item) => {
                 const isSelected = selectedDateNum === item.date;
                 const hasBooking = item.hasBooking;
                 return (
@@ -373,11 +379,10 @@ export function MobileBookingsScreen({
               type="button"
               onClick={() => setCurrentWeekIndex((prev) => Math.min(weeksList.length - 1, prev + 1))}
               disabled={currentWeekIndex === weeksList.length - 1}
-              className="w-7 h-7 bg-white border border-[#E2E8F0] flex items-center justify-center text-[#45556C] hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-white transition shrink-0 self-center cursor-pointer"
-              style={{ borderRadius: '10px 10px 22px 10px' }}
+              className="w-4 h-7 p-0 bg-transparent border-0 flex items-center justify-center text-[#45556C] hover:text-[#0F172B] disabled:opacity-30 transition shrink-0 self-center cursor-pointer shadow-none outline-none focus:outline-none"
               title="Next Week"
             >
-              <CaretRight size={14} weight="bold" />
+              <CaretRight size={16} weight="bold" />
             </button>
           </div>
         )}
@@ -436,17 +441,21 @@ export function MobileBookingsScreen({
         </div>
       </div>
 
-      {/* SCHEDULE BOOKINGS CONTENT LIST */}
-      <div className="p-4 space-y-3.5 relative z-10">
+      {/* SCHEDULE BOOKINGS CONTENT LIST (Matching Discover Padding, Gaps & Teardrop Cards) */}
+      <div className="p-2.5 space-y-2.5 relative z-10 pb-6">
         {filteredBookings.map((bk) => {
           const isExpanded = expandedBookingId === bk.id;
           return (
             <div
               key={bk.id}
-              className="w-full bg-white p-4 space-y-3 border border-slate-100 shadow-2xs hover:shadow-xs transition"
-              style={{ borderRadius: '24px 24px 60px 24px' }}
+              onClick={() => onSelectBooking && onSelectBooking(bk)}
+              className="w-full bg-white p-4 space-y-3 transition-all duration-200 overflow-hidden hover:shadow-md cursor-pointer group"
+              style={{
+                borderRadius: '20px 20px 48px 20px',
+                boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)',
+              }}
             >
-              {/* Card Header Row (Matching Feed Card Header Style) */}
+              {/* Card Header Row */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5 min-w-0 flex-1">
                   {bk.vendorLogo ? (
@@ -461,26 +470,21 @@ export function MobileBookingsScreen({
                     </span>
                   )}
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs font-semibold text-slate-900 truncate">{bk.vendorName}</p>
+                    <p className="text-xs font-semibold text-slate-900 truncate group-hover:text-[#33C4F0] transition">{bk.vendorName}</p>
                     <p className="text-[11px] text-slate-400 truncate">Host & Studio Partner</p>
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => toggleExpand(bk.id)}
-                  className="w-7 h-7 rounded-full bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-500 transition shrink-0 cursor-pointer"
-                >
-                  {isExpanded ? <CaretUp size={14} /> : <CaretDown size={14} />}
-                </button>
+                <span className="text-[11px] font-bold text-[#147C9E] bg-[#E8F9FF] px-2.5 py-1 rounded-full group-hover:bg-[#33C4F0] group-hover:text-white transition">
+                  View Details →
+                </span>
               </div>
 
-              {/* Media Image Banner goes FIRST right after header */}
+              {/* Media Image Banner */}
               {bk.image && (
                 <div
                   className="relative h-[150px] w-full bg-slate-100 overflow-hidden isolate shadow-2xs cursor-pointer group"
                   style={{ borderRadius: '20px 20px 50px 20px' }}
-                  onClick={() => setSelectedQrPass(bk)}
                 >
                   <img
                     src={bk.image}
@@ -519,10 +523,10 @@ export function MobileBookingsScreen({
                 </div>
               )}
 
-              {/* Activity Details: Title & Time BELOW the image */}
+              {/* Activity Details: Title & Time */}
               <div className="pt-0.5 space-y-0.5">
                 <h4
-                  className="text-[16px] font-semibold text-[#0F172B] leading-[22px] truncate"
+                  className="text-[16px] font-semibold text-[#0F172B] leading-[22px] truncate group-hover:text-[#1AB0DC] transition"
                   style={{ fontFamily: 'Century Gothic, sans-serif' }}
                 >
                   {bk.activityName}
@@ -566,57 +570,33 @@ export function MobileBookingsScreen({
                 </span>
               </div>
 
-              {/* Expandable Section / Action Panel */}
-              {isExpanded && (
-                <div className="pt-2 border-t border-slate-100 space-y-2.5">
-                  {bk.qrCode && (
-                    <div
-                      className="bg-[#E8F9FF] border border-[#33C4F0]/30 p-2.5 flex items-center justify-between text-[11px] text-[#147C9E]"
-                      style={{ borderRadius: '16px 16px 36px 16px' }}
-                    >
-                      <span className="flex items-center gap-1.5 font-semibold" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                        <QrCode size={15} className="text-[#33C4F0]" /> Pass Code:
-                      </span>
-                      <span className="font-mono font-bold bg-white px-2 py-0.5 rounded border border-[#A2F4FD] text-[10px]">
-                        {bk.qrCode}
-                      </span>
-                    </div>
-                  )}
-
-                  <div className="flex items-center gap-2 pt-0.5">
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('discover')}
-                      className="flex-1 h-[36px] bg-[#F8FDFF] border border-[#33C4F0]/40 text-[#147C9E] text-[12px] font-semibold flex items-center justify-center gap-1.5 transition hover:bg-[#E8F9FF]"
-                      style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
-                    >
-                      <Eye size={15} className="text-[#147C9E]" />
-                      Explore More
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedQrPass(bk)}
-                      className="flex-1 h-[36px] bg-[#33C4F0] text-white text-[12px] font-semibold flex items-center justify-center gap-1.5 transition hover:opacity-90 shadow-xs"
-                      style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
-                    >
-                      <QrCode size={15} />
-                      Show Mobile Pass
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {!isExpanded && (
+              {/* Action Buttons Row */}
+              <div className="flex items-center gap-2 pt-1 border-t border-slate-100">
                 <button
                   type="button"
-                  onClick={() => setSelectedQrPass(bk)}
-                  className="w-full h-[36px] bg-[#33C4F0] text-white text-[12px] font-semibold flex items-center justify-center gap-1.5 transition hover:opacity-90 shadow-xs mt-1"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onSelectBooking) onSelectBooking(bk);
+                  }}
+                  className="flex-1 h-[36px] bg-[#F8FDFF] border border-[#33C4F0]/40 text-[#147C9E] text-[12px] font-semibold flex items-center justify-center gap-1.5 transition hover:bg-[#E8F9FF] cursor-pointer"
+                  style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
+                >
+                  <Eye size={15} className="text-[#147C9E]" />
+                  Open Booking Page
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedQrPass(bk);
+                  }}
+                  className="flex-1 h-[36px] bg-[#33C4F0] text-white text-[12px] font-semibold flex items-center justify-center gap-1.5 transition hover:opacity-90 shadow-xs cursor-pointer"
                   style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
                 >
                   <QrCode size={15} />
-                  Show Mobile Pass
+                  Show Pass
                 </button>
-              )}
+              </div>
             </div>
           );
         })}

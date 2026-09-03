@@ -3,6 +3,18 @@ import { useNavigate } from 'react-router';
 import {
   CaretLeft,
   CaretRight,
+  Sun,
+  Globe,
+  Bell,
+  Star,
+  Question,
+  ShareNetwork,
+  Info,
+  FileText,
+  ShieldCheck,
+  SignOut,
+  ArrowUp,
+  Sparkle,
   Gear,
   CreditCard,
   Medal,
@@ -10,11 +22,6 @@ import {
   LockKey,
   Desktop,
   BookmarkSimple,
-  Question,
-  Globe,
-  SignOut,
-  MagnifyingGlass,
-  Sparkle,
 } from '@phosphor-icons/react';
 import { NavBarStyle } from './ClientMobileApp';
 
@@ -47,497 +54,310 @@ export function MobileProfileScreen({
 }: MobileProfileScreenProps) {
   const navigate = useNavigate();
   const [activeView, setActiveView] = useState<'menu' | 'profile-details' | 'settings'>('menu');
-  const [biometricsEnabled, setBiometricsEnabled] = useState(true);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [themeMode, setThemeMode] = useState<'System' | 'Light' | 'Dark'>('System');
+  const [selectedLanguage, setSelectedLanguage] = useState('English');
 
-  // VIEW 2: PROFILE DETAILS SUBVIEW
+  // SUBVIEW: PROFILE DETAILS
   if (activeView === 'profile-details') {
     return (
-      <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 bg-[#F1F5F9] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 bg-[#F1F5F9] text-[#1A1A28] font-sans [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {/* Top Header */}
-        <div className="bg-white px-4 pt-5 pb-4 border-b border-slate-100 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setActiveView('menu')}
-              className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 transition cursor-pointer"
-            >
-              <CaretLeft size={16} weight="bold" />
-            </button>
-            <div>
-              <h2
-                className="text-[17px] font-semibold text-[#1A1A28] leading-tight"
-                style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}
-              >
-                Profile Details
-              </h2>
-              <p className="text-[12px] text-[#6A7282] font-normal">
-                Personal & organization profile information
-              </p>
-            </div>
-          </div>
+        <div className="bg-white px-4 pt-5 pb-4 border-b border-slate-100 flex items-center justify-between sticky top-0 z-30 shadow-2xs">
+          <button
+            type="button"
+            onClick={() => setActiveView('menu')}
+            className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 transition cursor-pointer"
+          >
+            <CaretLeft size={16} weight="bold" />
+          </button>
+          <h2
+            className="text-base font-extrabold text-[#1A1A28]"
+            style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}
+          >
+            Profile Details
+          </h2>
+          <div className="w-8" />
         </div>
 
-        {/* Content Cards (Full Width, No Outline) */}
-        <div className="space-y-2 pt-2">
-          {/* User Hero Section */}
-          <div className="w-full bg-white p-4 space-y-3">
+        <div className="p-4 space-y-3">
+          <div
+            className="bg-white p-5 shadow-2xs border border-slate-100/80 space-y-4"
+            style={{ borderRadius: '20px 20px 48px 20px' }}
+          >
             <div className="flex items-center gap-3.5">
-              <div
-                className="w-14 h-14 bg-gradient-to-tr from-[#33C4F0] to-[#1AB0DC] text-white flex items-center justify-center text-2xl shrink-0"
-                style={{ borderRadius: '20px 20px 48px 20px' }}
-              >
-                🧭
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80"
+                alt="Profile"
+                className="w-14 h-14 rounded-full object-cover shadow-sm ring-2 ring-[#33C4F0]/30 shrink-0"
+              />
+              <div className="min-w-0">
+                <h3 className="text-base font-extrabold text-[#1A1A28]">{regName || 'Eugenia Babajanyan'}</h3>
+                <p className="text-xs text-slate-500 font-medium">{emailInput || 'eugenia.bj@gmail.com'}</p>
+                <span
+                  className="inline-block mt-1 text-[10px] font-extrabold text-[#007595] bg-[#E8F9FF] border border-[#A2F4FD] px-2.5 py-0.5"
+                  style={{ borderRadius: '12px 12px 24px 12px' }}
+                >
+                  The Explorer 🧭
+                </span>
               </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className="text-base font-semibold text-[#1A1A28] truncate">{regName || 'Alex Morgan'}</h3>
-                  <span
-                    className="text-[10px] font-semibold text-[#007595] bg-[#E8F9FF] border border-[#A2F4FD] px-2.5 py-0.5 shrink-0"
-                    style={{ borderRadius: '20px 20px 48px 20px' }}
-                  >
-                    The Explorer 🧭
-                  </span>
-                </div>
-                <p className="text-xs text-slate-500 font-medium truncate mt-0.5">{emailInput || 'alex@company.com'}</p>
-                <div className="flex items-center gap-1.5 mt-1">
-                  <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
-                  <span className="text-[11px] text-[#10B981] font-semibold">Active Pro Annual Subscriber</span>
-                </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 text-xs pt-2 border-t border-slate-100">
+              <div
+                className="bg-slate-50 p-3"
+                style={{ borderRadius: '14px 14px 28px 14px' }}
+              >
+                <p className="text-[9px] font-extrabold text-slate-400 uppercase">ROLE / TITLE</p>
+                <p className="font-extrabold text-[#1A1A28] truncate mt-0.5">{jobTitleInput || 'Creative Lead'}</p>
+              </div>
+              <div
+                className="bg-slate-50 p-3"
+                style={{ borderRadius: '14px 14px 28px 14px' }}
+              >
+                <p className="text-[9px] font-extrabold text-slate-400 uppercase">COMPANY</p>
+                <p className="font-extrabold text-[#1A1A28] truncate mt-0.5">{companyNameInput || 'Acme Agency'}</p>
               </div>
             </div>
           </div>
 
-          {/* Account Details & Organization Section */}
-          <div className="w-full bg-white p-4 space-y-3">
-            <div className="flex items-center justify-between pb-1 border-b border-slate-100">
-              <h3 className="text-[12px] font-semibold uppercase text-[#1A1A28] tracking-wider">Work Details</h3>
-              <span
-                className="text-[10px] font-semibold text-[#007595] bg-[#ECFEFF] border border-[#A2F4FD] px-2.5 py-0.5"
-                style={{ borderRadius: '20px 20px 48px 20px' }}
-              >
-                Verified
-              </span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div
-                className="bg-slate-50 p-3 border-none"
-                style={{ borderRadius: '16px 16px 36px 16px' }}
-              >
-                <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">FULL NAME</p>
-                <p className="font-semibold text-slate-900 truncate mt-0.5">{regName || 'Alex Morgan'}</p>
-              </div>
-              <div
-                className="bg-slate-50 p-3 border-none"
-                style={{ borderRadius: '16px 16px 36px 16px' }}
-              >
-                <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">ROLE / TITLE</p>
-                <p className="font-semibold text-slate-900 truncate mt-0.5">{jobTitleInput || 'Creative Lead'}</p>
-              </div>
-              <div
-                className="bg-slate-50 p-3 border-none"
-                style={{ borderRadius: '16px 16px 36px 16px' }}
-              >
-                <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">COMPANY</p>
-                <p className="font-semibold text-slate-900 truncate mt-0.5">{companyNameInput || 'Acme Agency'}</p>
-              </div>
-              <div
-                className="bg-slate-50 p-3 border-none"
-                style={{ borderRadius: '16px 16px 36px 16px' }}
-              >
-                <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">INDUSTRY</p>
-                <p className="font-semibold text-slate-900 truncate mt-0.5">{industryInput || 'Technology & Design'}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Wellness Stats Section */}
-          <div className="w-full bg-white p-4 space-y-3">
-            <h3 className="text-[12px] font-semibold uppercase text-[#1A1A28] tracking-wider pb-1 border-b border-slate-100">
-              Wellness Stats & Activity
-            </h3>
-            <div className="grid grid-cols-3 gap-2">
-              <div
-                className="bg-slate-50 p-3 border-none text-center"
-                style={{ borderRadius: '16px 16px 36px 16px' }}
-              >
-                <p className="text-lg font-semibold text-[#33C4F0]">12</p>
-                <p className="text-[10px] font-medium text-slate-400">Sessions</p>
-              </div>
-              <div
-                className="bg-slate-50 p-3 border-none text-center"
-                style={{ borderRadius: '16px 16px 36px 16px' }}
-              >
-                <p className="text-lg font-semibold text-[#8B5CF6]">18.5h</p>
-                <p className="text-[10px] font-medium text-slate-400">Mindful Hours</p>
-              </div>
-              <div
-                className="bg-slate-50 p-3 border-none text-center"
-                style={{ borderRadius: '16px 16px 36px 16px' }}
-              >
-                <p className="text-lg font-semibold text-[#10B981]">5 Days</p>
-                <p className="text-[10px] font-medium text-slate-400">Streak 🔥</p>
-              </div>
-            </div>
-          </div>
+          <button
+            type="button"
+            onClick={() => setActiveView('menu')}
+            className="w-full py-3 bg-[#1A1A28] hover:bg-[#33C4F0] hover:text-[#1A1A28] text-white text-xs font-extrabold transition cursor-pointer shadow-xs"
+            style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
+          >
+            Done
+          </button>
         </div>
       </div>
     );
   }
 
-  // VIEW 3: SETTINGS SUBVIEW
-  if (activeView === 'settings') {
-    return (
-      <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 bg-[#F1F5F9] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-        {/* Top Header */}
-        <div className="bg-white px-4 pt-5 pb-4 border-b border-slate-100 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setActiveView('menu')}
-              className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 transition cursor-pointer"
-            >
-              <CaretLeft size={16} weight="bold" />
-            </button>
-            <div>
-              <h2
-                className="text-[17px] font-semibold text-[#1A1A28] leading-tight"
-                style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}
-              >
-                Settings
-              </h2>
-              <p className="text-[12px] text-[#6A7282] font-normal">
-                Account preferences, security & app options
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Settings options list */}
-        <div className="space-y-2 pt-2">
-          <div className="w-full bg-white divide-y divide-slate-100 text-xs">
-            <div className="px-4 py-3 bg-slate-50/50">
-              <h3 className="text-[11px] font-semibold uppercase text-slate-400 tracking-wider">Preferences</h3>
-            </div>
-
-            <div className="p-4 flex items-center justify-between">
-              <div>
-                <p className="font-semibold text-slate-900">Push Notifications</p>
-                <p className="text-[10px] text-slate-500 font-medium mt-0.5">Receive session reminders & updates</p>
-              </div>
-              <button
-                type="button"
-                className="w-11 h-6 bg-[#33C4F0] rounded-full p-1 transition-colors cursor-pointer"
-              >
-                <div className="w-4 h-4 rounded-full bg-white translate-x-5 transition-transform" />
-              </button>
-            </div>
-
-            <div className="p-4 flex items-center justify-between">
-              <div>
-                <p className="font-semibold text-slate-900">Biometric Authentication</p>
-                <p className="text-[10px] text-slate-500 font-medium mt-0.5">Fingerprint or Face ID login</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setBiometricsEnabled(!biometricsEnabled)}
-                className={`w-11 h-6 rounded-full p-1 transition-colors cursor-pointer ${
-                  biometricsEnabled ? 'bg-[#10B981]' : 'bg-slate-300'
-                }`}
-              >
-                <div
-                  className={`w-4 h-4 rounded-full bg-white transition-transform ${
-                    biometricsEnabled ? 'translate-x-5' : 'translate-x-0'
-                  }`}
-                />
-              </button>
-            </div>
-
-            {/* Navigation Bar Style Selector */}
-            <div className="p-4 space-y-2.5">
-              <div>
-                <p className="font-semibold text-slate-900">Navigation Bar Style</p>
-                <p className="text-[10px] text-slate-500 font-medium mt-0.5">Customize bottom navigation theme & layout</p>
-              </div>
-              <div className="grid grid-cols-2 gap-2 pt-1">
-                {[
-                  { id: 'liquid-glass-icon', label: 'Glass (Icon Only)', desc: 'Floating blur pills' },
-                  { id: 'liquid-glass-text', label: 'Glass (With Text)', desc: 'Floating labeled pills' },
-                  { id: 'liquid-glass-dark', label: 'Dark Glass', desc: 'Dark floating blur' },
-                  { id: 'classic', label: 'Classic Bar', desc: 'Solid bottom dock' },
-                ].map((option) => {
-                  const isSelected = (navBarStyle || 'liquid-glass-icon') === option.id;
-                  return (
-                    <button
-                      key={option.id}
-                      type="button"
-                      onClick={() => setNavBarStyle?.(option.id as NavBarStyle)}
-                      className={`p-3 text-left rounded-xl border transition-all cursor-pointer ${
-                        isSelected
-                          ? 'border-[#007595] bg-[#E8F9FF] text-[#007595] shadow-xs'
-                          : 'border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700'
-                      }`}
-                    >
-                      <div className="text-[12px] font-semibold">{option.label}</div>
-                      <div className={`text-[10px] ${isSelected ? 'text-[#007595]/80' : 'text-slate-400'}`}>
-                        {option.desc}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          <div className="w-full bg-white divide-y divide-slate-100 text-xs">
-            <div className="px-4 py-3 bg-slate-50/50">
-              <h3 className="text-[11px] font-semibold uppercase text-slate-400 tracking-wider">About</h3>
-            </div>
-            <div className="p-4 flex items-center justify-between text-slate-600">
-              <span className="font-medium">App Version</span>
-              <span className="font-semibold text-slate-900">v2.4.0 (Build 412)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // VIEW 1: MAIN PROFILE HUB (Signature Teardrop + Full Width Cards + No Border + Semibold Text)
+  // MAIN VIEW: MATCHING REFERENCE PROFILE IMAGE WITH CREATIVESELF SYSTEM UI TOKENS
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 bg-[#F1F5F9] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-      {/* Top Header Bar */}
-      <div className="bg-white px-4 pt-5 pb-4 border-b border-slate-100 flex items-center justify-between relative">
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 transition cursor-pointer"
-        >
-          <CaretLeft size={16} weight="bold" />
-        </button>
-
-        <h2
-          className="text-[17px] font-semibold text-[#1A1A28] absolute left-1/2 -translate-x-1/2"
+    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 bg-[#F1F5F9] text-[#1A1A28] font-sans [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      {/* Top Navigation Bar */}
+      <div className="px-5 pt-4 pb-2 flex items-center justify-between">
+        <span
+          className="text-xl font-black text-[#1A1A28] tracking-tight lowercase flex items-center gap-1"
           style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}
         >
-          Profile
-        </h2>
+          creativeself <span className="w-2 h-2 rounded-full bg-[#33C4F0] inline-block" />
+        </span>
 
         <button
           type="button"
-          className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-slate-200 transition cursor-pointer"
+          onClick={() => setActiveScreen('login')}
+          className="w-9 h-9 text-slate-700 bg-white hover:bg-rose-50 hover:text-rose-600 border border-slate-100 flex items-center justify-center transition cursor-pointer shadow-2xs"
+          style={{ borderRadius: '12px 12px 24px 12px' }}
+          title="Sign Out"
         >
-          <MagnifyingGlass size={16} weight="bold" />
+          <SignOut size={18} weight="bold" />
         </button>
       </div>
 
-      {/* Main List Sections (Full Width, No Outer Container Padding, space-y-2) */}
-      <div className="space-y-2 pt-2">
-        {/* User Profile Card Row */}
-        <div
-          onClick={() => setActiveView('profile-details')}
-          className="w-full bg-white p-4 flex items-center justify-between cursor-pointer hover:bg-slate-50/80 transition"
-        >
-          <div className="flex items-center gap-3.5 min-w-0">
-            <div
-              className="w-12 h-12 bg-gradient-to-tr from-[#33C4F0] to-[#1AB0DC] text-white flex items-center justify-center text-xl shrink-0"
-              style={{ borderRadius: '16px 16px 36px 16px' }}
-            >
-              🧭
-            </div>
-            <div className="min-w-0">
-              <h3 className="text-sm font-semibold text-[#1A1A28] truncate">{regName || 'Alex Morgan'}</h3>
-              <p className="text-xs text-slate-500 font-medium truncate">{emailInput || 'alex@company.com'}</p>
-            </div>
-          </div>
-          <CaretRight size={18} className="text-slate-400 shrink-0" />
+      {/* User Profile Avatar & Header (Centered with Archetype Tag) */}
+      <div
+        onClick={() => setActiveView('profile-details')}
+        className="py-4 flex flex-col items-center text-center cursor-pointer group"
+      >
+        <div className="relative mb-2.5">
+          <img
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80"
+            alt="Profile Avatar"
+            className="w-20 h-20 rounded-full object-cover shadow-sm ring-4 ring-[#33C4F0]/20 group-hover:ring-[#33C4F0] group-hover:scale-105 transition duration-200"
+          />
         </div>
 
-        {/* Upgrade / Active Plan Teardrop Banner */}
-        <div className="px-4 py-1 bg-white">
-          <div
-            className="w-full bg-[#1A1A28] text-white p-4 flex items-center justify-between relative overflow-hidden"
-            style={{ borderRadius: '24px 24px 64px 24px' }}
-          >
-            {/* Ambient Background Glow */}
-            <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-[#33C4F0]/20 rounded-full blur-xl pointer-events-none" />
+        <h2
+          className="text-base font-extrabold text-[#1A1A28] tracking-tight"
+          style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}
+        >
+          {regName || 'Eugenia Babajanyan'}
+        </h2>
+        <p className="text-xs text-slate-500 font-medium mt-0.5">
+          {emailInput || 'eugenia.bj@gmail.com'}
+        </p>
 
-            <div className="flex items-start gap-3 min-w-0 pr-2">
-              <div
-                className="w-8 h-8 bg-[#33C4F0]/20 text-[#33C4F0] flex items-center justify-center shrink-0 mt-0.5"
-                style={{ borderRadius: '12px 12px 24px 12px' }}
+        <span
+          className="mt-2 text-[10px] font-extrabold text-[#007595] bg-[#E8F9FF] border border-[#A2F4FD] px-3 py-0.5 flex items-center gap-1 shadow-2xs"
+          style={{ borderRadius: '12px 12px 24px 12px' }}
+        >
+          The Explorer 🧭
+        </span>
+      </div>
+
+      {/* Upgrade to Pro Banner Card (System Design Token Styled) */}
+      <div className="px-4 my-2">
+        <div
+          className="w-full bg-[#1A1A28] text-white p-4.5 shadow-md flex items-center justify-between relative overflow-hidden"
+          style={{ borderRadius: '20px 20px 48px 20px' }}
+        >
+          {/* Cyan Glow Effect */}
+          <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-[#33C4F0]/20 rounded-full blur-xl pointer-events-none" />
+
+          <div className="pr-2 min-w-0 z-10">
+            <div className="flex items-center gap-1.5">
+              <Sparkle size={15} className="text-[#33C4F0]" weight="fill" />
+              <h3
+                className="text-sm font-extrabold text-white"
+                style={{ fontFamily: 'Century Gothic, sans-serif' }}
               >
-                <Sparkle size={18} weight="fill" />
-              </div>
-              <div className="min-w-0">
-                <h4 className="text-xs font-semibold text-white">Upgrade to Pro</h4>
-                <p className="text-[10px] text-slate-300 font-medium leading-tight mt-0.5 line-clamp-2">
-                  Unlock shared budgets, AI insights, and custom wellness analytics.
-                </p>
-              </div>
+                Upgrade to Pro
+              </h3>
             </div>
+            <p className="text-[11px] text-slate-300 font-medium leading-snug mt-1 line-clamp-2 max-w-[210px]">
+              Unlock full-body AI avatar, advanced try-on and unlimited looks
+            </p>
+          </div>
 
+          <button
+            type="button"
+            onClick={() => setRegStep(4)}
+            className="px-3.5 py-1.5 bg-[#33C4F0] hover:bg-[#1AB0DC] text-[#1A1A28] font-extrabold text-xs transition flex items-center gap-1.5 cursor-pointer shrink-0 shadow-md z-10"
+            style={{ borderRadius: '14px 14px 28px 14px' }}
+          >
+            <span className="w-4 h-4 rounded-full bg-[#1A1A28]/15 flex items-center justify-center">
+              <ArrowUp size={10} weight="bold" />
+            </span>
+            <span>Upgrade</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Settings Card Group 1: Preferences (Mode, Language, Notifications) */}
+      <div className="px-4 my-3">
+        <div
+          className="bg-white border border-slate-100/80 shadow-2xs overflow-hidden divide-y divide-slate-100/80"
+          style={{ borderRadius: '20px 20px 48px 20px' }}
+        >
+          {/* Mode */}
+          <div className="px-4 py-3.5 flex items-center justify-between text-xs font-extrabold text-[#1A1A28] hover:bg-slate-50/50 transition cursor-pointer">
+            <div className="flex items-center gap-3">
+              <Sun size={18} className="text-[#33C4F0]" />
+              <span>Mode</span>
+            </div>
             <button
               type="button"
-              onClick={() => setRegStep(4)}
-              className="px-3.5 py-1.5 bg-[#33C4F0] hover:bg-[#28b3de] text-white text-[11px] font-semibold transition whitespace-nowrap cursor-pointer shrink-0 flex items-center gap-1 shadow-xs"
-              style={{ borderRadius: '20px 20px 48px 20px' }}
+              onClick={() =>
+                setThemeMode(themeMode === 'System' ? 'Light' : themeMode === 'Light' ? 'Dark' : 'System')
+              }
+              className="flex items-center gap-1 text-[#147C9E] font-bold hover:underline"
             >
-              <span>Upgrade</span>
-              <CaretRight size={12} />
+              <span>{themeMode}</span>
+              <CaretRight size={14} />
             </button>
           </div>
-        </div>
 
-        {/* First Menu Group Card (Settings, Plan, Badges, Corporate, Biometrics) */}
-        <div className="w-full bg-white divide-y divide-slate-100 text-xs">
-          <button
-            onClick={() => setActiveView('settings')}
-            className="w-full p-4 flex items-center justify-between hover:bg-slate-50/80 text-left transition cursor-pointer"
-          >
-            <div className="flex items-center gap-3 text-slate-800 font-semibold">
-              <Gear size={20} className="text-slate-500" />
-              <span>Settings</span>
+          {/* Language */}
+          <div className="px-4 py-3.5 flex items-center justify-between text-xs font-extrabold text-[#1A1A28] hover:bg-slate-50/50 transition cursor-pointer">
+            <div className="flex items-center gap-3">
+              <Globe size={18} className="text-[#33C4F0]" />
+              <span>Language</span>
             </div>
-            <CaretRight size={16} className="text-slate-400" />
-          </button>
+            <div className="flex items-center gap-1 text-[#147C9E] font-bold">
+              <span>{selectedLanguage}</span>
+              <CaretRight size={14} />
+            </div>
+          </div>
 
-          <button
-            onClick={() => setRegStep(4)}
-            className="w-full p-4 flex items-center justify-between hover:bg-slate-50/80 text-left transition cursor-pointer"
-          >
-            <div className="flex items-center gap-3 text-slate-800 font-semibold">
-              <CreditCard size={20} className="text-slate-500" />
-              <span>Plan & Subscription</span>
-            </div>
-            <CaretRight size={16} className="text-slate-400" />
-          </button>
-
-          <button
-            onClick={() => navigate('/test')}
-            className="w-full p-4 flex items-center justify-between hover:bg-slate-50/80 text-left transition cursor-pointer"
-          >
-            <div className="flex items-center gap-3 text-slate-800 font-semibold">
-              <Medal size={20} className="text-slate-500" />
-              <span>Badges & Archetype</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span
-                className="text-[10px] font-semibold text-[#007595] bg-[#E8F9FF] border border-[#A2F4FD] px-2.5 py-0.5"
-                style={{ borderRadius: '20px 20px 48px 20px' }}
-              >
-                The Explorer 🧭
-              </span>
-              <CaretRight size={16} className="text-slate-400" />
-            </div>
-          </button>
-
-          <button
-            onClick={() => navigate('/invites')}
-            className="w-full p-4 flex items-center justify-between hover:bg-slate-50/80 text-left transition cursor-pointer"
-          >
-            <div className="flex items-center gap-3 text-slate-800 font-semibold">
-              <Buildings size={20} className="text-slate-500" />
-              <span>Corporate Subscription & Invites</span>
-            </div>
-            <CaretRight size={16} className="text-slate-400" />
-          </button>
-
-          <div className="w-full p-4 flex items-center justify-between">
-            <div className="flex items-center gap-3 text-slate-800 font-semibold">
-              <LockKey size={20} className="text-slate-500" />
-              <span>Enable Fingerprint / Face ID</span>
+          {/* Notifications Toggle */}
+          <div className="px-4 py-3.5 flex items-center justify-between text-xs font-extrabold text-[#1A1A28]">
+            <div className="flex items-center gap-3">
+              <Bell size={18} className="text-[#33C4F0]" />
+              <span>Notifications</span>
             </div>
             <button
               type="button"
-              onClick={() => setBiometricsEnabled(!biometricsEnabled)}
-              className={`w-11 h-6 rounded-full p-1 transition-colors cursor-pointer ${
-                biometricsEnabled ? 'bg-[#10B981]' : 'bg-slate-300'
+              onClick={() => setNotificationsEnabled(!notificationsEnabled)}
+              className={`w-11 h-6 rounded-full p-0.5 transition-colors cursor-pointer ${
+                notificationsEnabled ? 'bg-[#33C4F0]' : 'bg-slate-200'
               }`}
             >
               <div
-                className={`w-4 h-4 rounded-full bg-white transition-transform ${
-                  biometricsEnabled ? 'translate-x-5' : 'translate-x-0'
+                className={`w-5 h-5 rounded-full bg-white shadow-xs transition-transform ${
+                  notificationsEnabled ? 'translate-x-5' : 'translate-x-0'
                 }`}
               />
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Second Menu Group Card (Saved Activities, Desktop switch, Help) */}
-        <div className="w-full bg-white divide-y divide-slate-100 text-xs">
-          <button
-            onClick={() => setActiveTab('discover')}
-            className="w-full p-4 flex items-center justify-between hover:bg-slate-50/80 text-left transition cursor-pointer"
-          >
-            <div className="flex items-center gap-3 text-slate-800 font-semibold">
-              <BookmarkSimple size={20} className="text-slate-500" />
-              <span>Saved Activities</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span
-                className="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5"
-                style={{ borderRadius: '20px 20px 48px 20px' }}
-              >
-                {savedActivityIds.length}
-              </span>
-              <CaretRight size={16} className="text-slate-400" />
-            </div>
-          </button>
-
-          <button
-            onClick={() => navigate('/dashboard')}
-            className="w-full p-4 flex items-center justify-between hover:bg-slate-50/80 text-left text-[#1AB0DC] transition cursor-pointer"
-          >
-            <div className="flex items-center gap-3 font-semibold">
-              <Desktop size={20} />
-              <span>Switch to Desktop Version</span>
-            </div>
-            <CaretRight size={16} />
-          </button>
-
-          <button
-            type="button"
-            onClick={() => navigate('/support')}
-            className="w-full p-4 flex items-center justify-between hover:bg-slate-50/80 text-left transition cursor-pointer"
-          >
-            <div className="flex items-center gap-3 text-slate-800 font-semibold">
-              <Question size={20} className="text-slate-500" />
-              <span>Help & Support</span>
-            </div>
-            <CaretRight size={16} className="text-slate-400" />
-          </button>
-        </div>
-
-        {/* Third Menu Group Card (Language, Logout) */}
-        <div className="w-full bg-white divide-y divide-slate-100 text-xs">
-          <div className="w-full p-4 flex items-center justify-between text-slate-800 font-semibold">
+      {/* Settings Card Group 2: Engagement (Rate Us, Help Center, Share) */}
+      <div className="px-4 my-3">
+        <div
+          className="bg-white border border-slate-100/80 shadow-2xs overflow-hidden divide-y divide-slate-100/80"
+          style={{ borderRadius: '20px 20px 48px 20px' }}
+        >
+          <div className="px-4 py-3.5 flex items-center justify-between text-xs font-extrabold text-[#1A1A28] hover:bg-slate-50/50 transition cursor-pointer">
             <div className="flex items-center gap-3">
-              <Globe size={20} className="text-slate-500" />
-              <span>Language</span>
+              <Star size={18} className="text-[#33C4F0]" />
+              <span>Rate Us</span>
             </div>
-            <div className="flex items-center gap-1 text-slate-400 font-medium text-xs">
-              <span>English</span>
-              <CaretRight size={16} />
-            </div>
+            <CaretRight size={14} className="text-slate-400" />
           </div>
 
-          <button
-            onClick={() => setActiveScreen('login')}
-            className="w-full p-4 flex items-center justify-between hover:bg-red-50/80 text-left text-[#EF4444] transition cursor-pointer"
+          <div
+            onClick={() => navigate('/support')}
+            className="px-4 py-3.5 flex items-center justify-between text-xs font-extrabold text-[#1A1A28] hover:bg-slate-50/50 transition cursor-pointer"
           >
-            <div className="flex items-center gap-3 font-semibold">
-              <SignOut size={20} />
-              <span>Log Out</span>
+            <div className="flex items-center gap-3">
+              <Question size={18} className="text-[#33C4F0]" />
+              <span>Help Center</span>
             </div>
-            <CaretRight size={16} className="text-red-300" />
-          </button>
+            <CaretRight size={14} className="text-slate-400" />
+          </div>
+
+          <div className="px-4 py-3.5 flex items-center justify-between text-xs font-extrabold text-[#1A1A28] hover:bg-slate-50/50 transition cursor-pointer">
+            <div className="flex items-center gap-3">
+              <ShareNetwork size={18} className="text-[#33C4F0]" />
+              <span>Share</span>
+            </div>
+            <CaretRight size={14} className="text-slate-400" />
+          </div>
         </div>
+      </div>
+
+      {/* Settings Card Group 3: About & Legal */}
+      <div className="px-4 my-3">
+        <div
+          className="bg-white border border-slate-100/80 shadow-2xs overflow-hidden divide-y divide-slate-100/80"
+          style={{ borderRadius: '20px 20px 48px 20px' }}
+        >
+          <div className="px-4 py-3.5 flex items-center justify-between text-xs font-extrabold text-[#1A1A28] hover:bg-slate-50/50 transition cursor-pointer">
+            <div className="flex items-center gap-3">
+              <Info size={18} className="text-[#33C4F0]" />
+              <span>About CreativeSelf</span>
+            </div>
+            <CaretRight size={14} className="text-slate-400" />
+          </div>
+
+          <div className="px-4 py-3.5 flex items-center justify-between text-xs font-extrabold text-[#1A1A28] hover:bg-slate-50/50 transition cursor-pointer">
+            <div className="flex items-center gap-3">
+              <FileText size={18} className="text-[#33C4F0]" />
+              <span>Terms of Service</span>
+            </div>
+            <CaretRight size={14} className="text-slate-400" />
+          </div>
+
+          <div className="px-4 py-3.5 flex items-center justify-between text-xs font-extrabold text-[#1A1A28] hover:bg-slate-50/50 transition cursor-pointer">
+            <div className="flex items-center gap-3">
+              <ShieldCheck size={18} className="text-[#33C4F0]" />
+              <span>Privacy Policy</span>
+            </div>
+            <CaretRight size={14} className="text-slate-400" />
+          </div>
+        </div>
+      </div>
+
+      {/* App Version Label Footer */}
+      <div className="text-center pt-2 pb-6">
+        <p className="text-[11px] font-extrabold text-slate-400">
+          Version 2.4.0 (Build 412)
+        </p>
       </div>
     </div>
   );
 }
-
-
-
-

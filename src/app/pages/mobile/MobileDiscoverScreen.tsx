@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkle, Star, Check, Eye, CaretLeft, MagnifyingGlass, BookmarkSimple, Clock, MapPin } from '@phosphor-icons/react';
+import { Sparkle, Star, Check, Eye, CaretLeft, CaretRight, MagnifyingGlass, BookmarkSimple, Clock, MapPin } from '@phosphor-icons/react';
 import { mockVendors, mockActivities, themeCategories, Activity } from '@/app/data/subscriptionData';
 import { useSubscription } from '@/app/context/SubscriptionContext';
 
@@ -31,25 +31,33 @@ export function MobileDiscoverScreen({
   const { planName, selectedBrand, selectBrand } = useSubscription();
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-28 bg-[#F1F5F9] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+    <div className={`flex-1 overflow-y-auto overflow-x-hidden pb-28 ${selectedBrandId === null ? 'bg-[#F1F5F9]' : 'bg-white'} [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}>
       {selectedBrandId === null ? (
         /* VIEW 1: SERVICE BRANDS LIST */
         <div>
           {/* Top Header Block */}
-          <div className="bg-white px-4 pt-5 pb-4 space-y-3">
-              <div className="inline-flex items-center justify-center px-[10px] py-[2px] bg-[#ECFEFF] border border-[#A2F4FD] h-[21px] rounded-full w-fit mb-2.5">
-                <span
-                  className="text-[10px] font-semibold text-[#007595] leading-[15px]"
-                  style={{ fontFamily: 'Poppins, sans-serif' }}
-                >
-                  {planName || (selectedPlanId === 'elite-creative' ? 'Elite Plan' : selectedPlanId === 'basic-creative' ? 'Basic Plan' : 'Pass Active')}
-                </span>
-              </div>
-              <h2 className="text-[18px] font-semibold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
-                Choose a Service Brand
-              </h2>
-            <p className="text-[12px] text-[#6A7282] font-normal leading-relaxed">
-              Select a service brand below to subscribe your plan entitlement & access included activities.
+          <div
+            className="w-full px-4 pt-5 pb-4 space-y-3 rounded-none border-b border-slate-100/80"
+            style={{
+              background: 'linear-gradient(180deg, #E0F2FE 0%, #F0F9FF 60%, #FFFFFF 100%)',
+            }}
+          >
+            {/* Plan Badge at Very Top */}
+            <div className="inline-flex items-center justify-center px-[10px] py-[2px] bg-[#ECFEFF] border border-[#A2F4FD] h-[21px] rounded-full w-fit">
+              <span
+                className="text-[10px] font-semibold text-[#007595] leading-[15px]"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                {planName || (selectedPlanId === 'elite-creative' ? 'Elite Plan' : selectedPlanId === 'basic-creative' ? 'Basic Plan' : 'Pass Active')}
+              </span>
+            </div>
+
+            <h2 className="text-[20px] font-bold text-[#1A1A28] leading-tight" style={{ fontFamily: 'Century Gothic, Poppins, sans-serif' }}>
+              Discover
+            </h2>
+
+            <p className="text-[12px] text-[#6A7282] font-normal">
+              Explore included brands & activities.
             </p>
 
             {/* Search Input */}
@@ -78,7 +86,7 @@ export function MobileDiscoverScreen({
                   className={`py-1.5 px-3.5 text-[11px] font-semibold flex items-center gap-1.5 whitespace-nowrap transition ${
                     selectedCategory === cat.id
                       ? 'bg-[#1AB0DC] text-white shadow-xs'
-                      : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'
+                      : 'bg-slate-50 text-slate-600 border border-slate-200 hover:border-slate-300'
                   }`}
                 >
                   <span>{cat.symbol}</span>
@@ -89,187 +97,133 @@ export function MobileDiscoverScreen({
           </div>
 
           {/* Service Brands Content List */}
-          <div className="pt-2">
-            <div className="space-y-2 pb-4">
-              {mockVendors
-                .filter((vendor) => {
-                  const matchesCat = selectedCategory === 'all' || vendor.theme.toLowerCase().includes(selectedCategory.toLowerCase()) || vendor.specialty.toLowerCase().includes(selectedCategory.toLowerCase());
-                  const matchesSearch = !searchQuery || vendor.name.toLowerCase().includes(searchQuery.toLowerCase()) || vendor.specialty.toLowerCase().includes(searchQuery.toLowerCase()) || vendor.description.toLowerCase().includes(searchQuery.toLowerCase());
-                  return matchesCat && matchesSearch;
-                })
-                .map((vendor) => {
-                  const vendorActivities = mockActivities.filter((a) => a.vendorId === vendor.id);
-                  const aiMatchScore = vendor.id === 'studio-lumen' ? 98 : vendor.id === 'cocoa-collective' ? 95 : 92;
-                  const isSubscribedToVendor = selectedBrand?.id === vendor.id;
+          <div className="p-2.5 space-y-2.5 pb-6">
+            {mockVendors
+              .filter((vendor) => {
+                const matchesCat = selectedCategory === 'all' || vendor.theme.toLowerCase().includes(selectedCategory.toLowerCase()) || vendor.specialty.toLowerCase().includes(selectedCategory.toLowerCase());
+                const matchesSearch = !searchQuery || vendor.name.toLowerCase().includes(searchQuery.toLowerCase()) || vendor.specialty.toLowerCase().includes(searchQuery.toLowerCase()) || vendor.description.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCat && matchesSearch;
+              })
+              .map((vendor) => {
+                const vendorActivities = mockActivities.filter((a) => a.vendorId === vendor.id);
+                const isSubscribedToVendor = selectedBrand?.id === vendor.id;
 
-                  return (
-                    <div key={vendor.id} className="w-full bg-white rounded-none p-4 space-y-3.5">
-                      {/* Main Brand Image Container */}
-                      <div
-                        onClick={() => setSelectedBrandId(vendor.id)}
-                        className="relative h-[160px] w-full bg-gradient-to-tr from-purple-800 via-indigo-700 to-sky-600 overflow-hidden isolate cursor-pointer rounded-[20px]"
-                      >
-                        <img
-                          src={vendor.image}
-                          alt=""
-                          className="w-full h-full object-cover relative z-0"
-                          onError={(e) => {
-                            (e.target as HTMLElement).style.display = 'none';
-                          }}
-                        />
-                        <div className="absolute inset-0 z-[1]" style={{ background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0) 100%)' }} />
-
-                        {/* Subscription Status Badge Top-Left */}
-                        <div className="absolute top-3 left-3 z-[2]">
-                          {isSubscribedToVendor ? (
-                            <span className="text-[10px] font-semibold text-[#10B981] bg-white px-2.5 py-1 rounded-full shadow-md flex items-center gap-1" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                              <Check size={11} /> Subscribed
-                            </span>
-                          ) : (
-                            <span className="text-[10px] font-semibold text-[#147C9E] bg-white px-2.5 py-1 rounded-full shadow-md" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                              Available in Plan
-                            </span>
-                          )}
+                return (
+                  <div
+                    key={vendor.id}
+                    onClick={() => setSelectedBrandId(vendor.id)}
+                    className="w-full bg-white cursor-pointer py-4 hover:shadow-md transition-all duration-200 overflow-hidden"
+                    style={{
+                      borderRadius: '20px 20px 48px 20px',
+                      boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)',
+                    }}
+                  >
+                    {/* Top Header Banner: White Background with Bottom Border */}
+                    <div className="w-full bg-white border-b border-[#E2E8F0] px-4 pb-4 flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                        <div className="w-[38px] h-[38px] rounded-full bg-white shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)] flex items-center justify-center text-[18px] shrink-0">
+                          {vendor.avatar}
                         </div>
-
-                        <div className="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between z-[3]">
-                          <div className="flex items-center gap-2.5 min-w-0">
-                            <div className="w-[38px] h-[38px] rounded-full bg-white shadow-md flex items-center justify-center text-[18px] shrink-0">
-                              {vendor.avatar}
-                            </div>
-                            <div className="min-w-0 flex flex-col justify-start">
-                              <span
-                                className="text-[9px] font-semibold text-white bg-white/20 px-2 py-[2px] rounded-full uppercase backdrop-blur-md inline-block w-fit mb-0.5"
-                                style={{ fontFamily: 'Poppins, sans-serif' }}
-                              >
-                                {vendor.theme}
-                              </span>
-                              <h3
-                                className="text-[14px] font-semibold text-white leading-[18px] truncate"
-                                style={{ fontFamily: 'Century Gothic, sans-serif' }}
-                              >
-                                {vendor.name}
-                              </h3>
-                            </div>
-                          </div>
+                        <div className="min-w-0 flex flex-col justify-start flex-1">
+                          <span
+                            className="text-[9px] font-semibold text-[#FF6467] uppercase tracking-[0.45px] leading-[14px]"
+                            style={{ fontFamily: 'Poppins, sans-serif' }}
+                          >
+                            {vendor.theme}
+                          </span>
+                          <h3
+                            className="text-[15px] font-bold text-[#101828] leading-[18px] truncate"
+                            style={{ fontFamily: 'Century Gothic, sans-serif' }}
+                          >
+                            {vendor.name}
+                          </h3>
                         </div>
                       </div>
 
-                      {/* Rating, Location & AI Match */}
-                      <div className="flex items-center gap-2 text-[12px] font-semibold pt-0.5" style={{ fontFamily: 'Century Gothic, sans-serif' }}>
-                        <span className="flex items-center gap-1 text-[#FE9A00]">
-                          <Star size={14} weight="fill" className="text-[#FFB900]" />
-                          {vendor.rating}
-                        </span>
-                        <span className="text-[#717182]">•</span>
-                        <span className="text-[#717182] truncate">{vendor.location}</span>
-                        <span className="ml-auto inline-flex items-center gap-1 text-[10px] font-semibold text-[#7E22CE] bg-[#F3E8FF] border border-[#D8B4FE]/60 px-2.5 py-0.5 rounded-full shrink-0 shadow-2xs" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                          <Sparkle size={11} className="text-[#9333EA] fill-[#9333EA]" />
-                          {aiMatchScore}% Acumen Match
-                        </span>
-                      </div>
-
-                      <p className="text-[12px] font-normal text-[#475569] leading-[18px]" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                        {vendor.description || vendor.specialty}
-                      </p>
-
-                      {/* FEATURED SERVICES PREVIEW */}
-                      <div className="border-t border-slate-100 pt-3 space-y-2.5">
-                        <h4
-                          className="text-[10px] font-semibold text-[#6A7282] uppercase tracking-[1.54px] leading-[16px]"
-                          style={{ fontFamily: 'Century Gothic, sans-serif' }}
-                        >
-                          FEATURED SERVICES ({vendorActivities.length}):
-                        </h4>
-
-                        <div className="flex items-center gap-2.5 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] max-w-full">
-                          {vendorActivities.map((act) => (
-                            <div
-                              key={act.id}
-                              onClick={() => {
-                                setSelectedBrandId(vendor.id);
-                                setSelectedActivity(act);
-                              }}
-                              style={{ borderRadius: '20px 20px 48px 20px' }}
-                              className="cursor-pointer flex items-center bg-[#F0F9FF] border border-[#33C4F0]/25 p-1.5 pr-4 gap-2.5 min-w-[220px] shrink-0 hover:bg-[#E0F2FE] transition"
-                            >
-                              <div className="w-[38px] h-[38px] rounded-full bg-white shrink-0 overflow-hidden relative flex items-center justify-center text-base shadow-2xs border border-slate-200/50">
-                                <span className="text-slate-400 select-none z-0">{act.symbol || vendor.avatar || '🎨'}</span>
-                                <img
-                                  src={act.image}
-                                  alt=""
-                                  className="w-full h-full object-cover absolute inset-0 z-10"
-                                  onError={(e) => {
-                                    (e.target as HTMLElement).style.display = 'none';
-                                  }}
-                                />
-                              </div>
-                              <div className="min-w-0 flex-1">
-                                <h5
-                                  className="text-[11px] font-semibold text-[#334155] leading-tight truncate"
-                                  style={{ fontFamily: 'Century Gothic, sans-serif' }}
-                                >
-                                  {act.name}
-                                </h5>
-                                <p
-                                  className="text-[10px] font-medium text-[#64748B] leading-tight"
-                                  style={{ fontFamily: 'Poppins, sans-serif' }}
-                                >
-                                  {act.duration}
-                                </p>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* CTA Buttons */}
-                      <div className="flex items-center gap-2 pt-1">
-                        <button
-                          type="button"
-                          onClick={() => setSelectedBrandId(vendor.id)}
-                          className="flex-1 h-[36px] bg-[#F8FDFF] border border-[#33C4F0]/40 text-[#147C9E] text-[12px] font-semibold flex items-center justify-center gap-1.5 transition hover:bg-[#E8F9FF]"
-                          style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
-                        >
-                          <Eye size={15} className="text-[#147C9E]" />
-                          View Details
-                        </button>
-
+                      <div className="flex items-center gap-1.5 shrink-0">
                         {isSubscribedToVendor ? (
-                          <button
-                            type="button"
-                            onClick={() => setSelectedBrandId(vendor.id)}
-                            className="flex-1 h-[36px] bg-[#ECFDF5] border border-[#10B981]/30 text-[#059669] text-[12px] font-semibold flex items-center justify-center gap-1.5 transition hover:bg-[#D1FAE5]"
-                            style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
+                          <span
+                            className="text-[10px] font-semibold text-[#059669] bg-[#ECFDF5] px-3 py-1 flex items-center gap-1 border border-[#10B981]/30"
+                            style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Poppins, sans-serif' }}
                           >
-                            <Check size={15} className="text-[#10B981]" />
-                            Subscribed
-                          </button>
+                            <Check size={11} className="text-[#10B981]" /> Subscribed
+                          </span>
                         ) : (
-                          <button
-                            type="button"
-                            onClick={() => {
-                              selectBrand({
-                                id: vendor.id,
-                                name: vendor.name,
-                                rating: vendor.rating,
-                                specialty: vendor.specialty,
-                                color: vendor.color,
-                                avatar: vendor.avatar,
-                              });
-                              setSelectedBrandId(vendor.id);
-                            }}
-                            className="flex-1 h-[36px] bg-[#33C4F0] text-white text-[12px] font-semibold flex items-center justify-center gap-1.5 transition hover:opacity-90 shadow-xs"
-                            style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
+                          <span
+                            className="text-[10px] font-semibold text-[#147C9E] bg-[#DFF2FE] px-3 py-1 inline-block"
+                            style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Poppins, sans-serif' }}
                           >
-                            Subscribe
-                          </button>
+                            Available in Plan
+                          </span>
                         )}
+                        <CaretRight size={14} className="text-[#45556C] shrink-0" />
                       </div>
                     </div>
-                  );
-                })}
-            </div>
+
+                    {/* Rating & Short Description Paragraph Block */}
+                    <div className="px-4 pt-3.5 pb-0 space-y-2">
+                      <div className="flex items-center gap-1.5 text-[12px] font-semibold text-[#FE9A00]" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                        <Star size={14} weight="fill" className="text-[#FFB900]" />
+                        <span>{vendor.rating}</span>
+                        <span className="text-[#717182] font-semibold">•</span>
+                        <span className="text-[#717182] font-semibold">{vendor.location}</span>
+                      </div>
+
+                      <p className="text-[12px] font-normal text-[#475569] leading-[18px] line-clamp-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                        {vendor.description || vendor.specialty}
+                      </p>
+                    </div>
+
+                    {/* Featured Activities Carousel directly below Description */}
+                    <div className="pt-4 px-4 pb-0">
+                      <div className="flex items-center gap-2.5 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] max-w-full">
+                        {vendorActivities.map((act) => (
+                          <div
+                            key={act.id}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedBrandId(vendor.id);
+                              setSelectedActivity(act);
+                            }}
+                            style={{ borderRadius: '16px 16px 38.4px 16px' }}
+                            className="relative w-[200px] h-[128px] overflow-hidden shrink-0 cursor-pointer p-3 flex flex-col justify-end group shadow-xs transition hover:scale-[1.01]"
+                          >
+                            <img
+                              src={act.image}
+                              alt={act.name}
+                              className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-300 group-hover:scale-105"
+                              onError={(e) => {
+                                (e.target as HTMLElement).style.display = 'none';
+                              }}
+                            />
+                            <div
+                              className="absolute inset-0 z-[1]"
+                              style={{
+                                background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0) 100%)',
+                              }}
+                            />
+
+                            <div className="relative z-[2] space-y-0.5">
+                              <span
+                                className="text-[7.2px] font-semibold text-white bg-white/20 px-1.5 py-[1px] rounded-full uppercase backdrop-blur-md inline-block leading-[11px]"
+                                style={{ fontFamily: 'Poppins, sans-serif' }}
+                              >
+                                {act.category || vendor.theme}
+                              </span>
+                              <h5
+                                className="text-[11.2px] font-bold text-white leading-[14px] line-clamp-2"
+                                style={{ fontFamily: 'Century Gothic, sans-serif' }}
+                              >
+                                {act.name}
+                              </h5>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
         </div>
       ) : (
@@ -279,13 +233,12 @@ export function MobileDiscoverScreen({
           const isSubscribedToSelectedVendor = selectedBrand?.id === selectedVendor.id;
 
           return (
-            <div className="space-y-4 p-4">
+            <div className="bg-white space-y-4 p-4 min-h-full">
               {/* Back Button */}
               <button
                 type="button"
                 onClick={() => setSelectedBrandId(null)}
-                style={{ borderRadius: '20px 20px 48px 20px' }}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 transition"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-full transition"
               >
                 <CaretLeft size={16} weight="bold" /> Back to All Service Brands
               </button>
@@ -293,7 +246,7 @@ export function MobileDiscoverScreen({
               {/* 1. BRAND DETAILS FIRST (Top Section) */}
               <div className="py-[16px] border-b border-[#F1F5F9] space-y-3">
                 {/* Main Brand Image Container */}
-                <div className="relative h-[176px] w-full bg-gradient-to-tr from-purple-800 via-indigo-700 to-sky-600 overflow-hidden isolate" style={{ borderRadius: '20px 20px 50px 20px' }}>
+                <div className="relative h-[176px] w-full bg-gradient-to-tr from-purple-800 via-indigo-700 to-sky-600 overflow-hidden isolate rounded-2xl">
                   <img
                     src={selectedVendor.image}
                     alt={selectedVendor.name}
@@ -348,10 +301,25 @@ export function MobileDiscoverScreen({
                   </span>
                   <span className="text-[#717182]">•</span>
                   <span className="text-[#717182] truncate">{selectedVendor.location}</span>
-                  <span className="ml-auto inline-flex items-center gap-1 text-[10px] font-semibold text-[#7E22CE] bg-[#F3E8FF] border border-[#D8B4FE]/60 px-2.5 py-0.5 rounded-full shrink-0 shadow-2xs" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                    <Sparkle size={11} className="text-[#9333EA] fill-[#9333EA]" />
-                    {selectedVendor.id === 'studio-lumen' ? 98 : selectedVendor.id === 'cocoa-collective' ? 95 : 92}% Acumen Match
-                  </span>
+                  {/* Razor-Sharp GPU-Accelerated Conic Progress Ring Badge */}
+                  <div
+                    className="ml-auto inline-flex items-center gap-1.5 bg-[#FBF7FF] border border-[#E9D4FF] px-2 py-1 rounded-full shrink-0"
+                    title={`${selectedVendor.id === 'studio-lumen' ? 98 : selectedVendor.id === 'cocoa-collective' ? 95 : 92}% Acumen Match`}
+                  >
+                    <div
+                      className="w-4 h-4 rounded-full flex items-center justify-center p-[2px] shrink-0"
+                      style={{
+                        background: `conic-gradient(#9333EA ${(selectedVendor.id === 'studio-lumen' ? 98 : selectedVendor.id === 'cocoa-collective' ? 95 : 92) * 3.6}deg, #E9D4FF 0deg)`,
+                      }}
+                    >
+                      <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
+                        <Sparkle size={8} className="text-[#9333EA] fill-[#9333EA]" />
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold text-[#7E22CE] leading-none" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                      {selectedVendor.id === 'studio-lumen' ? 98 : selectedVendor.id === 'cocoa-collective' ? 95 : 92}%
+                    </span>
+                  </div>
                 </div>
 
                 <p className="text-[12px] font-normal text-[#101828] leading-[20px] py-[4px]" style={{ fontFamily: 'Poppins, sans-serif' }}>
@@ -398,7 +366,7 @@ export function MobileDiscoverScreen({
               </div>
 
               {/* 2. AVAILABLE SERVICES & WORKSHOPS BELOW */}
-              <div className="space-y-2 pt-1">
+              <div className="space-y-3 pt-1">
                 <div className="flex items-center justify-between">
                   <h3
                     className="text-[10px] font-semibold text-[#6A7282] uppercase tracking-[1.54px] leading-[16px]"
@@ -418,11 +386,15 @@ export function MobileDiscoverScreen({
                 </div>
 
                 {/* List of Available Activities */}
-                <div className="divide-y divide-[#F1F5F9]">
+                <div className="-mx-4 bg-[#F1F5F9] space-y-2.5 pt-2 pb-2">
                   {vendorActivities.map((act) => {
                     const isSaved = savedActivityIds.includes(act.id);
                     return (
-                      <div key={act.id} className="py-[16px] space-y-3">
+                      <div
+                        key={act.id}
+                        onClick={() => setSelectedActivity(act)}
+                        className="bg-white w-full py-4 px-4 space-y-3 cursor-pointer hover:bg-slate-50/80 transition"
+                      >
                         {/* Activity Header Row */}
                         <div className="flex items-center justify-between h-[36px]">
                           <div className="flex items-center gap-[10px] min-w-0 flex-1">
@@ -445,7 +417,7 @@ export function MobileDiscoverScreen({
                         </div>
 
                         {/* Activity Image */}
-                        <div className="relative h-[160px] w-full bg-slate-100 overflow-hidden isolate shadow-2xs" style={{ borderRadius: '20px 20px 50px 20px' }}>
+                        <div className="relative h-[160px] w-full bg-slate-100 overflow-hidden isolate shadow-none" style={{ borderRadius: '20px 20px 48px 20px' }}>
                           <img
                             src={act.image}
                             alt={act.name}
@@ -458,7 +430,10 @@ export function MobileDiscoverScreen({
 
                           <button
                             type="button"
-                            onClick={() => toggleSaveActivity(act.id)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleSaveActivity(act.id);
+                            }}
                             className={`absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-sm transition z-[2] ${
                               isSaved ? 'text-[#EF4444]' : 'text-slate-600'
                             }`}
@@ -495,48 +470,6 @@ export function MobileDiscoverScreen({
                         <p className="text-[12px] font-normal text-[#101828] leading-[18px]" style={{ fontFamily: 'Poppins, sans-serif' }}>
                           {act.description}
                         </p>
-
-                        {/* CTA Buttons row */}
-                        <div className="flex items-center gap-[8px] pt-1">
-                          <button
-                            type="button"
-                            onClick={() => setSelectedActivity(act)}
-                            className="flex-1 h-[34px] bg-[#F8FDFF] border border-[#33C4F0]/30 text-[#147C9E] text-[12px] font-semibold flex items-center justify-center gap-[6px] transition hover:bg-[#E8F9FF]"
-                            style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
-                          >
-                            <Eye size={15} className="text-[#147C9E]" />
-                            View Details
-                          </button>
-                          {isSubscribedToSelectedVendor ? (
-                            <button
-                              type="button"
-                              onClick={() => setSelectedActivity(act)}
-                              className="flex-1 h-[34px] bg-[#33C4F0] text-white text-[12px] font-semibold flex items-center justify-center gap-[6px] transition hover:opacity-90 shadow-2xs"
-                              style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
-                            >
-                              Book Session
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => {
-                                selectBrand({
-                                  id: selectedVendor.id,
-                                  name: selectedVendor.name,
-                                  rating: selectedVendor.rating,
-                                  specialty: selectedVendor.specialty,
-                                  color: selectedVendor.color,
-                                  avatar: selectedVendor.avatar,
-                                });
-                                setSelectedActivity(act);
-                              }}
-                              className="flex-1 h-[34px] bg-[#1A1A28] text-white text-[12px] font-semibold flex items-center justify-center gap-[6px] transition hover:bg-[#33C4F0] hover:text-[#1A1A28] shadow-2xs"
-                              style={{ borderRadius: '20px 20px 48px 20px', fontFamily: 'Century Gothic, sans-serif' }}
-                            >
-                              Subscribe & Book
-                            </button>
-                          )}
-                        </div>
                       </div>
                     );
                   })}

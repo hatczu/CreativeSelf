@@ -20,6 +20,7 @@ import { MobileBookingsScreen } from './MobileBookingsScreen';
 import { MobileProfileScreen } from './MobileProfileScreen';
 import { MobileActivityDetailView } from './MobileActivityDetailView';
 import { MobilePostDetailView } from './MobilePostDetailView';
+import { MobileBookingDetailView } from './MobileBookingDetailView';
 import { MobileStoryViewerModal } from './MobileStoryViewerModal';
 
 export type ScreenType = 'onboarding' | 'login' | 'register' | 'feed' | 'discover' | 'bookings' | 'profile';
@@ -29,19 +30,19 @@ export type NavBarStyle = 'liquid-glass-icon' | 'liquid-glass-text' | 'liquid-gl
 export const brandStories = [
   {
     id: 'art',
-    name: 'Art',
+    name: 'Heart of Art',
     emoji: '🎨',
     vendorId: 'abc-creative-studio',
-    vendorName: 'ABC Creative Studio',
+    vendorName: 'Studio Lumen',
     title: 'Watercolour & Expressive Painting Masterclass',
     image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80',
     gradient: 'from-purple-500 via-pink-400 to-[#33C4F0]',
     quote: 'Express yourself freely without worrying about perfection.',
-    category: 'Heart of Art',
+    category: 'Art',
   },
   {
     id: 'yoga',
-    name: 'Yoga',
+    name: 'Athletic Fanatics',
     emoji: '🧘',
     vendorId: 'maya-ellison-studio',
     vendorName: 'Maya Ellison Mindful Movement',
@@ -49,11 +50,11 @@ export const brandStories = [
     image: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=1200&q=80',
     gradient: 'from-[#33C4F0] via-teal-400 to-emerald-400',
     quote: 'Reset your spine and calm your thoughts with daily breathwork.',
-    category: 'Athletic Fanatics',
+    category: 'Yoga',
   },
   {
     id: 'tasting',
-    name: 'Tasting',
+    name: 'Chowdown',
     emoji: '🍫',
     vendorId: 'cocoa-collective',
     vendorName: 'Cocoa Collective',
@@ -61,11 +62,11 @@ export const brandStories = [
     image: 'https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=1200&q=80',
     gradient: 'from-amber-400 via-orange-400 to-rose-400',
     quote: 'Savor rich cocoa aromas and learn bean-to-bar tempering secrets.',
-    category: 'Chowdown',
+    category: 'Tasting',
   },
   {
     id: 'rhythm',
-    name: 'Rhythm',
+    name: 'Moves & Grooves',
     emoji: '💃',
     vendorId: 'rhythm-room',
     vendorName: 'The Rhythm Room',
@@ -73,11 +74,11 @@ export const brandStories = [
     image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1200&q=80',
     gradient: 'from-purple-500 via-indigo-500 to-sky-400',
     quote: 'Unlock high energy and joy through improvisational movement.',
-    category: 'Moves & Grooves',
+    category: 'Rhythm',
   },
   {
     id: 'robotics',
-    name: 'Robotics',
+    name: 'Technut',
     emoji: '🤖',
     vendorId: 'digital-makers-lab',
     vendorName: 'Technut Makers Studio',
@@ -85,11 +86,11 @@ export const brandStories = [
     image: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=1200&q=80',
     gradient: 'from-cyan-400 via-blue-500 to-indigo-500',
     quote: 'Build interactive electronic widgets with code & hands-on assembly.',
-    category: 'Technut',
+    category: 'Robotics',
   },
   {
     id: 'photo',
-    name: 'Photo',
+    name: 'Trip and Tell',
     emoji: '📸',
     vendorId: 'outward-exploration-co',
     vendorName: 'Outward Exploration Co.',
@@ -97,7 +98,7 @@ export const brandStories = [
     image: 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1200&q=80',
     gradient: 'from-rose-400 via-[#33C4F0] to-purple-500',
     quote: 'Capture secret architectural angles and natural light contrasts.',
-    category: 'Trip and Tell',
+    category: 'Photo',
   },
 ];
 
@@ -136,9 +137,11 @@ export function ClientMobileApp() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
   const [selectedPost, setSelectedPost] = useState<PostData | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<any | null>(null);
   const [selectedQrPass, setSelectedQrPass] = useState<any | null>(null);
   const [savedActivityIds, setSavedActivityIds] = useState<string[]>(['beginner-painting-workshop', 'desk-to-mat-yoga']);
   const [likedPostIds, setLikedPostIds] = useState<string[]>(['breathe', 'colour']);
+  const [savedPostIds, setSavedPostIds] = useState<string[]>(['breathe', 'colour']);
   const [postDetailImgIdx, setPostDetailImgIdx] = useState<number>(0);
   const [postDetailCommentText, setPostDetailCommentText] = useState<string>('');
   const [postDetailComments, setPostDetailComments] = useState<Record<string, any[]>>({});
@@ -449,6 +452,14 @@ export function ClientMobileApp() {
                 setLikedPostIds([...likedPostIds, id]);
               }
             }}
+            savedPostIds={savedPostIds}
+            toggleSavePost={(id) => {
+              if (savedPostIds.includes(id)) {
+                setSavedPostIds(savedPostIds.filter((item) => item !== id));
+              } else {
+                setSavedPostIds([...savedPostIds, id]);
+              }
+            }}
           />
         )}
 
@@ -480,6 +491,7 @@ export function ClientMobileApp() {
             myBookings={myBookings}
             setActiveTab={setActiveTab}
             setSelectedQrPass={setSelectedQrPass}
+            onSelectBooking={setSelectedBooking}
           />
         )}
 
@@ -499,6 +511,55 @@ export function ClientMobileApp() {
             setNavBarStyle={setNavBarStyle}
           />
         )}
+
+        {/* ACTIVITY DETAIL SCREEN */}
+        <MobileActivityDetailView
+          selectedActivity={selectedActivity}
+          setSelectedActivity={handleSetSelectedActivity}
+          savedActivityIds={savedActivityIds}
+          toggleSaveActivity={(id) => {
+            if (savedActivityIds.includes(id)) {
+              setSavedActivityIds(savedActivityIds.filter((item) => item !== id));
+            } else {
+              setSavedActivityIds([...savedActivityIds, id]);
+            }
+          }}
+          bookingSelectedSlot={bookingSelectedSlot}
+          setBookingSelectedSlot={setBookingSelectedSlot}
+          handleConfirmBooking={handleConfirmBooking}
+        />
+
+        {/* POST DETAIL SCREEN & QR CODE PASS MODAL */}
+        <MobilePostDetailView
+          selectedPost={selectedPost}
+          setSelectedPost={setSelectedPost}
+          likedPostIds={likedPostIds}
+          setLikedPostIds={setLikedPostIds}
+          savedPostIds={savedPostIds}
+          toggleSavePost={(id) => {
+            if (savedPostIds.includes(id)) {
+              setSavedPostIds(savedPostIds.filter((item) => item !== id));
+            } else {
+              setSavedPostIds([...savedPostIds, id]);
+            }
+          }}
+          postDetailImgIdx={postDetailImgIdx}
+          setPostDetailImgIdx={setPostDetailImgIdx}
+          postDetailCommentText={postDetailCommentText}
+          setPostDetailCommentText={setPostDetailCommentText}
+          postDetailComments={postDetailComments}
+          setPostDetailComments={setPostDetailComments}
+          regName={regName}
+          myBookings={myBookings}
+          setMyBookings={setMyBookings}
+          setBookingSuccessMsg={setBookingSuccessMsg}
+          selectedQrPass={selectedQrPass}
+          setSelectedQrPass={setSelectedQrPass}
+          onViewProvider={(brandId) => {
+            handleSetSelectedBrandId(brandId);
+            setActiveTab('discover');
+          }}
+        />
 
         {/* BOTTOM NAVIGATION BAR */}
         {(() => {
@@ -738,6 +799,18 @@ export function ClientMobileApp() {
           setBookingSuccessMsg={setBookingSuccessMsg}
           selectedQrPass={selectedQrPass}
           setSelectedQrPass={setSelectedQrPass}
+        />
+
+        {/* BOOKING DETAIL PAGE */}
+        <MobileBookingDetailView
+          selectedBooking={selectedBooking}
+          setSelectedBooking={setSelectedBooking}
+          setSelectedQrPass={setSelectedQrPass}
+          onCancelBooking={(bookingId) => {
+            setMyBookings((prev) => prev.filter((b) => b.id !== bookingId));
+            setBookingSuccessMsg('Booking cancelled and pass credit refunded.');
+            setTimeout(() => setBookingSuccessMsg(null), 4000);
+          }}
         />
 
         {/* STORY VIEWER MODAL */}
