@@ -21,7 +21,7 @@ import {
   VendorManagement,
 } from "./pages/vendor";
 import { AdminWorkspace } from "./pages/admin";
-import { ClientMobileApp } from "./pages/mobile";
+import { ClientMobileApp, ProviderMobileApp } from "./pages/mobile";
 
 export const router = createBrowserRouter([
   // Standalone mobile routes
@@ -29,6 +29,11 @@ export const router = createBrowserRouter([
   { path: "/mobile/:screen", Component: ClientMobileApp },
   { path: "/mobile/discover/:brandId", Component: ClientMobileApp },
   { path: "/mobile/discover/:brandId/:serviceId", Component: ClientMobileApp },
+
+  { path: "/vendor/mobile", Component: ProviderMobileApp },
+  { path: "/vendor/mobile/:screen", Component: ProviderMobileApp },
+  { path: "/mobile/provider", Component: ProviderMobileApp },
+  { path: "/mobile/provider/:screen", Component: ProviderMobileApp },
 
   // Main application routes wrapped in RootLayout
   {
@@ -40,6 +45,11 @@ export const router = createBrowserRouter([
       { path: "mobile/:screen", Component: ClientMobileApp },
       { path: "mobile/discover/:brandId", Component: ClientMobileApp },
       { path: "mobile/discover/:brandId/:serviceId", Component: ClientMobileApp },
+
+      { path: "vendor/mobile", Component: ProviderMobileApp },
+      { path: "vendor/mobile/:screen", Component: ProviderMobileApp },
+      { path: "mobile/provider", Component: ProviderMobileApp },
+      { path: "mobile/provider/:screen", Component: ProviderMobileApp },
 
       // Client Pages
       { index: true, Component: LandingPage },

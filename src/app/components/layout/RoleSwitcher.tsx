@@ -2,14 +2,15 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { ArrowsLeftRight as ArrowLeftRight } from "@phosphor-icons/react";
 
-type Role = "client" | "vendor" | "admin" | "mobile";
+type Role = "client" | "vendor" | "admin" | "mobile" | "vendor-mobile";
 
 export function RoleSwitcher({ activeRole }: { activeRole: Role }) {
   const [open, setOpen] = useState(false);
   const roles: { label: string; path: string; role: Role }[] = [
     { label: "Client Desktop", path: "/dashboard", role: "client" },
     { label: "Client Mobile App 📱", path: "/mobile", role: "mobile" },
-    { label: "Vendor Portal", path: "/vendor", role: "vendor" },
+    { label: "Vendor Portal Desktop", path: "/vendor", role: "vendor" },
+    { label: "Vendor Mobile App 📱", path: "/vendor/mobile", role: "vendor-mobile" },
     { label: "Admin Workspace", path: "/admin", role: "admin" },
   ];
 

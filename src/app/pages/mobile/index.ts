@@ -1,4 +1,5 @@
 export { ClientMobileApp } from './ClientMobileApp';
+export { ProviderMobileApp } from './ProviderMobileApp';
 export { MobileOnboardingScreen } from './MobileOnboardingScreen';
 export { MobileLoginScreen } from './MobileLoginScreen';
 export { MobileRegisterScreen } from './MobileRegisterScreen';
@@ -9,3 +10,4 @@ export { MobileProfileScreen } from './MobileProfileScreen';
 export { MobileActivityDetailView } from './MobileActivityDetailView';
 export { MobilePostDetailView } from './MobilePostDetailView';
 export { MobileStoryViewerModal } from './MobileStoryViewerModal';
+
