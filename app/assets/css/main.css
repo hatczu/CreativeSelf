@@ -1,0 +1,6 @@
+@import './fonts.css';
+@import 'tailwindcss' source(none);
+@source '../../**/*.{vue,ts}';
+@import 'tw-animate-css';
+@import './theme.css';
+@import './globals.css';
