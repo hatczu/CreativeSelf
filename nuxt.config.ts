@@ -1,5 +1,10 @@
 import tailwindcss from '@tailwindcss/vite'
 
+// `npm run generate:artifact` builds a self-contained static copy for hosts that
+// serve the app from an unknown sub-path and can't use path-based URLs
+// (e.g. a Claude artifact): hash routing + relative asset URLs.
+const isArtifactBuild = process.env.ARTIFACT_BUILD === '1'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -18,9 +23,17 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    define: {
+      __ASSET_BASE__: JSON.stringify(isArtifactBuild ? './' : '/'),
+    },
+  },
+
+  router: {
+    options: { hashMode: isArtifactBuild },
   },
 
   app: {
+    ...(isArtifactBuild ? { cdnURL: './', buildAssetsDir: '/assets/' } : {}),
     head: {
       title: 'CreativeSelf',
       htmlAttrs: { lang: 'en' },
@@ -35,6 +48,11 @@ export default defineNuxtConfig({
         { name: 'robots', content: 'noindex, nofollow' },
       ],
     },
+  },
+
+  experimental: {
+    // The artifact build has no server to answer app-manifest requests.
+    appManifest: !isArtifactBuild,
   },
 
   typescript: {

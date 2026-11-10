@@ -58,15 +58,11 @@ function createClientMobileApp() {
 
   // Mobile nav bar style preference
   const navBarStyle = ref<NavBarStyle>(
-    ((typeof localStorage !== 'undefined' && localStorage.getItem(NAVBAR_STYLE_KEY)) as NavBarStyle) || 'liquid-glass-icon',
+    (safeStorage.get(NAVBAR_STYLE_KEY) as NavBarStyle | null) || 'liquid-glass-icon',
   );
   const setNavBarStyle = (style: NavBarStyle) => {
     navBarStyle.value = style;
-    try {
-      localStorage.setItem(NAVBAR_STYLE_KEY, style);
-    } catch {
-      /* ignore */
-    }
+    safeStorage.set(NAVBAR_STYLE_KEY, style);
   };
 
   // Onboarding / auth state

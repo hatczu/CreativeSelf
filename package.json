@@ -9,7 +9,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "generate:artifact": "ARTIFACT_BUILD=1 nuxt generate"
   },
   "dependencies": {
     "@phosphor-icons/vue": "^2.2.1",

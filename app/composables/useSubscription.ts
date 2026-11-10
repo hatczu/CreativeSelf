@@ -20,8 +20,7 @@ export type SelectActivityResult = {
 };
 
 function readJson<T>(key: string): T | undefined {
-  if (typeof localStorage === 'undefined') return undefined;
-  const saved = localStorage.getItem(key);
+  const saved = safeStorage.get(key);
   if (!saved) return undefined;
   try {
     return JSON.parse(saved) as T;
@@ -41,7 +40,7 @@ function withMissingDefaults<T extends { id: string }>(saved: unknown, defaults:
 
 function createSubscriptionStore() {
   const currentPlanKey = ref<string>(
-    (typeof localStorage !== 'undefined' && localStorage.getItem(STORAGE_KEY_PLAN)) || 'advanced-creative-team',
+    safeStorage.get(STORAGE_KEY_PLAN) || 'advanced-creative-team',
   );
   const activePlan = computed(() => PLAN_PRESETS[currentPlanKey.value] ?? PLAN_PRESETS['advanced-creative-team']!);
 
@@ -64,27 +63,27 @@ function createSubscriptionStore() {
 
   const isBrandLocked = computed(() => Boolean(selectedBrand.value && selectedActivities.value.length > 0));
 
-  if (typeof localStorage !== 'undefined') {
-    watch(currentPlanKey, (value) => localStorage.setItem(STORAGE_KEY_PLAN, value), { immediate: true });
+  {
+    watch(currentPlanKey, (value) => safeStorage.set(STORAGE_KEY_PLAN, value), { immediate: true });
     watch(
       selectedBrand,
       (value) => {
-        if (value) localStorage.setItem(STORAGE_KEY_BRAND, JSON.stringify(value));
-        else localStorage.removeItem(STORAGE_KEY_BRAND);
+        if (value) safeStorage.set(STORAGE_KEY_BRAND, JSON.stringify(value));
+        else safeStorage.remove(STORAGE_KEY_BRAND);
       },
       { deep: true, immediate: true },
     );
-    watch(selectedActivities, (value) => localStorage.setItem(STORAGE_KEY_ACTIVITIES, JSON.stringify(value)), {
+    watch(selectedActivities, (value) => safeStorage.set(STORAGE_KEY_ACTIVITIES, JSON.stringify(value)), {
       deep: true,
       immediate: true,
     });
-    watch(employeeInvites, (value) => localStorage.setItem(STORAGE_KEY_INVITES, JSON.stringify(value)), {
+    watch(employeeInvites, (value) => safeStorage.set(STORAGE_KEY_INVITES, JSON.stringify(value)), {
       deep: true,
       immediate: true,
     });
     watch(
       vendorConfirmedActivities,
-      (value) => localStorage.setItem(STORAGE_KEY_VENDOR_CONFIRMED, JSON.stringify(value)),
+      (value) => safeStorage.set(STORAGE_KEY_VENDOR_CONFIRMED, JSON.stringify(value)),
       { deep: true, immediate: true },
     );
   }
