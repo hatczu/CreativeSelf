@@ -21,9 +21,9 @@
  * Only true circles (avatars, status dots, progress tracks) stay fully round.
  */
 :root {
-  --radius-brand-sm: 8px 8px 16px 8px; /* chips, badges, icon buttons */
-  --radius-brand: 12px 12px 24px 12px; /* buttons, inputs, tabs */
-  --radius-brand-lg: 20px 20px 48px 20px; /* cards, panels, nav bar */
+  --radius-brand-sm: 12px 12px 24px 12px; /* chips, badges, icon buttons */
+  --radius-brand: 16px 16px 32px 16px; /* buttons, inputs, tabs */
+  --radius-brand-lg: 24px 24px 64px 24px; /* cards, panels, nav bar */
 }
 
 @utility rounded-brand-sm {

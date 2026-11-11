@@ -10,11 +10,11 @@ Corner order in CSS is top-left, top-right, bottom-right, bottom-left.
 
 | Token / utility | Value | Use for |
 | --- | --- | --- |
-| `rounded-brand-sm` / `var(--radius-brand-sm)` | `8px 8px 16px 8px` | chips, badges, tags, icon buttons |
-| `rounded-brand` / `var(--radius-brand)` | `12px 12px 24px 12px` | buttons, inputs, selects, tabs, toggles |
-| `rounded-brand-lg` / `var(--radius-brand-lg)` | `20px 20px 48px 20px` | cards, panels, modals, nav bars |
+| `rounded-brand-sm` / `var(--radius-brand-sm)` | `12px 12px 24px 12px` | chips, badges, tags, icon buttons |
+| `rounded-brand` / `var(--radius-brand)` | `16px 16px 32px 16px` | buttons, inputs, selects, tabs, toggles |
+| `rounded-brand-lg` / `var(--radius-brand-lg)` | `24px 24px 64px 24px` | cards, panels, modals, nav bars |
 
-Large hero cards may go bigger (e.g. `24px 24px 64px 24px`) as long as bottom-right stays the largest.
+Large hero cards may go bigger (e.g. `28px 28px 80px 28px`) as long as bottom-right stays the largest.
 
 Do:
 - Use the utilities above (defined in `app/assets/css/main.css`) for new buttons, chips and cards.
