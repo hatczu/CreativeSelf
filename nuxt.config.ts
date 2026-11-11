@@ -25,6 +25,7 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
     define: {
       __ASSET_BASE__: JSON.stringify(isArtifactBuild ? './' : '/'),
+      __ARTIFACT_BUILD__: JSON.stringify(isArtifactBuild),
     },
   },
 
@@ -35,6 +36,12 @@ export default defineNuxtConfig({
   app: {
     ...(isArtifactBuild ? { cdnURL: './', buildAssetsDir: '/assets/' } : {}),
     head: {
+      // In the artifact build the host may add a plain `#name` to the URL, which the
+      // hash router would treat as an unknown page. Reset any such hash to the home route
+      // before the app starts.
+      script: isArtifactBuild
+        ? [{ innerHTML: "if (location.hash && location.hash.indexOf('#/') !== 0) history.replaceState(null, '', location.pathname + location.search + '#/');" }]
+        : [],
       title: 'CreativeSelf',
       htmlAttrs: { lang: 'en' },
       meta: [
