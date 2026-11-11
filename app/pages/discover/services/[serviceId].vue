@@ -91,7 +91,7 @@ const handleSelectToggle = () => {
 
             <div class="absolute left-6 bottom-6 right-6 z-10 flex flex-wrap items-end justify-between gap-4 text-white">
               <div>
-                <span class="inline-block rounded-full bg-white/20 px-3.5 py-1 text-xs font-extrabold text-white backdrop-blur">
+                <span class="inline-block rounded-brand-sm bg-white/20 px-3.5 py-1 text-xs font-extrabold text-white backdrop-blur">
                   Included in your {{ sub.planName }} subscription
                 </span>
                 <h1 class="mt-2 text-3xl font-extrabold leading-tight text-white sm:text-4xl">{{ activity.name }}</h1>
@@ -118,10 +118,10 @@ const handleSelectToggle = () => {
             </div>
 
             <div class="flex items-center gap-2">
-              <button type="button" title="Share" class="grid h-9 w-9 place-items-center rounded-full bg-[#e8f9ff] text-[#147c9e]">
+              <button type="button" title="Share" class="grid h-9 w-9 place-items-center rounded-brand-sm bg-[#e8f9ff] text-[#147c9e]">
                 <PhShareNetwork :size="16" />
               </button>
-              <button type="button" title="Save" class="grid h-9 w-9 place-items-center rounded-full bg-[#e8f9ff] text-[#147c9e]">
+              <button type="button" title="Save" class="grid h-9 w-9 place-items-center rounded-brand-sm bg-[#e8f9ff] text-[#147c9e]">
                 <PhHeart :size="16" />
               </button>
             </div>
@@ -149,7 +149,7 @@ const handleSelectToggle = () => {
                 </div>
 
                 <button
-                  class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow"
+                  class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-brand text-xs flex items-center gap-1.5 shadow"
                   @click="isSlotModalOpen = true"
                 >
                   <PhUsers :size="15" />
@@ -224,7 +224,7 @@ const handleSelectToggle = () => {
                   </div>
 
                   <div class="flex items-center gap-3">
-                    <span class="rounded-full bg-[#10b981]/15 px-3 py-1 text-xs font-extrabold text-[#087e58]">Included in plan</span>
+                    <span class="rounded-brand-sm bg-[#10b981]/15 px-3 py-1 text-xs font-extrabold text-[#087e58]">Included in plan</span>
                     <span class="text-xs font-bold text-[#717182]">{{ slot.seatsLeft }} spots left</span>
                   </div>
                 </div>
@@ -241,10 +241,10 @@ const handleSelectToggle = () => {
             <div class="border-b border-[#33c4f0]/15 pb-4">
               <div class="flex items-center justify-between">
                 <p class="text-xs font-extrabold uppercase tracking-[.14em] text-[#33c4f0]">Your Subscription</p>
-                <span class="text-[10px] font-black uppercase bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded-full">{{ sub.planType }}</span>
+                <span class="text-[10px] font-black uppercase bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded-brand-sm">{{ sub.planType }}</span>
               </div>
               <h3 class="mt-1 text-xl font-extrabold text-[#1a1a28]">{{ sub.planName }}</h3>
-              <span class="mt-2 inline-block rounded-full bg-[#10b981]/15 px-3 py-1 text-xs font-extrabold text-[#087e58]">Included in your plan</span>
+              <span class="mt-2 inline-block rounded-brand-sm bg-[#10b981]/15 px-3 py-1 text-xs font-extrabold text-[#087e58]">Included in your plan</span>
             </div>
 
             <div class="mt-5 space-y-4">
@@ -285,14 +285,14 @@ const handleSelectToggle = () => {
 
                 <button
                   type="button"
-                  class="w-full rounded-full bg-[#1a1a28] py-3 text-center text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
+                  class="w-full rounded-brand-sm bg-[#1a1a28] py-3 text-center text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
                   @click="navigateTo('/bookings')"
                 >
                   View My Activities
                 </button>
                 <button
                   type="button"
-                  class="w-full rounded-full border border-gray-200 py-2.5 text-center text-xs font-bold text-[#717182] hover:bg-gray-50"
+                  class="w-full rounded-brand-sm border border-gray-200 py-2.5 text-center text-xs font-bold text-[#717182] hover:bg-gray-50"
                   @click="handleSelectToggle"
                 >
                   Unselect Activity
@@ -301,14 +301,14 @@ const handleSelectToggle = () => {
               <div v-else-if="isLimitReached" class="space-y-3">
                 <button
                   type="button"
-                  class="w-full rounded-full bg-amber-500 py-3 text-center text-xs font-extrabold text-white transition hover:bg-amber-600"
+                  class="w-full rounded-brand-sm bg-amber-500 py-3 text-center text-xs font-extrabold text-white transition hover:bg-amber-600"
                   @click="sub.openLimitModal()"
                 >
                   Monthly Activity Limit Reached
                 </button>
                 <button
                   type="button"
-                  class="w-full rounded-full border border-[#33c4f0]/30 py-2.5 text-center text-xs font-extrabold text-[#1a1a28] hover:bg-[#f8fdff]"
+                  class="w-full rounded-brand-sm border border-[#33c4f0]/30 py-2.5 text-center text-xs font-extrabold text-[#1a1a28] hover:bg-[#f8fdff]"
                   @click="navigateTo('/bookings')"
                 >
                   View My Activities
@@ -317,7 +317,7 @@ const handleSelectToggle = () => {
               <button
                 v-else
                 type="button"
-                class="w-full rounded-full bg-[#1a1a28] py-3 text-center text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
+                class="w-full rounded-brand-sm bg-[#1a1a28] py-3 text-center text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
                 @click="handleSelectToggle"
               >
                 Select Activity

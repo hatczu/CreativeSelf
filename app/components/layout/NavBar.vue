@@ -35,7 +35,7 @@ const handleNavClick = (e: MouseEvent, href: string) => {
 
 const desktopLinkStyle = (href: string) => ({
   padding: '0.5rem 1rem',
-  borderRadius: '9999px',
+  borderRadius: 'var(--radius-brand)',
   fontSize: '0.9rem',
   fontWeight: 600,
   color: route.path === href ? '#1AB0DC' : '#2A2A3A',
@@ -51,7 +51,7 @@ const onLinkLeave = (e: MouseEvent, href: string) => {
 
 const mobileLinkStyle = {
   padding: '0.75rem 1.25rem',
-  borderRadius: '9999px',
+  borderRadius: 'var(--radius-brand)',
   fontSize: '1rem',
   fontWeight: 600,
   color: '#2A2A3A',
@@ -80,7 +80,7 @@ const openRegister = () => {
         background: scrolled ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.75)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        borderRadius: '9999px',
+        borderRadius: 'var(--radius-brand-lg)',
         boxShadow: scrolled
           ? '0 8px 40px rgba(51,196,240,0.15), 0 2px 12px rgba(0,0,0,0.08)'
           : '0 2px 16px rgba(0,0,0,0.06)',
@@ -129,7 +129,7 @@ const openRegister = () => {
           to="/mobile"
           style="
             padding: 0.5rem 1.1rem;
-            border-radius: 9999px;
+            border-radius: var(--radius-brand);
             font-size: 0.875rem;
             font-weight: 700;
             color: #147c9e;
@@ -152,7 +152,7 @@ const openRegister = () => {
           to="/dashboard"
           style="
             padding: 0.5rem 1.1rem;
-            border-radius: 9999px;
+            border-radius: var(--radius-brand);
             font-size: 0.875rem;
             font-weight: 600;
             color: #2a2a3a;
@@ -169,7 +169,7 @@ const openRegister = () => {
         <button
           style="
             padding: 0.5rem 1.35rem;
-            border-radius: 9999px;
+            border-radius: var(--radius-brand);
             font-size: 0.875rem;
             font-weight: 700;
             color: #ffffff;
@@ -193,7 +193,7 @@ const openRegister = () => {
         style="
           width: 40px;
           height: 40px;
-          border-radius: 9999px;
+          border-radius: var(--radius-brand-sm);
           background: rgba(51, 196, 240, 0.1);
           border: none;
           cursor: pointer;
@@ -245,7 +245,7 @@ const openRegister = () => {
           to="/mobile"
           style="
             padding: 0.75rem;
-            border-radius: 9999px;
+            border-radius: var(--radius-brand);
             font-size: 0.95rem;
             font-weight: 700;
             color: #147c9e;
@@ -266,7 +266,7 @@ const openRegister = () => {
         <button
           style="
             padding: 0.75rem;
-            border-radius: 9999px;
+            border-radius: var(--radius-brand);
             font-size: 0.95rem;
             font-weight: 700;
             color: #fff;
@@ -284,7 +284,7 @@ const openRegister = () => {
           to="/dashboard"
           style="
             padding: 0.75rem;
-            border-radius: 9999px;
+            border-radius: var(--radius-brand);
             font-size: 0.95rem;
             font-weight: 600;
             color: #2a2a3a;

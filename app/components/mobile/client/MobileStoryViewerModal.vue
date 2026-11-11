@@ -57,7 +57,7 @@ const viewStudio = () => {
           </div>
 
           <button
-            class="w-8 h-8 rounded-full bg-black/50 backdrop-blur-md text-white/80 hover:text-white flex items-center justify-center border border-white/20 transition"
+            class="w-8 h-8 rounded-brand-sm bg-black/50 backdrop-blur-md text-white/80 hover:text-white flex items-center justify-center border border-white/20 transition"
             @click="app.activeStoryIdx = null"
           >
             <PhX :size="16" weight="bold" />
@@ -74,7 +74,7 @@ const viewStudio = () => {
       <!-- Bottom Story Card Overlay -->
       <div class="relative z-20 p-5 space-y-4 bg-gradient-to-t from-black via-black/80 to-transparent pt-12">
         <div class="space-y-2">
-          <span class="text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-[#33C4F0] text-slate-950 inline-block shadow-sm">
+          <span class="text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-brand-sm bg-[#33C4F0] text-slate-950 inline-block shadow-sm">
             {{ currentStory.name }} Studio Experience
           </span>
           <h2 class="text-xl font-black text-white leading-tight drop-shadow-md">{{ currentStory.title }}</h2>
@@ -83,7 +83,7 @@ const viewStudio = () => {
 
         <div class="flex gap-2 pt-2">
           <button
-            class="flex-1 py-3.5 px-4 bg-gradient-to-r from-[#33C4F0] to-[#1AB0DC] text-white text-xs font-black rounded-2xl shadow-lg shadow-[#33C4F0]/30 hover:opacity-95 transition flex items-center justify-center gap-2 active:scale-[0.99]"
+            class="flex-1 py-3.5 px-4 bg-gradient-to-r from-[#33C4F0] to-[#1AB0DC] text-white text-xs font-black rounded-brand shadow-lg shadow-[#33C4F0]/30 hover:opacity-95 transition flex items-center justify-center gap-2 active:scale-[0.99]"
             @click="viewStudio"
           >
             <PhSparkle :size="15" weight="fill" /> View Studio &amp; Book Session

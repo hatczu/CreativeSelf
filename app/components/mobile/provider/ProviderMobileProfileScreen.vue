@@ -123,7 +123,7 @@ const quickActionClass =
               <div class="min-w-0">
                 <div class="flex items-center gap-1.5">
                   <h4 class="text-[12px] font-bold text-[#1A1A28] truncate" style="font-family: Century Gothic, Poppins, sans-serif">{{ svc.title }}</h4>
-                  <span :class="['text-[8px] font-bold px-1.5 py-0.2 rounded-full', svc.published ? 'bg-[#ECFDF5] text-[#047857]' : 'bg-slate-200 text-slate-600']">
+                  <span :class="['text-[8px] font-bold px-1.5 py-0.2 rounded-brand-sm', svc.published ? 'bg-[#ECFDF5] text-[#047857]' : 'bg-slate-200 text-slate-600']">
                     {{ svc.published ? 'Active' : 'Draft' }}
                   </span>
                 </div>
@@ -212,7 +212,7 @@ const quickActionClass =
         </div>
         <button
           type="button"
-          :class="['w-10 h-5 rounded-full p-0.5 transition-colors cursor-pointer', notificationsEnabled ? 'bg-[#1AB0DC]' : 'bg-slate-200']"
+          :class="['w-10 h-5 rounded-brand p-0.5 transition-colors cursor-pointer', notificationsEnabled ? 'bg-[#1AB0DC]' : 'bg-slate-200']"
           @click="notificationsEnabled = !notificationsEnabled"
         >
           <div :class="['w-4 h-4 rounded-full bg-white shadow-xs transition-transform', notificationsEnabled ? 'translate-x-5' : 'translate-x-0']" />

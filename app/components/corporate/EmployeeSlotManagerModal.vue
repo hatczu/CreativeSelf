@@ -87,7 +87,7 @@ const statusClass = (status: EmployeeInvite['status']) =>
             </div>
           </div>
           <button
-            class="w-9 h-9 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+            class="w-9 h-9 rounded-brand-sm flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
             @click="emit('close')"
           >
             <PhX :size="20" />
@@ -114,7 +114,7 @@ const statusClass = (status: EmployeeInvite['status']) =>
               </p>
             </div>
             <div class="flex items-center gap-2">
-              <div class="px-3.5 py-1.5 rounded-full bg-cyan-400/20 text-cyan-300 font-extrabold text-xs border border-cyan-400/30 flex items-center gap-1.5">
+              <div class="px-3.5 py-1.5 rounded-brand-sm bg-cyan-400/20 text-cyan-300 font-extrabold text-xs border border-cyan-400/30 flex items-center gap-1.5">
                 <PhTicket :size="14" />
                 {{ remainingSlots }} Available
               </div>
@@ -160,7 +160,7 @@ const statusClass = (status: EmployeeInvite['status']) =>
                     type="text"
                     required
                     placeholder="e.g. Jordan Lee"
-                    class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-gray-200 focus:border-cyan-500 bg-white text-xs font-medium"
+                    class="w-full pl-9 pr-3 py-2.5 rounded-brand border border-gray-200 focus:border-cyan-500 bg-white text-xs font-medium"
                   />
                 </div>
               </div>
@@ -174,7 +174,7 @@ const statusClass = (status: EmployeeInvite['status']) =>
                     type="email"
                     required
                     placeholder="jordan@company.com"
-                    class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-gray-200 focus:border-cyan-500 bg-white text-xs font-medium"
+                    class="w-full pl-9 pr-3 py-2.5 rounded-brand border border-gray-200 focus:border-cyan-500 bg-white text-xs font-medium"
                   />
                 </div>
               </div>
@@ -187,7 +187,7 @@ const statusClass = (status: EmployeeInvite['status']) =>
                     v-model="department"
                     type="text"
                     placeholder="e.g. Engineering"
-                    class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-gray-200 focus:border-cyan-500 bg-white text-xs font-medium"
+                    class="w-full pl-9 pr-3 py-2.5 rounded-brand border border-gray-200 focus:border-cyan-500 bg-white text-xs font-medium"
                   />
                 </div>
               </div>
@@ -221,7 +221,7 @@ const statusClass = (status: EmployeeInvite['status']) =>
                 <PhCheckCircle :size="16" class="text-emerald-600" />
                 Invitation Sent to {{ lastSentInvite.employeeEmail }}!
               </span>
-              <span class="text-[10px] bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded-full font-bold">Email Delivered</span>
+              <span class="text-[10px] bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded-brand-sm font-bold">Email Delivered</span>
             </div>
             <p class="text-emerald-700 mb-2">
               An email has been sent to <strong>{{ lastSentInvite.employeeName }}</strong> with their unique invite code:
@@ -269,7 +269,7 @@ const statusClass = (status: EmployeeInvite['status']) =>
                   <!-- Status selector -->
                   <select
                     :value="inv.status"
-                    :class="['text-[11px] font-bold px-2.5 py-1 rounded-full border border-transparent outline-none', statusClass(inv.status)]"
+                    :class="['text-[11px] font-bold px-2.5 py-1 rounded-brand-sm border border-transparent outline-none', statusClass(inv.status)]"
                     @change="sub.updateInviteStatus(inv.id, ($event.target as HTMLSelectElement).value as EmployeeInvite['status'])"
                   >
                     <option value="Going">Going</option>

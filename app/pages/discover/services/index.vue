@@ -69,7 +69,7 @@ const handleSelect = (vendor: Vendor) => {
           <div class="flex flex-wrap items-start justify-between gap-4">
             <div>
               <div
-                class="inline-flex items-center gap-1.5 rounded-full bg-purple-50 border border-purple-200/60 px-3 py-1 text-xs font-extrabold text-purple-700 mb-2"
+                class="inline-flex items-center gap-1.5 rounded-brand-sm bg-purple-50 border border-purple-200/60 px-3 py-1 text-xs font-extrabold text-purple-700 mb-2"
               >
                 <PhSparkle :size="13" class="text-purple-600 animate-pulse" />
                 Acumen AI Recommendation Engine Active
@@ -81,7 +81,7 @@ const handleSelect = (vendor: Vendor) => {
               </p>
             </div>
 
-            <div class="rounded-full bg-[#e8f9ff] px-4 py-2 text-xs font-bold text-[#147c9e]">1 Brand Entitlement</div>
+            <div class="rounded-brand-sm bg-[#e8f9ff] px-4 py-2 text-xs font-bold text-[#147c9e]">1 Brand Entitlement</div>
           </div>
 
           <!-- Search Input & Acumen AI Filter Toggle -->
@@ -104,7 +104,7 @@ const handleSelect = (vendor: Vendor) => {
             <button
               type="button"
               :class="[
-                'flex items-center gap-2 rounded-full px-4 py-3 text-xs font-extrabold transition shadow-sm',
+                'flex items-center gap-2 rounded-brand-sm px-4 py-3 text-xs font-extrabold transition shadow-sm',
                 showAiOnly ? 'bg-purple-600 text-white' : 'bg-white border border-purple-200 text-purple-700 hover:bg-purple-50',
               ]"
               @click="showAiOnly = !showAiOnly"
@@ -123,7 +123,7 @@ const handleSelect = (vendor: Vendor) => {
                 :key="theme.id"
                 type="button"
                 :class="[
-                  'flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-extrabold transition',
+                  'flex items-center gap-2 rounded-brand-sm px-4 py-1.5 text-xs font-extrabold transition',
                   selectedTheme === theme.id
                     ? 'bg-[#33c4f0] text-[#1a1a28] shadow-sm'
                     : 'bg-white border border-gray-200 text-[#717182] hover:bg-gray-50',
@@ -168,7 +168,7 @@ const handleSelect = (vendor: Vendor) => {
               <!-- Acumen AI Match Badge Top Right -->
               <div class="absolute top-4 right-4 flex items-center gap-2">
                 <span
-                  class="inline-flex items-center gap-1 rounded-full bg-purple-900/80 px-3 py-1 text-xs font-extrabold text-purple-200 border border-purple-400/40 backdrop-blur shadow-md"
+                  class="inline-flex items-center gap-1 rounded-brand-sm bg-purple-900/80 px-3 py-1 text-xs font-extrabold text-purple-200 border border-purple-400/40 backdrop-blur shadow-md"
                 >
                   <PhSparkle :size="12" weight="fill" class="text-purple-300" />
                   {{ aiMatchScore(vendor.id) }}% Acumen Match
@@ -179,7 +179,7 @@ const handleSelect = (vendor: Vendor) => {
                 <div class="flex items-center gap-3">
                   <div class="grid h-12 w-12 place-items-center rounded-2xl bg-white text-2xl shadow-md">{{ vendor.avatar }}</div>
                   <div>
-                    <span class="inline-block rounded-full bg-white/20 px-3 py-0.5 text-[10px] font-extrabold uppercase text-white backdrop-blur">
+                    <span class="inline-block rounded-brand-sm bg-white/20 px-3 py-0.5 text-[10px] font-extrabold uppercase text-white backdrop-blur">
                       {{ vendor.theme }}
                     </span>
                     <h3 class="text-xl font-extrabold text-white">{{ vendor.name }}</h3>
@@ -188,14 +188,14 @@ const handleSelect = (vendor: Vendor) => {
 
                 <span
                   v-if="sub.selectedBrand?.id === vendor.id"
-                  class="rounded-full bg-[#10b981] px-3.5 py-1 text-xs font-extrabold text-white shadow-sm"
+                  class="rounded-brand-sm bg-[#10b981] px-3.5 py-1 text-xs font-extrabold text-white shadow-sm"
                 >
                   ✓ Selected Brand
                 </span>
-                <span v-else-if="sub.selectedBrand !== null" class="rounded-full bg-amber-500/90 px-3.5 py-1 text-xs font-bold text-white backdrop-blur">
+                <span v-else-if="sub.selectedBrand !== null" class="rounded-brand-sm bg-amber-500/90 px-3.5 py-1 text-xs font-bold text-white backdrop-blur">
                   Other Brand Selected
                 </span>
-                <span v-else class="rounded-full bg-[#33c4f0] px-3.5 py-1 text-xs font-extrabold text-[#1a1a28] shadow-sm">
+                <span v-else class="rounded-brand-sm bg-[#33c4f0] px-3.5 py-1 text-xs font-extrabold text-[#1a1a28] shadow-sm">
                   Available in Plan
                 </span>
               </div>
@@ -227,14 +227,14 @@ const handleSelect = (vendor: Vendor) => {
                 <div class="flex flex-row items-center gap-2.5">
                   <div
                     v-if="sub.selectedBrand?.id === vendor.id"
-                    class="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#10b981] px-4 py-2 text-xs font-extrabold text-white"
+                    class="inline-flex items-center justify-center gap-1.5 rounded-brand-sm bg-[#10b981] px-4 py-2 text-xs font-extrabold text-white"
                   >
                     <PhCheck :size="15" /> Selected
                   </div>
                   <button
                     v-else
                     type="button"
-                    class="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#1a1a28] px-5 py-2 text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
+                    class="inline-flex items-center justify-center gap-1.5 rounded-brand-sm bg-[#1a1a28] px-5 py-2 text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
                     @click="handleSelect(vendor)"
                   >
                     Select
@@ -242,7 +242,7 @@ const handleSelect = (vendor: Vendor) => {
 
                   <NuxtLink
                     :to="`/discover/providers/${vendor.id}`"
-                    class="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#33c4f0]/30 bg-[#f8fdff] px-5 py-2 text-xs font-extrabold text-[#147c9e] no-underline transition hover:bg-[#e8f9ff]"
+                    class="inline-flex items-center justify-center gap-1.5 rounded-brand-sm border border-[#33c4f0]/30 bg-[#f8fdff] px-5 py-2 text-xs font-extrabold text-[#147c9e] no-underline transition hover:bg-[#e8f9ff]"
                   >
                     <PhEye :size="15" /> Preview
                   </NuxtLink>
@@ -316,7 +316,7 @@ const handleSelect = (vendor: Vendor) => {
                 :key="theme.id"
                 type="button"
                 :class="[
-                  'flex w-full items-center justify-between rounded-full px-3 py-2 text-left text-xs font-bold transition',
+                  'flex w-full items-center justify-between rounded-brand-sm px-3 py-2 text-left text-xs font-bold transition',
                   selectedTheme === theme.id ? 'bg-[#33c4f0] text-[#1a1a28]' : 'text-[#717182] hover:bg-[#e8f9ff]',
                 ]"
                 @click="selectedTheme = theme.id"

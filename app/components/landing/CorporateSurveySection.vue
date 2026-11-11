@@ -46,7 +46,7 @@ const features = [
         >
           <!-- Acumen Badge -->
           <div
-            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-bold uppercase tracking-wider"
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-brand-sm bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-bold uppercase tracking-wider"
           >
             <PhSparkle :size="14" class="text-cyan-400" />
             Powered by Acumen AI
@@ -71,7 +71,7 @@ const features = [
           <div class="pt-4">
             <NuxtLink
               to="/corporate"
-              class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-cyan-400 via-cyan-300 to-white text-slate-950 font-extrabold text-base shadow-xl shadow-cyan-500/30 hover:scale-105 transition-all"
+              class="inline-flex items-center gap-3 px-8 py-4 rounded-brand bg-gradient-to-r from-cyan-400 via-cyan-300 to-white text-slate-950 font-extrabold text-base shadow-xl shadow-cyan-500/30 hover:scale-105 transition-all"
             >
               <PhUsersThree :size="22" weight="bold" />
               Start Corporate Survey — Free
@@ -104,7 +104,7 @@ const features = [
                     <p class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Group Personality Dynamics</p>
                     <p class="text-sm font-extrabold text-white">Half/Half Personality by Group Visual</p>
                   </div>
-                  <span class="px-3 py-1 bg-purple-500/80 backdrop-blur-md rounded-full text-xs font-bold">
+                  <span class="px-3 py-1 bg-purple-500/80 backdrop-blur-md rounded-brand-sm text-xs font-bold">
                     Team Acumen Analysis
                   </span>
                 </div>

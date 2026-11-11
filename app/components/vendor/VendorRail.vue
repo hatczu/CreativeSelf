@@ -14,7 +14,7 @@ const items = [
 ] as const;
 
 const iconClass = (isActive: boolean) => [
-  'grid h-10 w-10 shrink-0 place-items-center rounded-full transition',
+  'grid h-10 w-10 shrink-0 place-items-center rounded-brand-sm transition',
   isActive ? 'bg-[#33c4f0] text-[#1a1a28]' : 'text-[#717182] hover:bg-[#e8f9ff] hover:text-[#1a1a28]',
 ];
 </script>
@@ -36,7 +36,7 @@ const iconClass = (isActive: boolean) => [
         type="button"
         title="Settings"
         aria-label="Settings"
-        class="grid h-10 w-10 shrink-0 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]"
+        class="grid h-10 w-10 shrink-0 place-items-center rounded-brand-sm text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]"
       >
         <PhGear :size="18" />
       </button>
@@ -44,7 +44,7 @@ const iconClass = (isActive: boolean) => [
         to="/"
         title="Log out"
         aria-label="Log out"
-        class="grid h-10 w-10 shrink-0 place-items-center rounded-full text-[#717182] transition hover:bg-[#1a1a28] hover:text-white"
+        class="grid h-10 w-10 shrink-0 place-items-center rounded-brand-sm text-[#717182] transition hover:bg-[#1a1a28] hover:text-white"
       >
         <PhSignOut :size="18" />
       </NuxtLink>

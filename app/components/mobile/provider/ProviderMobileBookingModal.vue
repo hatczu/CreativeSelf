@@ -35,12 +35,12 @@ const handleDecline = () => {
 
       <div class="flex items-center justify-between pb-3 border-b border-slate-100">
         <div>
-          <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#007595] bg-[#E8F9FF] px-2.5 py-0.5 rounded-full border border-[#A2F4FD]">Booking Request</span>
+          <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#007595] bg-[#E8F9FF] px-2.5 py-0.5 rounded-brand-sm border border-[#A2F4FD]">Booking Request</span>
           <h3 class="text-lg font-extrabold text-[#1A1A28] mt-1" style="font-family: Century Gothic, Poppins, sans-serif">
             {{ app.selectedBooking.company || 'Corporate Team' }}
           </h3>
         </div>
-        <button type="button" class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200 transition" @click="close">
+        <button type="button" class="w-8 h-8 rounded-brand-sm bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200 transition" @click="close">
           <PhX :size="16" weight="bold" />
         </button>
       </div>

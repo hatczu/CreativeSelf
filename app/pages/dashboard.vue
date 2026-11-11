@@ -113,14 +113,14 @@ const toggleComposer = () => {
             <button
               v-if="hrMode"
               type="button"
-              class="shrink-0 rounded-full bg-[#1a1a28] p-3 text-white"
+              class="shrink-0 rounded-brand bg-[#1a1a28] p-3 text-white"
               aria-label="Publish a post"
               @click="toggleComposer"
             >
               <PhPlus :size="18" />
             </button>
           </div>
-          <div class="mt-5 inline-flex rounded-full bg-[#e8f9ff] px-4 py-2 text-xs font-bold text-[#147c9e]">Curated by Acumen AI</div>
+          <div class="mt-5 inline-flex rounded-brand-sm bg-[#e8f9ff] px-4 py-2 text-xs font-bold text-[#147c9e]">Curated by Acumen AI</div>
         </header>
 
         <section
@@ -133,7 +133,7 @@ const toggleComposer = () => {
               <p class="text-xs font-bold uppercase tracking-[.16em] text-white/45">Your creative plan</p>
               <p class="mt-1 text-lg font-extrabold">
                 Advanced Creative
-                <span class="ml-2 rounded-full bg-[#33c4f0] px-2.5 py-1 text-[10px] text-[#1a1a28]">Active</span>
+                <span class="ml-2 rounded-brand-sm bg-[#33c4f0] px-2.5 py-1 text-[10px] text-[#1a1a28]">Active</span>
               </p>
             </div>
             <p class="max-w-[13rem] text-right text-xs leading-5 text-white/50">Your plan renews on 31 Aug.</p>
@@ -193,14 +193,14 @@ const toggleComposer = () => {
               placeholder="What are you promoting?"
             />
             <div class="mt-3 flex flex-wrap gap-3">
-              <label class="cursor-pointer rounded-full border border-white/20 px-4 py-2 text-xs font-bold text-white/70">
+              <label class="cursor-pointer rounded-brand-sm border border-white/20 px-4 py-2 text-xs font-bold text-white/70">
                 <input type="file" accept="image/*" class="hidden" />
                 Add image
               </label>
               <button
                 type="button"
                 :disabled="!providerTitle.trim()"
-                class="rounded-full bg-[#33c4f0] px-4 py-2 text-xs font-extrabold text-[#1a1a28] disabled:cursor-not-allowed disabled:opacity-40"
+                class="rounded-brand-sm bg-[#33c4f0] px-4 py-2 text-xs font-extrabold text-[#1a1a28] disabled:cursor-not-allowed disabled:opacity-40"
                 @click="published = true"
               >
                 Publish to feed
@@ -214,7 +214,7 @@ const toggleComposer = () => {
             v-for="item in filters"
             :key="item"
             type="button"
-            class="shrink-0 rounded-full border px-4 py-2 text-xs font-bold transition"
+            class="shrink-0 rounded-brand-sm border px-4 py-2 text-xs font-bold transition"
             :style="{
               background: filter === item ? '#1a1a28' : '#fff',
               color: filter === item ? '#fff' : '#717182',
@@ -247,7 +247,7 @@ const toggleComposer = () => {
               <button
                 type="button"
                 :aria-label="`Save ${post.title}`"
-                class="rounded-full p-2 hover:bg-[#f2fbfe] transition"
+                class="rounded-brand p-2 hover:bg-[#f2fbfe] transition"
                 :style="{ color: saved.includes(post.id) ? post.color : '#717182' }"
                 @click.stop="toggleSaved(post.id)"
               >
@@ -267,7 +267,7 @@ const toggleComposer = () => {
               />
               <div
                 v-if="postImages(post).length > 1"
-                class="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-[#1a1a28]/75 px-3 py-1 text-xs font-extrabold text-white backdrop-blur-md shadow-sm"
+                class="absolute top-3 right-3 flex items-center gap-1 rounded-brand-sm bg-[#1a1a28]/75 px-3 py-1 text-xs font-extrabold text-white backdrop-blur-md shadow-sm"
               >
                 <PhImages :size="14" />
                 <span>{{ postImages(post).length }} photos</span>
@@ -280,11 +280,11 @@ const toggleComposer = () => {
               <p class="mt-3 text-sm leading-6 text-[#717182] line-clamp-2">{{ post.copy }}</p>
               <div class="mt-5 flex flex-wrap items-center justify-between gap-2">
                 <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-[#717182]">
-                  <span class="rounded-full bg-[#f2fbfe] px-3 py-2">
+                  <span class="rounded-brand-sm bg-[#f2fbfe] px-3 py-2">
                     <PhCalendarBlank class="mr-1 inline" :size="14" />
                     {{ post.duration }}
                   </span>
-                  <span class="rounded-full bg-[#f2fbfe] px-3 py-2">{{ post.seats }}</span>
+                  <span class="rounded-brand-sm bg-[#f2fbfe] px-3 py-2">{{ post.seats }}</span>
                 </div>
                 <span class="text-xs font-extrabold text-[#33c4f0] opacity-0 group-hover:opacity-100 transition">View post details →</span>
               </div>
@@ -310,7 +310,7 @@ const toggleComposer = () => {
                 </div>
                 <button
                   type="button"
-                  class="inline-flex items-center gap-1.5 rounded-full px-4.5 py-2 text-xs font-extrabold text-white transition hover:scale-105 shadow-md"
+                  class="inline-flex items-center gap-1.5 rounded-brand-sm px-4.5 py-2 text-xs font-extrabold text-white transition hover:scale-105 shadow-md"
                   :style="{ background: post.color }"
                   @click.stop="navigateToPostDetail(post.id)"
                 >
@@ -332,7 +332,7 @@ const toggleComposer = () => {
               <PhMagnifyingGlass :size="16" />
               Find your next reset
             </div>
-            <button type="button" class="mt-4 w-full rounded-full border border-[#33c4f0]/25 px-4 py-3 text-left text-xs text-[#717182]">
+            <button type="button" class="mt-4 w-full rounded-brand-sm border border-[#33c4f0]/25 px-4 py-3 text-left text-xs text-[#717182]">
               Search providers &amp; activities
             </button>
           </div>
@@ -357,7 +357,7 @@ const toggleComposer = () => {
       <div class="relative w-full max-w-lg overflow-hidden bg-white p-7 shadow-2xl sm:p-9" style="border-radius: 20px 20px 64px 20px">
         <button
           type="button"
-          class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-[#f2fbfe] text-[#1a1a28]"
+          class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-brand-sm bg-[#f2fbfe] text-[#1a1a28]"
           aria-label="Close personality profile"
           @click="personalityOpen = false"
         >
@@ -376,7 +376,7 @@ const toggleComposer = () => {
         </div>
         <NuxtLink
           to="/discover/services"
-          class="mt-7 inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-5 py-3 text-sm font-extrabold text-white no-underline"
+          class="mt-7 inline-flex items-center gap-2 rounded-brand bg-[#1a1a28] px-5 py-3 text-sm font-extrabold text-white no-underline"
           @click="personalityOpen = false"
         >
           Explore your matches <PhCaretRight :size="16" />

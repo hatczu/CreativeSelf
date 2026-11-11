@@ -29,7 +29,7 @@ const stats = [
         <div class="flex items-center gap-2">
           <button
             type="button"
-            class="w-8 h-8 rounded-full bg-white text-slate-700 hover:bg-[#E8F9FF] hover:text-[#007595] border border-slate-200/80 flex items-center justify-center transition cursor-pointer shadow-2xs"
+            class="w-8 h-8 rounded-brand-sm bg-white text-slate-700 hover:bg-[#E8F9FF] hover:text-[#007595] border border-slate-200/80 flex items-center justify-center transition cursor-pointer shadow-2xs"
             title="Scan Attendee QR"
             @click="app.showQRScanner = true"
           >
@@ -38,7 +38,7 @@ const stats = [
 
           <button
             type="button"
-            class="w-8 h-8 rounded-full bg-white text-slate-700 hover:bg-[#E8F9FF] hover:text-[#007595] border border-slate-200/80 flex items-center justify-center transition relative cursor-pointer shadow-2xs"
+            class="w-8 h-8 rounded-brand-sm bg-white text-slate-700 hover:bg-[#E8F9FF] hover:text-[#007595] border border-slate-200/80 flex items-center justify-center transition relative cursor-pointer shadow-2xs"
             title="Notifications"
             @click="app.setActiveTab('bookings')"
           >
@@ -109,7 +109,7 @@ const stats = [
             <span class="text-[10px] font-bold text-[#007595] uppercase tracking-wider">Marketplace Pulse</span>
             <h2 class="text-[14px] font-bold text-[#1A1A28] mt-0.5" style="font-family: Century Gothic, Poppins, sans-serif">Studio Performance (30 Days)</h2>
           </div>
-          <span class="text-[10px] font-semibold text-[#007595] bg-[#ECFEFF] border border-[#A2F4FD] px-2.5 py-0.5 rounded-full">+18% Views</span>
+          <span class="text-[10px] font-semibold text-[#007595] bg-[#ECFEFF] border border-[#A2F4FD] px-2.5 py-0.5 rounded-brand-sm">+18% Views</span>
         </div>
 
         <div class="grid grid-cols-3 gap-2 text-center pt-1">
@@ -181,7 +181,7 @@ const stats = [
 
               <span
                 :class="[
-                  'text-[10px] font-bold px-2.5 py-0.5 rounded-full shrink-0',
+                  'text-[10px] font-bold px-2.5 py-0.5 rounded-brand-sm shrink-0',
                   b.status === 'Confirmed' ? 'bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]' : 'bg-[#FFFBEB] text-[#B45309] border border-[#FDE68A]',
                 ]"
               >

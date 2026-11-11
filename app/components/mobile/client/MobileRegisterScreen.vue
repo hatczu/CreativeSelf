@@ -99,7 +99,7 @@ const planCheckClass = (plan: (typeof plans)[number]) => [
       <div class="flex items-center justify-between">
         <button
           type="button"
-          class="w-9 h-9 bg-[#F3F4F6] rounded-full flex items-center justify-center text-[#1A1A28] hover:bg-slate-200 transition shadow-2xs"
+          class="w-9 h-9 bg-[#F3F4F6] rounded-brand-sm flex items-center justify-center text-[#1A1A28] hover:bg-slate-200 transition shadow-2xs"
           @click="goBack"
         >
           <PhCaretLeft :size="18" weight="bold" />
@@ -257,7 +257,7 @@ const planCheckClass = (plan: (typeof plans)[number]) => [
           <div v-for="plan in plans" :key="plan.id" :class="planClass(plan)" style="border-radius: 16px 16px 36px 16px" @click="app.selectedPlanId = plan.id">
             <span
               v-if="plan.popular"
-              class="absolute -top-2.5 right-4 bg-amber-400 text-slate-950 font-semibold text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-2xs"
+              class="absolute -top-2.5 right-4 bg-amber-400 text-slate-950 font-semibold text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-brand-sm shadow-2xs"
             >
               + Most Popular
             </span>

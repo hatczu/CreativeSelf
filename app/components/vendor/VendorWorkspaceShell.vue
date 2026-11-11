@@ -34,7 +34,7 @@ const dayClass = (day: number) => {
   const confirmed = day === 8 || day === 16 || day === 21;
   const pending = day === 13;
   return [
-    'grid h-7 place-items-center rounded-full text-xs font-bold',
+    'grid h-7 place-items-center rounded-brand-sm text-xs font-bold',
     confirmed ? 'bg-[#33c4f0] text-[#1a1a28]' : pending ? 'bg-[#f59e0b]/25 text-[#9a5d00]' : 'text-[#414153]',
   ];
 };
@@ -61,7 +61,7 @@ const dayClass = (day: number) => {
             <button
               v-if="page === 'services'"
               type="button"
-              class="inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-4 py-3 text-xs font-extrabold text-white"
+              class="inline-flex items-center gap-2 rounded-brand-sm bg-[#1a1a28] px-4 py-3 text-xs font-extrabold text-white"
               @click="emit('newService')"
             >
               <PhPlus :size="16" />New service

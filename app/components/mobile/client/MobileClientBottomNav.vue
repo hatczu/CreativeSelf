@@ -31,7 +31,7 @@ const itemColor = (active: boolean) => (active ? '#33C4F0' : isDark.value ? '#94
       v-for="tab in navItems"
       :key="tab.id"
       :class="[
-        'flex flex-col items-center gap-0.5 py-1 px-3.5 rounded-xl transition relative',
+        'flex flex-col items-center gap-0.5 py-1 px-3.5 rounded-brand transition relative',
         app.activeTab === tab.id ? 'text-[#33C4F0] font-bold' : 'text-slate-400 hover:text-slate-700',
       ]"
       @click="app.setActiveTab(tab.id)"
@@ -162,7 +162,7 @@ const itemColor = (active: boolean) => (active ? '#33C4F0' : isDark.value ? '#94
             right: '12px',
             top: isIconOnly ? '6px' : '2px',
             background: '#33C4F0',
-            borderRadius: '33554432px',
+            borderRadius: 'var(--radius-brand-sm)',
             flex: 'none',
             zIndex: 2,
           }"

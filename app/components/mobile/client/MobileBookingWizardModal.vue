@@ -149,20 +149,20 @@ const toggleClass = (active: boolean) => [
       <div class="bg-white/95 backdrop-blur-md px-4 py-3 border-b border-slate-100 sticky top-0 z-30 flex items-center justify-between shadow-2xs">
         <button
           type="button"
-          class="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-full transition cursor-pointer"
+          class="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-brand-sm transition cursor-pointer"
           @click="goBack"
         >
           <PhCaretLeft :size="16" weight="bold" /> {{ step > 1 ? 'Back' : 'Cancel' }}
         </button>
 
         <div class="flex items-center gap-2">
-          <span class="text-xs font-black text-[#147C9E] bg-[#E8F9FF] px-2.5 py-1 rounded-full">Step {{ step }} of 4</span>
+          <span class="text-xs font-black text-[#147C9E] bg-[#E8F9FF] px-2.5 py-1 rounded-brand-sm">Step {{ step }} of 4</span>
           <span class="text-xs font-bold text-slate-500">{{ stepLabels[step] }}</span>
         </div>
 
         <button
           type="button"
-          class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition cursor-pointer"
+          class="w-8 h-8 rounded-brand-sm bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition cursor-pointer"
           @click="emit('close')"
         >
           <PhX :size="16" />
@@ -222,7 +222,7 @@ const toggleClass = (active: boolean) => [
           <!-- Selected Date Range Preview -->
           <div class="bg-[#E8F9FF] p-3 rounded-2xl border border-[#33C4F0]/30 flex items-center justify-between text-xs text-[#147C9E]">
             <span class="font-bold">Selected Dates:</span>
-            <span class="font-extrabold text-slate-900 bg-white px-2.5 py-1 rounded-full border border-[#A2F4FD]">{{ formattedDateString }}</span>
+            <span class="font-extrabold text-slate-900 bg-white px-2.5 py-1 rounded-brand-sm border border-[#A2F4FD]">{{ formattedDateString }}</span>
           </div>
 
           <!-- Time Slot Picker -->
@@ -245,7 +245,7 @@ const toggleClass = (active: boolean) => [
                   <p class="font-extrabold">{{ t.slot }}</p>
                   <p class="text-[10px] text-slate-400">{{ t.label }}</p>
                 </div>
-                <span class="text-[10px] font-extrabold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full">Open</span>
+                <span class="text-[10px] font-extrabold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-brand-sm">Open</span>
               </button>
             </div>
           </div>
@@ -305,7 +305,7 @@ const toggleClass = (active: boolean) => [
           <div class="bg-[#1A1A28] p-4 text-white space-y-2.5 shadow-md" style="border-radius: 20px 20px 40px 20px">
             <div class="flex items-center justify-between text-xs font-extrabold">
               <span class="text-[#33C4F0] flex items-center gap-1"> <PhSparkle :size="15" weight="fill" /> Pass Credits Required </span>
-              <span class="text-white bg-white/10 px-2.5 py-0.5 rounded-full">{{ seatsCount }} Pass Credits</span>
+              <span class="text-white bg-white/10 px-2.5 py-0.5 rounded-brand-sm">{{ seatsCount }} Pass Credits</span>
             </div>
 
             <div class="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-white/10">
@@ -331,7 +331,7 @@ const toggleClass = (active: boolean) => [
 
           <div class="bg-[#E8F9FF] p-3 rounded-2xl border border-[#33C4F0]/40 flex items-center justify-between text-xs text-[#147C9E]">
             <span class="font-extrabold">Assigned Slots:</span>
-            <span class="font-extrabold text-slate-900 bg-white px-3 py-1 rounded-full border border-[#A2F4FD]">
+            <span class="font-extrabold text-slate-900 bg-white px-3 py-1 rounded-brand-sm border border-[#A2F4FD]">
               {{ invitedEmails.length }} of {{ seatsCount }} Seats Assigned
             </span>
           </div>
@@ -343,7 +343,7 @@ const toggleClass = (active: boolean) => [
               v-model="bulkEmailText"
               rows="3"
               placeholder="e.g. alex@acme.com, marcus@acme.co, chris@acme.co"
-              class="w-full p-3 bg-slate-50 rounded-2xl text-xs text-slate-900 border border-slate-200 focus:outline-none focus:bg-white focus:border-[#33C4F0]"
+              class="w-full p-3 bg-slate-50 rounded-brand text-xs text-slate-900 border border-slate-200 focus:outline-none focus:bg-white focus:border-[#33C4F0]"
             />
             <button
               type="button"
@@ -361,12 +361,12 @@ const toggleClass = (active: boolean) => [
               v-model="singleEmailInput"
               type="email"
               placeholder="Add single colleague email..."
-              class="flex-1 px-3.5 py-2 bg-slate-50 rounded-xl text-xs text-slate-900 border border-slate-200 focus:outline-none focus:bg-white"
+              class="flex-1 px-3.5 py-2 bg-slate-50 rounded-brand text-xs text-slate-900 border border-slate-200 focus:outline-none focus:bg-white"
             />
             <button
               type="submit"
               :disabled="!singleEmailInput.trim()"
-              class="px-4 py-2 bg-[#33C4F0] text-white text-xs font-extrabold rounded-xl hover:bg-[#1AB0DC] disabled:opacity-40"
+              class="px-4 py-2 bg-[#33C4F0] text-white text-xs font-extrabold rounded-brand hover:bg-[#1AB0DC] disabled:opacity-40"
             >
               Add
             </button>
@@ -379,7 +379,7 @@ const toggleClass = (active: boolean) => [
               <span
                 v-for="email in invitedEmails"
                 :key="email"
-                class="inline-flex items-center gap-1.5 px-3 py-1 bg-white rounded-full text-xs font-bold text-slate-800 border border-slate-200 shadow-2xs"
+                class="inline-flex items-center gap-1.5 px-3 py-1 bg-white rounded-brand-sm text-xs font-bold text-slate-800 border border-slate-200 shadow-2xs"
               >
                 <PhEnvelope :size="12" class="text-[#33C4F0]" />
                 <span>{{ email }}</span>
@@ -443,7 +443,7 @@ const toggleClass = (active: boolean) => [
         <button
           type="button"
           :class="[
-            'px-4 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-xs font-extrabold text-slate-700 transition cursor-pointer',
+            'px-4 py-2.5 rounded-brand-sm bg-slate-100 hover:bg-slate-200 text-xs font-extrabold text-slate-700 transition cursor-pointer',
             step > 1 ? 'flex items-center gap-1' : '',
           ]"
           @click="goBack"
@@ -455,7 +455,7 @@ const toggleClass = (active: boolean) => [
         <button
           v-if="step < 4"
           type="button"
-          class="px-6 py-2.5 rounded-full bg-[#33C4F0] hover:bg-[#1AB0DC] text-white text-xs font-extrabold shadow-md transition flex items-center gap-1 cursor-pointer ml-auto"
+          class="px-6 py-2.5 rounded-brand-sm bg-[#33C4F0] hover:bg-[#1AB0DC] text-white text-xs font-extrabold shadow-md transition flex items-center gap-1 cursor-pointer ml-auto"
           @click="goNext"
         >
           Next <PhCaretRight :size="14" weight="bold" />
@@ -463,7 +463,7 @@ const toggleClass = (active: boolean) => [
         <button
           v-else
           type="button"
-          class="px-6 py-2.5 rounded-full bg-[#1A1A28] hover:bg-[#33C4F0] hover:text-[#1A1A28] text-white text-xs font-extrabold shadow-md transition flex items-center gap-1.5 cursor-pointer ml-auto"
+          class="px-6 py-2.5 rounded-brand-sm bg-[#1A1A28] hover:bg-[#33C4F0] hover:text-[#1A1A28] text-white text-xs font-extrabold shadow-md transition flex items-center gap-1.5 cursor-pointer ml-auto"
           @click="handleFinalConfirm"
         >
           <PhSparkle :size="15" weight="fill" class="text-amber-400" /> Confirm &amp; Complete Booking

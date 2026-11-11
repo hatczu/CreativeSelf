@@ -13,7 +13,7 @@ const isBookingsActive = computed(() => pathname.value.startsWith('/bookings'));
 const isMobileActive = computed(() => pathname.value.startsWith('/mobile'));
 
 const navClass = (active: boolean) => [
-  'grid h-10 w-10 shrink-0 place-items-center rounded-full transition',
+  'grid h-10 w-10 shrink-0 place-items-center rounded-brand-sm transition',
   active ? 'bg-[#33c4f0] text-[#1a1a28] shadow-sm' : 'text-[#717182] hover:bg-[#e8f9ff] hover:text-[#1a1a28]',
 ];
 </script>
@@ -58,7 +58,7 @@ const navClass = (active: boolean) => [
         title="Client Mobile App"
         aria-label="Client Mobile App"
         :class="[
-          'grid h-10 w-10 shrink-0 place-items-center rounded-full transition',
+          'grid h-10 w-10 shrink-0 place-items-center rounded-brand-sm transition',
           isMobileActive
             ? 'bg-[#147c9e] text-white shadow-sm'
             : 'text-[#147c9e] bg-[#e8f9ff] hover:bg-[#33c4f0] hover:text-[#1a1a28]',
@@ -73,7 +73,7 @@ const navClass = (active: boolean) => [
         type="button"
         title="Settings"
         aria-label="Settings"
-        class="grid h-10 w-10 shrink-0 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]"
+        class="grid h-10 w-10 shrink-0 place-items-center rounded-brand-sm text-[#717182] transition hover:bg-[#e8f9ff] hover:text-[#1a1a28]"
       >
         <PhGear :size="18" />
       </button>
@@ -81,7 +81,7 @@ const navClass = (active: boolean) => [
         to="/"
         title="Log out"
         aria-label="Log out"
-        class="grid h-10 w-10 shrink-0 place-items-center rounded-full text-[#717182] transition hover:bg-[#1a1a28] hover:text-white"
+        class="grid h-10 w-10 shrink-0 place-items-center rounded-brand-sm text-[#717182] transition hover:bg-[#1a1a28] hover:text-white"
       >
         <PhSignOut :size="18" />
       </NuxtLink>

@@ -27,7 +27,7 @@ const goTo = (path: string) => {
         </div>
         <button
           type="button"
-          class="grid h-8 w-8 place-items-center rounded-full bg-[#f2fbfe] text-[#717182] hover:bg-[#e8f9ff] hover:text-[#1a1a28]"
+          class="grid h-8 w-8 place-items-center rounded-brand-sm bg-[#f2fbfe] text-[#717182] hover:bg-[#e8f9ff] hover:text-[#1a1a28]"
           @click="sub.closeLimitModal()"
         >
           <PhX :size="18" />
@@ -63,7 +63,7 @@ const goTo = (path: string) => {
       <div class="mt-6 flex flex-col gap-2.5 sm:flex-row sm:justify-end">
         <button
           type="button"
-          class="inline-flex items-center justify-center gap-2 rounded-full bg-[#33c4f0] px-5 py-2.5 text-xs font-extrabold text-[#1a1a28] transition hover:bg-[#20b3df]"
+          class="inline-flex items-center justify-center gap-2 rounded-brand-sm bg-[#33c4f0] px-5 py-2.5 text-xs font-extrabold text-[#1a1a28] transition hover:bg-[#20b3df]"
           @click="goTo('/bookings')"
         >
           <PhCalendarBlank :size="16" />
@@ -71,7 +71,7 @@ const goTo = (path: string) => {
         </button>
         <button
           type="button"
-          class="inline-flex items-center justify-center gap-2 rounded-full border border-[#33c4f0]/30 bg-white px-5 py-2.5 text-xs font-extrabold text-[#1a1a28] transition hover:bg-[#f2fbfe]"
+          class="inline-flex items-center justify-center gap-2 rounded-brand-sm border border-[#33c4f0]/30 bg-white px-5 py-2.5 text-xs font-extrabold text-[#1a1a28] transition hover:bg-[#f2fbfe]"
           @click="goTo('/dashboard')"
         >
           <PhSparkle :size="16" />

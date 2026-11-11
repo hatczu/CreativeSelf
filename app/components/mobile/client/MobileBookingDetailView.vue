@@ -52,19 +52,19 @@ const confirmCancel = () => {
       <div class="bg-white/95 backdrop-blur-md px-4 py-3 border-b border-slate-100 sticky top-0 z-30 flex items-center justify-between shadow-2xs">
         <button
           type="button"
-          class="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-full transition cursor-pointer"
+          class="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-brand-sm transition cursor-pointer"
           @click="app.selectedBooking = null"
         >
           <PhCaretLeft :size="16" weight="bold" /> Back to Schedule
         </button>
 
         <div class="flex items-center gap-2">
-          <span class="text-[10px] font-extrabold text-[#10B981] bg-[#ECFDF5] border border-emerald-200 px-2.5 py-1 rounded-full flex items-center gap-1">
+          <span class="text-[10px] font-extrabold text-[#10B981] bg-[#ECFDF5] border border-emerald-200 px-2.5 py-1 rounded-brand-sm flex items-center gap-1">
             <PhCheck :size="12" weight="bold" /> {{ booking.status || 'Confirmed' }}
           </span>
           <button
             type="button"
-            class="p-1.5 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition cursor-pointer"
+            class="p-1.5 rounded-brand bg-slate-100 text-slate-600 hover:bg-slate-200 transition cursor-pointer"
             title="Share"
             @click="showToast('🔗 Booking link copied to clipboard!')"
           >
@@ -95,14 +95,14 @@ const confirmCancel = () => {
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
               <span
-                class="text-xs font-extrabold text-white px-3 py-1 rounded-full shadow-md backdrop-blur-md flex items-center gap-1.5"
+                class="text-xs font-extrabold text-white px-3 py-1 rounded-brand-sm shadow-md backdrop-blur-md flex items-center gap-1.5"
                 :style="{ backgroundColor: brandColor }"
               >
                 <span>{{ booking.symbol || '✨' }}</span> Confirmed Booking
               </span>
               <button
                 type="button"
-                class="text-xs font-extrabold bg-white text-[#1A1A28] px-3 py-1 rounded-full shadow-md flex items-center gap-1 hover:bg-slate-100 transition cursor-pointer"
+                class="text-xs font-extrabold bg-white text-[#1A1A28] px-3 py-1 rounded-brand-sm shadow-md flex items-center gap-1 hover:bg-slate-100 transition cursor-pointer"
                 @click="app.selectedQrPass = booking"
               >
                 <PhQrCode :size="14" weight="bold" /> Show Pass
@@ -138,7 +138,7 @@ const confirmCancel = () => {
 
             <button
               type="button"
-              class="w-full py-2.5 bg-[#33C4F0] hover:bg-[#1AB0DC] text-white text-xs font-extrabold rounded-full shadow-xs transition flex items-center justify-center gap-2 cursor-pointer"
+              class="w-full py-2.5 bg-[#33C4F0] hover:bg-[#1AB0DC] text-white text-xs font-extrabold rounded-brand-sm shadow-xs transition flex items-center justify-center gap-2 cursor-pointer"
               @click="app.selectedQrPass = booking"
             >
               <PhQrCode :size="16" weight="bold" /> Present QR Ticket at Venue
@@ -159,7 +159,7 @@ const confirmCancel = () => {
                 <h3 class="text-sm font-extrabold text-slate-900 mt-0.5">Occupied &amp; Vacant Slots</h3>
               </div>
               <span
-                class="text-xs font-extrabold text-[#33C4F0] bg-[#E8F9FF] px-3 py-1 rounded-full group-hover:bg-[#33C4F0] group-hover:text-white transition flex items-center gap-1"
+                class="text-xs font-extrabold text-[#33C4F0] bg-[#E8F9FF] px-3 py-1 rounded-brand-sm group-hover:bg-[#33C4F0] group-hover:text-white transition flex items-center gap-1"
               >
                 Manage Roster <PhCaretRight :size="12" weight="bold" />
               </span>
@@ -175,7 +175,7 @@ const confirmCancel = () => {
                 <span class="text-xs font-bold text-slate-700">7 / 10 Slots Occupied</span>
               </div>
 
-              <span class="text-[11px] font-extrabold text-[#10B981] bg-[#ECFDF5] px-2.5 py-0.5 rounded-full border border-emerald-200">3 Vacant Available</span>
+              <span class="text-[11px] font-extrabold text-[#10B981] bg-[#ECFDF5] px-2.5 py-0.5 rounded-brand-sm border border-emerald-200">3 Vacant Available</span>
             </div>
           </div>
         </div>
@@ -249,7 +249,7 @@ const confirmCancel = () => {
         <div class="p-4 space-y-2.5">
           <button
             type="button"
-            class="w-full py-3 bg-[#1A1A28] text-white hover:bg-black text-xs font-extrabold rounded-full shadow-xs transition flex items-center justify-center gap-2 cursor-pointer"
+            class="w-full py-3 bg-[#1A1A28] text-white hover:bg-black text-xs font-extrabold rounded-brand-sm shadow-xs transition flex items-center justify-center gap-2 cursor-pointer"
             @click="showToast('📅 Added session to your calendar!')"
           >
             <PhCalendarPlus :size="16" weight="bold" /> Add to Phone Calendar
@@ -257,7 +257,7 @@ const confirmCancel = () => {
 
           <button
             type="button"
-            class="w-full py-2.5 border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-bold rounded-full transition flex items-center justify-center gap-1.5 cursor-pointer"
+            class="w-full py-2.5 border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-bold rounded-brand-sm transition flex items-center justify-center gap-1.5 cursor-pointer"
             @click="showCancelModal = true"
           >
             <PhTrash :size="14" /> Cancel or Reschedule Booking

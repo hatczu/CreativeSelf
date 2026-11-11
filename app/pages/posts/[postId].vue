@@ -96,7 +96,7 @@ const showAlert = (message: string) => window.alert(message);
       <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
         <button
           type="button"
-          class="inline-flex items-center gap-2 rounded-full border border-[#33C4F0]/25 bg-white px-5 py-2.5 text-xs font-extrabold text-[#1A1A28] shadow-sm transition hover:bg-[#E8F9FF] hover:border-[#33C4F0]"
+          class="inline-flex items-center gap-2 rounded-brand-sm border border-[#33C4F0]/25 bg-white px-5 py-2.5 text-xs font-extrabold text-[#1A1A28] shadow-sm transition hover:bg-[#E8F9FF] hover:border-[#33C4F0]"
           @click="navigateTo(backUrl)"
         >
           <PhArrowLeft :size="16" />
@@ -130,14 +130,14 @@ const showAlert = (message: string) => window.alert(message);
 
           <div class="flex flex-wrap items-center gap-2">
             <span
-              class="rounded-full px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-wider"
+              class="rounded-brand-sm px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-wider"
               :style="{ background: `${brandColor}15`, color: brandColor }"
             >
               {{ post.category }}
             </span>
             <span
               v-if="post.label"
-              class="rounded-full px-3 py-1 text-xs font-extrabold uppercase text-white shadow-sm"
+              class="rounded-brand-sm px-3 py-1 text-xs font-extrabold uppercase text-white shadow-sm"
               :style="{ background: labelColor(post.label) }"
             >
               {{ post.label }}
@@ -161,7 +161,7 @@ const showAlert = (message: string) => window.alert(message);
             <template v-if="allImages.length > 1">
               <!-- Photo Badge -->
               <div
-                class="absolute top-4 right-4 flex items-center gap-1.5 rounded-full bg-[#1A1A28]/80 px-4 py-1.5 text-xs font-extrabold text-white backdrop-blur-md shadow-md"
+                class="absolute top-4 right-4 flex items-center gap-1.5 rounded-brand-sm bg-[#1A1A28]/80 px-4 py-1.5 text-xs font-extrabold text-white backdrop-blur-md shadow-md"
               >
                 <PhImages :size="16" />
                 <span>Photo {{ activeImageIndex + 1 }} of {{ allImages.length }}</span>
@@ -170,7 +170,7 @@ const showAlert = (message: string) => window.alert(message);
               <!-- Carousel Arrow Navigation -->
               <button
                 type="button"
-                class="absolute left-4 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/90 text-[#1A1A28] shadow-lg backdrop-blur-md transition hover:bg-white hover:scale-110"
+                class="absolute left-4 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-brand-sm bg-white/90 text-[#1A1A28] shadow-lg backdrop-blur-md transition hover:bg-white hover:scale-110"
                 aria-label="Previous photo"
                 @click="handlePrevPhoto"
               >
@@ -178,7 +178,7 @@ const showAlert = (message: string) => window.alert(message);
               </button>
               <button
                 type="button"
-                class="absolute right-4 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-full bg-white/90 text-[#1A1A28] shadow-lg backdrop-blur-md transition hover:bg-white hover:scale-110"
+                class="absolute right-4 top-1/2 -translate-y-1/2 grid h-12 w-12 place-items-center rounded-brand-sm bg-white/90 text-[#1A1A28] shadow-lg backdrop-blur-md transition hover:bg-white hover:scale-110"
                 aria-label="Next photo"
                 @click="handleNextPhoto"
               >
@@ -218,15 +218,15 @@ const showAlert = (message: string) => window.alert(message);
 
             <!-- Tags / Details Bar -->
             <div class="mt-7 flex flex-wrap items-center gap-3 border-t border-[#33C4F0]/15 pt-5 text-xs font-extrabold">
-              <span v-if="post.duration" class="rounded-full bg-[#F2FBFE] px-4 py-2.5 text-[#147C9E] flex items-center gap-2">
+              <span v-if="post.duration" class="rounded-brand-sm bg-[#F2FBFE] px-4 py-2.5 text-[#147C9E] flex items-center gap-2">
                 <PhClock :size="16" />
                 {{ post.duration }}
               </span>
-              <span v-if="post.seats" class="rounded-full bg-[#F2FBFE] px-4 py-2.5 text-[#147C9E] flex items-center gap-2">
+              <span v-if="post.seats" class="rounded-brand-sm bg-[#F2FBFE] px-4 py-2.5 text-[#147C9E] flex items-center gap-2">
                 <PhUsers :size="16" />
                 {{ post.seats }}
               </span>
-              <span v-if="post.service" class="rounded-full bg-[#E8F9FF] px-4 py-2.5 text-[#147C9E]">🎨 Service: {{ post.service }}</span>
+              <span v-if="post.service" class="rounded-brand-sm bg-[#E8F9FF] px-4 py-2.5 text-[#147C9E]">🎨 Service: {{ post.service }}</span>
             </div>
           </div>
 
@@ -258,7 +258,7 @@ const showAlert = (message: string) => window.alert(message);
                 <p class="text-xs font-extrabold uppercase tracking-[.18em] text-[#33C4F0]">Photo Gallery</p>
                 <h3 class="mt-1 text-xl font-extrabold text-[#1A1A28]">A Glimpse Into the Moment</h3>
               </div>
-              <span class="rounded-full bg-[#E8F9FF] px-3.5 py-1.5 text-xs font-extrabold text-[#147C9E]">{{ allImages.length }} Photos</span>
+              <span class="rounded-brand-sm bg-[#E8F9FF] px-3.5 py-1.5 text-xs font-extrabold text-[#147C9E]">{{ allImages.length }} Photos</span>
             </div>
 
             <div class="grid gap-4 sm:grid-cols-2">
@@ -274,7 +274,7 @@ const showAlert = (message: string) => window.alert(message);
                   class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div class="absolute inset-0 bg-[#1A1A28]/20 opacity-0 group-hover:opacity-100 transition-opacity grid place-items-center">
-                  <span class="rounded-full bg-white/90 px-4 py-2 text-xs font-extrabold text-[#1A1A28] shadow-md backdrop-blur">View Photo</span>
+                  <span class="rounded-brand-sm bg-white/90 px-4 py-2 text-xs font-extrabold text-[#1A1A28] shadow-md backdrop-blur">View Photo</span>
                 </div>
               </div>
             </div>
@@ -305,7 +305,7 @@ const showAlert = (message: string) => window.alert(message);
             <div class="flex items-center gap-3">
               <button
                 type="button"
-                class="flex items-center gap-2 rounded-full border border-[#33C4F0]/25 px-4 py-2 text-xs font-extrabold text-[#1A1A28] transition hover:bg-[#E8F9FF]"
+                class="flex items-center gap-2 rounded-brand-sm border border-[#33C4F0]/25 px-4 py-2 text-xs font-extrabold text-[#1A1A28] transition hover:bg-[#E8F9FF]"
                 :style="{ color: saved ? brandColor : '#1A1A28' }"
                 @click="saved = !saved"
               >
@@ -314,7 +314,7 @@ const showAlert = (message: string) => window.alert(message);
               </button>
               <button
                 type="button"
-                class="grid h-9 w-9 place-items-center rounded-full bg-[#F2FBFE] text-[#147C9E] hover:bg-[#E8F9FF] transition"
+                class="grid h-9 w-9 place-items-center rounded-brand-sm bg-[#F2FBFE] text-[#147C9E] hover:bg-[#E8F9FF] transition"
                 title="Share"
                 @click="showAlert('Post link copied to clipboard!')"
               >
@@ -345,12 +345,12 @@ const showAlert = (message: string) => window.alert(message);
                 v-model="newComment"
                 type="text"
                 placeholder="Add your thoughts or ask a question..."
-                class="flex-1 rounded-full border border-[#33C4F0]/25 bg-[#F9FDFF] px-5 py-3 text-sm text-[#1A1A28] placeholder:text-[#717182] focus:outline-none focus:border-[#33C4F0]"
+                class="flex-1 rounded-brand border border-[#33C4F0]/25 bg-[#F9FDFF] px-5 py-3 text-sm text-[#1A1A28] placeholder:text-[#717182] focus:outline-none focus:border-[#33C4F0]"
               />
               <button
                 type="submit"
                 :disabled="!newComment.trim()"
-                class="rounded-full bg-[#1A1A28] px-6 py-3 text-xs font-extrabold text-white transition hover:bg-[#33C4F0] hover:text-[#1A1A28] disabled:opacity-40"
+                class="rounded-brand-sm bg-[#1A1A28] px-6 py-3 text-xs font-extrabold text-white transition hover:bg-[#33C4F0] hover:text-[#1A1A28] disabled:opacity-40"
               >
                 Post
               </button>
@@ -377,7 +377,7 @@ const showAlert = (message: string) => window.alert(message);
             </p>
             <NuxtLink
               to="/discover/providers"
-              class="mt-5 inline-flex w-full items-center justify-center gap-1 rounded-full border border-[#33C4F0]/30 py-3 text-xs font-extrabold text-[#147C9E] transition hover:bg-[#E8F9FF]"
+              class="mt-5 inline-flex w-full items-center justify-center gap-1 rounded-brand-sm border border-[#33C4F0]/30 py-3 text-xs font-extrabold text-[#147C9E] transition hover:bg-[#E8F9FF]"
             >
               View Provider Profile
             </NuxtLink>
@@ -395,14 +395,14 @@ const showAlert = (message: string) => window.alert(message);
               </div>
               <h3 class="mt-4 text-xl font-extrabold">Booking Request Sent!</h3>
               <p class="mt-2 text-xs text-white/70">{{ post.provider }} will confirm availability for {{ selectedDate }}.</p>
-              <button type="button" class="mt-5 rounded-full bg-[#33C4F0] px-5 py-2.5 text-xs font-extrabold text-[#1A1A28]" @click="bookingSent = false">
+              <button type="button" class="mt-5 rounded-brand-sm bg-[#33C4F0] px-5 py-2.5 text-xs font-extrabold text-[#1A1A28]" @click="bookingSent = false">
                 Book Another Slot
               </button>
             </div>
             <template v-else>
               <div class="flex items-center justify-between">
                 <p class="text-xs font-extrabold uppercase tracking-[.18em] text-[#33C4F0]">Book Experience</p>
-                <span class="rounded-full bg-[#33C4F0]/20 px-3 py-1 text-[10px] font-extrabold text-[#33C4F0]">Instant Request</span>
+                <span class="rounded-brand-sm bg-[#33C4F0]/20 px-3 py-1 text-[10px] font-extrabold text-[#33C4F0]">Instant Request</span>
               </div>
 
               <h3 class="mt-2 text-2xl font-extrabold">Book this session</h3>
@@ -414,7 +414,7 @@ const showAlert = (message: string) => window.alert(message);
                   v-for="d in dates"
                   :key="d"
                   type="button"
-                  class="rounded-full px-3.5 py-2 text-xs font-bold transition"
+                  class="rounded-brand-sm px-3.5 py-2 text-xs font-bold transition"
                   :style="{
                     background: selectedDate === d ? brandColor : 'rgba(255,255,255,0.1)',
                     color: selectedDate === d ? '#1A1A28' : '#ffffff',
@@ -428,7 +428,7 @@ const showAlert = (message: string) => window.alert(message);
               <label class="mt-4 block text-xs font-extrabold text-white/70">ESTIMATED TEAM SIZE</label>
               <select
                 v-model="teamSize"
-                class="mt-2 w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-2.5 text-xs font-bold text-white focus:outline-none"
+                class="mt-2 w-full rounded-brand border border-white/20 bg-white/10 px-4 py-2.5 text-xs font-bold text-white focus:outline-none"
               >
                 <option class="text-[#1A1A28]">10 people</option>
                 <option class="text-[#1A1A28]">15 people</option>
@@ -437,7 +437,7 @@ const showAlert = (message: string) => window.alert(message);
 
               <button
                 type="button"
-                class="mt-6 flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-sm font-extrabold text-white shadow-xl transition hover:scale-[1.02] active:scale-[0.98]"
+                class="mt-6 flex w-full items-center justify-center gap-2 rounded-brand py-3.5 text-sm font-extrabold text-white shadow-xl transition hover:scale-[1.02] active:scale-[0.98]"
                 :style="{ background: brandColor }"
                 @click="bookingSent = true"
               >
@@ -463,7 +463,7 @@ const showAlert = (message: string) => window.alert(message);
 
             <button
               type="button"
-              class="mt-2 w-full rounded-full bg-[#1A1A28] py-3 text-xs font-extrabold text-white transition hover:bg-[#33C4F0] hover:text-[#1A1A28]"
+              class="mt-2 w-full rounded-brand-sm bg-[#1A1A28] py-3 text-xs font-extrabold text-white transition hover:bg-[#33C4F0] hover:text-[#1A1A28]"
               @click="navigateTo('/vendor/content')"
             >
               Manage in Content Studio

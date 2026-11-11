@@ -122,7 +122,7 @@ const onOptionLeave = (e: MouseEvent, i: number) => {
           :style="{
             display: 'inline-block',
             padding: '0.35rem 1rem',
-            borderRadius: '9999px',
+            borderRadius: 'var(--radius-brand-sm)',
             background: `${result.color}15`,
             border: `1.5px solid ${result.color}30`,
             fontSize: '0.8rem',
@@ -159,7 +159,7 @@ const onOptionLeave = (e: MouseEvent, i: number) => {
             :key="trait"
             :style="{
               padding: '0.4rem 1rem',
-              borderRadius: '9999px',
+              borderRadius: 'var(--radius-brand-sm)',
               fontSize: '0.875rem',
               fontWeight: 600,
               color: result.color,
@@ -198,7 +198,7 @@ const onOptionLeave = (e: MouseEvent, i: number) => {
               :key="activity"
               :style="{
                 padding: '0.35rem 0.875rem',
-                borderRadius: '9999px',
+                borderRadius: 'var(--radius-brand-sm)',
                 fontSize: '0.875rem',
                 fontWeight: 600,
                 background: result.color,
@@ -219,7 +219,7 @@ const onOptionLeave = (e: MouseEvent, i: number) => {
               justifyContent: 'center',
               gap: '0.5rem',
               padding: '0.875rem 2rem',
-              borderRadius: '9999px',
+              borderRadius: 'var(--radius-brand)',
               fontSize: '1rem',
               fontWeight: 700,
               color: '#ffffff',
@@ -238,7 +238,7 @@ const onOptionLeave = (e: MouseEvent, i: number) => {
               justifyContent: 'center',
               gap: '0.5rem',
               padding: '0.875rem 1.5rem',
-              borderRadius: '9999px',
+              borderRadius: 'var(--radius-brand)',
               fontSize: '0.95rem',
               fontWeight: 600,
               color: result.color,
@@ -285,7 +285,7 @@ const onOptionLeave = (e: MouseEvent, i: number) => {
             alignItems: 'center',
             gap: '0.5rem',
             padding: '0.4rem 1.1rem',
-            borderRadius: '9999px',
+            borderRadius: 'var(--radius-brand-sm)',
             background: 'rgba(51,196,240,0.1)',
             border: '1px solid rgba(51,196,240,0.3)',
             fontSize: '0.8125rem',
@@ -369,7 +369,7 @@ const onOptionLeave = (e: MouseEvent, i: number) => {
                 :key="i"
                 :style="{
                   padding: '1rem 1.25rem',
-                  borderRadius: '9999px',
+                  borderRadius: 'var(--radius-brand)',
                   fontSize: '0.95rem',
                   fontWeight: selected === i ? 700 : 500,
                   color: selected === i ? '#ffffff' : '#2A2A3A',
@@ -400,7 +400,7 @@ const onOptionLeave = (e: MouseEvent, i: number) => {
             alignItems: 'center',
             gap: '0.5rem',
             padding: '0.75rem 1.5rem',
-            borderRadius: '9999px',
+            borderRadius: 'var(--radius-brand)',
             fontSize: '0.9rem',
             fontWeight: 600,
             color: step === 0 ? '#ccc' : '#717182',
@@ -435,7 +435,7 @@ const onOptionLeave = (e: MouseEvent, i: number) => {
             alignItems: 'center',
             gap: '0.5rem',
             padding: '0.75rem 1.75rem',
-            borderRadius: '9999px',
+            borderRadius: 'var(--radius-brand)',
             fontSize: '0.9rem',
             fontWeight: 700,
             color: '#ffffff',

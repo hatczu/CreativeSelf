@@ -21,7 +21,7 @@ const app = useClientMobileApp();
         class="bg-white rounded-3xl w-full max-w-xs p-5 text-center space-y-4 shadow-2xl relative"
       >
         <button
-          class="absolute top-3 right-3 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200"
+          class="absolute top-3 right-3 w-8 h-8 rounded-brand-sm bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200"
           @click="app.selectedQrPass = null"
         >
           <PhX :size="16" />

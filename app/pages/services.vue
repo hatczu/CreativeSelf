@@ -45,7 +45,7 @@ const categorySections = computed(() => {
         class="text-center space-y-4"
       >
         <div
-          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-100 border border-cyan-200 text-cyan-800 text-xs font-extrabold uppercase tracking-wider"
+          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-brand-sm bg-cyan-100 border border-cyan-200 text-cyan-800 text-xs font-extrabold uppercase tracking-wider"
         >
           <PhSparkle :size="14" class="text-cyan-600" />
           Curated Service Brands &amp; Activities
@@ -68,7 +68,7 @@ const categorySections = computed(() => {
               v-model="searchQuery"
               type="text"
               placeholder="Search categories (e.g. Painting, Coffee, Robotics)..."
-              class="w-full pl-11 pr-4 py-3 rounded-full bg-white border border-slate-200 shadow-sm text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              class="w-full pl-11 pr-4 py-3 rounded-brand bg-white border border-slate-200 shadow-sm text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
             />
           </div>
         </div>
@@ -82,7 +82,7 @@ const categorySections = computed(() => {
           v-for="cat in themeCategories"
           :key="cat.id"
           :class="[
-            'flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-extrabold transition-all duration-200',
+            'flex items-center gap-2 px-5 py-2.5 rounded-brand-sm text-xs font-extrabold transition-all duration-200',
             activeCategory === cat.id
               ? 'bg-slate-900 text-white shadow-md scale-105'
               : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200',
@@ -118,7 +118,7 @@ const categorySections = computed(() => {
               </div>
               <div>
                 <span
-                  class="text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full text-white"
+                  class="text-xs font-black uppercase tracking-widest px-3 py-1 rounded-brand-sm text-white"
                   :style="{ background: category.color }"
                 >
                   Brand Theme
@@ -134,7 +134,7 @@ const categorySections = computed(() => {
               <span
                 v-for="subcat in subcategories"
                 :key="subcat"
-                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200"
+                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-brand-sm text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200"
               >
                 <PhTag :size="12" class="text-cyan-600" />
                 {{ subcat }}
@@ -158,7 +158,7 @@ const categorySections = computed(() => {
                   <div class="flex items-center justify-between">
                     <h4 class="font-bold text-slate-900 text-sm">{{ vendor.name }}</h4>
                     <span
-                      class="flex items-center gap-1 text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200"
+                      class="flex items-center gap-1 text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-brand-sm border border-amber-200"
                     >
                       <PhStar :size="12" weight="fill" />
                       {{ vendor.rating }} ({{ vendor.reviewsCount }})
@@ -193,13 +193,13 @@ const categorySections = computed(() => {
                     class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                   />
                   <div
-                    class="absolute top-3 left-3 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold flex items-center gap-1.5"
+                    class="absolute top-3 left-3 px-3 py-1 rounded-brand-sm bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold flex items-center gap-1.5"
                   >
                     <span>{{ activity.symbol }}</span>
                     <span>{{ activity.category }}</span>
                   </div>
                   <div
-                    class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-slate-900 text-xs font-extrabold flex items-center gap-1"
+                    class="absolute top-3 right-3 px-2.5 py-1 rounded-brand-sm bg-white/90 backdrop-blur-md text-slate-900 text-xs font-extrabold flex items-center gap-1"
                   >
                     <PhStar :size="12" class="text-amber-500" weight="fill" />
                     {{ activity.rating }}
@@ -246,7 +246,7 @@ const categorySections = computed(() => {
         class="p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-purple-950 to-cyan-950 text-white shadow-2xl border border-purple-800/40 flex flex-col md:flex-row items-center justify-between gap-6"
       >
         <div class="space-y-2">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-bold uppercase">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-brand-sm bg-cyan-500/20 text-cyan-300 text-xs font-bold uppercase">
             <PhCheckCircle :size="14" />
             Acumen AI Matching Enabled
           </div>
@@ -259,7 +259,7 @@ const categorySections = computed(() => {
 
         <NuxtLink
           to="/test"
-          class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-slate-950 font-extrabold text-sm shadow-lg shrink-0 transition"
+          class="inline-flex items-center gap-2 px-6 py-3.5 rounded-brand bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-slate-950 font-extrabold text-sm shadow-lg shrink-0 transition"
         >
           Take Personality Test
           <PhArrowRight :size="18" />

@@ -21,7 +21,7 @@ watch(
 onBeforeUnmount(() => timer && clearInterval(timer));
 
 const navButtonClass = (index: number) => [
-  'w-10 h-10 rounded-full flex items-center justify-center transition-all',
+  'w-10 h-10 rounded-brand-sm flex items-center justify-center transition-all',
   activeIndex.value === index
     ? 'bg-cyan-500 text-white shadow-md shadow-cyan-200 scale-105'
     : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-50',
@@ -45,7 +45,7 @@ const navButtonClass = (index: number) => [
       <div class="flex items-center justify-between mb-8">
         <div class="flex items-center gap-3">
           <span
-            class="text-xs font-bold tracking-widest text-cyan-600 uppercase bg-cyan-100/80 px-3.5 py-1.5 rounded-full border border-cyan-300/50 flex items-center gap-1.5"
+            class="text-xs font-bold tracking-widest text-cyan-600 uppercase bg-cyan-100/80 px-3.5 py-1.5 rounded-brand-sm border border-cyan-300/50 flex items-center gap-1.5"
           >
             <PhSparkle :size="14" class="text-cyan-500" />
             Creative Self Spotlight
@@ -78,7 +78,7 @@ const navButtonClass = (index: number) => [
           >
             <div class="lg:col-span-6 space-y-5">
               <div
-                class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-bold uppercase tracking-wider"
+                class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-brand-sm bg-amber-50 border border-amber-200 text-amber-700 text-xs font-bold uppercase tracking-wider"
               >
                 ✨ Empower Your Journey
               </div>
@@ -100,7 +100,7 @@ const navButtonClass = (index: number) => [
               <div class="pt-2 flex flex-wrap gap-4 items-center">
                 <a
                   href="#test"
-                  class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold shadow-lg shadow-cyan-300/50 transition-all hover:-translate-y-0.5"
+                  class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-brand bg-cyan-500 hover:bg-cyan-600 text-white font-bold shadow-lg shadow-cyan-300/50 transition-all hover:-translate-y-0.5"
                 >
                   Start Persona Transformation
                   <PhArrowRight :size="18" />
@@ -127,7 +127,7 @@ const navButtonClass = (index: number) => [
                         <p class="text-xs font-semibold text-cyan-300 uppercase tracking-widest">Persona Shift Visual</p>
                         <p class="text-sm font-bold text-white">Routine Self ➔ Vibrant Creative Persona</p>
                       </div>
-                      <span class="px-3 py-1 bg-cyan-500/80 backdrop-blur-md rounded-full text-xs font-bold">
+                      <span class="px-3 py-1 bg-cyan-500/80 backdrop-blur-md rounded-brand-sm text-xs font-bold">
                         Interactive Shift
                       </span>
                     </div>
@@ -149,7 +149,7 @@ const navButtonClass = (index: number) => [
           >
             <div class="lg:col-span-6 space-y-5">
               <div
-                class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-xs font-bold uppercase tracking-wider"
+                class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-brand-sm bg-purple-50 border border-purple-200 text-purple-700 text-xs font-bold uppercase tracking-wider"
               >
                 <PhBookOpen :size="14" class="text-purple-600" />
                 Monthly Creative Spotlight
@@ -178,7 +178,7 @@ const navButtonClass = (index: number) => [
 
               <div class="pt-2 flex flex-wrap gap-4 items-center">
                 <button
-                  class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white font-bold shadow-lg shadow-purple-300/50 transition-all hover:-translate-y-0.5"
+                  class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-brand bg-purple-600 hover:bg-purple-700 text-white font-bold shadow-lg shadow-purple-300/50 transition-all hover:-translate-y-0.5"
                 >
                   <PhBookmarkSimple :size="18" />
                   Read eZine Feature Issue
@@ -198,7 +198,7 @@ const navButtonClass = (index: number) => [
                     class="w-full h-auto object-cover transform group-hover:scale-105 transition duration-700"
                   />
                   <div
-                    class="absolute top-4 left-4 px-3.5 py-1 bg-black/70 backdrop-blur-md rounded-full text-white text-xs font-bold border border-white/20"
+                    class="absolute top-4 left-4 px-3.5 py-1 bg-black/70 backdrop-blur-md rounded-brand-sm text-white text-xs font-bold border border-white/20"
                   >
                     ISSUE #12 · CREATIVE SELF
                   </div>
@@ -212,7 +212,7 @@ const navButtonClass = (index: number) => [
         <div class="flex justify-center items-center gap-2 mt-8">
           <button
             :class="[
-              'h-2.5 rounded-full transition-all duration-300',
+              'h-2.5 rounded-brand-sm transition-all duration-300',
               activeIndex === 0 ? 'w-8 bg-cyan-500' : 'w-2.5 bg-slate-200 hover:bg-slate-300',
             ]"
             aria-label="Go to slide 1"
@@ -220,7 +220,7 @@ const navButtonClass = (index: number) => [
           />
           <button
             :class="[
-              'h-2.5 rounded-full transition-all duration-300',
+              'h-2.5 rounded-brand-sm transition-all duration-300',
               activeIndex === 1 ? 'w-8 bg-purple-500' : 'w-2.5 bg-slate-200 hover:bg-slate-300',
             ]"
             aria-label="Go to slide 2"

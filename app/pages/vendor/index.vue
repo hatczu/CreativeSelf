@@ -69,7 +69,7 @@ const openComposer = () => {
         <VendorProfileCard>
           <button
             type="button"
-            class="mt-7 flex w-full items-center justify-center gap-2 rounded-full bg-white px-4 py-3 text-xs font-extrabold text-[#1a1a28]"
+            class="mt-7 flex w-full items-center justify-center gap-2 rounded-brand-sm bg-white px-4 py-3 text-xs font-extrabold text-[#1a1a28]"
             @click="openComposer"
           >
             <PhPlus :size="15" />Create a service
@@ -87,7 +87,7 @@ const openComposer = () => {
                 Your service profile is live and reaching teams looking for a creative reset.
               </p>
             </div>
-            <button type="button" class="inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-4 py-3 text-xs font-extrabold text-white" @click="openComposer">
+            <button type="button" class="inline-flex items-center gap-2 rounded-brand-sm bg-[#1a1a28] px-4 py-3 text-xs font-extrabold text-white" @click="openComposer">
               <PhPlus :size="16" />New service
             </button>
           </div>
@@ -135,7 +135,7 @@ const openComposer = () => {
                 <div class="flex items-center gap-3">
                   <span
                     :class="[
-                      'rounded-full px-3 py-2 text-xs font-bold',
+                      'rounded-brand-sm px-3 py-2 text-xs font-bold',
                       booking.status === 'Confirmed' ? 'bg-[#10b981]/15 text-[#087e58]' : 'bg-[#f59e0b]/15 text-[#9a5d00]',
                     ]"
                   >
@@ -144,7 +144,7 @@ const openComposer = () => {
                   <button
                     v-if="booking.status === 'Needs response'"
                     type="button"
-                    class="rounded-full px-4 py-2 text-xs font-extrabold text-white"
+                    class="rounded-brand-sm px-4 py-2 text-xs font-extrabold text-white"
                     :style="{ background: booking.color }"
                     @click="selectedBooking = booking.session"
                   >
@@ -180,14 +180,14 @@ const openComposer = () => {
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-[#1a1a28]/70 via-transparent to-transparent" />
                 <span
-                  class="absolute top-3 right-3 rounded-full px-3 py-1 text-[10px] font-extrabold uppercase text-white backdrop-blur shadow-sm"
+                  class="absolute top-3 right-3 rounded-brand-sm px-3 py-1 text-[10px] font-extrabold uppercase text-white backdrop-blur shadow-sm"
                   :style="{ background: listing.published ? '#10b981' : '#717182' }"
                 >
                   {{ listing.published ? 'Published' : 'Draft' }}
                 </span>
                 <span
                   v-if="listing.images && listing.images.length > 1"
-                  class="absolute top-3 left-3 flex items-center gap-1 rounded-full bg-[#1a1a28]/70 px-2.5 py-1 text-[10px] font-extrabold text-white backdrop-blur"
+                  class="absolute top-3 left-3 flex items-center gap-1 rounded-brand-sm bg-[#1a1a28]/70 px-2.5 py-1 text-[10px] font-extrabold text-white backdrop-blur"
                 >
                   <PhImages :size="12" />{{ listing.images.length }} photos
                 </span>
@@ -216,7 +216,7 @@ const openComposer = () => {
             <p class="text-xs font-bold uppercase tracking-[.14em] text-[#717182]">Action queue</p>
             <p class="mt-3 text-3xl font-extrabold">3</p>
             <p class="mt-1 text-sm leading-6 text-[#717182]">Booking requests need a response before they can be confirmed.</p>
-            <button type="button" class="mt-5 rounded-full bg-[#1a1a28] px-4 py-2 text-xs font-extrabold text-white">Review requests</button>
+            <button type="button" class="mt-5 rounded-brand-sm bg-[#1a1a28] px-4 py-2 text-xs font-extrabold text-white">Review requests</button>
           </div>
           <div class="border border-[#33c4f0]/18 bg-[#e8f9ff] p-5 text-[#1a1a28]" style="border-radius: 20px 20px 64px 20px">
             <p class="text-xs font-bold uppercase tracking-[.14em] text-[#147c9e]">Acumen suggestion</p>
@@ -234,7 +234,7 @@ const openComposer = () => {
       <div class="relative w-full max-w-xl bg-white p-7 shadow-2xl sm:p-8" style="border-radius: 20px 20px 64px 20px">
         <button
           type="button"
-          class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-[#f2fbfe]"
+          class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-brand-sm bg-[#f2fbfe]"
           aria-label="Close"
           @click="showComposer = false"
         >
@@ -244,7 +244,7 @@ const openComposer = () => {
           <div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-[#10b981]/15"><PhCheck class="text-[#10b981]" /></div>
           <h2 class="mt-6 text-3xl font-extrabold">Service saved.</h2>
           <p class="mx-auto mt-3 text-sm leading-6 text-[#717182]">It is ready for your final review before it goes live in the marketplace.</p>
-          <button type="button" class="mt-7 rounded-full bg-[#1a1a28] px-5 py-3 text-sm font-extrabold text-white" @click="showComposer = false">
+          <button type="button" class="mt-7 rounded-brand bg-[#1a1a28] px-5 py-3 text-sm font-extrabold text-white" @click="showComposer = false">
             Back to workspace
           </button>
         </div>
@@ -264,7 +264,7 @@ const openComposer = () => {
             class="mt-2 min-h-24 w-full rounded-[16px_16px_40px_16px] border border-[#33c4f0]/25 bg-[#f9fdff] p-4 text-sm"
             placeholder="What will this experience make possible for a team?"
           />
-          <button type="button" class="mt-7 inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-6 py-3 text-sm font-extrabold text-white" @click="submitted = true">
+          <button type="button" class="mt-7 inline-flex items-center gap-2 rounded-brand bg-[#1a1a28] px-6 py-3 text-sm font-extrabold text-white" @click="submitted = true">
             <PhSparkle :size="16" />Save service
           </button>
         </template>
@@ -275,7 +275,7 @@ const openComposer = () => {
       <div class="relative w-full max-w-md bg-white p-7 shadow-2xl" style="border-radius: 20px 20px 64px 20px">
         <button
           type="button"
-          class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-[#f2fbfe]"
+          class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-brand-sm bg-[#f2fbfe]"
           aria-label="Close"
           @click="selectedBooking = null"
         >
@@ -287,10 +287,10 @@ const openComposer = () => {
           HiNote Consulting would like to bring 18 people together for this session on Tuesday, Aug 13.
         </p>
         <div class="mt-7 flex gap-3">
-          <button type="button" class="rounded-full bg-[#1a1a28] px-5 py-3 text-sm font-extrabold text-white" @click="selectedBooking = null">
+          <button type="button" class="rounded-brand bg-[#1a1a28] px-5 py-3 text-sm font-extrabold text-white" @click="selectedBooking = null">
             Confirm request
           </button>
-          <button type="button" class="rounded-full border border-[#33c4f0]/25 px-5 py-3 text-sm font-extrabold" @click="selectedBooking = null">
+          <button type="button" class="rounded-brand border border-[#33c4f0]/25 px-5 py-3 text-sm font-extrabold" @click="selectedBooking = null">
             Ask a question
           </button>
         </div>

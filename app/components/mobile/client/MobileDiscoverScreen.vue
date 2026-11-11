@@ -177,7 +177,7 @@ const subscribeToSelected = () => {
 
                 <div class="relative z-[2] space-y-0.5">
                   <span
-                    class="text-[7.2px] font-semibold text-white bg-white/20 px-1.5 py-[1px] rounded-full uppercase backdrop-blur-md inline-block leading-[11px]"
+                    class="text-[7.2px] font-semibold text-white bg-white/20 px-1.5 py-[1px] rounded-brand-sm uppercase backdrop-blur-md inline-block leading-[11px]"
                     style="font-family: Poppins, sans-serif"
                   >
                     {{ act.category || vendor.theme }}
@@ -196,7 +196,7 @@ const subscribeToSelected = () => {
       <!-- Back Button -->
       <button
         type="button"
-        class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-full transition"
+        class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-brand-sm transition"
         @click="app.setSelectedBrandId(null)"
       >
         <PhCaretLeft :size="16" weight="bold" /> Back to All Service Brands
@@ -213,14 +213,14 @@ const subscribeToSelected = () => {
           <div class="absolute top-3 left-3 z-[2]">
             <span
               v-if="isSubscribedToSelectedVendor"
-              class="text-[10px] font-semibold text-[#10B981] bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-md flex items-center gap-1"
+              class="text-[10px] font-semibold text-[#10B981] bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-brand-sm shadow-md flex items-center gap-1"
               style="font-family: Poppins, sans-serif"
             >
               <PhCheck :size="11" /> Subscribed Brand
             </span>
             <span
               v-else
-              class="text-[10px] font-semibold text-[#147C9E] bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-md"
+              class="text-[10px] font-semibold text-[#147C9E] bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-brand-sm shadow-md"
               style="font-family: Poppins, sans-serif"
             >
               Preview Mode
@@ -254,7 +254,7 @@ const subscribeToSelected = () => {
           <span class="text-[#717182]">•</span>
           <span class="text-[#717182] truncate">{{ selectedVendor.location }}</span>
           <!-- Conic Progress Ring Badge -->
-          <div class="ml-auto inline-flex items-center gap-1.5 bg-[#FBF7FF] border border-[#E9D4FF] px-2 py-1 rounded-full shrink-0" :title="`${matchScore}% Acumen Match`">
+          <div class="ml-auto inline-flex items-center gap-1.5 bg-[#FBF7FF] border border-[#E9D4FF] px-2 py-1 rounded-brand-sm shrink-0" :title="`${matchScore}% Acumen Match`">
             <div
               class="w-4 h-4 rounded-full flex items-center justify-center p-[2px] shrink-0"
               :style="{ background: `conic-gradient(#9333EA ${matchScore * 3.6}deg, #E9D4FF 0deg)` }"
@@ -280,7 +280,7 @@ const subscribeToSelected = () => {
           </p>
           <button
             type="button"
-            class="w-full h-[36px] bg-[#1A1A28] hover:bg-[#33C4F0] text-white text-[12px] font-semibold flex items-center justify-center gap-2 rounded-full transition shadow-xs"
+            class="w-full h-[36px] bg-[#1A1A28] hover:bg-[#33C4F0] text-white text-[12px] font-semibold flex items-center justify-center gap-2 rounded-brand-sm transition shadow-xs"
             style="font-family: Century Gothic, sans-serif"
             @click="subscribeToSelected"
           >
@@ -304,14 +304,14 @@ const subscribeToSelected = () => {
           </h3>
           <span
             v-if="isSubscribedToSelectedVendor"
-            class="text-[10px] font-semibold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-full"
+            class="text-[10px] font-semibold text-[#10B981] bg-[#ECFDF5] px-2 py-0.5 rounded-brand-sm"
             style="font-family: Poppins, sans-serif"
           >
             Included in Pass
           </span>
           <span
             v-else
-            class="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60"
+            class="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-brand-sm border border-amber-200/60"
             style="font-family: Poppins, sans-serif"
           >
             Subscription Required
@@ -353,7 +353,7 @@ const subscribeToSelected = () => {
               <button
                 type="button"
                 :class="[
-                  'absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-sm transition z-[2]',
+                  'absolute top-3 right-3 w-8 h-8 rounded-brand-sm bg-white/90 backdrop-blur flex items-center justify-center shadow-sm transition z-[2]',
                   app.savedActivityIds.includes(act.id) ? 'text-[#EF4444]' : 'text-slate-600',
                 ]"
                 @click.stop="app.toggleSaveActivity(act.id)"
@@ -363,21 +363,21 @@ const subscribeToSelected = () => {
 
               <div class="absolute bottom-3 left-4 right-4 flex items-center justify-between z-[3]">
                 <span
-                  class="text-[10px] font-semibold text-white bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full flex items-center gap-1"
+                  class="text-[10px] font-semibold text-white bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-brand-sm flex items-center gap-1"
                   style="font-family: Poppins, sans-serif"
                 >
                   <span>{{ act.symbol }}</span> {{ act.category }}
                 </span>
                 <span
                   v-if="isSubscribedToSelectedVendor"
-                  class="text-[10px] font-semibold text-[#10B981] bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full shadow-2xs"
+                  class="text-[10px] font-semibold text-[#10B981] bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-brand-sm shadow-2xs"
                   style="font-family: Poppins, sans-serif"
                 >
                   Included in Pass
                 </span>
                 <span
                   v-else
-                  class="text-[10px] font-semibold text-amber-800 bg-amber-100/90 backdrop-blur-md px-2.5 py-1 rounded-full shadow-2xs"
+                  class="text-[10px] font-semibold text-amber-800 bg-amber-100/90 backdrop-blur-md px-2.5 py-1 rounded-brand-sm shadow-2xs"
                   style="font-family: Poppins, sans-serif"
                 >
                   Subscribe Brand First

@@ -36,7 +36,7 @@ const tabs = ['individual', 'corporate'] as const;
         <span
           :style="{
             padding: '0.35rem 1.1rem',
-            borderRadius: '9999px',
+            borderRadius: 'var(--radius-brand-sm)',
             background: tab === 'individual' ? 'rgba(51,196,240,0.1)' : 'rgba(139,92,246,0.1)',
             border: tab === 'individual' ? '1px solid rgba(51,196,240,0.25)' : '1px solid rgba(139,92,246,0.25)',
             fontSize: '0.75rem',
@@ -81,7 +81,7 @@ const tabs = ['individual', 'corporate'] as const;
           :style="{
             display: 'inline-flex',
             padding: '0.4rem',
-            borderRadius: '9999px',
+            borderRadius: 'var(--radius-brand)',
             background: '#F0FBFF',
             border: '1.5px solid rgba(51,196,240,0.3)',
             marginBottom: '1.5rem',
@@ -93,7 +93,7 @@ const tabs = ['individual', 'corporate'] as const;
             :key="t"
             :style="{
               padding: '0.6rem 1.8rem',
-              borderRadius: '9999px',
+              borderRadius: 'var(--radius-brand)',
               border: 'none',
               cursor: 'pointer',
               fontSize: '0.95rem',
@@ -179,7 +179,7 @@ const tabs = ['individual', 'corporate'] as const;
             alignItems: 'center',
             gap: '0.5rem',
             padding: '0.75rem 1.75rem',
-            borderRadius: '9999px',
+            borderRadius: 'var(--radius-brand-sm)',
             background: 'rgba(139,92,246,0.06)',
             border: '1px solid rgba(139,92,246,0.2)',
           }"

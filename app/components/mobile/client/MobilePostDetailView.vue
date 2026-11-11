@@ -139,15 +139,15 @@ const handleAddComment = () => {
       <div class="bg-white/95 backdrop-blur-md px-4 py-3 border-b border-slate-100 sticky top-0 z-30 flex items-center justify-between shadow-2xs">
         <button
           type="button"
-          class="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-full transition"
+          class="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-brand-sm transition"
           @click="closePost"
         >
           <PhCaretLeft :size="16" weight="bold" /> Back to Feed
         </button>
 
         <div class="flex items-center gap-2">
-          <span class="text-[10px] font-bold text-[#147C9E] bg-[#E8F9FF] px-2.5 py-1 rounded-full uppercase tracking-wider">{{ post.category }}</span>
-          <span v-if="post.label" class="text-[9px] font-extrabold uppercase text-white px-2 py-0.5 rounded-full" :style="{ background: labelColor(post.label) }">
+          <span class="text-[10px] font-bold text-[#147C9E] bg-[#E8F9FF] px-2.5 py-1 rounded-brand-sm uppercase tracking-wider">{{ post.category }}</span>
+          <span v-if="post.label" class="text-[9px] font-extrabold uppercase text-white px-2 py-0.5 rounded-brand-sm" :style="{ background: labelColor(post.label) }">
             {{ post.label }}
           </span>
         </div>
@@ -178,7 +178,7 @@ const handleAddComment = () => {
               </div>
             </div>
 
-            <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">3 min read</span>
+            <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-brand-sm">3 min read</span>
           </div>
 
           <h1 class="text-xl font-black text-slate-900 leading-snug tracking-tight pt-1">{{ post.title }}</h1>
@@ -189,14 +189,14 @@ const handleAddComment = () => {
               <img :src="postImages[safeIndex]" :alt="post.title" class="w-full h-full object-cover transition-all duration-300" />
 
               <template v-if="postImages.length > 1">
-                <div class="absolute top-3 right-3 bg-black/75 backdrop-blur-md text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full flex items-center gap-1">
+                <div class="absolute top-3 right-3 bg-black/75 backdrop-blur-md text-white text-[10px] font-extrabold px-2.5 py-1 rounded-brand-sm flex items-center gap-1">
                   <PhImages :size="12" />
                   <span>Photo {{ safeIndex + 1 }} of {{ postImages.length }}</span>
                 </div>
 
                 <button
                   type="button"
-                  class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 text-[#1A1A28] shadow-md flex items-center justify-center hover:bg-white transition"
+                  class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-brand-sm bg-white/90 text-[#1A1A28] shadow-md flex items-center justify-center hover:bg-white transition"
                   aria-label="Previous image"
                   @click="prevImage"
                 >
@@ -204,7 +204,7 @@ const handleAddComment = () => {
                 </button>
                 <button
                   type="button"
-                  class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 text-[#1A1A28] shadow-md flex items-center justify-center hover:bg-white transition"
+                  class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-brand-sm bg-white/90 text-[#1A1A28] shadow-md flex items-center justify-center hover:bg-white transition"
                   aria-label="Next image"
                   @click="nextImage"
                 >
@@ -239,15 +239,15 @@ const handleAddComment = () => {
           <div v-if="post.fullStory" class="text-xs text-slate-600 leading-relaxed whitespace-pre-line pt-2 border-t border-slate-50">{{ post.fullStory }}</div>
 
           <div class="flex flex-wrap items-center gap-2 pt-2 text-[11px] font-extrabold">
-            <span v-if="post.duration" class="rounded-full bg-[#F2FBFE] px-3 py-1.5 text-[#147C9E] flex items-center gap-1.5">
+            <span v-if="post.duration" class="rounded-brand-sm bg-[#F2FBFE] px-3 py-1.5 text-[#147C9E] flex items-center gap-1.5">
               <PhClock :size="14" />
               {{ post.duration }}
             </span>
-            <span v-if="post.seats" class="rounded-full bg-[#F2FBFE] px-3 py-1.5 text-[#147C9E] flex items-center gap-1.5">
+            <span v-if="post.seats" class="rounded-brand-sm bg-[#F2FBFE] px-3 py-1.5 text-[#147C9E] flex items-center gap-1.5">
               <PhUsers :size="14" />
               {{ post.seats }}
             </span>
-            <span v-if="post.service" class="rounded-full bg-[#E8F9FF] px-3 py-1.5 text-[#147C9E]">🎨 Service: {{ post.service }}</span>
+            <span v-if="post.service" class="rounded-brand-sm bg-[#E8F9FF] px-3 py-1.5 text-[#147C9E]">🎨 Service: {{ post.service }}</span>
           </div>
         </div>
 
@@ -271,7 +271,7 @@ const handleAddComment = () => {
               <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#33C4F0] block">Photo Gallery</span>
               <h3 class="text-sm font-extrabold text-slate-900">A Glimpse Into the Moment</h3>
             </div>
-            <span class="text-[10px] font-extrabold text-[#147C9E] bg-[#E8F9FF] px-2.5 py-1 rounded-full">{{ postImages.length }} Photos</span>
+            <span class="text-[10px] font-extrabold text-[#147C9E] bg-[#E8F9FF] px-2.5 py-1 rounded-brand-sm">{{ postImages.length }} Photos</span>
           </div>
 
           <div class="grid grid-cols-2 gap-2">
@@ -283,7 +283,7 @@ const handleAddComment = () => {
             >
               <img :src="imgUrl" :alt="`Gallery photo ${index + 1}`" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
               <div class="absolute inset-0 bg-[#1A1A28]/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <span class="rounded-full bg-white/90 px-3 py-1 text-[10px] font-extrabold text-[#1A1A28] shadow-md backdrop-blur">View Photo</span>
+                <span class="rounded-brand-sm bg-white/90 px-3 py-1 text-[10px] font-extrabold text-[#1A1A28] shadow-md backdrop-blur">View Photo</span>
               </div>
             </div>
           </div>
@@ -311,7 +311,7 @@ const handleAddComment = () => {
             <button
               type="button"
               :class="[
-                'flex items-center gap-1 px-3 py-1.5 rounded-full border text-xs font-extrabold transition',
+                'flex items-center gap-1 px-3 py-1.5 rounded-brand-sm border text-xs font-extrabold transition',
                 isSaved ? 'bg-[#E8F9FF] border-[#33C4F0] text-[#147C9E]' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100',
               ]"
               @click="app.toggleSavePost(post.id)"
@@ -320,7 +320,7 @@ const handleAddComment = () => {
               <span>{{ isSaved ? 'Saved' : 'Save' }}</span>
             </button>
 
-            <button type="button" class="p-2 rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition" title="Share post" @click="handleShareClick">
+            <button type="button" class="p-2 rounded-brand bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition" title="Share post" @click="handleShareClick">
               <PhShareNetwork :size="16" weight="bold" />
             </button>
           </div>
@@ -344,7 +344,7 @@ const handleAddComment = () => {
 
             <button
               type="button"
-              class="w-full py-2.5 rounded-full border border-[#33C4F0]/30 text-xs font-extrabold text-[#147C9E] bg-[#F2FBFE] hover:bg-[#E8F9FF] transition text-center"
+              class="w-full py-2.5 rounded-brand-sm border border-[#33C4F0]/30 text-xs font-extrabold text-[#147C9E] bg-[#F2FBFE] hover:bg-[#E8F9FF] transition text-center"
               @click="viewProvider"
             >
               View Provider Profile
@@ -375,14 +375,14 @@ const handleAddComment = () => {
               </div>
               <h3 class="text-base font-extrabold">Booking Request Sent!</h3>
               <p class="text-xs text-white/70">{{ post.provider }} will confirm availability for {{ selectedDate }}. Added to your Bookings tab.</p>
-              <button type="button" class="rounded-full bg-[#33C4F0] px-4 py-2 text-xs font-extrabold text-[#1A1A28]" @click="bookingSent = false">
+              <button type="button" class="rounded-brand-sm bg-[#33C4F0] px-4 py-2 text-xs font-extrabold text-[#1A1A28]" @click="bookingSent = false">
                 Book Another Slot
               </button>
             </div>
             <template v-else>
               <div class="flex items-center justify-between">
                 <p class="text-[10px] font-extrabold uppercase tracking-widest text-[#33C4F0]">Book Experience</p>
-                <span class="rounded-full bg-[#33C4F0]/20 px-2.5 py-0.5 text-[9px] font-extrabold text-[#33C4F0]">Instant Request</span>
+                <span class="rounded-brand-sm bg-[#33C4F0]/20 px-2.5 py-0.5 text-[9px] font-extrabold text-[#33C4F0]">Instant Request</span>
               </div>
 
               <h3 class="mt-1 text-lg font-extrabold">Book this session</h3>
@@ -394,7 +394,7 @@ const handleAddComment = () => {
                   v-for="d in dates"
                   :key="d"
                   type="button"
-                  class="rounded-full px-3 py-1.5 text-xs font-bold transition"
+                  class="rounded-brand-sm px-3 py-1.5 text-xs font-bold transition"
                   :style="{
                     background: selectedDate === d ? brandColor : 'rgba(255, 255, 255, 0.1)',
                     color: selectedDate === d ? '#1A1A28' : '#FFFFFF',
@@ -408,7 +408,7 @@ const handleAddComment = () => {
               <label class="mt-3 block text-[10px] font-extrabold text-white/70 uppercase tracking-wider">ESTIMATED TEAM SIZE</label>
               <select
                 v-model="teamSize"
-                class="mt-1.5 w-full rounded-xl border border-white/20 bg-white/10 px-3.5 py-2 text-xs font-bold text-white focus:outline-none"
+                class="mt-1.5 w-full rounded-brand border border-white/20 bg-white/10 px-3.5 py-2 text-xs font-bold text-white focus:outline-none"
               >
                 <option class="text-[#1A1A28]">10 people</option>
                 <option class="text-[#1A1A28]">15 people</option>
@@ -417,7 +417,7 @@ const handleAddComment = () => {
 
               <button
                 type="button"
-                class="mt-5 w-full py-3 text-xs font-extrabold rounded-full text-white shadow-lg transition active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
+                class="mt-5 w-full py-3 text-xs font-extrabold rounded-brand-sm text-white shadow-lg transition active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
                 :style="{ background: brandColor }"
                 @click="handleConfirmSessionBooking"
               >
@@ -428,7 +428,7 @@ const handleAddComment = () => {
               <div class="pt-2 text-center">
                 <button
                   type="button"
-                  class="w-full py-2.5 bg-white/10 hover:bg-white/20 text-[#33C4F0] border border-[#33C4F0]/40 text-xs font-extrabold rounded-full transition flex items-center justify-center gap-1.5 cursor-pointer"
+                  class="w-full py-2.5 bg-white/10 hover:bg-white/20 text-[#33C4F0] border border-[#33C4F0]/40 text-xs font-extrabold rounded-brand-sm transition flex items-center justify-center gap-1.5 cursor-pointer"
                   @click="showWizardModal = true"
                 >
                   <PhSparkle :size="15" weight="fill" />
@@ -478,9 +478,9 @@ const handleAddComment = () => {
               v-model="app.postDetailCommentText"
               type="text"
               placeholder="Add a comment..."
-              class="flex-1 px-3.5 py-2.5 bg-slate-100 rounded-full text-xs font-medium text-[#1A1A28] focus:outline-none focus:bg-white border border-transparent focus:border-[#33C4F0]"
+              class="flex-1 px-3.5 py-2.5 bg-slate-100 rounded-brand-sm text-xs font-medium text-[#1A1A28] focus:outline-none focus:bg-white border border-transparent focus:border-[#33C4F0]"
             />
-            <button type="submit" class="p-2.5 bg-[#33C4F0] text-white rounded-full hover:bg-[#1AB0DC] transition shadow-xs shrink-0">
+            <button type="submit" class="p-2.5 bg-[#33C4F0] text-white rounded-brand hover:bg-[#1AB0DC] transition shadow-xs shrink-0">
               <PhPaperPlaneRight :size="14" weight="bold" />
             </button>
           </form>

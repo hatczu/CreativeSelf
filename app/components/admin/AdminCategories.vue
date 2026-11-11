@@ -22,7 +22,7 @@ const saveCategory = () => {
         <p class="text-xs font-bold uppercase tracking-[.14em] text-[#717182]">Service taxonomy</p>
         <h2 class="mt-1 text-2xl font-extrabold">Categories that organise discovery.</h2>
       </div>
-      <button type="button" class="rounded-full bg-[#1a1a28] px-4 py-2 text-xs font-extrabold text-white" @click="open = true">Add category</button>
+      <button type="button" class="rounded-brand-sm bg-[#1a1a28] px-4 py-2 text-xs font-extrabold text-white" @click="open = true">Add category</button>
     </div>
     <div class="mt-5 grid gap-4 sm:grid-cols-2">
       <div
@@ -43,7 +43,7 @@ const saveCategory = () => {
         </button>
         <h3 class="text-2xl font-extrabold">Add a category</h3>
         <input v-model="category" class="mt-6 w-full rounded-[16px_16px_40px_16px] border border-[#33c4f0]/25 bg-[#f9fdff] px-4 py-3" placeholder="Category name" />
-        <button type="button" class="mt-5 rounded-full bg-[#1a1a28] px-5 py-3 text-sm font-extrabold text-white" @click="saveCategory">Save category</button>
+        <button type="button" class="mt-5 rounded-brand bg-[#1a1a28] px-5 py-3 text-sm font-extrabold text-white" @click="saveCategory">Save category</button>
       </div>
     </div>
   </section>

@@ -55,7 +55,7 @@ const handleNext = () => {
     <!-- Top Skip Button Header -->
     <div class="relative z-30 flex items-center justify-end p-5 pt-3">
       <button
-        class="text-[14px] font-medium text-white transition py-1 px-3 rounded-full hover:opacity-80 drop-shadow-md"
+        class="text-[14px] font-medium text-white transition py-1 px-3 rounded-brand-sm hover:opacity-80 drop-shadow-md"
         style="font-family: Poppins, sans-serif"
         @click="app.handleDemoLogin('client')"
       >
@@ -102,7 +102,7 @@ const handleNext = () => {
         <button
           v-for="(s, idx) in onboardingSlides"
           :key="idx"
-          class="w-2 h-2 rounded-full transition-all duration-300"
+          class="w-2 h-2 rounded-brand-sm transition-all duration-300"
           :style="{ backgroundColor: idx === app.onboardingStep ? s.buttonColor : '#D9D9D9' }"
           :aria-label="`Go to onboarding slide ${idx + 1}`"
           @click="app.onboardingStep = idx"

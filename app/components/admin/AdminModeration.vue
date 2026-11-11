@@ -62,7 +62,7 @@ const stateClass = (state: ContentItem['state']) => (state === 'Reported' ? 'bg-
       </div>
 
       <div class="flex flex-wrap items-center gap-3">
-        <label class="flex items-center gap-2 rounded-full border border-[#33c4f0]/20 bg-white px-4 py-2 text-sm text-[#717182]">
+        <label class="flex items-center gap-2 rounded-brand border border-[#33c4f0]/20 bg-white px-4 py-2 text-sm text-[#717182]">
           <PhMagnifyingGlass :size="15" />
           <input v-model="searchQuery" class="w-36 bg-transparent outline-none" placeholder="Search posts..." />
         </label>
@@ -75,7 +75,7 @@ const stateClass = (state: ContentItem['state']) => (state === 'Reported' ? 'bg-
         :key="tab"
         type="button"
         :class="[
-          'rounded-full px-4 py-1.5 text-xs font-extrabold transition',
+          'rounded-brand-sm px-4 py-1.5 text-xs font-extrabold transition',
           filterState === tab ? 'bg-[#1a1a28] text-white' : 'bg-white text-[#717182] hover:bg-[#e8f9ff] hover:text-[#1a1a28]',
         ]"
         @click="filterState = tab"
@@ -121,7 +121,7 @@ const stateClass = (state: ContentItem['state']) => (state === 'Reported' ? 'bg-
               <div class="flex flex-wrap items-center gap-2">
                 <span class="text-xs font-bold text-[#147c9e]">Posted by {{ item.by }}</span>
                 <span class="text-[11px] text-[#717182]">• {{ item.date }}</span>
-                <span class="rounded-full bg-[#f3f5f6] px-2.5 py-0.5 text-[10px] font-bold text-[#536168]">{{ item.category }}</span>
+                <span class="rounded-brand-sm bg-[#f3f5f6] px-2.5 py-0.5 text-[10px] font-bold text-[#536168]">{{ item.category }}</span>
               </div>
               <h3 class="text-lg font-extrabold text-[#19242a] cursor-pointer hover:text-[#147c9e] transition" @click="openPreview(item)">
                 {{ item.title }}
@@ -138,13 +138,13 @@ const stateClass = (state: ContentItem['state']) => (state === 'Reported' ? 'bg-
           </div>
 
           <div class="flex items-center gap-2.5 shrink-0 self-end sm:self-start">
-            <span :class="['rounded-full px-3 py-1.5 text-xs font-bold', stateClass(item.state)]">
+            <span :class="['rounded-brand-sm px-3 py-1.5 text-xs font-bold', stateClass(item.state)]">
               {{ item.state === 'Reported' ? 'Reported by Users' : 'Live Feed' }}
             </span>
 
             <button
               type="button"
-              class="flex items-center gap-1.5 rounded-full bg-[#e8f9ff] px-3.5 py-2 text-xs font-extrabold text-[#147c9e] transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
+              class="flex items-center gap-1.5 rounded-brand-sm bg-[#e8f9ff] px-3.5 py-2 text-xs font-extrabold text-[#147c9e] transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
               title="Preview content image"
               @click="openPreview(item)"
             >
@@ -154,7 +154,7 @@ const stateClass = (state: ContentItem['state']) => (state === 'Reported' ? 'bg-
 
             <button
               type="button"
-              class="flex items-center gap-1.5 rounded-full bg-[#ef4444]/10 px-3.5 py-2 text-xs font-extrabold text-[#dc2626] transition hover:bg-[#ef4444] hover:text-white"
+              class="flex items-center gap-1.5 rounded-brand-sm bg-[#ef4444]/10 px-3.5 py-2 text-xs font-extrabold text-[#dc2626] transition hover:bg-[#ef4444] hover:text-white"
               title="Remove post from feed"
               @click="handleRemove(item.id, item.title)"
             >
@@ -172,7 +172,7 @@ const stateClass = (state: ContentItem['state']) => (state === 'Reported' ? 'bg-
         <!-- Close Button -->
         <button
           type="button"
-          class="absolute right-4 top-4 z-20 grid h-9 w-9 place-items-center rounded-full bg-white/80 text-[#19242a] backdrop-blur transition hover:bg-[#1a1a28] hover:text-white"
+          class="absolute right-4 top-4 z-20 grid h-9 w-9 place-items-center rounded-brand-sm bg-white/80 text-[#19242a] backdrop-blur transition hover:bg-[#1a1a28] hover:text-white"
           @click="previewItem = null"
         >
           <PhX :size="18" />
@@ -210,13 +210,13 @@ const stateClass = (state: ContentItem['state']) => (state === 'Reported' ? 'bg-
           <div class="space-y-4 overflow-y-auto">
             <div class="flex items-center justify-between gap-2">
               <span class="text-xs font-extrabold text-[#147c9e]">{{ previewItem.by }}</span>
-              <span :class="['rounded-full px-2.5 py-1 text-[10px] font-extrabold', stateClass(previewItem.state)]">
+              <span :class="['rounded-brand-sm px-2.5 py-1 text-[10px] font-extrabold', stateClass(previewItem.state)]">
                 {{ previewItem.state === 'Reported' ? 'Reported' : 'Live Feed' }}
               </span>
             </div>
 
             <div>
-              <span class="inline-block rounded-full bg-[#f3f5f6] px-2.5 py-0.5 text-[10px] font-bold text-[#536168]">{{ previewItem.category }}</span>
+              <span class="inline-block rounded-brand-sm bg-[#f3f5f6] px-2.5 py-0.5 text-[10px] font-bold text-[#536168]">{{ previewItem.category }}</span>
               <h3 class="mt-2 text-xl font-extrabold leading-snug text-[#19242a]">{{ previewItem.title }}</h3>
               <p class="mt-1 text-[11px] text-[#717182]">Posted {{ previewItem.date }}</p>
             </div>
@@ -233,7 +233,7 @@ const stateClass = (state: ContentItem['state']) => (state === 'Reported' ? 'bg-
           <div class="mt-6 pt-4 border-t border-[#dfe5e7] flex flex-col gap-2">
             <button
               type="button"
-              class="w-full flex items-center justify-center gap-2 rounded-full bg-[#ef4444] px-4 py-3 text-xs font-extrabold text-white shadow-md transition hover:bg-[#dc2626]"
+              class="w-full flex items-center justify-center gap-2 rounded-brand-sm bg-[#ef4444] px-4 py-3 text-xs font-extrabold text-white shadow-md transition hover:bg-[#dc2626]"
               @click="handleRemove(previewItem.id, previewItem.title)"
             >
               <PhTrash :size="16" />
@@ -241,7 +241,7 @@ const stateClass = (state: ContentItem['state']) => (state === 'Reported' ? 'bg-
             </button>
             <button
               type="button"
-              class="w-full rounded-full border border-[#dfe5e7] bg-white px-4 py-2.5 text-xs font-extrabold text-[#717182] transition hover:bg-[#f3f5f6] hover:text-[#19242a]"
+              class="w-full rounded-brand-sm border border-[#dfe5e7] bg-white px-4 py-2.5 text-xs font-extrabold text-[#717182] transition hover:bg-[#f3f5f6] hover:text-[#19242a]"
               @click="previewItem = null"
             >
               Close Preview

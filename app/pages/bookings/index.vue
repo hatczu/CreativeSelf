@@ -114,11 +114,11 @@ const tabButtonClass = (value: 'upcoming' | 'past') => [
               <p class="text-[10px] font-bold uppercase tracking-[.14em] text-white/45 mb-1.5">Your Calendar View</p>
               <button type="button" :class="tabButtonClass('upcoming')" @click="tab = 'upcoming'">
                 <span class="flex items-center gap-2"> <PhCalendarBlank :size="14" /> Upcoming </span>
-                <span class="rounded-full bg-white/20 px-2 py-0.5 text-[9px] font-black">{{ allUpcoming.length }}</span>
+                <span class="rounded-brand-sm bg-white/20 px-2 py-0.5 text-[9px] font-black">{{ allUpcoming.length }}</span>
               </button>
               <button type="button" :class="tabButtonClass('past')" @click="tab = 'past'">
                 <span class="flex items-center gap-2"> <PhCheck :size="14" /> Past sessions </span>
-                <span class="rounded-full bg-white/20 px-2 py-0.5 text-[9px] font-black">{{ past.length }}</span>
+                <span class="rounded-brand-sm bg-white/20 px-2 py-0.5 text-[9px] font-black">{{ past.length }}</span>
               </button>
             </div>
           </template>
@@ -146,7 +146,7 @@ const tabButtonClass = (value: 'upcoming' | 'past') => [
                 }}
               </p>
             </div>
-            <div class="rounded-full bg-[#e8f9ff] px-4 py-2 text-xs font-bold text-[#147c9e]">{{ allUpcoming.length }} sessions selected</div>
+            <div class="rounded-brand-sm bg-[#e8f9ff] px-4 py-2 text-xs font-bold text-[#147c9e]">{{ allUpcoming.length }} sessions selected</div>
           </div>
         </header>
 
@@ -188,7 +188,7 @@ const tabButtonClass = (value: 'upcoming' | 'past') => [
                   <div>
                     <div class="flex items-center gap-2 flex-wrap">
                       <h3 class="font-extrabold text-[#1a1a28] text-lg leading-snug">{{ session.title }}</h3>
-                      <span class="rounded-full bg-gray-100 px-2.5 py-0.5 text-[11px] font-extrabold text-gray-700">{{ session.provider }}</span>
+                      <span class="rounded-brand-sm bg-gray-100 px-2.5 py-0.5 text-[11px] font-extrabold text-gray-700">{{ session.provider }}</span>
                     </div>
 
                     <div class="flex items-center gap-3 text-xs font-medium text-gray-500 mt-1 flex-wrap">
@@ -205,20 +205,20 @@ const tabButtonClass = (value: 'upcoming' | 'past') => [
                 <div class="flex items-center gap-3 shrink-0 sm:self-center">
                   <span
                     v-if="sessionStats(session.id).isConfirmed"
-                    class="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200/80 px-3 py-1 text-xs font-extrabold text-emerald-700"
+                    class="inline-flex items-center gap-1 rounded-brand-sm bg-emerald-50 border border-emerald-200/80 px-3 py-1 text-xs font-extrabold text-emerald-700"
                   >
                     <PhCheck :size="12" /> Confirmed by Vendor
                   </span>
                   <span
                     v-else
-                    class="inline-flex items-center gap-1 rounded-full bg-amber-50 border border-amber-200 px-3 py-1 text-xs font-extrabold text-amber-800"
+                    class="inline-flex items-center gap-1 rounded-brand-sm bg-amber-50 border border-amber-200 px-3 py-1 text-xs font-extrabold text-amber-800"
                   >
                     <PhClock :size="12" /> Awaiting Confirmation
                   </span>
 
                   <NuxtLink
                     :to="session.id ? `/bookings/${session.id}` : '/bookings'"
-                    class="rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-center text-xs font-extrabold text-[#1a1a28] no-underline hover:bg-gray-50 transition"
+                    class="rounded-brand-sm border border-gray-200 bg-white px-3.5 py-1.5 text-center text-xs font-extrabold text-[#1a1a28] no-underline hover:bg-gray-50 transition"
                   >
                     View Details
                   </NuxtLink>
@@ -261,7 +261,7 @@ const tabButtonClass = (value: 'upcoming' | 'past') => [
                 <button
                   v-if="sessionStats(session.id).isConfirmed"
                   type="button"
-                  class="inline-flex items-center gap-1.5 rounded-full bg-cyan-50/80 hover:bg-cyan-100/80 px-3.5 py-1.5 text-xs font-extrabold text-[#147c9e] border border-cyan-200/60 transition shadow-sm shrink-0"
+                  class="inline-flex items-center gap-1.5 rounded-brand-sm bg-cyan-50/80 hover:bg-cyan-100/80 px-3.5 py-1.5 text-xs font-extrabold text-[#147c9e] border border-cyan-200/60 transition shadow-sm shrink-0"
                   @click="handleOpenInviteModal(session.id, session.title)"
                 >
                   <PhPlus :size="13" />
@@ -272,7 +272,7 @@ const tabButtonClass = (value: 'upcoming' | 'past') => [
                   type="button"
                   disabled
                   title="Vendor confirmation pending."
-                  class="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-extrabold text-gray-400 border border-gray-200 shrink-0 cursor-not-allowed"
+                  class="inline-flex items-center gap-1.5 rounded-brand-sm bg-gray-100 px-3 py-1.5 text-xs font-extrabold text-gray-400 border border-gray-200 shrink-0 cursor-not-allowed"
                 >
                   <PhLock :size="13" />
                   Invites Locked
@@ -284,7 +284,7 @@ const tabButtonClass = (value: 'upcoming' | 'past') => [
 
         <NuxtLink
           to="/discover/services"
-          class="mt-7 inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-5 py-3 text-sm font-extrabold text-white no-underline transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
+          class="mt-7 inline-flex items-center gap-2 rounded-brand bg-[#1a1a28] px-5 py-3 text-sm font-extrabold text-white no-underline transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
         >
           <PhMagnifyingGlass :size="16" /> Discover another experience
         </NuxtLink>

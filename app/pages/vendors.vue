@@ -77,7 +77,7 @@ const selectedDetails = computed(() =>
 const fontFamily = "'Century Gothic', CenturyGothic, AppleGothic, sans-serif";
 const selectStyle = {
   padding: '0.625rem 2.5rem 0.625rem 1.25rem',
-  borderRadius: '9999px',
+  borderRadius: 'var(--radius-brand)',
   border: '1.5px solid rgba(0,0,0,0.1)',
   background: '#ffffff',
   fontSize: '0.875rem',
@@ -92,7 +92,7 @@ const caretStyle = { position: 'absolute' as const, right: '1rem', top: '50%', t
 const iconButtonStyle = (bg: string, color: string) => ({
   width: '28px',
   height: '28px',
-  borderRadius: '9999px',
+  borderRadius: 'var(--radius-brand-sm)',
   border: 'none',
   background: bg,
   color,
@@ -135,7 +135,7 @@ const onRowLeave = (e: MouseEvent, vendor: ManagedVendor) => {
             alignItems: 'center',
             gap: '0.5rem',
             padding: '0.75rem 1.5rem',
-            borderRadius: '9999px',
+            borderRadius: 'var(--radius-brand)',
             border: 'none',
             cursor: 'pointer',
             fontSize: '0.9rem',
@@ -217,7 +217,7 @@ const onRowLeave = (e: MouseEvent, vendor: ManagedVendor) => {
                 alignItems: 'center',
                 gap: '0.625rem',
                 padding: '0.625rem 1.25rem',
-                borderRadius: '9999px',
+                borderRadius: 'var(--radius-brand-sm)',
                 background: '#F8FCFF',
                 border: '1.5px solid rgba(51,196,240,0.2)',
                 flex: 1,
@@ -316,7 +316,7 @@ const onRowLeave = (e: MouseEvent, vendor: ManagedVendor) => {
                     <span
                       :style="{
                         padding: '0.25rem 0.75rem',
-                        borderRadius: '9999px',
+                        borderRadius: 'var(--radius-brand-sm)',
                         fontSize: '0.75rem',
                         fontWeight: 600,
                         color: vendor.color,
@@ -334,7 +334,7 @@ const onRowLeave = (e: MouseEvent, vendor: ManagedVendor) => {
                     <span
                       :style="{
                         padding: '0.25rem 0.75rem',
-                        borderRadius: '9999px',
+                        borderRadius: 'var(--radius-brand-sm)',
                         fontSize: '0.75rem',
                         fontWeight: 700,
                         color: statusColors[vendor.status].text,
@@ -402,7 +402,7 @@ const onRowLeave = (e: MouseEvent, vendor: ManagedVendor) => {
               <span
                 :style="{
                   padding: '0.25rem 0.875rem',
-                  borderRadius: '9999px',
+                  borderRadius: 'var(--radius-brand-sm)',
                   fontSize: '0.75rem',
                   fontWeight: 700,
                   color: selected.color,
@@ -470,7 +470,7 @@ const onRowLeave = (e: MouseEvent, vendor: ManagedVendor) => {
               <button
                 :style="{
                   padding: '0.75rem',
-                  borderRadius: '9999px',
+                  borderRadius: 'var(--radius-brand)',
                   border: 'none',
                   cursor: 'pointer',
                   fontSize: '0.875rem',
@@ -486,7 +486,7 @@ const onRowLeave = (e: MouseEvent, vendor: ManagedVendor) => {
                 v-if="selected.status === 'Pending'"
                 :style="{
                   padding: '0.75rem',
-                  borderRadius: '9999px',
+                  borderRadius: 'var(--radius-brand)',
                   border: 'none',
                   cursor: 'pointer',
                   fontSize: '0.875rem',
@@ -507,7 +507,7 @@ const onRowLeave = (e: MouseEvent, vendor: ManagedVendor) => {
                 v-if="selected.status === 'Active'"
                 :style="{
                   padding: '0.75rem',
-                  borderRadius: '9999px',
+                  borderRadius: 'var(--radius-brand)',
                   border: '1.5px solid rgba(239,68,68,0.25)',
                   cursor: 'pointer',
                   fontSize: '0.875rem',

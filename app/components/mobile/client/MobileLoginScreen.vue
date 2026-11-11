@@ -27,7 +27,7 @@ const app = useClientMobileApp();
       <div class="flex items-center justify-between">
         <button
           type="button"
-          class="w-9 h-9 rounded-full bg-white/80 backdrop-blur-md shadow-2xs border border-gray-200/60 flex items-center justify-center text-gray-700 hover:bg-white transition"
+          class="w-9 h-9 rounded-brand-sm bg-white/80 backdrop-blur-md shadow-2xs border border-gray-200/60 flex items-center justify-center text-gray-700 hover:bg-white transition"
           @click="app.setActiveScreen('onboarding')"
         >
           <PhCaretLeft :size="18" weight="bold" />
@@ -35,7 +35,7 @@ const app = useClientMobileApp();
 
         <button
           type="button"
-          class="text-[12px] font-semibold text-[#00B0D9] bg-white/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#33C4F0]/30 shadow-2xs"
+          class="text-[12px] font-semibold text-[#00B0D9] bg-white/80 backdrop-blur-md px-3 py-1 rounded-brand-sm border border-[#33C4F0]/30 shadow-2xs"
           style="font-family: Poppins, sans-serif"
           @click="app.handleDemoLogin('client')"
         >

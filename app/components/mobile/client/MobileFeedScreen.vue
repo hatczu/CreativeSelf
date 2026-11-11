@@ -130,8 +130,8 @@ const categoryStyle = (category: string) => {
               </div>
             </div>
             <div class="flex items-center gap-1.5">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full" :style="categoryStyle(post.category)">{{ post.category }}</span>
-              <span v-if="post.duration" class="text-[10px] font-semibold text-[#1AB0DC] bg-[#E8F9FF] px-2.5 py-0.5 rounded-full">{{ post.duration }}</span>
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-brand-sm" :style="categoryStyle(post.category)">{{ post.category }}</span>
+              <span v-if="post.duration" class="text-[10px] font-semibold text-[#1AB0DC] bg-[#E8F9FF] px-2.5 py-0.5 rounded-brand-sm">{{ post.duration }}</span>
             </div>
           </div>
 

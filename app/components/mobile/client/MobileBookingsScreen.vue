@@ -195,7 +195,7 @@ const gridDayClass = (dayNum: number) => [
           <span v-else class="text-[10px] text-slate-400">Tap a date to filter schedule</span>
           <button
             type="button"
-            class="px-2.5 py-1 text-[10px] font-semibold text-slate-600 bg-slate-200/80 hover:bg-slate-300 rounded-full transition cursor-pointer"
+            class="px-2.5 py-1 text-[10px] font-semibold text-slate-600 bg-slate-200/80 hover:bg-slate-300 rounded-brand-sm transition cursor-pointer"
             @click="isFullCalendarOpen = false"
           >
             Collapse Calendar
@@ -297,14 +297,14 @@ const gridDayClass = (dayNum: number) => [
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2.5 min-w-0 flex-1">
             <img v-if="bk.vendorLogo" :src="bk.vendorLogo" :alt="bk.vendorName" class="w-8 h-8 rounded-full object-cover shrink-0" />
-            <span v-else class="text-xl p-1 bg-slate-100 rounded-full flex items-center justify-center w-8 h-8 shrink-0">{{ bk.symbol || '🎨' }}</span>
+            <span v-else class="text-xl p-1 bg-slate-100 rounded-brand-sm flex items-center justify-center w-8 h-8 shrink-0">{{ bk.symbol || '🎨' }}</span>
             <div class="min-w-0 flex-1">
               <p class="text-xs font-semibold text-slate-900 truncate group-hover:text-[#33C4F0] transition">{{ bk.vendorName }}</p>
               <p class="text-[11px] text-slate-400 truncate">Host &amp; Studio Partner</p>
             </div>
           </div>
 
-          <span class="text-[11px] font-bold text-[#147C9E] bg-[#E8F9FF] px-2.5 py-1 rounded-full group-hover:bg-[#33C4F0] group-hover:text-white transition">
+          <span class="text-[11px] font-bold text-[#147C9E] bg-[#E8F9FF] px-2.5 py-1 rounded-brand-sm group-hover:bg-[#33C4F0] group-hover:text-white transition">
             View Details →
           </span>
         </div>

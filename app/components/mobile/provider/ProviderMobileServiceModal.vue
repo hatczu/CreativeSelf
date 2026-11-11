@@ -60,7 +60,7 @@ const inputClass = 'w-full bg-slate-50 border border-slate-200 p-3 text-xs font-
           <p class="text-[10px] font-extrabold uppercase tracking-widest text-[#147C9E]">Studio Offering</p>
           <h3 class="text-lg font-extrabold text-[#1A1A28]" style="font-family: Century Gothic, Poppins, sans-serif">New Service Package</h3>
         </div>
-        <button type="button" class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200 transition" @click="close">
+        <button type="button" class="w-8 h-8 rounded-brand-sm bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200 transition" @click="close">
           <PhX :size="16" weight="bold" />
         </button>
       </div>

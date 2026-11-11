@@ -41,7 +41,7 @@ const downloadRosterCsv = (booking: VendorCorporateBooking) => {
 };
 
 const tabClass = (value: 'upcoming' | 'past') => [
-  'rounded-full px-5 py-2 text-xs font-extrabold transition-all',
+  'rounded-brand px-5 py-2 text-xs font-extrabold transition-all',
   tab.value === value ? 'bg-[#1a1a28] text-white shadow-sm' : 'text-[#717182] hover:text-[#1a1a28]',
 ];
 </script>
@@ -59,7 +59,7 @@ const tabClass = (value: 'upcoming' | 'past') => [
         </div>
 
         <!-- Tab Toggle Pills -->
-        <div class="flex items-center gap-1.5 bg-gray-100 p-1.5 rounded-full border border-gray-200">
+        <div class="flex items-center gap-1.5 bg-gray-100 p-1.5 rounded-brand-sm border border-gray-200">
           <button type="button" :class="tabClass('upcoming')" @click="tab = 'upcoming'">Upcoming ({{ vendorCorporateBookings.length }})</button>
           <button type="button" :class="tabClass('past')" @click="tab = 'past'">Past Sessions ({{ vendorPastBookings.length }})</button>
         </div>
@@ -85,7 +85,7 @@ const tabClass = (value: 'upcoming' | 'past') => [
               <div>
                 <div class="flex items-center gap-2 flex-wrap">
                   <h3 class="font-extrabold text-[#1a1a28] text-lg leading-snug">{{ booking.service }}</h3>
-                  <span class="rounded-full bg-gray-100 px-2.5 py-0.5 text-[11px] font-extrabold text-gray-700">{{ booking.client }}</span>
+                  <span class="rounded-brand-sm bg-gray-100 px-2.5 py-0.5 text-[11px] font-extrabold text-gray-700">{{ booking.client }}</span>
                 </div>
 
                 <div class="flex items-center gap-3 text-xs font-medium text-gray-500 mt-1 flex-wrap">
@@ -98,14 +98,14 @@ const tabClass = (value: 'upcoming' | 'past') => [
 
             <!-- Status & Confirm Action -->
             <div class="flex items-center gap-3 shrink-0 sm:self-center">
-              <span :class="['rounded-full px-3 py-1 text-xs font-extrabold flex items-center gap-1', statusClass(statusOf(booking))]">
+              <span :class="['rounded-brand-sm px-3 py-1 text-xs font-extrabold flex items-center gap-1', statusClass(statusOf(booking))]">
                 {{ statusLabel(statusOf(booking)) }}
               </span>
 
               <button
                 v-if="statusOf(booking) === 'Needs response'"
                 type="button"
-                class="rounded-full bg-[#1a1a28] hover:bg-[#33c4f0] hover:text-[#1a1a28] px-4 py-1.5 text-xs font-extrabold text-white transition shadow-sm"
+                class="rounded-brand-sm bg-[#1a1a28] hover:bg-[#33c4f0] hover:text-[#1a1a28] px-4 py-1.5 text-xs font-extrabold text-white transition shadow-sm"
                 @click="confirmBooking(booking)"
               >
                 Confirm Booking
@@ -132,7 +132,7 @@ const tabClass = (value: 'upcoming' | 'past') => [
 
             <button
               type="button"
-              class="inline-flex items-center gap-1.5 rounded-full bg-cyan-50/80 hover:bg-cyan-100/80 px-3.5 py-1.5 text-xs font-extrabold text-[#147c9e] border border-cyan-200/60 transition shadow-sm shrink-0"
+              class="inline-flex items-center gap-1.5 rounded-brand-sm bg-cyan-50/80 hover:bg-cyan-100/80 px-3.5 py-1.5 text-xs font-extrabold text-[#147c9e] border border-cyan-200/60 transition shadow-sm shrink-0"
               @click="activeRosterBooking = booking"
             >
               <PhEye :size="13" />
@@ -152,7 +152,7 @@ const tabClass = (value: 'upcoming' | 'past') => [
         <div class="relative w-full max-w-2xl bg-white p-6 sm:p-8 shadow-2xl space-y-6" style="border-radius: 20px 20px 64px 20px">
           <button
             type="button"
-            class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-gray-100 hover:bg-gray-200 transition"
+            class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-brand-sm bg-gray-100 hover:bg-gray-200 transition"
             aria-label="Close"
             @click="activeRosterBooking = null"
           >
@@ -160,7 +160,7 @@ const tabClass = (value: 'upcoming' | 'past') => [
           </button>
 
           <div>
-            <div class="inline-flex items-center gap-1.5 rounded-full bg-[#e8f9ff] px-3 py-1 text-xs font-bold text-[#147c9e]">
+            <div class="inline-flex items-center gap-1.5 rounded-brand-sm bg-[#e8f9ff] px-3 py-1 text-xs font-bold text-[#147c9e]">
               <PhUsers :size="13" /> Corporate Attendee Roster
             </div>
             <h2 class="mt-2 text-2xl font-extrabold text-[#1a1a28]">{{ activeRosterBooking.client }} Roster</h2>
@@ -204,7 +204,7 @@ const tabClass = (value: 'upcoming' | 'past') => [
                   <td class="py-3 px-3">
                     <span
                       :class="[
-                        'inline-block px-2.5 py-0.5 rounded-full font-bold text-[10px]',
+                        'inline-block px-2.5 py-0.5 rounded-brand-sm font-bold text-[10px]',
                         emp.status === 'Going' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800',
                       ]"
                     >
@@ -219,7 +219,7 @@ const tabClass = (value: 'upcoming' | 'past') => [
           <div class="flex items-center justify-between pt-2">
             <button
               type="button"
-              class="inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-5 py-2.5 text-xs font-extrabold text-white hover:bg-[#33c4f0] hover:text-[#1a1a28] transition"
+              class="inline-flex items-center gap-2 rounded-brand-sm bg-[#1a1a28] px-5 py-2.5 text-xs font-extrabold text-white hover:bg-[#33c4f0] hover:text-[#1a1a28] transition"
               @click="downloadRosterCsv(activeRosterBooking)"
             >
               <PhDownloadSimple :size="14" /> Download Roster CSV
@@ -227,7 +227,7 @@ const tabClass = (value: 'upcoming' | 'past') => [
 
             <button
               type="button"
-              class="rounded-full border border-gray-200 px-5 py-2.5 text-xs font-bold text-gray-700 hover:bg-gray-50 transition"
+              class="rounded-brand-sm border border-gray-200 px-5 py-2.5 text-xs font-bold text-gray-700 hover:bg-gray-50 transition"
               @click="activeRosterBooking = null"
             >
               Close Roster

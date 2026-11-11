@@ -15,7 +15,7 @@ const filtered = computed(() => props.rows.filter((row) => row.name.toLowerCase(
         <p class="text-xs font-bold uppercase tracking-[.14em] text-[#717182]">Directory</p>
         <h2 class="mt-1 text-2xl font-extrabold">{{ title }}</h2>
       </div>
-      <label class="flex items-center gap-2 rounded-full border border-[#33c4f0]/20 bg-white px-4 py-2 text-sm text-[#717182]">
+      <label class="flex items-center gap-2 rounded-brand border border-[#33c4f0]/20 bg-white px-4 py-2 text-sm text-[#717182]">
         <PhMagnifyingGlass :size="15" />
         <input v-model="query" class="w-36 bg-transparent outline-none" placeholder="Search" />
       </label>
@@ -35,7 +35,7 @@ const filtered = computed(() => props.rows.filter((row) => row.name.toLowerCase(
       >
         <p class="font-extrabold">{{ row.name }}</p>
         <p v-for="(value, index) in values(row)" :key="index" class="text-sm text-[#717182]">
-          <span v-if="index === 2" class="rounded-full bg-[#e8f9ff] px-3 py-1.5 text-xs font-bold text-[#147c9e]">{{ value }}</span>
+          <span v-if="index === 2" class="rounded-brand-sm bg-[#e8f9ff] px-3 py-1.5 text-xs font-bold text-[#147c9e]">{{ value }}</span>
           <template v-else>{{ value }}</template>
         </p>
         <button type="button" class="text-[#717182]">

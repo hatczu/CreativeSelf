@@ -49,7 +49,7 @@ const transformations = [
         <span
           :style="{
             padding: '0.35rem 1.1rem',
-            borderRadius: '9999px',
+            borderRadius: 'var(--radius-brand-sm)',
             background: 'rgba(51,196,240,0.12)',
             border: '1px solid rgba(51,196,240,0.3)',
             fontSize: '0.75rem',

@@ -46,7 +46,7 @@ const roleOpen = ref(false);
         :title="item.label"
         :aria-label="item.label"
         :class="[
-          'grid h-9 w-9 shrink-0 place-items-center rounded-full transition',
+          'grid h-9 w-9 shrink-0 place-items-center rounded-brand-sm transition',
           section === item.id ? 'bg-[#33c4f0] text-[#1a1a28]' : 'text-[#717182] hover:bg-[#e8f9ff] hover:text-[#1a1a28]',
         ]"
       >
@@ -54,17 +54,17 @@ const roleOpen = ref(false);
       </NuxtLink>
     </nav>
     <div class="relative flex shrink-0 flex-row items-center gap-1 lg:mt-auto lg:flex-col lg:gap-3">
-      <button type="button" title="Settings" class="grid h-10 w-10 shrink-0 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff]">
+      <button type="button" title="Settings" class="grid h-10 w-10 shrink-0 place-items-center rounded-brand-sm text-[#717182] transition hover:bg-[#e8f9ff]">
         <PhGear :size="18" />
       </button>
-      <NuxtLink to="/" title="Log out" class="grid h-10 w-10 shrink-0 place-items-center rounded-full text-[#717182] transition hover:bg-[#1a1a28] hover:text-white">
+      <NuxtLink to="/" title="Log out" class="grid h-10 w-10 shrink-0 place-items-center rounded-brand-sm text-[#717182] transition hover:bg-[#1a1a28] hover:text-white">
         <PhSignOut :size="18" />
       </NuxtLink>
       <button
         type="button"
         title="Switch role"
         aria-label="Switch role"
-        class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#33c4f0]/25 text-[#147c9e] transition hover:bg-[#e8f9ff]"
+        class="grid h-10 w-10 shrink-0 place-items-center rounded-brand-sm border border-[#33c4f0]/25 text-[#147c9e] transition hover:bg-[#e8f9ff]"
         @click="roleOpen = !roleOpen"
       >
         <PhArrowsLeftRight :size="17" />

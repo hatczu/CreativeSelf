@@ -41,7 +41,7 @@ const handlePublish = () => {
           <p class="text-[10px] font-extrabold uppercase tracking-widest text-[#147C9E]">Content Studio</p>
           <h3 class="text-lg font-extrabold text-[#1A1A28]" style="font-family: Century Gothic, Poppins, sans-serif">New Brand Story</h3>
         </div>
-        <button type="button" class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200 transition" @click="close">
+        <button type="button" class="w-8 h-8 rounded-brand-sm bg-slate-100 text-slate-500 flex items-center justify-center hover:bg-slate-200 transition" @click="close">
           <PhX :size="16" weight="bold" />
         </button>
       </div>
@@ -59,14 +59,14 @@ const handlePublish = () => {
           <div class="absolute inset-0 bg-slate-900/40 flex items-center justify-center gap-3 text-white">
             <button
               type="button"
-              :class="['px-3 py-1.5 rounded-full text-xs font-extrabold flex items-center gap-1', mediaType === 'image' ? 'bg-[#33C4F0] text-[#1A1A28]' : 'bg-black/50']"
+              :class="['px-3 py-1.5 rounded-brand-sm text-xs font-extrabold flex items-center gap-1', mediaType === 'image' ? 'bg-[#33C4F0] text-[#1A1A28]' : 'bg-black/50']"
               @click="mediaType = 'image'"
             >
               <PhImage :size="14" /> Photo
             </button>
             <button
               type="button"
-              :class="['px-3 py-1.5 rounded-full text-xs font-extrabold flex items-center gap-1', mediaType === 'video' ? 'bg-[#33C4F0] text-[#1A1A28]' : 'bg-black/50']"
+              :class="['px-3 py-1.5 rounded-brand-sm text-xs font-extrabold flex items-center gap-1', mediaType === 'video' ? 'bg-[#33C4F0] text-[#1A1A28]' : 'bg-black/50']"
               @click="mediaType = 'video'"
             >
               <PhVideo :size="14" /> Video

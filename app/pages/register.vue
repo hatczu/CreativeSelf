@@ -218,12 +218,12 @@ const isIndividualSelected = computed(() => planCategory.value === 'individual' 
     <!-- Top Header Bar -->
     <header class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 py-6 flex items-center justify-between relative z-10">
       <NuxtLink to="/" class="flex items-center gap-2.5 no-underline">
-        <div class="w-9 h-9 rounded-full bg-[#33C4F0] p-1.5 flex items-center justify-center shadow-sm">
+        <div class="w-9 h-9 rounded-brand-sm bg-[#33C4F0] p-1.5 flex items-center justify-center shadow-sm">
           <ImageWithFallback :src="images.logo" alt="CreativeSelf" class="w-full h-full object-contain brightness-200" />
         </div>
         <span class="font-extrabold text-[#2A2A3A] text-xl tracking-tight">creativeSelf</span>
         <span
-          class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-wider text-[#33C4F0] px-2.5 py-0.5 rounded-full bg-[#33C4F0]/10 border border-[#33C4F0]/25 ml-1"
+          class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-wider text-[#33C4F0] px-2.5 py-0.5 rounded-brand-sm bg-[#33C4F0]/10 border border-[#33C4F0]/25 ml-1"
         >
           Be Anything But Square
         </span>
@@ -634,14 +634,14 @@ const isIndividualSelected = computed(() => planCategory.value === 'individual' 
 
                   <span
                     v-if="plan.highlighted"
-                    class="bg-gradient-to-r from-amber-400 to-amber-500 text-white font-extrabold text-[9px] uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1"
+                    class="bg-gradient-to-r from-amber-400 to-amber-500 text-white font-extrabold text-[9px] uppercase tracking-wider px-2.5 py-1 rounded-brand-sm shadow-sm flex items-center gap-1"
                   >
                     <PhSparkle :size="11" weight="fill" />
                     Most Popular
                   </span>
                   <span
                     v-else
-                    class="font-bold text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full border"
+                    class="font-bold text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-brand-sm border"
                     :style="{ color: plan.color, borderColor: `${plan.color}30`, backgroundColor: `${plan.color}08` }"
                   >
                     Tier
@@ -715,7 +715,7 @@ const isIndividualSelected = computed(() => planCategory.value === 'individual' 
           <div class="flex items-center justify-between max-w-5xl mx-auto pt-4 border-t border-gray-200">
             <button
               type="button"
-              class="px-5 py-2.5 text-[#717182] hover:text-[#2A2A3A] font-semibold text-xs sm:text-sm flex items-center gap-2 rounded-xl hover:bg-gray-100 transition-colors"
+              class="px-5 py-2.5 text-[#717182] hover:text-[#2A2A3A] font-semibold text-xs sm:text-sm flex items-center gap-2 rounded-brand hover:bg-gray-100 transition-colors"
               @click="step = 3"
             >
               <PhArrowLeft :size="16" />

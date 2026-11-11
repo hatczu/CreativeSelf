@@ -61,7 +61,7 @@ const adminCue = computed(() =>
                 }}
               </p>
             </div>
-            <div class="rounded-full bg-[#eef1f3] px-4 py-2 text-xs font-bold text-[#536168]">Admin access</div>
+            <div class="rounded-brand-sm bg-[#eef1f3] px-4 py-2 text-xs font-bold text-[#536168]">Admin access</div>
           </div>
         </header>
 

@@ -179,7 +179,7 @@ const stripTextClass = (date: number, hasBooking: boolean, base: string, idle: s
           <span v-else class="text-[10px] text-slate-400">Tap a date to filter bookings</span>
           <button
             type="button"
-            class="px-2.5 py-1 text-[10px] font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-full transition cursor-pointer"
+            class="px-2.5 py-1 text-[10px] font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-brand-sm transition cursor-pointer"
             @click="isFullCalendarOpen = false"
           >
             Collapse
@@ -302,7 +302,7 @@ const stripTextClass = (date: number, hasBooking: boolean, base: string, idle: s
           <div class="flex flex-col items-end gap-1 shrink-0">
             <span
               :class="[
-                'text-[10px] font-bold px-2.5 py-0.5 rounded-full',
+                'text-[10px] font-bold px-2.5 py-0.5 rounded-brand-sm',
                 bk.status === 'Confirmed' ? 'bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]' : 'bg-[#FFFBEB] text-[#B45309] border border-[#FDE68A]',
               ]"
             >
@@ -343,7 +343,7 @@ const stripTextClass = (date: number, hasBooking: boolean, base: string, idle: s
               <span class="text-[10px] font-semibold text-[#6A7282]">+ {{ bk.group || '12 guests' }}</span>
             </div>
 
-            <span class="text-[10px] font-bold text-[#047857] bg-[#ECFDF5] px-2 py-0.5 rounded-full border border-[#A7F3D0]">Est. Payout: $675.00</span>
+            <span class="text-[10px] font-bold text-[#047857] bg-[#ECFDF5] px-2 py-0.5 rounded-brand-sm border border-[#A7F3D0]">Est. Payout: $675.00</span>
           </div>
         </div>
 
@@ -393,7 +393,7 @@ const stripTextClass = (date: number, hasBooking: boolean, base: string, idle: s
             <p class="text-[10px] font-semibold uppercase tracking-wider text-[#007595]">Attendee Roster</p>
             <h3 class="text-sm font-bold text-[#1A1A28]">{{ selectedRosterBooking.company }} ({{ selectedRosterBooking.group }})</h3>
           </div>
-          <button type="button" class="w-7 h-7 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center cursor-pointer" @click="selectedRosterBooking = null">
+          <button type="button" class="w-7 h-7 rounded-brand-sm bg-slate-100 text-slate-500 flex items-center justify-center cursor-pointer" @click="selectedRosterBooking = null">
             <PhX :size="15" weight="bold" />
           </button>
         </div>
@@ -409,7 +409,7 @@ const stripTextClass = (date: number, hasBooking: boolean, base: string, idle: s
               <p class="font-semibold text-[#1A1A28]">{{ guest.name }}</p>
               <p class="text-[10px] text-slate-400">{{ guest.role }}</p>
             </div>
-            <span :class="['text-[9px] font-semibold px-2 py-0.5 rounded-full', guest.status === 'Checked In' ? 'bg-[#ECFDF5] text-[#047857]' : 'bg-slate-200 text-slate-600']">
+            <span :class="['text-[9px] font-semibold px-2 py-0.5 rounded-brand-sm', guest.status === 'Checked In' ? 'bg-[#ECFDF5] text-[#047857]' : 'bg-slate-200 text-slate-600']">
               {{ guest.status }}
             </span>
           </div>

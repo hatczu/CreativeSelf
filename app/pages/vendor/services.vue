@@ -40,7 +40,7 @@ const toggleLive = (name: string) => {
                 {{ service.emoji }}
               </span>
               <span
-                class="absolute top-2 right-2 rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase text-white backdrop-blur shadow-sm"
+                class="absolute top-2 right-2 rounded-brand-sm px-2.5 py-1 text-[10px] font-extrabold uppercase text-white backdrop-blur shadow-sm"
                 :style="{ background: service.live ? '#10b981' : '#717182' }"
               >
                 {{ service.live ? 'Published' : 'Draft' }}
@@ -54,15 +54,15 @@ const toggleLive = (name: string) => {
               </div>
               <h3 class="mt-1 text-lg font-extrabold text-[#1a1a28] group-hover:text-[#147c9e] transition">{{ service.name }}</h3>
               <div class="mt-3 flex flex-wrap items-center gap-4 text-xs font-bold text-[#717182]">
-                <span class="rounded-full bg-[#f8fdff] border border-[#33c4f0]/20 px-3 py-1">👀 {{ service.views }} views</span>
-                <span class="rounded-full bg-[#f8fdff] border border-[#33c4f0]/20 px-3 py-1">📅 {{ service.bookings }} bookings</span>
+                <span class="rounded-brand-sm bg-[#f8fdff] border border-[#33c4f0]/20 px-3 py-1">👀 {{ service.views }} views</span>
+                <span class="rounded-brand-sm bg-[#f8fdff] border border-[#33c4f0]/20 px-3 py-1">📅 {{ service.bookings }} bookings</span>
               </div>
             </div>
             <div class="flex items-center gap-3 sm:self-center">
               <button
                 type="button"
                 :class="[
-                  'rounded-full px-5 py-2.5 text-xs font-extrabold transition',
+                  'rounded-brand-sm px-5 py-2.5 text-xs font-extrabold transition',
                   service.live ? 'bg-[#e8f9ff] text-[#147c9e] hover:bg-[#d4f2fc]' : 'bg-[#1a1a28] text-white hover:bg-[#33c4f0] hover:text-[#1a1a28]',
                 ]"
                 @click="toggleLive(service.name)"
@@ -79,7 +79,7 @@ const toggleLive = (name: string) => {
       <div class="relative w-full max-w-xl bg-white p-7 shadow-2xl" style="border-radius: 20px 20px 64px 20px">
         <button
           type="button"
-          class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-[#f2fbfe]"
+          class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-brand-sm bg-[#f2fbfe]"
           aria-label="Close"
           @click="showComposer = false"
         >
@@ -94,7 +94,7 @@ const toggleLive = (name: string) => {
         />
         <button
           type="button"
-          class="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-6 py-3 text-sm font-extrabold text-white"
+          class="mt-6 inline-flex items-center gap-2 rounded-brand bg-[#1a1a28] px-6 py-3 text-sm font-extrabold text-white"
           @click="showComposer = false"
         >
           <PhSparkle :size="16" />Save draft

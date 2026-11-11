@@ -110,7 +110,7 @@ const remainingActivities = computed(() => sub.maxActivities - activityCount.val
         <p class="text-xs font-bold uppercase tracking-[.16em] text-white/45">YOUR CREATIVE PLAN</p>
         <div class="mt-1 flex items-center gap-2">
           <h2 class="text-xl font-extrabold text-white">{{ sub.planName }}</h2>
-          <span class="rounded-full bg-[#33c4f0] px-2.5 py-1 text-[10px] font-extrabold text-[#1a1a28]">Active</span>
+          <span class="rounded-brand-sm bg-[#33c4f0] px-2.5 py-1 text-[10px] font-extrabold text-[#1a1a28]">Active</span>
         </div>
       </div>
 

@@ -39,7 +39,7 @@ const close = () => {
     >
       <button
         type="button"
-        class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition cursor-pointer"
+        class="absolute top-4 right-4 w-9 h-9 rounded-brand-sm bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition cursor-pointer"
         @click="close"
       >
         <PhX :size="18" weight="bold" />
@@ -55,7 +55,7 @@ const close = () => {
 
         <div class="bg-slate-800/80 p-4 border border-slate-700/80 text-left space-y-2" style="border-radius: 16px 16px 32px 16px">
           <div class="flex items-center justify-between border-b border-slate-700 pb-2">
-            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-800">
+            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider bg-emerald-950/60 px-2 py-0.5 rounded-brand-sm border border-emerald-800">
               {{ scannedResult.status }}
             </span>
             <span class="text-[10px] text-slate-400">{{ scannedResult.timestamp }}</span>

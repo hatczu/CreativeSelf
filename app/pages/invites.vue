@@ -130,14 +130,14 @@ const policies = [
 
             <button
               v-if="sub.selectedActivities.length > 0"
-              class="shrink-0 rounded-full bg-[#1a1a28] px-5 py-3 text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28] flex items-center gap-2"
+              class="shrink-0 rounded-brand-sm bg-[#1a1a28] px-5 py-3 text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28] flex items-center gap-2"
               @click="handleOpenInviteModal(sub.selectedActivities[0]!.id, sub.selectedActivities[0]!.name)"
             >
               <PhPlus :size="16" />
               Send New Employee Invite
             </button>
           </div>
-          <div class="mt-5 inline-flex rounded-full bg-[#e8f9ff] px-4 py-2 text-xs font-bold text-[#147c9e]">
+          <div class="mt-5 inline-flex rounded-brand-sm bg-[#e8f9ff] px-4 py-2 text-xs font-bold text-[#147c9e]">
             Active Corporate Plan: {{ sub.planName }}
           </div>
         </div>
@@ -149,7 +149,7 @@ const policies = [
               <p class="text-xs font-bold uppercase tracking-[.16em] text-white/45">EMPLOYEE INVITES METRICS</p>
               <h3 class="text-lg font-extrabold text-white">Live Attendance &amp; Capacity Overview</h3>
             </div>
-            <span class="rounded-full bg-[#33c4f0] px-2.5 py-1 text-[10px] font-extrabold text-[#1a1a28]">Real-time</span>
+            <span class="rounded-brand-sm bg-[#33c4f0] px-2.5 py-1 text-[10px] font-extrabold text-[#1a1a28]">Real-time</span>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -195,7 +195,7 @@ const policies = [
                 v-for="tab in statusTabs"
                 :key="tab.id"
                 :class="[
-                  'px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all',
+                  'px-3.5 py-1.5 rounded-brand text-xs font-bold transition-all',
                   statusFilter === tab.id ? 'bg-white text-cyan-800 shadow-sm border border-gray-200/80' : 'text-gray-600 hover:text-gray-900',
                 ]"
                 @click="statusFilter = tab.id"
@@ -212,7 +212,7 @@ const policies = [
               v-model="searchQuery"
               type="text"
               placeholder="Search employee name, email, invite code, or activity name..."
-              class="w-full pl-10 pr-4 py-3 rounded-2xl border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 text-xs font-medium text-gray-800"
+              class="w-full pl-10 pr-4 py-3 rounded-brand border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 text-xs font-medium text-gray-800"
             />
           </div>
 
@@ -259,7 +259,7 @@ const policies = [
                   <td class="py-3.5 px-4">
                     <select
                       :value="inv.status"
-                      :class="['px-3 py-1 rounded-full text-xs font-bold border outline-none cursor-pointer', statusClass(inv.status)]"
+                      :class="['px-3 py-1 rounded-brand-sm text-xs font-bold border outline-none cursor-pointer', statusClass(inv.status)]"
                       @change="sub.updateInviteStatus(inv.id, ($event.target as HTMLSelectElement).value as EmployeeInvite['status'])"
                     >
                       <option value="Going">✓ Going</option>

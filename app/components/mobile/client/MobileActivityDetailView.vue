@@ -63,7 +63,7 @@ const clearCustomDate = () => {
       <div class="bg-white/95 backdrop-blur-md px-4 py-3 border-b border-slate-100 sticky top-0 z-30 flex items-center justify-between shadow-2xs">
         <button
           type="button"
-          class="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-full transition cursor-pointer"
+          class="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-brand-sm transition cursor-pointer"
           @click="app.setSelectedActivity(null)"
         >
           <PhCaretLeft :size="16" weight="bold" /> Back to Discover
@@ -72,7 +72,7 @@ const clearCustomDate = () => {
         <button
           type="button"
           :class="[
-            'p-2 rounded-full border transition cursor-pointer',
+            'p-2 rounded-brand border transition cursor-pointer',
             isSaved ? 'bg-rose-50 border-rose-200 text-rose-500' : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100',
           ]"
           @click="app.toggleSaveActivity(activity.id)"
@@ -100,11 +100,11 @@ const clearCustomDate = () => {
             <img :src="activity.image" :alt="activity.name" class="w-full h-full object-cover" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-            <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md text-[#1A1A28] text-xs font-bold px-3 py-1 rounded-full shadow-md flex items-center gap-1.5">
+            <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md text-[#1A1A28] text-xs font-bold px-3 py-1 rounded-brand-sm shadow-md flex items-center gap-1.5">
               <span>{{ activity.symbol }}</span> {{ activity.category }}
             </div>
 
-            <div class="absolute top-3 right-3 bg-amber-400 text-slate-900 text-xs font-black px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
+            <div class="absolute top-3 right-3 bg-amber-400 text-slate-900 text-xs font-black px-2.5 py-1 rounded-brand-sm shadow-md flex items-center gap-1">
               <PhStar :size="13" weight="fill" /> {{ activity.rating }}
             </div>
           </div>
@@ -168,7 +168,7 @@ const clearCustomDate = () => {
               </p>
               <button
                 type="button"
-                class="px-4 py-2 bg-[#33C4F0] hover:bg-[#1AB0DC] text-[#1A1A28] text-xs font-extrabold rounded-full transition cursor-pointer"
+                class="px-4 py-2 bg-[#33C4F0] hover:bg-[#1AB0DC] text-[#1A1A28] text-xs font-extrabold rounded-brand-sm transition cursor-pointer"
                 @click="isBookedSuccess = false"
               >
                 Book Another Slot
@@ -182,7 +182,7 @@ const clearCustomDate = () => {
                   <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#33C4F0]">Reserve Session</span>
                   <h3 class="text-base font-extrabold text-white mt-0.5">Select Date &amp; Schedule</h3>
                 </div>
-                <span class="text-[10px] font-extrabold text-[#10B981] bg-[#ECFDF5] px-2.5 py-1 rounded-full">Instant Confirmation</span>
+                <span class="text-[10px] font-extrabold text-[#10B981] bg-[#ECFDF5] px-2.5 py-1 rounded-brand-sm">Instant Confirmation</span>
               </div>
 
               <!-- Standard Schedule Slots List -->
@@ -205,7 +205,7 @@ const clearCustomDate = () => {
                       <p class="font-extrabold text-white">{{ sch.date }}</p>
                       <p class="text-[10px] text-white/60">{{ sch.time }}</p>
                     </div>
-                    <span class="text-[10px] font-extrabold text-[#33C4F0] bg-[#33C4F0]/15 px-2 py-0.5 rounded-full border border-[#33C4F0]/30">
+                    <span class="text-[10px] font-extrabold text-[#33C4F0] bg-[#33C4F0]/15 px-2 py-0.5 rounded-brand-sm border border-[#33C4F0]/30">
                       {{ sch.seatsLeft }} slots left
                     </span>
                   </button>
@@ -263,7 +263,7 @@ const clearCustomDate = () => {
               <!-- Primary CTA -->
               <button
                 type="button"
-                class="w-full py-3.5 bg-[#33C4F0] hover:bg-[#1AB0DC] text-[#1A1A28] text-xs font-black rounded-full shadow-lg transition active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer mt-2"
+                class="w-full py-3.5 bg-[#33C4F0] hover:bg-[#1AB0DC] text-[#1A1A28] text-xs font-black rounded-brand-sm shadow-lg transition active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer mt-2"
                 @click="handleSimpleBooking"
               >
                 <PhSparkle :size="16" weight="fill" class="text-[#1A1A28]" />
@@ -283,7 +283,7 @@ const clearCustomDate = () => {
         <div class="bg-white rounded-3xl w-full max-w-xs p-5 text-left space-y-4 shadow-2xl relative">
           <button
             type="button"
-            class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200"
+            class="absolute top-3.5 right-3.5 w-8 h-8 rounded-brand-sm bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200"
             @click="showCustomDatePicker = false"
           >
             <PhX :size="16" />
@@ -338,7 +338,7 @@ const clearCustomDate = () => {
 
           <button
             type="button"
-            class="w-full py-3 bg-[#33C4F0] hover:bg-[#1AB0DC] text-[#1A1A28] font-extrabold text-xs rounded-full shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer mt-2"
+            class="w-full py-3 bg-[#33C4F0] hover:bg-[#1AB0DC] text-[#1A1A28] font-extrabold text-xs rounded-brand-sm shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer mt-2"
             @click="handleSelectCustomDate"
           >
             <PhCheck :size="16" weight="bold" /> Confirm Custom Date

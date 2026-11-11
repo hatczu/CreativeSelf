@@ -12,3 +12,26 @@
     font-size: 15px;
   }
 }
+
+/*
+ * Brand corner rule — "Be anything but square".
+ * Interactive and labelled UI (buttons, chips, badges, inputs, cards) never uses
+ * plain pills or equal corners: three corners are soft and the bottom-right corner
+ * is always noticeably rounder (roughly 2x). Order: top-left top-right bottom-right bottom-left.
+ * Only true circles (avatars, status dots, progress tracks) stay fully round.
+ */
+:root {
+  --radius-brand-sm: 8px 8px 16px 8px; /* chips, badges, icon buttons */
+  --radius-brand: 12px 12px 24px 12px; /* buttons, inputs, tabs */
+  --radius-brand-lg: 20px 20px 48px 20px; /* cards, panels, nav bar */
+}
+
+@utility rounded-brand-sm {
+  border-radius: var(--radius-brand-sm);
+}
+@utility rounded-brand {
+  border-radius: var(--radius-brand);
+}
+@utility rounded-brand-lg {
+  border-radius: var(--radius-brand-lg);
+}

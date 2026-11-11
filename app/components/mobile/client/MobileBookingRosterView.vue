@@ -83,13 +83,13 @@ const inputClass = 'w-full px-3.5 py-2.5 bg-slate-100 rounded-xl text-xs text-sl
       <div class="bg-white/95 backdrop-blur-md px-4 py-3 border-b border-slate-100 sticky top-0 z-30 flex items-center justify-between shadow-2xs">
         <button
           type="button"
-          class="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-full transition cursor-pointer"
+          class="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1A1A28] bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-brand-sm transition cursor-pointer"
           @click="emit('close')"
         >
           <PhCaretLeft :size="16" weight="bold" /> Back to Booking Details
         </button>
 
-        <span class="text-xs font-extrabold text-[#147C9E] bg-[#E8F9FF] px-3 py-1 rounded-full">Manage Slots ({{ occupiedCount }}/{{ totalCapacity }})</span>
+        <span class="text-xs font-extrabold text-[#147C9E] bg-[#E8F9FF] px-3 py-1 rounded-brand-sm">Manage Slots ({{ occupiedCount }}/{{ totalCapacity }})</span>
       </div>
 
       <!-- Toast Notification -->
@@ -120,7 +120,7 @@ const inputClass = 'w-full px-3.5 py-2.5 bg-slate-100 rounded-xl text-xs text-sl
               <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#33C4F0]">Corporate Allowance</span>
               <h3 class="text-base font-extrabold text-white mt-0.5">Slot Allocation Summary</h3>
             </div>
-            <span class="rounded-full bg-[#33C4F0]/20 px-2.5 py-1 text-[10px] font-extrabold text-[#33C4F0] border border-[#33C4F0]/30">{{ percentFilled }}% Capacity</span>
+            <span class="rounded-brand-sm bg-[#33C4F0]/20 px-2.5 py-1 text-[10px] font-extrabold text-[#33C4F0] border border-[#33C4F0]/30">{{ percentFilled }}% Capacity</span>
           </div>
 
           <div class="grid grid-cols-3 gap-2 pt-1 text-center">
@@ -152,7 +152,7 @@ const inputClass = 'w-full px-3.5 py-2.5 bg-slate-100 rounded-xl text-xs text-sl
           <button
             v-if="vacantCount > 0"
             type="button"
-            class="w-full py-2.5 bg-[#33C4F0] hover:bg-[#1AB0DC] text-[#1A1A28] text-xs font-extrabold rounded-full transition flex items-center justify-center gap-1.5 cursor-pointer mt-2"
+            class="w-full py-2.5 bg-[#33C4F0] hover:bg-[#1AB0DC] text-[#1A1A28] text-xs font-extrabold rounded-brand-sm transition flex items-center justify-center gap-1.5 cursor-pointer mt-2"
             @click="showInviteModal = true"
           >
             <PhUserPlus :size="16" weight="bold" /> Assign Vacant Slot ({{ vacantCount }} Available)
@@ -170,7 +170,7 @@ const inputClass = 'w-full px-3.5 py-2.5 bg-slate-100 rounded-xl text-xs text-sl
             <button
               v-if="vacantCount > 0"
               type="button"
-              class="text-xs font-extrabold text-[#33C4F0] bg-[#E8F9FF] px-3 py-1 rounded-full hover:bg-[#33C4F0] hover:text-white transition flex items-center gap-1 cursor-pointer"
+              class="text-xs font-extrabold text-[#33C4F0] bg-[#E8F9FF] px-3 py-1 rounded-brand-sm hover:bg-[#33C4F0] hover:text-white transition flex items-center gap-1 cursor-pointer"
               @click="showInviteModal = true"
             >
               <PhPlus :size="14" weight="bold" /> Invite
@@ -194,11 +194,11 @@ const inputClass = 'w-full px-3.5 py-2.5 bg-slate-100 rounded-xl text-xs text-sl
               <div class="text-right shrink-0">
                 <span
                   v-if="att.status === 'Confirmed'"
-                  class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200"
+                  class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-brand-sm text-[10px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200"
                 >
                   <PhCheck :size="11" weight="bold" /> Confirmed
                 </span>
-                <span v-else class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-50 text-amber-800 border border-amber-200">
+                <span v-else class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-brand-sm text-[10px] font-extrabold bg-amber-50 text-amber-800 border border-amber-200">
                   <PhClock :size="11" weight="bold" /> Pending
                 </span>
                 <p class="text-[9px] font-mono text-slate-400 mt-0.5">{{ att.inviteCode }}</p>
@@ -219,7 +219,7 @@ const inputClass = 'w-full px-3.5 py-2.5 bg-slate-100 rounded-xl text-xs text-sl
                   <p class="text-[10px] text-[#33C4F0] font-semibold">Tap to assign team member</p>
                 </div>
               </div>
-              <span class="text-[10px] font-extrabold text-[#147C9E] bg-[#E8F9FF] px-2.5 py-1 rounded-full border border-[#A2F4FD]">Available</span>
+              <span class="text-[10px] font-extrabold text-[#147C9E] bg-[#E8F9FF] px-2.5 py-1 rounded-brand-sm border border-[#A2F4FD]">Available</span>
             </div>
           </div>
         </div>
@@ -230,7 +230,7 @@ const inputClass = 'w-full px-3.5 py-2.5 bg-slate-100 rounded-xl text-xs text-sl
         <div class="bg-white rounded-3xl w-full max-w-xs p-5 text-left space-y-4 shadow-2xl relative">
           <button
             type="button"
-            class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200"
+            class="absolute top-3.5 right-3.5 w-8 h-8 rounded-brand-sm bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200"
             @click="showInviteModal = false"
           >
             <PhX :size="16" />
@@ -262,7 +262,7 @@ const inputClass = 'w-full px-3.5 py-2.5 bg-slate-100 rounded-xl text-xs text-sl
 
             <button
               type="submit"
-              class="w-full py-3 bg-[#33C4F0] hover:bg-[#1AB0DC] text-[#1A1A28] font-extrabold text-xs rounded-full shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer mt-2"
+              class="w-full py-3 bg-[#33C4F0] hover:bg-[#1AB0DC] text-[#1A1A28] font-extrabold text-xs rounded-brand-sm shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer mt-2"
             >
               <PhUserPlus :size="16" weight="bold" /> Send Invite &amp; Assign Slot
             </button>

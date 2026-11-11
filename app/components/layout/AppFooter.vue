@@ -81,7 +81,7 @@ const socialLinks = [
               style="
                 width: 40px;
                 height: 40px;
-                border-radius: 9999px;
+                border-radius: var(--radius-brand-sm);
                 background: rgba(51, 196, 240, 0.12);
                 border: 1px solid rgba(51, 196, 240, 0.25);
                 display: flex;
@@ -142,7 +142,7 @@ const socialLinks = [
             align-items: center;
             gap: 0.5rem;
             padding: 0.375rem 1rem;
-            border-radius: 9999px;
+            border-radius: var(--radius-brand-sm);
             background: rgba(51, 196, 240, 0.1);
             border: 1px solid rgba(51, 196, 240, 0.2);
             font-size: 0.8rem;

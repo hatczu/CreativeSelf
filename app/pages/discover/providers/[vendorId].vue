@@ -112,7 +112,7 @@ const handleActivityToggle = (act: Activity) => {
           </span>
           <button
             type="button"
-            class="rounded-full bg-[#1a1a28] px-4 py-1.5 text-xs font-extrabold text-white hover:bg-[#33c4f0] hover:text-[#1a1a28]"
+            class="rounded-brand-sm bg-[#1a1a28] px-4 py-1.5 text-xs font-extrabold text-white hover:bg-[#33c4f0] hover:text-[#1a1a28]"
             @click="handleCommitBrand"
           >
             Select
@@ -129,7 +129,7 @@ const handleActivityToggle = (act: Activity) => {
               <div class="flex items-center gap-4">
                 <div class="grid h-16 w-16 place-items-center rounded-2xl bg-white text-3xl shadow-lg">{{ vendor.avatar }}</div>
                 <div>
-                  <span class="inline-block rounded-full bg-white/20 px-3 py-0.5 text-xs font-extrabold uppercase text-white backdrop-blur">
+                  <span class="inline-block rounded-brand-sm bg-white/20 px-3 py-0.5 text-xs font-extrabold uppercase text-white backdrop-blur">
                     {{ vendor.theme }}
                   </span>
                   <h1 class="mt-1 text-3xl font-extrabold text-white">{{ vendor.name }}</h1>
@@ -139,14 +139,14 @@ const handleActivityToggle = (act: Activity) => {
               <div>
                 <div
                   v-if="isCurrentBrandSelected"
-                  class="inline-flex items-center gap-2 rounded-full bg-[#10b981] px-4 py-2 text-xs font-extrabold text-white shadow-md"
+                  class="inline-flex items-center gap-2 rounded-brand-sm bg-[#10b981] px-4 py-2 text-xs font-extrabold text-white shadow-md"
                 >
                   <PhCheck :size="16" /> Selected
                 </div>
                 <button
                   v-else
                   type="button"
-                  class="rounded-full bg-[#33c4f0] px-5 py-2 text-xs font-extrabold text-[#1a1a28] shadow-md transition hover:bg-white"
+                  class="rounded-brand-sm bg-[#33c4f0] px-5 py-2 text-xs font-extrabold text-[#1a1a28] shadow-md transition hover:bg-white"
                   @click="handleCommitBrand"
                 >
                   Select
@@ -196,7 +196,7 @@ const handleActivityToggle = (act: Activity) => {
                   <div class="flex flex-1 flex-col justify-between p-6">
                     <div>
                       <div class="flex items-center justify-between gap-2">
-                        <span class="rounded-full bg-[#e8f9ff] px-3 py-1 text-[11px] font-extrabold text-[#147c9e]">Included in plan</span>
+                        <span class="rounded-brand-sm bg-[#e8f9ff] px-3 py-1 text-[11px] font-extrabold text-[#147c9e]">Included in plan</span>
                         <span class="text-xs font-bold text-[#717182]">{{ act.duration }}</span>
                       </div>
 
@@ -214,7 +214,7 @@ const handleActivityToggle = (act: Activity) => {
                       <button
                         v-if="sub.isActivitySelected(act.id)"
                         type="button"
-                        class="inline-flex items-center gap-2 rounded-full bg-[#10b981] px-5 py-2 text-xs font-extrabold text-white transition hover:bg-[#087e58]"
+                        class="inline-flex items-center gap-2 rounded-brand-sm bg-[#10b981] px-5 py-2 text-xs font-extrabold text-white transition hover:bg-[#087e58]"
                         @click="handleActivityToggle(act)"
                       >
                         <PhCheck :size="16" /> Activity Selected
@@ -222,7 +222,7 @@ const handleActivityToggle = (act: Activity) => {
                       <button
                         v-else-if="isActivityLimitReached"
                         type="button"
-                        class="inline-flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 text-xs font-extrabold text-[#717182] hover:bg-gray-200"
+                        class="inline-flex items-center gap-2 rounded-brand-sm bg-gray-100 px-4 py-2 text-xs font-extrabold text-[#717182] hover:bg-gray-200"
                         @click="sub.openLimitModal()"
                       >
                         Limit Reached
@@ -230,7 +230,7 @@ const handleActivityToggle = (act: Activity) => {
                       <button
                         v-else
                         type="button"
-                        class="inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-5 py-2 text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
+                        class="inline-flex items-center gap-2 rounded-brand-sm bg-[#1a1a28] px-5 py-2 text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
                         @click="handleActivityToggle(act)"
                       >
                         Select Activity
@@ -295,7 +295,7 @@ const handleActivityToggle = (act: Activity) => {
               <button
                 v-if="!isCurrentBrandSelected"
                 type="button"
-                class="w-full rounded-full bg-[#1a1a28] py-2.5 text-center text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
+                class="w-full rounded-brand-sm bg-[#1a1a28] py-2.5 text-center text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
                 @click="handleCommitBrand"
               >
                 Select {{ vendor.name }}
@@ -303,7 +303,7 @@ const handleActivityToggle = (act: Activity) => {
               <NuxtLink
                 v-else
                 to="/bookings"
-                class="block w-full rounded-full bg-[#1a1a28] py-2.5 text-center text-xs font-extrabold text-white no-underline transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
+                class="block w-full rounded-brand-sm bg-[#1a1a28] py-2.5 text-center text-xs font-extrabold text-white no-underline transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
               >
                 View My Booked Activities
               </NuxtLink>

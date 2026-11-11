@@ -30,7 +30,7 @@ const sub = useSubscription();
             </div>
           </div>
           <button
-            class="w-9 h-9 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+            class="w-9 h-9 rounded-brand-sm flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
             @click="sub.cancelBrandChange()"
           >
             <PhX :size="20" />
@@ -86,14 +86,14 @@ const sub = useSubscription();
           <div class="pt-2 flex flex-col sm:flex-row items-center gap-3">
             <button
               type="button"
-              class="w-full sm:flex-1 py-3 px-4 rounded-full bg-gray-900 hover:bg-gray-800 text-white font-extrabold text-xs shadow-md transition"
+              class="w-full sm:flex-1 py-3 px-4 rounded-brand-sm bg-gray-900 hover:bg-gray-800 text-white font-extrabold text-xs shadow-md transition"
               @click="sub.cancelBrandChange()"
             >
               Keep {{ sub.selectedBrand.name }} &amp; Activities
             </button>
             <button
               type="button"
-              class="w-full sm:flex-1 py-3 px-4 rounded-full bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow-md transition"
+              class="w-full sm:flex-1 py-3 px-4 rounded-brand-sm bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow-md transition"
               @click="sub.confirmBrandChange()"
             >
               Switch Brand &amp; Reset Activities

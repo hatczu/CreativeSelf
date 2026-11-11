@@ -60,7 +60,7 @@ const showReadMoreModal = ref(false);
         <span
           :style="{
             padding: '0.35rem 1.1rem',
-            borderRadius: '9999px',
+            borderRadius: 'var(--radius-brand-sm)',
             background: 'rgba(139,92,246,0.1)',
             border: '1px solid rgba(139,92,246,0.25)',
             fontSize: '0.75rem',
@@ -151,7 +151,7 @@ const showReadMoreModal = ref(false);
 
             <div class="space-y-3">
               <div
-                class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-black uppercase tracking-wider"
+                class="inline-flex items-center gap-2 px-3.5 py-1 rounded-brand-sm bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-black uppercase tracking-wider"
               >
                 <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
                 Corporate Challenge Alert
@@ -164,22 +164,22 @@ const showReadMoreModal = ref(false);
               <!-- Challenge Pills -->
               <div class="flex flex-wrap items-center gap-2 pt-1">
                 <span
-                  class="px-3.5 py-1.5 rounded-full bg-rose-500/20 border border-rose-400/40 text-rose-300 text-xs font-extrabold tracking-wide flex items-center gap-1.5"
+                  class="px-3.5 py-1.5 rounded-brand-sm bg-rose-500/20 border border-rose-400/40 text-rose-300 text-xs font-extrabold tracking-wide flex items-center gap-1.5"
                 >
                   <span class="text-sm">📉</span> ATTRACTION
                 </span>
                 <span
-                  class="px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-extrabold tracking-wide flex items-center gap-1.5"
+                  class="px-3.5 py-1.5 rounded-brand-sm bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-extrabold tracking-wide flex items-center gap-1.5"
                 >
                   <span class="text-sm">🚪</span> ATTRITION
                 </span>
                 <span
-                  class="px-3.5 py-1.5 rounded-full bg-purple-500/20 border border-purple-400/40 text-purple-300 text-xs font-extrabold tracking-wide flex items-center gap-1.5"
+                  class="px-3.5 py-1.5 rounded-brand-sm bg-purple-500/20 border border-purple-400/40 text-purple-300 text-xs font-extrabold tracking-wide flex items-center gap-1.5"
                 >
                   <span class="text-sm">💔</span> CULTURAL CRISIS
                 </span>
                 <span
-                  class="px-3.5 py-1.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-extrabold tracking-wide flex items-center gap-1.5"
+                  class="px-3.5 py-1.5 rounded-brand-sm bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-extrabold tracking-wide flex items-center gap-1.5"
                 >
                   <span class="text-sm">😔</span> BURNOUT ISSUES
                 </span>
@@ -190,7 +190,7 @@ const showReadMoreModal = ref(false);
           <!-- Read More Action Button -->
           <button
             :style="{
-              borderRadius: '9999px',
+              borderRadius: 'var(--radius-brand)',
               background: 'linear-gradient(135deg, #33C4F0 0%, #8B5CF6 100%)',
               boxShadow: '0 8px 24px rgba(51, 196, 240, 0.4)',
             }"
@@ -297,14 +297,14 @@ const showReadMoreModal = ref(false);
           class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative overflow-hidden max-h-[90vh] overflow-y-auto"
         >
           <button
-            class="absolute top-5 right-5 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition"
+            class="absolute top-5 right-5 w-10 h-10 rounded-brand-sm bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition"
             @click="showReadMoreModal = false"
           >
             <PhX :size="20" weight="bold" />
           </button>
 
           <div class="space-y-6">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100 text-cyan-800 text-xs font-bold uppercase">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-brand-sm bg-cyan-100 text-cyan-800 text-xs font-bold uppercase">
               Enterprise Deep Dive
             </div>
 
@@ -341,14 +341,14 @@ const showReadMoreModal = ref(false);
 
             <div class="pt-4 border-t border-slate-100 flex justify-end gap-3">
               <button
-                class="px-6 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm"
+                class="px-6 py-2.5 rounded-brand bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm"
                 @click="showReadMoreModal = false"
               >
                 Close
               </button>
               <a
                 href="#corporate-survey"
-                class="px-6 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-sm shadow-md"
+                class="px-6 py-2.5 rounded-brand bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-sm shadow-md"
                 @click="showReadMoreModal = false"
               >
                 Take Free Corporate Survey

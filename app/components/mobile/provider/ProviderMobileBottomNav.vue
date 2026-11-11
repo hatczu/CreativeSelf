@@ -31,7 +31,7 @@ const glassInnerStyle = computed(() => ({
       : '0px 20px 40px rgba(28, 118, 155, 0.12), inset 0px 1px 1px rgba(255, 255, 255, 0.6)',
   backdropFilter: isClassic.value ? 'none' : 'blur(20px) saturate(180%)',
   WebkitBackdropFilter: isClassic.value ? 'none' : 'blur(20px) saturate(180%)',
-  borderRadius: '33554432px',
+  borderRadius: 'var(--radius-brand-lg)',
   border: isClassic.value ? '1px solid #E2E8F0' : isDark.value ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid rgba(255, 255, 255, 0.55)',
 }));
 
@@ -69,7 +69,7 @@ const iconColor = (active: boolean) => (isDark.value ? (active ? '#33C4F0' : 'rg
             justifyContent: 'center',
             width: isIconOnly ? '40px' : '36px',
             height: isIconOnly ? '40px' : '32px',
-            borderRadius: '33554432px',
+            borderRadius: 'var(--radius-brand-sm)',
             background: app.activeTab === tab.id ? (isDark ? 'rgba(51, 196, 240, 0.15)' : 'rgba(51, 196, 240, 0.18)') : 'transparent',
             transition: 'all 0.2s ease',
           }"

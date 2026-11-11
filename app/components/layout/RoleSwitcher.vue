@@ -22,7 +22,7 @@ const roles: { label: string; path: string; role: Role }[] = [
       type="button"
       title="Switch role"
       aria-label="Switch role"
-      class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#33c4f0]/25 text-[#147c9e] transition hover:bg-[#e8f9ff]"
+      class="grid h-10 w-10 shrink-0 place-items-center rounded-brand-sm border border-[#33c4f0]/25 text-[#147c9e] transition hover:bg-[#e8f9ff]"
       @click="open = !open"
     >
       <PhArrowsLeftRight :size="17" />

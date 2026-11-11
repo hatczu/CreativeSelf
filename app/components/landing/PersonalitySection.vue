@@ -21,7 +21,7 @@ import { personalityTypes } from '~/data/personalityTypes';
         <span
           :style="{
             padding: '0.35rem 1.1rem',
-            borderRadius: '9999px',
+            borderRadius: 'var(--radius-brand-sm)',
             background: 'rgba(139,92,246,0.1)',
             border: '1px solid rgba(139,92,246,0.25)',
             fontSize: '0.75rem',
@@ -70,7 +70,7 @@ import { personalityTypes } from '~/data/personalityTypes';
       >
         <div class="lg:col-span-6 space-y-4">
           <div
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-xs font-bold uppercase"
+            class="inline-flex items-center gap-2 px-3 py-1 rounded-brand-sm bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-xs font-bold uppercase"
           >
             <PhSparkle :size="14" />
             Powered by Acumen AI
@@ -87,7 +87,7 @@ import { personalityTypes } from '~/data/personalityTypes';
           <div class="pt-2">
             <NuxtLink
               to="/test"
-              class="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-slate-950 font-extrabold text-sm shadow-md transition-all hover:-translate-y-0.5"
+              class="inline-flex items-center gap-2.5 px-6 py-3 rounded-brand bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-slate-950 font-extrabold text-sm shadow-md transition-all hover:-translate-y-0.5"
             >
               Know Your Creative Personality
               <PhArrowRight :size="16" weight="bold" />
@@ -162,7 +162,7 @@ import { personalityTypes } from '~/data/personalityTypes';
               :key="trait"
               :style="{
                 padding: '0.2rem 0.75rem',
-                borderRadius: '9999px',
+                borderRadius: 'var(--radius-brand-sm)',
                 fontSize: '0.75rem',
                 fontWeight: 600,
                 color: type.color,

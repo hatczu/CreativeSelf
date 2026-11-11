@@ -83,7 +83,7 @@ const openPost = (id: string) => navigateTo(`/vendor/posts/${id}`);
           <p class="mt-3 text-sm leading-6 text-white/65">The stories, images, and invitations clients discover in their wellbeing feed.</p>
           <button
             type="button"
-            class="mt-7 flex w-full items-center justify-center gap-2 rounded-full bg-white px-4 py-3 text-xs font-extrabold text-[#1a1a28]"
+            class="mt-7 flex w-full items-center justify-center gap-2 rounded-brand-sm bg-white px-4 py-3 text-xs font-extrabold text-[#1a1a28]"
             @click="openComposer"
           >
             <PhPlus :size="15" />Create post
@@ -105,7 +105,7 @@ const openPost = (id: string) => navigateTo(`/vendor/posts/${id}`);
                 Create the posts, media, and service stories that appear in your client discovery feed.
               </p>
             </div>
-            <button type="button" class="inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-4 py-3 text-xs font-extrabold text-white" @click="openComposer">
+            <button type="button" class="inline-flex items-center gap-2 rounded-brand-sm bg-[#1a1a28] px-4 py-3 text-xs font-extrabold text-white" @click="openComposer">
               <PhPlus :size="16" />New post
             </button>
           </div>
@@ -117,7 +117,7 @@ const openPost = (id: string) => navigateTo(`/vendor/posts/${id}`);
               <p class="text-xs font-bold uppercase tracking-[.16em] text-white/45">Feed impact</p>
               <p class="mt-1 text-lg font-extrabold">Your stories are helping teams discover you.</p>
             </div>
-            <span class="rounded-full bg-[#33c4f0] px-3 py-2 text-xs font-extrabold text-[#1a1a28]">Last 30 days</span>
+            <span class="rounded-brand-sm bg-[#33c4f0] px-3 py-2 text-xs font-extrabold text-[#1a1a28]">Last 30 days</span>
           </div>
           <div class="mt-5 grid gap-3 sm:grid-cols-3">
             <div v-for="stat in feedImpact" :key="stat.label" class="rounded-[20px_20px_64px_20px] border border-white/10 bg-white/[.07] p-4">
@@ -156,14 +156,14 @@ const openPost = (id: string) => navigateTo(`/vendor/posts/${id}`);
                     {{ post.emoji }}
                   </span>
                   <span
-                    class="absolute top-2 right-2 rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase text-white backdrop-blur shadow-sm"
+                    class="absolute top-2 right-2 rounded-brand-sm px-2.5 py-1 text-[10px] font-extrabold uppercase text-white backdrop-blur shadow-sm"
                     :style="{ background: labelColor(post.label) }"
                   >
                     {{ post.label }}
                   </span>
                   <span
                     v-if="imageCount(post) > 1"
-                    class="absolute bottom-2 right-2 flex items-center gap-1 rounded-full bg-[#1a1a28]/80 px-2 py-0.5 text-[10px] font-extrabold text-white backdrop-blur"
+                    class="absolute bottom-2 right-2 flex items-center gap-1 rounded-brand-sm bg-[#1a1a28]/80 px-2 py-0.5 text-[10px] font-extrabold text-white backdrop-blur"
                   >
                     <PhImages :size="12" />
                     {{ imageCount(post) }}
@@ -173,7 +173,7 @@ const openPost = (id: string) => navigateTo(`/vendor/posts/${id}`);
                 <div class="min-w-0 flex-1">
                   <div class="flex flex-wrap items-center justify-between gap-3">
                     <p class="text-xs font-extrabold uppercase tracking-[.14em]" :style="{ color: post.color }">{{ post.label }} · {{ post.date }}</p>
-                    <span class="rounded-full bg-[#f2fbfe] px-3 py-1.5 text-[11px] font-bold text-[#147c9e]">{{ post.service }}</span>
+                    <span class="rounded-brand-sm bg-[#f2fbfe] px-3 py-1.5 text-[11px] font-bold text-[#147c9e]">{{ post.service }}</span>
                   </div>
 
                   <h3 class="mt-2 text-lg font-extrabold text-[#1a1a28] transition group-hover:text-[#147c9e]">{{ post.title }}</h3>
@@ -184,7 +184,7 @@ const openPost = (id: string) => navigateTo(`/vendor/posts/${id}`);
                     <button
                       v-if="post.label === 'Draft'"
                       type="button"
-                      class="rounded-full bg-[#1a1a28] px-4 py-2 text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
+                      class="rounded-brand-sm bg-[#1a1a28] px-4 py-2 text-xs font-extrabold text-white transition hover:bg-[#33c4f0] hover:text-[#1a1a28]"
                       @click.stop="publishDraft(post.id)"
                     >
                       Schedule post
@@ -192,7 +192,7 @@ const openPost = (id: string) => navigateTo(`/vendor/posts/${id}`);
                     <button
                       v-else
                       type="button"
-                      class="rounded-full border border-[#33c4f0]/25 px-4 py-2 text-xs font-extrabold text-[#1a1a28] transition hover:bg-[#e8f9ff]"
+                      class="rounded-brand-sm border border-[#33c4f0]/25 px-4 py-2 text-xs font-extrabold text-[#1a1a28] transition hover:bg-[#e8f9ff]"
                       @click.stop="openPost(post.id)"
                     >
                       Edit post
@@ -200,7 +200,7 @@ const openPost = (id: string) => navigateTo(`/vendor/posts/${id}`);
 
                     <button
                       type="button"
-                      class="rounded-full border border-[#33c4f0]/25 px-4 py-2 text-xs font-extrabold text-[#1a1a28] transition hover:bg-[#e8f9ff]"
+                      class="rounded-brand-sm border border-[#33c4f0]/25 px-4 py-2 text-xs font-extrabold text-[#1a1a28] transition hover:bg-[#e8f9ff]"
                       @click.stop="openPost(post.id)"
                     >
                       View Post Details
@@ -240,7 +240,7 @@ const openPost = (id: string) => navigateTo(`/vendor/posts/${id}`);
       <div class="relative w-full max-w-xl bg-white p-7 shadow-2xl" style="border-radius: 20px 20px 64px 20px">
         <button
           type="button"
-          class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-[#f2fbfe]"
+          class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-brand-sm bg-[#f2fbfe]"
           aria-label="Close"
           @click="composer = false"
         >
@@ -251,7 +251,7 @@ const openPost = (id: string) => navigateTo(`/vendor/posts/${id}`);
           <div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-[#10b981]/15"><PhCheck class="text-[#10b981]" /></div>
           <h2 class="mt-6 text-3xl font-extrabold">Post saved to your queue.</h2>
           <p class="mt-3 text-sm leading-6 text-[#717182]">It is ready to schedule for the client feed.</p>
-          <button type="button" class="mt-7 rounded-full bg-[#1a1a28] px-5 py-3 text-sm font-extrabold text-white" @click="composer = false">
+          <button type="button" class="mt-7 rounded-brand bg-[#1a1a28] px-5 py-3 text-sm font-extrabold text-white" @click="composer = false">
             Back to content
           </button>
         </div>
@@ -292,7 +292,7 @@ const openPost = (id: string) => navigateTo(`/vendor/posts/${id}`);
             </div>
           </div>
 
-          <button type="button" class="mt-6 inline-flex items-center gap-2 rounded-full bg-[#1a1a28] px-6 py-3 text-sm font-extrabold text-white" @click="saveToQueue">
+          <button type="button" class="mt-6 inline-flex items-center gap-2 rounded-brand bg-[#1a1a28] px-6 py-3 text-sm font-extrabold text-white" @click="saveToQueue">
             <PhPaperPlaneRight :size="16" />
             Save to queue ({{ selectedImgs.length }} photos)
           </button>

@@ -121,7 +121,7 @@ const filters = computed(() => [
             <h3 class="text-[15px] font-bold text-[#1A1A28] leading-tight" style="font-family: Century Gothic, Poppins, sans-serif">{{ listing.title }}</h3>
             <p class="text-[11px] text-[#6A7282] font-medium mt-1 flex items-center gap-2">
               <span>{{ listing.format }}</span>
-              <span v-if="listing.price" class="font-bold text-[#047857] bg-[#ECFDF5] px-2 py-0.5 rounded-full border border-[#A7F3D0]">{{ listing.price }}</span>
+              <span v-if="listing.price" class="font-bold text-[#047857] bg-[#ECFDF5] px-2 py-0.5 rounded-brand-sm border border-[#A7F3D0]">{{ listing.price }}</span>
             </p>
           </div>
 

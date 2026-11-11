@@ -70,7 +70,7 @@ const pendingCount = computed(() => invites.value.filter((i) => i.status === 'Pe
             <div class="mt-3.5 space-y-1.5 border-t border-white/10 pt-3">
               <NuxtLink
                 to="/bookings"
-                class="flex w-full items-center gap-2 rounded-xl bg-white/10 px-3 py-2.5 text-xs font-bold text-white transition hover:bg-white/20"
+                class="flex w-full items-center gap-2 rounded-brand bg-white/10 px-3 py-2.5 text-xs font-bold text-white transition hover:bg-white/20"
               >
                 <PhCaretLeft :size="16" /> Back to Bookings
               </NuxtLink>
@@ -92,13 +92,13 @@ const pendingCount = computed(() => invites.value.filter((i) => i.status === 'Pe
           <!-- Vendor Status Badge -->
           <span
             v-if="isConfirmed"
-            class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-3.5 py-1 text-xs font-extrabold text-emerald-700 shadow-sm"
+            class="inline-flex items-center gap-1.5 rounded-brand-sm bg-emerald-50 border border-emerald-200 px-3.5 py-1 text-xs font-extrabold text-emerald-700 shadow-sm"
           >
             <PhCheck :size="14" /> Confirmed by Vendor
           </span>
           <span
             v-else
-            class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 border border-amber-200 px-3.5 py-1 text-xs font-extrabold text-amber-800 shadow-sm"
+            class="inline-flex items-center gap-1.5 rounded-brand-sm bg-amber-50 border border-amber-200 px-3.5 py-1 text-xs font-extrabold text-amber-800 shadow-sm"
           >
             <PhClock :size="14" /> Awaiting Vendor Confirmation
           </span>
@@ -111,12 +111,12 @@ const pendingCount = computed(() => invites.value.filter((i) => i.status === 'Pe
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">
               <span
-                class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-extrabold text-white shadow-md backdrop-blur-md"
+                class="inline-flex items-center gap-1.5 rounded-brand-sm px-3 py-1 text-xs font-extrabold text-white shadow-md backdrop-blur-md"
                 :style="{ backgroundColor: `${activity.color || '#33c4f0'}` }"
               >
                 <span>{{ activity.symbol || '🎨' }}</span> {{ activity.category }}
               </span>
-              <span class="rounded-full bg-white/90 backdrop-blur-md px-3.5 py-1 text-xs font-extrabold text-gray-900 shadow-md">
+              <span class="rounded-brand-sm bg-white/90 backdrop-blur-md px-3.5 py-1 text-xs font-extrabold text-gray-900 shadow-md">
                 Included in {{ sub.planName }}
               </span>
             </div>
@@ -232,7 +232,7 @@ const pendingCount = computed(() => invites.value.filter((i) => i.status === 'Pe
           <div>
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#33c4f0]">Team Invites Roster</span>
-              <span class="rounded-full bg-cyan-50 px-2.5 py-0.5 text-[10px] font-black text-[#147c9e]">
+              <span class="rounded-brand-sm bg-cyan-50 px-2.5 py-0.5 text-[10px] font-black text-[#147c9e]">
                 {{ sub.planType === 'corporate' ? 'Corporate Slots' : 'Personal Slot' }}
               </span>
             </div>
@@ -300,19 +300,19 @@ const pendingCount = computed(() => invites.value.filter((i) => i.status === 'Pe
                   <!-- Explicit Confirmation Status Badge -->
                   <span
                     v-if="inv.status === 'Going'"
-                    class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0"
+                    class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-brand-sm text-[10px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0"
                   >
                     <PhCheck :size="11" /> Confirmed
                   </span>
                   <span
                     v-else-if="inv.status === 'Pending'"
-                    class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-50 text-amber-800 border border-amber-200 shrink-0"
+                    class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-brand-sm text-[10px] font-extrabold bg-amber-50 text-amber-800 border border-amber-200 shrink-0"
                   >
                     <PhClock :size="11" /> Pending
                   </span>
                   <span
                     v-else
-                    class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-50 text-rose-700 border border-rose-200 shrink-0"
+                    class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-brand-sm text-[10px] font-extrabold bg-rose-50 text-rose-700 border border-rose-200 shrink-0"
                   >
                     <PhXCircle :size="11" /> Declined
                   </span>
@@ -332,7 +332,7 @@ const pendingCount = computed(() => invites.value.filter((i) => i.status === 'Pe
             <button
               v-if="isConfirmed"
               type="button"
-              class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-[#33c4f0] to-[#147c9e] hover:from-[#2ab2dc] hover:to-[#0f6885] text-white font-extrabold text-xs shadow-md shadow-cyan-300/30 transition flex items-center justify-center gap-2"
+              class="w-full py-3 px-4 rounded-brand bg-gradient-to-r from-[#33c4f0] to-[#147c9e] hover:from-[#2ab2dc] hover:to-[#0f6885] text-white font-extrabold text-xs shadow-md shadow-cyan-300/30 transition flex items-center justify-center gap-2"
               @click="isSlotModalOpen = true"
             >
               <PhPlus :size="16" />
@@ -341,7 +341,7 @@ const pendingCount = computed(() => invites.value.filter((i) => i.status === 'Pe
             <button
               v-else
               type="button"
-              class="w-full py-3 px-4 rounded-2xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-extrabold text-xs border border-gray-200 transition flex items-center justify-center gap-2"
+              class="w-full py-3 px-4 rounded-brand bg-gray-100 hover:bg-gray-200 text-gray-700 font-extrabold text-xs border border-gray-200 transition flex items-center justify-center gap-2"
               @click="isSlotModalOpen = true"
             >
               <PhLock :size="15" class="text-amber-600" />
