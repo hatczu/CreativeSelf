@@ -24,13 +24,14 @@ const positions: Record<string, string>[] = [
   <section
     id="hero"
     :style="{
-      minHeight: '100vh',
+      minHeight: 'min(100vh, 820px)',
       position: 'relative',
       overflow: 'hidden',
       background: 'linear-gradient(160deg, #F0FBFF 0%, #ffffff 50%, #F8F0FF 100%)',
       display: 'flex',
       alignItems: 'center',
-      paddingTop: '6rem',
+      paddingTop: '7rem',
+      paddingBottom: '4rem',
     }"
   >
     <!-- Background blobs -->
@@ -44,8 +45,8 @@ const positions: Record<string, string>[] = [
       <BlobShape color="#F59E0B" :opacity="0.05" :size="300" :variant="3" />
     </div>
 
-    <div class="max-w-6xl mx-auto px-6 w-full" :style="{ position: 'relative', zIndex: 1 }">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 w-full" :style="{ position: 'relative', zIndex: 1 }">
+      <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-12 items-center">
         <!-- Left: Text content -->
         <div>
           <!-- Acumen badge -->
@@ -80,7 +81,7 @@ const positions: Record<string, string>[] = [
             :animate="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.6, delay: 0.1 }"
             :style="{
-              fontSize: 'clamp(2.5rem, 5.5vw, 4.2rem)',
+              fontSize: 'clamp(2.5rem, 5.5vw, 3.61rem)',
               fontWeight: 800,
               lineHeight: 1.1,
               color: '#1A1A28',
@@ -105,7 +106,7 @@ const positions: Record<string, string>[] = [
 
           <!-- CTA buttons -->
           <Motion
-            class="flex flex-wrap items-center gap-3"
+            class="flex flex-wrap items-center gap-2.5"
             :initial="{ opacity: 0, y: 20 }"
             :animate="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.6, delay: 0.3 }"
@@ -115,9 +116,9 @@ const positions: Record<string, string>[] = [
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.625rem',
-                padding: '0.875rem 2rem',
+                padding: '0.75rem 1.5rem',
                 borderRadius: '9999px',
-                fontSize: '1rem',
+                fontSize: '0.95rem',
                 fontWeight: 700,
                 color: '#ffffff',
                 border: 'none',
@@ -140,7 +141,7 @@ const positions: Record<string, string>[] = [
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                padding: '0.875rem 1.5rem',
+                padding: '0.75rem 1.25rem',
                 borderRadius: '9999px',
                 fontSize: '0.95rem',
                 fontWeight: 600,
@@ -162,7 +163,7 @@ const positions: Record<string, string>[] = [
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                padding: '0.875rem 1.5rem',
+                padding: '0.75rem 1.25rem',
                 borderRadius: '9999px',
                 fontSize: '0.95rem',
                 fontWeight: 700,

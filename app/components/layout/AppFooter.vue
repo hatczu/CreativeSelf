@@ -42,7 +42,7 @@ const socialLinks = [
       </svg>
     </div>
 
-    <div class="max-w-6xl mx-auto px-6 pt-16 pb-10">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 pt-16 pb-10">
       <div class="grid grid-cols-1 md:grid-cols-5 gap-10 mb-14">
         <!-- Brand -->
         <div class="md:col-span-2">

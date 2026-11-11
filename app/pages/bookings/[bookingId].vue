@@ -62,7 +62,7 @@ const pendingCount = computed(() => invites.value.filter((i) => i.status === 'Pe
 
     <EmployeeSlotManagerModal :is-open="isSlotModalOpen" :activity-id="actId" :activity-name="activity.name" @close="isSlotModalOpen = false" />
 
-    <div class="mx-auto grid max-w-[1480px] gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_1fr_340px] lg:px-8 lg:py-12 lg:pl-[76px]">
+    <div class="mx-auto grid max-w-[1320px] gap-6 px-5 pt-6 pb-28 sm:px-8 sm:pt-8 lg:gap-8 lg:py-10 lg:pb-14 lg:pl-[104px] lg:pr-10 lg:grid-cols-[200px_minmax(0,1fr)] xl:grid-cols-[200px_minmax(0,1fr)_300px]">
       <!-- Left Sidebar Navigation -->
       <aside class="hidden lg:block">
         <SubscriptionEntitlementHeader variant="sidebar" :show-logo="true" :hide-counters="true">
@@ -80,7 +80,7 @@ const pendingCount = computed(() => invites.value.filter((i) => i.status === 'Pe
       </aside>
 
       <!-- Main Content Area -->
-      <main class="space-y-6">
+      <main class="min-w-0 space-y-6">
         <!-- Breadcrumb & Navigation -->
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2 text-xs font-bold text-gray-500">
@@ -223,7 +223,7 @@ const pendingCount = computed(() => invites.value.filter((i) => i.status === 'Pe
       </main>
 
       <!-- Right Card: Members & Invites Status -->
-      <aside class="space-y-6">
+      <aside class="min-w-0 space-y-6 lg:col-start-2 xl:col-start-auto">
         <div
           class="bg-white p-6 shadow-[0_16px_42px_rgba(28,118,155,.08)] border border-gray-100/80 space-y-5 sticky top-8"
           style="border-radius: 24px 24px 64px 24px"

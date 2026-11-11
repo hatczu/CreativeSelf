@@ -216,7 +216,7 @@ const isIndividualSelected = computed(() => planCategory.value === 'individual' 
     <div class="absolute -left-20 bottom-20 w-96 h-96 rounded-full bg-[#33C4F0]/10 blur-3xl pointer-events-none" />
 
     <!-- Top Header Bar -->
-    <header class="w-full max-w-6xl mx-auto px-6 py-6 flex items-center justify-between relative z-10">
+    <header class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 py-6 flex items-center justify-between relative z-10">
       <NuxtLink to="/" class="flex items-center gap-2.5 no-underline">
         <div class="w-9 h-9 rounded-full bg-[#33C4F0] p-1.5 flex items-center justify-center shadow-sm">
           <ImageWithFallback :src="images.logo" alt="CreativeSelf" class="w-full h-full object-contain brightness-200" />
@@ -242,7 +242,7 @@ const isIndividualSelected = computed(() => planCategory.value === 'individual' 
     </header>
 
     <!-- Main Page Container (Open Page Onboarding Style) -->
-    <main class="w-full max-w-6xl mx-auto px-6 py-6 sm:py-10 flex-1 flex flex-col justify-center relative z-10">
+    <main class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 py-6 sm:py-10 flex-1 flex flex-col justify-center relative z-10">
       <!-- Segmented Progress Indicator Bar -->
       <div v-if="!isCompleted" class="w-full max-w-md mx-auto mb-8">
         <div class="flex items-center gap-2 mb-2">
@@ -737,7 +737,7 @@ const isIndividualSelected = computed(() => planCategory.value === 'individual' 
 
     <!-- Page Footer -->
     <footer
-      class="w-full max-w-6xl mx-auto px-6 py-6 border-t border-gray-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#717182] relative z-10"
+      class="w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 py-6 border-t border-gray-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#717182] relative z-10"
     >
       <p>© 2026 CreativeSelf. All rights reserved.</p>
       <div class="flex items-center gap-4">

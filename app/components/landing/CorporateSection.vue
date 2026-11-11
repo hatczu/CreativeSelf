@@ -49,7 +49,7 @@ const showReadMoreModal = ref(false);
       <BlobShape color="#8B5CF6" :opacity="0.05" :size="450" :variant="4" />
     </div>
 
-    <div class="max-w-6xl mx-auto px-6" :style="{ position: 'relative', zIndex: 1 }">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16" :style="{ position: 'relative', zIndex: 1 }">
       <!-- Label -->
       <Motion
         class="flex justify-center mb-4"
@@ -84,7 +84,7 @@ const showReadMoreModal = ref(false);
       >
         <h2
           :style="{
-            fontSize: 'clamp(1.85rem, 4.2vw, 3.2rem)',
+            fontSize: 'clamp(1.85rem, 4.2vw, 2.75rem)',
             fontWeight: 800,
             color: '#1A1A28',
             lineHeight: 1.2,

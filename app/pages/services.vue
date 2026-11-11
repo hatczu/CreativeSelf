@@ -37,7 +37,7 @@ const categorySections = computed(() => {
 <template>
   <div class="min-h-screen bg-slate-50 pt-28 pb-20">
     <!-- Hero Header -->
-    <section class="max-w-6xl mx-auto px-6 mb-12">
+    <section class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 mb-12">
       <Motion
         :initial="{ opacity: 0, y: 20 }"
         :animate="{ opacity: 1, y: 0 }"
@@ -51,7 +51,7 @@ const categorySections = computed(() => {
           Curated Service Brands &amp; Activities
         </div>
 
-        <h1 class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
+        <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
           Brand Services &amp; <span class="gradient-text">Creative Categories</span>
         </h1>
 
@@ -76,7 +76,7 @@ const categorySections = computed(() => {
     </section>
 
     <!-- Category Filter Tabs -->
-    <section class="max-w-6xl mx-auto px-6 mb-12">
+    <section class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 mb-12">
       <div class="flex items-center justify-center gap-2 flex-wrap">
         <button
           v-for="cat in themeCategories"
@@ -96,7 +96,7 @@ const categorySections = computed(() => {
     </section>
 
     <!-- Brands & Categories Detailed Grid -->
-    <section class="max-w-6xl mx-auto px-6 space-y-16">
+    <section class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 space-y-16">
       <AnimatePresence>
         <Motion
           v-for="{ category, vendors, subcategories, activities } in categorySections"
@@ -241,7 +241,7 @@ const categorySections = computed(() => {
     </section>
 
     <!-- AI Recommendation Banner -->
-    <section class="max-w-6xl mx-auto px-6 mt-16">
+    <section class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 mt-16">
       <div
         class="p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-purple-950 to-cyan-950 text-white shadow-2xl border border-purple-800/40 flex flex-col md:flex-row items-center justify-between gap-6"
       >

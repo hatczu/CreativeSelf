@@ -46,8 +46,8 @@ const adminCue = computed(() =>
   <div class="min-h-screen bg-[#f3f5f6] text-[#19242a]" style="font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif">
     <AdminRail :section="section" />
 
-    <div class="mx-auto grid max-w-[1280px] gap-6 px-5 py-8 pb-14 lg:grid-cols-[850px_280px] lg:justify-center lg:px-8 lg:py-12 lg:pl-[76px]">
-      <main>
+    <div class="mx-auto grid max-w-[1320px] gap-6 px-5 pt-6 pb-28 sm:px-8 sm:pt-8 lg:gap-8 lg:py-10 lg:pb-14 lg:pl-[104px] lg:pr-10 xl:grid-cols-[minmax(0,1fr)_280px]">
+      <main class="min-w-0">
         <header class="border border-[#dfe5e7] bg-white p-6 shadow-[0_8px_24px_rgba(25,36,42,.05)]" style="border-radius: 20px 20px 64px 20px">
           <p class="text-xs font-extrabold uppercase tracking-[.18em] text-[#5f6d73]">Platform operations</p>
           <div class="mt-2 flex flex-wrap items-end justify-between gap-4">

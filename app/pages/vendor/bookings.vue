@@ -115,14 +115,14 @@ const tabClass = (value: 'upcoming' | 'past') => [
 
           <!-- Capacity & Roster Section -->
           <div class="pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3 text-xs">
-            <div class="flex items-center gap-3 flex-1 min-w-[240px]">
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-2 flex-1 min-w-0 sm:min-w-[240px]">
               <div class="flex items-center gap-1.5 font-bold text-gray-800 shrink-0">
                 <PhUsers :size="14" class="text-[#147c9e]" />
                 <span>{{ booking.slotsClaimed }}/{{ booking.slotsAllocated }} Slots</span>
                 <span class="text-emerald-600 font-extrabold">({{ countWithStatus(booking, 'Going') }} Going)</span>
               </div>
 
-              <div class="w-32 sm:w-48 h-2 bg-gray-100 rounded-full overflow-hidden shrink-0">
+              <div class="w-full sm:w-48 h-2 bg-gray-100 rounded-full overflow-hidden sm:shrink-0">
                 <div
                   class="h-full rounded-full bg-gradient-to-r from-[#33c4f0] to-[#10b981] transition-all"
                   :style="{ width: `${percentUsed(booking)}%` }"

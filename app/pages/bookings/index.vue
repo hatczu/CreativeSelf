@@ -105,7 +105,7 @@ const tabButtonClass = (value: 'upcoming' | 'past') => [
     />
 
     <div
-      class="mx-auto grid max-w-[1480px] gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_850px_280px] lg:justify-center lg:px-8 lg:py-12 lg:pl-[76px]"
+      class="mx-auto grid max-w-[1320px] gap-6 px-5 pt-6 pb-28 sm:px-8 sm:pt-8 lg:gap-8 lg:py-10 lg:pb-14 lg:pl-[104px] lg:pr-10 lg:grid-cols-[200px_minmax(0,1fr)] xl:grid-cols-[200px_minmax(0,1fr)_260px]"
     >
       <aside class="hidden lg:block">
         <SubscriptionEntitlementHeader variant="sidebar" :show-logo="true" :hide-counters="true">
@@ -125,7 +125,7 @@ const tabButtonClass = (value: 'upcoming' | 'past') => [
         </SubscriptionEntitlementHeader>
       </aside>
 
-      <main>
+      <main class="min-w-0">
         <!-- Mobile view subscription entitlement header -->
         <div class="lg:hidden mb-6">
           <SubscriptionEntitlementHeader variant="horizontal" />
@@ -236,14 +236,14 @@ const tabButtonClass = (value: 'upcoming' | 'past') => [
 
               <!-- Single-Row Capacity & Manage Invites Bar -->
               <div v-if="sub.planType === 'corporate'" class="pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3 text-xs">
-                <div class="flex items-center gap-3 flex-1 min-w-[240px]">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-2 flex-1 min-w-0 sm:min-w-[240px]">
                   <div class="flex items-center gap-1.5 font-bold text-gray-800 shrink-0">
                     <PhUsers :size="14" class="text-[#147c9e]" />
                     <span>{{ sessionStats(session.id).used }}/{{ sessionStats(session.id).capacity }} Corporate Slots</span>
                     <span class="text-emerald-600 font-extrabold">({{ sessionStats(session.id).going }} Going)</span>
                   </div>
 
-                  <div class="w-32 sm:w-48 h-2 bg-gray-100 rounded-full overflow-hidden shrink-0">
+                  <div class="w-full sm:w-48 h-2 bg-gray-100 rounded-full overflow-hidden sm:shrink-0">
                     <div
                       :class="[
                         'h-full rounded-full transition-all',
@@ -290,7 +290,7 @@ const tabButtonClass = (value: 'upcoming' | 'past') => [
         </NuxtLink>
       </main>
 
-      <aside class="hidden lg:block">
+      <aside class="min-w-0 lg:col-start-2 xl:col-start-auto">
         <div class="sticky top-8 bg-white p-5 shadow-[0_12px_36px_rgba(28,118,155,.07)]" style="border-radius: 20px 20px 64px 20px">
           <div class="flex items-center justify-between">
             <div>

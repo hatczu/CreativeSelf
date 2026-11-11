@@ -138,7 +138,7 @@ const onOptionLeave = (e: MouseEvent, i: number) => {
 
         <h1
           :style="{
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            fontSize: 'clamp(2rem, 5vw, 3.01rem)',
             fontWeight: 800,
             color: result.color,
             marginBottom: '1rem',
@@ -299,7 +299,7 @@ const onOptionLeave = (e: MouseEvent, i: number) => {
         </div>
         <h1
           :style="{
-            fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
+            fontSize: 'clamp(1.75rem, 4vw, 2.15rem)',
             fontWeight: 800,
             color: '#1A1A28',
             letterSpacing: '-0.02em',

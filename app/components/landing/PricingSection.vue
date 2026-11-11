@@ -25,7 +25,7 @@ const tabs = ['individual', 'corporate'] as const;
       overflow: 'hidden',
     }"
   >
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
       <!-- Label -->
       <Motion
         class="flex justify-center mb-4"
@@ -60,7 +60,7 @@ const tabs = ['individual', 'corporate'] as const;
         <!-- Main Dynamic Headline -->
         <h2
           :style="{
-            fontSize: 'clamp(1.85rem, 4.2vw, 3rem)',
+            fontSize: 'clamp(1.85rem, 4.2vw, 2.58rem)',
             fontWeight: 800,
             color: '#1A1A28',
             letterSpacing: '-0.02em',

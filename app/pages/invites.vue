@@ -107,7 +107,7 @@ const policies = [
     />
 
     <div
-      class="mx-auto grid max-w-[1480px] gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_850px_280px] lg:justify-center lg:px-8 lg:py-12 lg:pl-[76px]"
+      class="mx-auto grid max-w-[1320px] gap-6 px-5 pt-6 pb-28 sm:px-8 sm:pt-8 lg:gap-8 lg:py-10 lg:pb-14 lg:pl-[104px] lg:pr-10 lg:grid-cols-[200px_minmax(0,1fr)] xl:grid-cols-[200px_minmax(0,1fr)_260px]"
     >
       <!-- Left Sidebar Info -->
       <aside class="hidden lg:block">
@@ -190,7 +190,7 @@ const policies = [
             </div>
 
             <!-- Status Filter Pills -->
-            <div class="flex items-center gap-1.5 bg-gray-100 p-1 rounded-2xl border border-gray-200">
+            <div class="flex max-w-full items-center gap-1.5 overflow-x-auto bg-gray-100 p-1 rounded-2xl border border-gray-200">
               <button
                 v-for="tab in statusTabs"
                 :key="tab.id"
@@ -218,7 +218,7 @@ const policies = [
 
           <!-- Invites Roster Table -->
           <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs border-collapse">
+            <table class="w-full min-w-[640px] text-left text-xs border-collapse">
               <thead>
                 <tr class="border-b border-gray-200 text-gray-400 font-bold uppercase tracking-wider">
                   <th class="py-3 px-4">Employee</th>
@@ -294,7 +294,7 @@ const policies = [
       </main>
 
       <!-- Right Sidebar Info Card -->
-      <aside class="hidden lg:block">
+      <aside class="min-w-0 lg:col-start-2 xl:col-start-auto">
         <div class="sticky top-8 space-y-6">
           <!-- Card 1: Team Engagement Metrics Widget -->
           <div class="overflow-hidden bg-white p-5 shadow-[0_16px_42px_rgba(28,118,155,.08)]" style="border-radius: 20px 20px 64px 20px">

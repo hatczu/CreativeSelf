@@ -91,7 +91,7 @@ const showAlert = (message: string) => window.alert(message);
   <div class="min-h-screen bg-[#F8FCFF] text-[#1A1A28]" style="font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif">
     <UniversalSidebar />
 
-    <div class="mx-auto max-w-[1380px] px-4 py-8 pb-16 lg:px-8 lg:py-10 lg:pl-[84px]">
+    <div class="mx-auto max-w-[1200px] px-5 pt-6 pb-28 sm:px-8 sm:pt-8 lg:py-10 lg:pb-16 lg:pl-[104px] lg:pr-10">
       <!-- Top Back Navigation Bar -->
       <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
         <button
@@ -145,7 +145,7 @@ const showAlert = (message: string) => window.alert(message);
           </div>
         </div>
 
-        <h1 class="mt-6 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1A1A28] leading-tight">{{ post.title }}</h1>
+        <h1 class="mt-6 text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#1A1A28] leading-tight">{{ post.title }}</h1>
 
         <!-- Featured Multi-Photo Interactive Carousel -->
         <div v-if="allImages.length > 0" class="mt-8">

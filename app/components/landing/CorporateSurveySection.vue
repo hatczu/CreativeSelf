@@ -34,7 +34,7 @@ const features = [
       }"
     />
 
-    <div class="max-w-6xl mx-auto px-6" :style="{ position: 'relative', zIndex: 1 }">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16" :style="{ position: 'relative', zIndex: 1 }">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         <!-- Left Side: Headline & Acumen AI Survey CTA -->
         <Motion
@@ -52,7 +52,7 @@ const features = [
             Powered by Acumen AI
           </div>
 
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight">
             Take the Free Corporate Creativity Survey!
           </h2>
 

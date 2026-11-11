@@ -33,12 +33,12 @@ const roleOpen = ref(false);
 
 <template>
   <aside
-    class="fixed inset-y-0 left-0 z-40 hidden w-[60px] flex-col items-center border-r border-[#dbe2e5] bg-white/95 py-6 shadow-[4px_0_20px_rgba(28,118,155,.04)] backdrop-blur lg:flex"
+    class="fixed inset-x-0 bottom-0 z-40 flex h-16 flex-row items-center gap-1 border-t border-[#dbe2e5] bg-white/95 px-3 shadow-[4px_0_20px_rgba(28,118,155,.04)] backdrop-blur lg:inset-x-auto lg:inset-y-0 lg:left-0 lg:h-auto lg:w-[60px] lg:flex-col lg:gap-0 lg:border-r lg:border-t-0 lg:px-0 lg:py-6"
   >
-    <NuxtLink to="/" title="CreativeSelf Home" aria-label="CreativeSelf Home" class="grid h-10 w-10 place-items-center transition-transform hover:scale-105">
+    <NuxtLink to="/" title="CreativeSelf Home" aria-label="CreativeSelf Home" class="hidden h-10 w-10 shrink-0 place-items-center transition-transform lg:grid hover:scale-105">
       <ImageWithFallback :src="images.logo" alt="CreativeSelf Logo" class="h-full w-full object-contain" />
     </NuxtLink>
-    <nav class="mt-10 flex flex-col gap-2" aria-label="Admin navigation">
+    <nav class="flex min-w-0 flex-1 flex-row items-center justify-around gap-1 overflow-x-auto lg:mt-10 lg:flex-none lg:flex-col lg:justify-start lg:gap-2 lg:overflow-visible" aria-label="Admin navigation">
       <NuxtLink
         v-for="item in nav"
         :key="item.id"
@@ -46,32 +46,32 @@ const roleOpen = ref(false);
         :title="item.label"
         :aria-label="item.label"
         :class="[
-          'grid h-9 w-9 place-items-center rounded-full transition',
+          'grid h-9 w-9 shrink-0 place-items-center rounded-full transition',
           section === item.id ? 'bg-[#33c4f0] text-[#1a1a28]' : 'text-[#717182] hover:bg-[#e8f9ff] hover:text-[#1a1a28]',
         ]"
       >
         <component :is="item.icon" :size="16" />
       </NuxtLink>
     </nav>
-    <div class="relative mt-auto flex flex-col gap-3">
-      <button type="button" title="Settings" class="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff]">
+    <div class="relative flex shrink-0 flex-row items-center gap-1 lg:mt-auto lg:flex-col lg:gap-3">
+      <button type="button" title="Settings" class="grid h-10 w-10 shrink-0 place-items-center rounded-full text-[#717182] transition hover:bg-[#e8f9ff]">
         <PhGear :size="18" />
       </button>
-      <NuxtLink to="/" title="Log out" class="grid h-10 w-10 place-items-center rounded-full text-[#717182] transition hover:bg-[#1a1a28] hover:text-white">
+      <NuxtLink to="/" title="Log out" class="grid h-10 w-10 shrink-0 place-items-center rounded-full text-[#717182] transition hover:bg-[#1a1a28] hover:text-white">
         <PhSignOut :size="18" />
       </NuxtLink>
       <button
         type="button"
         title="Switch role"
         aria-label="Switch role"
-        class="grid h-10 w-10 place-items-center rounded-full border border-[#33c4f0]/25 text-[#147c9e] transition hover:bg-[#e8f9ff]"
+        class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#33c4f0]/25 text-[#147c9e] transition hover:bg-[#e8f9ff]"
         @click="roleOpen = !roleOpen"
       >
         <PhArrowsLeftRight :size="17" />
       </button>
       <div
         v-if="roleOpen"
-        class="absolute bottom-0 left-14 w-44 overflow-hidden border border-[#dfe5e7] bg-white py-2 shadow-xl"
+        class="absolute bottom-14 right-0 lg:bottom-0 lg:left-14 lg:right-auto w-44 overflow-hidden border border-[#dfe5e7] bg-white py-2 shadow-xl"
         style="border-radius: 20px 20px 64px 20px"
       >
         <p class="px-4 pb-2 pt-1 text-[10px] font-extrabold uppercase tracking-[.14em] text-[#717182]">Switch workspace</p>

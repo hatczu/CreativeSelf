@@ -37,7 +37,7 @@ const transformations = [
       <BlobShape color="#33C4F0" :opacity="0.06" :size="500" :variant="1" />
     </div>
 
-    <div class="max-w-6xl mx-auto px-6" :style="{ position: 'relative', zIndex: 1 }">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16" :style="{ position: 'relative', zIndex: 1 }">
       <!-- Section label -->
       <Motion
         class="flex justify-center mb-4"
@@ -73,7 +73,7 @@ const transformations = [
       >
         <h2
           :style="{
-            fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+            fontSize: 'clamp(1.75rem, 4vw, 2.36rem)',
             fontWeight: 800,
             color: '#1A1A28',
             lineHeight: 1.2,

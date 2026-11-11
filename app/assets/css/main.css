@@ -4,3 +4,11 @@
 @import 'tw-animate-css';
 @import './theme.css';
 @import './globals.css';
+
+/* Slightly tighter type scale on larger screens (everything rem-based scales with it).
+   Phones keep 16px so form inputs don't trigger iOS zoom. */
+@media (min-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}

@@ -63,7 +63,7 @@ const openComposer = () => {
     <VendorRail active="overview" />
 
     <div
-      class="mx-auto grid max-w-[1480px] gap-7 px-5 py-8 pb-14 lg:grid-cols-[220px_850px_280px] lg:justify-center lg:px-8 lg:py-12 lg:pl-[76px]"
+      class="mx-auto grid max-w-[1320px] gap-6 px-5 pt-6 pb-28 sm:px-8 sm:pt-8 lg:gap-8 lg:py-10 lg:pb-14 lg:pl-[104px] lg:pr-10 lg:grid-cols-[200px_minmax(0,1fr)] xl:grid-cols-[200px_minmax(0,1fr)_260px]"
     >
       <aside class="hidden lg:block">
         <VendorProfileCard>
@@ -77,7 +77,7 @@ const openComposer = () => {
         </VendorProfileCard>
       </aside>
 
-      <main>
+      <main class="min-w-0">
         <header class="overflow-hidden bg-white p-6 shadow-[0_16px_42px_rgba(28,118,155,.08)]" style="border-radius: 20px 20px 64px 20px">
           <div class="flex flex-wrap items-start justify-between gap-4">
             <div>
@@ -210,7 +210,7 @@ const openComposer = () => {
         </section>
       </main>
 
-      <aside class="hidden lg:block">
+      <aside class="min-w-0 lg:col-start-2 xl:col-start-auto">
         <div class="sticky top-8 space-y-5">
           <div class="border border-[#33c4f0]/15 bg-white/80 p-5 shadow-[0_10px_28px_rgba(28,118,155,.05)]" style="border-radius: 20px 20px 64px 20px">
             <p class="text-xs font-bold uppercase tracking-[.14em] text-[#717182]">Action queue</p>

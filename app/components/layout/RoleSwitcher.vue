@@ -22,14 +22,14 @@ const roles: { label: string; path: string; role: Role }[] = [
       type="button"
       title="Switch role"
       aria-label="Switch role"
-      class="grid h-10 w-10 place-items-center rounded-full border border-[#33c4f0]/25 text-[#147c9e] transition hover:bg-[#e8f9ff]"
+      class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#33c4f0]/25 text-[#147c9e] transition hover:bg-[#e8f9ff]"
       @click="open = !open"
     >
       <PhArrowsLeftRight :size="17" />
     </button>
     <div
       v-if="open"
-      class="absolute bottom-0 left-14 w-44 overflow-hidden border border-[#dfe5e7] bg-white py-2 shadow-xl"
+      class="absolute bottom-14 right-0 lg:bottom-0 lg:left-14 lg:right-auto w-44 overflow-hidden border border-[#dfe5e7] bg-white py-2 shadow-xl"
       style="border-radius: 20px 20px 64px 20px"
     >
       <p class="px-4 pb-2 pt-1 text-[10px] font-extrabold uppercase tracking-[.14em] text-[#717182]">

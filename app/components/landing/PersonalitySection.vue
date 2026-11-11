@@ -9,7 +9,7 @@ import { personalityTypes } from '~/data/personalityTypes';
       <BlobShape color="#8B5CF6" :opacity="0.04" :size="600" :variant="5" />
     </div>
 
-    <div class="max-w-6xl mx-auto px-6" :style="{ position: 'relative', zIndex: 1 }">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16" :style="{ position: 'relative', zIndex: 1 }">
       <!-- Section Header -->
       <Motion
         class="text-center mb-10"
@@ -36,7 +36,7 @@ import { personalityTypes } from '~/data/personalityTypes';
 
         <h2
           :style="{
-            fontSize: 'clamp(2rem, 4vw, 2.75rem)',
+            fontSize: 'clamp(2rem, 4vw, 2.36rem)',
             fontWeight: 800,
             color: '#1A1A28',
             lineHeight: 1.2,

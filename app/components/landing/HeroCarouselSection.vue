@@ -40,7 +40,7 @@ const navButtonClass = (index: number) => [
     @mouseenter="isAutoPlaying = false"
     @mouseleave="isAutoPlaying = true"
   >
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
       <!-- Navigation / Indicators header -->
       <div class="flex items-center justify-between mb-8">
         <div class="flex items-center gap-3">
@@ -83,7 +83,7 @@ const navButtonClass = (index: number) => [
                 ✨ Empower Your Journey
               </div>
 
-              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight">
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight">
                 Discover Something <span class="gradient-text">NEW</span> and
                 <span class="gradient-text">CREATIVE</span> That Empowers Your Life and Career.
               </h2>
@@ -155,7 +155,7 @@ const navButtonClass = (index: number) => [
                 Monthly Creative Spotlight
               </div>
 
-              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight">
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight">
                 Cover of the Month <span class="gradient-text-warm">eZine</span>
               </h2>
 

@@ -69,13 +69,13 @@ const openRegister = () => {
 <template>
   <Motion
     as="header"
-    class="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4"
+    class="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 sm:px-10 lg:px-16"
     :initial="{ y: -100, opacity: 0 }"
     :animate="{ y: 0, opacity: 1 }"
     :transition="{ duration: 0.6, ease: 'easeOut' }"
   >
     <div
-      class="w-full max-w-6xl flex items-center justify-between px-5 py-3"
+      class="w-full max-w-5xl flex items-center justify-between px-4 py-2.5 sm:px-5"
       :style="{
         background: scrolled ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.75)',
         backdropFilter: 'blur(20px)',
@@ -93,12 +93,12 @@ const openRegister = () => {
         <ImageWithFallback
           :src="images.logoWordmark"
           alt="CreativeSelf"
-          style="height: 44px; width: auto; object-fit: contain"
+          style="height: 36px; width: auto; object-fit: contain"
         />
       </NuxtLink>
 
       <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-1">
+      <nav class="hidden xl:flex items-center gap-0.5 whitespace-nowrap">
         <template v-for="link in navLinks" :key="link.label">
           <a
             v-if="link.href.startsWith('#')"
@@ -124,7 +124,7 @@ const openRegister = () => {
       </nav>
 
       <!-- Desktop Action Buttons -->
-      <div class="hidden md:flex items-center gap-2.5">
+      <div class="hidden xl:flex items-center gap-2 whitespace-nowrap">
         <NuxtLink
           to="/mobile"
           style="
@@ -189,7 +189,7 @@ const openRegister = () => {
 
       <!-- Mobile toggle -->
       <button
-        class="md:hidden flex items-center justify-center"
+        class="xl:hidden flex items-center justify-center"
         style="
           width: 40px;
           height: 40px;
@@ -211,7 +211,7 @@ const openRegister = () => {
   <AnimatePresence>
     <Motion
       v-if="mobileOpen"
-      class="fixed inset-x-4 top-24 z-40 md:hidden"
+      class="fixed inset-x-4 top-24 z-40 sm:inset-x-10 xl:hidden"
       :initial="{ opacity: 0, y: -20 }"
       :animate="{ opacity: 1, y: 0 }"
       :exit="{ opacity: 0, y: -20 }"
